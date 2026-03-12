@@ -1,0 +1,60 @@
+// Internationalization module
+export const languages = {
+  zh: {
+    upload: '上传文件',
+    configure: '数据预览',
+    export: '导出完成',
+    processing: '正在处理数据',
+    processingDesc: '系统正在解析并反解密您的数据...',
+    uploadTitle: '上传 SLIK 原始数据',
+    uploadDesc: '系统将自动识别加密字段并使用内置算法进行反解密。支持 .xlsx, .xls 格式。',
+    selectFile: '选择本地文件',
+    previewTitle: '数据预览与配置',
+    previewDesc: '系统已自动解析并反解密数据，您可以在此预览各数据段的内容。',
+    validate: '数据校验',
+    generate: '生成 SLIK 上报文件',
+    records: '条',
+    loading: '正在加载数据...',
+    loadingDesc: '数据量较大，请稍候',
+    noData: '暂无数据',
+    validateTitle: '数据校验结果',
+    errors: '错误',
+    warnings: '警告',
+    close: '关闭',
+    ignoreErrors: '忽略错误并下载',
+    exportSuccess: '导出完成',
+    exportSuccessDesc: 'SLIK 上报文件已成功生成并下载。',
+    backToUpload: '返回上传',
+    autoDecrypt: 'Automatic Decryption Engine Enabled'
+  },
+  en: {
+    upload: 'Upload File',
+    configure: 'Data Preview',
+    export: 'Export Complete',
+    processing: 'Processing Data',
+    processingDesc: 'The system is parsing and decrypting your data...',
+    uploadTitle: 'Upload SLIK Raw Data',
+    uploadDesc: 'The system will automatically identify encrypted fields and decrypt them using built-in algorithms. Supports .xlsx, .xls formats.',
+    selectFile: 'Select Local File',
+    previewTitle: 'Data Preview & Configuration',
+    previewDesc: 'The system has automatically parsed and decrypted the data. You can preview the content of each data segment here.',
+    validate: 'Data Validation',
+    generate: 'Generate SLIK Report Files',
+    records: 'records',
+    loading: 'Loading data...',
+    loadingDesc: 'Large data volume, please wait',
+    noData: 'No data available',
+    validateTitle: 'Data Validation Results',
+    errors: 'Errors',
+    warnings: 'Warnings',
+    close: 'Close',
+    ignoreErrors: 'Ignore errors and download',
+    exportSuccess: 'Export Complete',
+    exportSuccessDesc: 'SLIK report files have been successfully generated and downloaded.',
+    backToUpload: 'Back to Upload',
+    autoDecrypt: 'Automatic Decryption Engine Enabled'
+  }
+};
+
+export type Language = keyof typeof languages;
+export type TranslationKey = keyof typeof languages.zh;

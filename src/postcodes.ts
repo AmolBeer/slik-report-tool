@@ -1,0 +1,23101 @@
+import { CITY_MAP } from '../mappings';
+
+/**
+ * SLIK Postcode Mapping Module
+ * Contains comprehensive District (Kecamatan) to Postcode relationships.
+ * Disambiguates using City (Kabupaten/Kota) when necessary.
+ * 
+ * Data source: postcode.txt (7000+ Indonesian postcodes)
+ */
+
+// KECAMATAN (District) to Postcode mapping - with city disambiguation
+const KECAMATAN_POSTCODE_MAP = {
+  "PRAYA BARAT DAYA": {
+    "LOMBOK TIMUR": "83571"
+  },
+  "ARUT SELATAN": {
+    "BENGKULU SELATAN": "74111"
+  },
+  "KUTA SELATAN": {
+    "BADUNG": "80361"
+  },
+  "PANDAN": {
+    "SIDOARJO": "22537"
+  },
+  "PONTIANAK TIMUR": {
+    "PONTIANAK": "78232"
+  },
+  "WAWONII UTARA": {
+    "KONAWE ISSELATAN": "93391"
+  },
+  "KAO UTARA": {
+    "HALMAHERA UTARA": "97762"
+  },
+  "SABBANG SELATAN": {
+    "SULAWESI BARAT": "92961"
+  },
+  "SANGATTA UTARA": {
+    "KUTAI TIMUR": "75683"
+  },
+  "AMUNTAI TENGAH": {
+    "HULU SUNGAI SELATAN": "71417"
+  },
+  "WEDA UTARA": {
+    "HALMAHERA UTARA": "97862"
+  },
+  "RANTO PEUREULAK": {
+    "ACEH TIMUR": "24453"
+  },
+  "CIKARANG PUSAT": {
+    "BEKASI": "17530"
+  },
+  "DUSUN TIMUR": {
+    "KENDARI": "73671"
+  },
+  "ABUNG SELATAN": {
+    "LAMPUNG SELATAN": "34581"
+  },
+  "MORAMO UTARA": {
+    "KONAWE": "93862"
+  },
+  "TAHUNA TIMUR": {
+    "SANGIHE TALAUD": "95812"
+  },
+  "KOTABUMI SELATAN": {
+    "LAMPUNG SELATAN": "34517"
+  },
+  "GAMBIR": {
+    "CENTRAL JAKARTA": "10110"
+  },
+  "TANAH ABANG": {
+    "CENTRAL JAKARTA": "10210",
+    "PENUKAL ABAB LEMATANG ILIR": "31314"
+  },
+  "MENTENG": {
+    "CENTRAL JAKARTA": "10310"
+  },
+  "SENEN": {
+    "CENTRAL JAKARTA": "10410"
+  },
+  "CEMPAKA PUTIH": {
+    "CENTRAL JAKARTA": "10510"
+  },
+  "JOHAR BARU": {
+    "CENTRAL JAKARTA": "10530"
+  },
+  "KEMAYORAN": {
+    "CENTRAL JAKARTA": "10610"
+  },
+  "SAWAH BESAR": {
+    "CENTRAL JAKARTA": "10710"
+  },
+  "TAMAN SARI": {
+    "WEST JAKARTA": "11110",
+    "PANGKAL PINANG": "33121"
+  },
+  "TAMBORA": {
+    "WEST JAKARTA": "11210",
+    "BIMA": "84190"
+  },
+  "PAL MERAH (PALMERAH)": {
+    "WEST JAKARTA": "11410"
+  },
+  "GROGOL PETAMBURAN": {
+    "WEST JAKARTA": "11440"
+  },
+  "KEBON JERUK": {
+    "WEST JAKARTA": "11510"
+  },
+  "KEMBANGAN": {
+    "WEST JAKARTA": "11610"
+  },
+  "CENGKARENG": {
+    "WEST JAKARTA": "11710"
+  },
+  "KALIDERES": {
+    "WEST JAKARTA": "11810"
+  },
+  "KEBAYORAN BARU": {
+    "SOUTH JAKARTA": "12110"
+  },
+  "KEBAYORAN LAMA": {
+    "SOUTH JAKARTA": "12210"
+  },
+  "PESANGGRAHAN": {
+    "SOUTH JAKARTA": "12250"
+  },
+  "CILANDAK": {
+    "SOUTH JAKARTA": "12410"
+  },
+  "PASAR MINGGU": {
+    "SOUTH JAKARTA": "12510"
+  },
+  "JAGAKARSA": {
+    "SOUTH JAKARTA": "12530"
+  },
+  "MAMPANG PRAPATAN": {
+    "SOUTH JAKARTA": "12710"
+  },
+  "PANCORAN": {
+    "SOUTH JAKARTA": "12740"
+  },
+  "TEBET": {
+    "SOUTH JAKARTA": "12810"
+  },
+  "SETIABUDI (SETIA BUDI)": {
+    "SOUTH JAKARTA": "12910"
+  },
+  "MATRAMAN": {
+    "EAST JAKARTA": "13110"
+  },
+  "PULOGADUNG (PULO GADUNG)": {
+    "EAST JAKARTA": "13210"
+  },
+  "JATINEGARA": {
+    "EAST JAKARTA": "13310",
+    "TEGAL": "52473"
+  },
+  "DUREN SAWIT": {
+    "EAST JAKARTA": "13430"
+  },
+  "KRAMATJATI (KRAMAT JATI)": {
+    "EAST JAKARTA": "13510"
+  },
+  "MAKASAR": {
+    "EAST JAKARTA": "13560"
+  },
+  "PASAR REBO": {
+    "EAST JAKARTA": "13710"
+  },
+  "CIRACAS": {
+    "EAST JAKARTA": "13720"
+  },
+  "CIPAYUNG": {
+    "EAST JAKARTA": "13840",
+    "DEPOK": "16436"
+  },
+  "CAKUNG": {
+    "EAST JAKARTA": "13910"
+  },
+  "CILINCING": {
+    "NORTH JAKARTA": "14110"
+  },
+  "KOJA": {
+    "NORTH JAKARTA": "14210"
+  },
+  "KELAPA GADING": {
+    "NORTH JAKARTA": "14240"
+  },
+  "TANJUNG PRIOK": {
+    "NORTH JAKARTA": "14360"
+  },
+  "PADEMANGAN": {
+    "NORTH JAKARTA": "14410"
+  },
+  "PENJARINGAN": {
+    "NORTH JAKARTA": "14440"
+  },
+  "SOUTH SERIBU ISLANDS": {
+    "SERIBU ISLANDS": "14510"
+  },
+  "NORTH SERIBU ISLANDS": {
+    "SERIBU ISLANDS": "14530"
+  },
+  "TANGERANG": {
+    "TANGERANG": "15111"
+  },
+  "KARAWACI": {
+    "TANGERANG": "15112"
+  },
+  "BATUCEPER": {
+    "TANGERANG": "15121"
+  },
+  "BENDA": {
+    "TANGERANG": "15123"
+  },
+  "NEGLASARI": {
+    "TANGERANG": "15127"
+  },
+  "PERIUK": {
+    "TANGERANG": "15131"
+  },
+  "JATIUWUNG": {
+    "TANGERANG": "15133"
+  },
+  "CIBODAS": {
+    "TANGERANG": "15134"
+  },
+  "CIPONDOH": {
+    "TANGERANG": "15141"
+  },
+  "PINANG (PENANG)": {
+    "TANGERANG": "15142"
+  },
+  "CILEDUG": {
+    "TANGERANG": "15151",
+    "CIREBON": "45188"
+  },
+  "LARANGAN": {
+    "TANGERANG": "15154",
+    "BREBES": "52262",
+    "PAMEKASAN": "69383"
+  },
+  "CENTRAL KARANG": {
+    "TANGERANG": "15157",
+    "DEMAK": "59561"
+  },
+  "PAGEDANGAN": {
+    "TANGERANG": "15160"
+  },
+  "KOSAMBI": {
+    "TANGERANG": "15211"
+  },
+  "PONDOK AREN": {
+    "SOUTH TANGERANG": "15220"
+  },
+  "SERPONG": {
+    "SOUTH TANGERANG": "15310"
+  },
+  "SETU": {
+    "SOUTH TANGERANG": "15312",
+    "BEKASI": "17320"
+  },
+  "NORTH SERPONG": {
+    "SOUTH TANGERANG": "15320"
+  },
+  "CISAUK": {
+    "TANGERANG": "15340"
+  },
+  "CIPUTAT": {
+    "SOUTH TANGERANG": "15411"
+  },
+  "EAST CIPUTAT": {
+    "SOUTH TANGERANG": "15412"
+  },
+  "PAMULANG": {
+    "SOUTH TANGERANG": "15415"
+  },
+  "TELUKNAGA": {
+    "TANGERANG": "15510"
+  },
+  "SEPATAN": {
+    "TANGERANG": "15520"
+  },
+  "EAST SEPATAN": {
+    "TANGERANG": "15521"
+  },
+  "KEMIRI": {
+    "TANGERANG": "15530",
+    "PURWOREJO": "54262"
+  },
+  "MAUK": {
+    "TANGERANG": "15531"
+  },
+  "SUKADIRI": {
+    "TANGERANG": "15532"
+  },
+  "RAJEG": {
+    "TANGERANG": "15540"
+  },
+  "KRONJO": {
+    "TANGERANG": "15550"
+  },
+  "MEKAR BARU": {
+    "TANGERANG": "15551"
+  },
+  "PASAR KEMIS": {
+    "TANGERANG": "15560"
+  },
+  "SINDANG JAYA": {
+    "TANGERANG": "15561"
+  },
+  "PAKUHAJI": {
+    "TANGERANG": "15570"
+  },
+  "BALARAJA": {
+    "TANGERANG": "15610"
+  },
+  "JAYANTI": {
+    "TANGERANG": "15611"
+  },
+  "SUKAMULYA": {
+    "TANGERANG": "15612"
+  },
+  "GUNUNG KALER": {
+    "TANGERANG": "15620"
+  },
+  "KRESEK": {
+    "TANGERANG": "15621"
+  },
+  "CIKUPA": {
+    "TANGERANG": "15710"
+  },
+  "PANONGAN": {
+    "TANGERANG": "15711"
+  },
+  "JAMBE": {
+    "TANGERANG": "15720"
+  },
+  "TIGARAKSA": {
+    "TANGERANG": "15721"
+  },
+  "CISOKA": {
+    "TANGERANG": "15730"
+  },
+  "SOLEAR": {
+    "TANGERANG": "15731"
+  },
+  "CURUG": {
+    "TANGERANG": "15810",
+    "SERANG": "42171"
+  },
+  "KELAPA DUA": {
+    "TANGERANG": "15811"
+  },
+  "LEGOK": {
+    "TANGERANG": "15820"
+  },
+  "CIGOMBONG": {
+    "BOGOR": "16110"
+  },
+  "WEST BOGOR": {
+    "BOGOR": "16111"
+  },
+  "CISEENG": {
+    "BOGOR": "16120"
+  },
+  "CENTRAL BOGOR": {
+    "BOGOR": "16121"
+  },
+  "SOUTH BOGOR": {
+    "BOGOR": "16131"
+  },
+  "EAST BOGOR": {
+    "BOGOR": "16141"
+  },
+  "NORTH BOGOR": {
+    "BOGOR": "16151"
+  },
+  "TANAH SAREAL (TANAH SEREAL)": {
+    "BOGOR": "16161"
+  },
+  "KEMANG": {
+    "BOGOR": "16310"
+  },
+  "RANCA BUNGUR": {
+    "BOGOR": "16311"
+  },
+  "TAJURHALANG": {
+    "BOGOR": "16320"
+  },
+  "PARUNG": {
+    "BOGOR": "16330"
+  },
+  "GUNUNG SINDUR": {
+    "BOGOR": "16340"
+  },
+  "RUMPIN": {
+    "BOGOR": "16350"
+  },
+  "PARUNG PANJANG": {
+    "BOGOR": "16360"
+  },
+  "TENJO": {
+    "BOGOR": "16370"
+  },
+  "TENJOLAYA": {
+    "BOGOR": "16371"
+  },
+  "SUKMAJAYA": {
+    "DEPOK": "16411"
+  },
+  "CILODONG": {
+    "DEPOK": "16413"
+  },
+  "BEJI": {
+    "DEPOK": "16421",
+    "PASURUAN": "67154"
+  },
+  "PANCORAN MAS": {
+    "DEPOK": "16431"
+  },
+  "CIMANGGIS": {
+    "DEPOK": "16451"
+  },
+  "TAPOS": {
+    "DEPOK": "16455"
+  },
+  "SAWANGAN": {
+    "DEPOK": "16511",
+    "MAGELANG": "56411"
+  },
+  "CINERE": {
+    "DEPOK": "16512"
+  },
+  "LIMO": {
+    "DEPOK": "16515"
+  },
+  "BOJONGSARI": {
+    "DEPOK": "16516",
+    "PURBALINGGA": "53362"
+  },
+  "CIOMAS": {
+    "BOGOR": "16610",
+    "SERANG": "42164"
+  },
+  "TAMANSARI": {
+    "BOGOR": "16611",
+    "TASIKMALAYA": "46191"
+  },
+  "CIAMPEA": {
+    "BOGOR": "16620"
+  },
+  "CIBUNGBULANG": {
+    "BOGOR": "16630"
+  },
+  "LEUWILIANG": {
+    "BOGOR": "16640"
+  },
+  "LEUWISADENG": {
+    "BOGOR": "16641"
+  },
+  "NANGGUNG": {
+    "BOGOR": "16650"
+  },
+  "CIGUDEG": {
+    "BOGOR": "16660"
+  },
+  "SUKAJAYA": {
+    "BOGOR": "16661",
+    "SABANG": "23521"
+  },
+  "JASINGA": {
+    "BOGOR": "16670"
+  },
+  "DRAMAGA": {
+    "BOGOR": "16680"
+  },
+  "KLAPANUNGGAL": {
+    "BOGOR": "16710"
+  },
+  "SUKARAJA": {
+    "BOGOR": "16711",
+    "SELUMA": "38877",
+    "SUKABUMI": "43192",
+    "TASIKMALAYA": "46183"
+  },
+  "CIAWI": {
+    "BOGOR": "16720",
+    "TASIKMALAYA": "46156"
+  },
+  "CARINGIN": {
+    "BOGOR": "16730",
+    "SUKABUMI": "43154",
+    "GARUT": "44166"
+  },
+  "CIJERUK": {
+    "BOGOR": "16740"
+  },
+  "CISARUA": {
+    "BOGOR": "16750",
+    "WEST BANDUNG": "40551",
+    "SUMEDANG": "45355"
+  },
+  "MEGAMENDUNG": {
+    "BOGOR": "16770"
+  },
+  "BABAKAN MADANG": {
+    "BOGOR": "16810"
+  },
+  "CITEUREUP": {
+    "BOGOR": "16811"
+  },
+  "PAMIJAHAN": {
+    "BOGOR": "16812"
+  },
+  "CILEUNGSI": {
+    "BOGOR": "16820"
+  },
+  "JONGGOL": {
+    "BOGOR": "16830"
+  },
+  "SUKAMAKMUR": {
+    "BOGOR": "16831"
+  },
+  "CARIU": {
+    "BOGOR": "16840"
+  },
+  "TANJUNGSARI": {
+    "BOGOR": "16841",
+    "SUMEDANG": "45362",
+    "GUNUNG KIDUL": "55881"
+  },
+  "CIBINONG": {
+    "BOGOR": "16911",
+    "CIANJUR": "43271"
+  },
+  "BOJONG GEDE (BOJONGGEDE)": {
+    "BOGOR": "16920"
+  },
+  "GUNUNG PUTRI": {
+    "BOGOR": "16960"
+  },
+  "EAST BEKASI": {
+    "BEKASI": "17111"
+  },
+  "RAWALUMBU": {
+    "BEKASI": "17114"
+  },
+  "NORTH BEKASI": {
+    "BEKASI": "17121"
+  },
+  "MEDANSATRIA (MEDAN SATRIA)": {
+    "BEKASI": "17131"
+  },
+  "WEST BEKASI": {
+    "BEKASI": "17133"
+  },
+  "SOUTH BEKASI": {
+    "BEKASI": "17141"
+  },
+  "BANTARGEBANG (BANTAR GEBANG)": {
+    "BEKASI": "17151"
+  },
+  "MUSTIKAJAYA (MUSTIKA JAYA)": {
+    "BEKASI": "17155"
+  },
+  "TARUMAJAYA": {
+    "BEKASI": "17211"
+  },
+  "SERANG BARU": {
+    "BEKASI": "17330"
+  },
+  "CIBARUSAH": {
+    "BEKASI": "17340"
+  },
+  "BOJONGMANGU": {
+    "BEKASI": "17350"
+  },
+  "PONDOKGEDE (PONDOK GEDE)": {
+    "BEKASI": "17411"
+  },
+  "PONDOKMELATI (PONDOK MELATI)": {
+    "BEKASI": "17414"
+  },
+  "JATIASIH": {
+    "BEKASI": "17421"
+  },
+  "JATISAMPURNA (JATI SAMPURNA)": {
+    "BEKASI": "17432"
+  },
+  "SOUTH TAMBUN": {
+    "BEKASI": "17510"
+  },
+  "NORTH TAMBUN": {
+    "BEKASI": "17511"
+  },
+  "CIBITUNG": {
+    "BEKASI": "17520",
+    "PANDEGLANG": "42287",
+    "SUKABUMI": "43172"
+  },
+  "WEST CIKARANG": {
+    "BEKASI": "17530"
+  },
+  "CENTRAL CIKARANG": {
+    "BEKASI": "17531"
+  },
+  "SOUTH CIKARANG": {
+    "BEKASI": "17532"
+  },
+  "EAST CIKARANG": {
+    "BEKASI": "17533"
+  },
+  "NORTH CIKARANG": {
+    "BEKASI": "17534"
+  },
+  "KARANG BAHAGIA (KARANGBAHAGIA)": {
+    "BEKASI": "17535"
+  },
+  "KEDUNG WARINGIN": {
+    "BEKASI": "17540"
+  },
+  "BABELAN": {
+    "BEKASI": "17610"
+  },
+  "SUKAWANGI": {
+    "BEKASI": "17620"
+  },
+  "TAMBELANG": {
+    "BEKASI": "17621"
+  },
+  "SUKAKARYA": {
+    "BEKASI": "17630",
+    "SABANG": "23517"
+  },
+  "SUKATANI": {
+    "BEKASI": "17631",
+    "PURWAKARTA": "41167"
+  },
+  "PEBAYURAN": {
+    "BEKASI": "17710"
+  },
+  "CABANGBUNGIN": {
+    "BEKASI": "17720"
+  },
+  "MUARAGEMBONG (MUARA GEMBONG)": {
+    "BEKASI": "17730"
+  },
+  "WEST MEDAN": {
+    "MEDAN": "20111"
+  },
+  "MEDAN PETISAH": {
+    "MEDAN": "20112"
+  },
+  "MEDAN SUNGGAL": {
+    "MEDAN": "20121"
+  },
+  "MEDAN HELVETIA": {
+    "MEDAN": "20123"
+  },
+  "MEDAN SELAYANG": {
+    "MEDAN": "20131"
+  },
+  "MEDAN TUNTUNGAN": {
+    "MEDAN": "20134"
+  },
+  "MEDAN JOHOR": {
+    "MEDAN": "20142"
+  },
+  "MEDAN AMPLAS": {
+    "MEDAN": "20147"
+  },
+  "MEDAN MAIMUN": {
+    "MEDAN": "20151"
+  },
+  "MEDAN POLONIA": {
+    "MEDAN": "20152"
+  },
+  "MEDAN BARU": {
+    "MEDAN": "20153"
+  },
+  "MEDAN AREA": {
+    "MEDAN": "20211"
+  },
+  "MEDAN KOTA": {
+    "MEDAN": "20218"
+  },
+  "MEDAN TEMBUNG": {
+    "MEDAN": "20221"
+  },
+  "MEDAN DENAI": {
+    "MEDAN": "20226"
+  },
+  "EAST MEDAN": {
+    "MEDAN": "20231"
+  },
+  "MEDAN PERJUANGAN": {
+    "MEDAN": "20232"
+  },
+  "MEDAN DELI": {
+    "MEDAN": "20241"
+  },
+  "MEDAN MARELAN": {
+    "MEDAN": "20250"
+  },
+  "MEDAN LABUHAN": {
+    "MEDAN": "20253"
+  },
+  "SUNGGAL": {
+    "DELI SERDANG": "20351"
+  },
+  "PANCUR BATU": {
+    "DELI SERDANG": "20353"
+  },
+  "KUTALIMBARU": {
+    "DELI SERDANG": "20354"
+  },
+  "DELI TUA": {
+    "DELI SERDANG": "20355"
+  },
+  "NAMORAMBE (NAMO RAMBE)": {
+    "DELI SERDANG": "20356"
+  },
+  "SIBOLANGIT": {
+    "DELI SERDANG": "20357"
+  },
+  "SIBIRU-BIRU (BIRU-BIRU)": {
+    "DELI SERDANG": "20358"
+  },
+  "PATUMBAK": {
+    "DELI SERDANG": "20361"
+  },
+  "TANJUNG MORAWA": {
+    "DELI SERDANG": "20362"
+  },
+  "SINEMBAH TANJUNG MUDA HILIR": {
+    "DELI SERDANG": "20363"
+  },
+  "PERCUT SEI TUAN": {
+    "DELI SERDANG": "20371"
+  },
+  "BATANG KUIS": {
+    "DELI SERDANG": "20372"
+  },
+  "LABUHAN DELI": {
+    "DELI SERDANG": "20373"
+  },
+  "HAMPARAN PERAK": {
+    "DELI SERDANG": "20374"
+  },
+  "MEDAN BELAWAN (MEDAN BELAWAN KOTA)": {
+    "MEDAN": "20411"
+  },
+  "LUBUK PAKAM": {
+    "DELI SERDANG": "20511"
+  },
+  "PAGAR MERBAU": {
+    "DELI SERDANG": "20551"
+  },
+  "BERINGIN": {
+    "DELI SERDANG": "20552"
+  },
+  "PANTAI LABU": {
+    "DELI SERDANG": "20553"
+  },
+  "BANGUN PURBA": {
+    "DELI SERDANG": "20581",
+    "ROKAN HULU": "28557"
+  },
+  "SINEMBAH TANJUNG MUDA HULU": {
+    "DELI SERDANG": "20582"
+  },
+  "GUNUNG MERIAH": {
+    "DELI SERDANG": "20583"
+  },
+  "GALANG": {
+    "DELI SERDANG": "20585",
+    "BATAM": "29481",
+    "TOLI-TOLI": "94561"
+  },
+  "RAMBUTAN": {
+    "TEBING TINGGI": "20611",
+    "BANYUASIN": "30967"
+  },
+  "TEBING TINGGI KOTA": {
+    "TEBING TINGGI": "20613"
+  },
+  "BAJENIS": {
+    "TEBING TINGGI": "20617"
+  },
+  "PADANG HULU": {
+    "TEBING TINGGI": "20622"
+  },
+  "PADANG HILIR": {
+    "TEBING TINGGI": "20631"
+  },
+  "BINJAI KOTA": {
+    "BINJAI": "20711"
+  },
+  "WEST BINJAI": {
+    "BINJAI": "20716"
+  },
+  "SOUTH BINJAI": {
+    "BINJAI": "20721"
+  },
+  "EAST BINJAI": {
+    "BINJAI": "20731"
+  },
+  "NORTH BINJAI": {
+    "BINJAI": "20741"
+  },
+  "BINJAI": {
+    "LANGKAT": "20761"
+  },
+  "SELESAI": {
+    "LANGKAT": "20762"
+  },
+  "SEI BINGEI (SEI BINGE / BINGAI)": {
+    "LANGKAT": "20771"
+  },
+  "KUALA": {
+    "LANGKAT": "20772",
+    "NAGAN RAYA": "23661",
+    "BIREUEN": "24260"
+  },
+  "KUTAMBARU": {
+    "LANGKAT": "20773"
+  },
+  "BAHOROK": {
+    "LANGKAT": "20774"
+  },
+  "SIRAPIT (SERAPIT)": {
+    "LANGKAT": "20775"
+  },
+  "SEI LEPAN": {
+    "LANGKAT": "20776"
+  },
+  "SALAPIAN": {
+    "LANGKAT": "20777"
+  },
+  "SAWIT SEBERANG / STABAT": {
+    "LANGKAT": "20811"
+  },
+  "PADANG TUALANG": {
+    "LANGKAT": "20850"
+  },
+  "WAMPU": {
+    "LANGKAT": "20851"
+  },
+  "BATANG SERANGAN": {
+    "LANGKAT": "20852"
+  },
+  "TANJUNG PURA (TANJUNGPURA)": {
+    "LANGKAT": "20853"
+  },
+  "HINAI": {
+    "LANGKAT": "20854"
+  },
+  "SECANGGANG": {
+    "LANGKAT": "20855"
+  },
+  "GEBANG": {
+    "LANGKAT": "20856",
+    "CIREBON": "45190",
+    "PURWOREJO": "54191"
+  },
+  "BABALAN": {
+    "LANGKAT": "20857"
+  },
+  "PEMATANG JAYA / PANGKALAN SUSU": {
+    "LANGKAT": "20858"
+  },
+  "BESITANG": {
+    "LANGKAT": "20859"
+  },
+  "WEST BERANDAN / BRANDAN": {
+    "LANGKAT": "20881"
+  },
+  "KOTARIH": {
+    "SERDANG BEDAGAI": "20982"
+  },
+  "SILINDA": {
+    "SERDANG BEDAGAI": "20983"
+  },
+  "BINTANG BAYU": {
+    "SERDANG BEDAGAI": "20984"
+  },
+  "PERBAUNGAN": {
+    "SERDANG BEDAGAI": "20985"
+  },
+  "PEGAJAHAN": {
+    "SERDANG BEDAGAI": "20986"
+  },
+  "PANTAI CERMIN": {
+    "SERDANG BEDAGAI": "20987",
+    "SOLOK": "27373"
+  },
+  "SERBA JADI": {
+    "SERDANG BEDAGAI": "20990"
+  },
+  "DOLOK MASIHUL": {
+    "SERDANG BEDAGAI": "20991"
+  },
+  "SIPISPIS": {
+    "SERDANG BEDAGAI": "20992"
+  },
+  "DOLOK MERAWAN": {
+    "SERDANG BEDAGAI": "20993"
+  },
+  "BANDAR KHALIFAH": {
+    "SERDANG BEDAGAI": "20994"
+  },
+  "SEI BAMBAN / SEI RAMPAH": {
+    "SERDANG BEDAGAI": "20995"
+  },
+  "TANJUNG BERINGIN": {
+    "SERDANG BEDAGAI": "20996"
+  },
+  "TELUK MENGKUDU": {
+    "SERDANG BEDAGAI": "20997"
+  },
+  "TEBING SYAHBANDAR": {
+    "SERDANG BEDAGAI": "20998"
+  },
+  "TEBING TINGGI": {
+    "SERDANG BEDAGAI": "20999",
+    "MERANTI ISLANDS": "28753",
+    "EMPAT LAWANG": "31456",
+    "WEST TANJUNG JABUNG": "36551",
+    "BALANGAN": "71667"
+  },
+  "WEST SIANTAR": {
+    "PEMATANG SIANTAR": "21111"
+  },
+  "SOUTH SIANTAR": {
+    "PEMATANG SIANTAR": "21121"
+  },
+  "SIANTAR MARIHAT / SIANTAR MARIMBUN": {
+    "PEMATANG SIANTAR": "21127"
+  },
+  "EAST SIANTAR": {
+    "PEMATANG SIANTAR": "21131"
+  },
+  "SIANTAR MARTOBA / SIANTAR SITALASARI": {
+    "PEMATANG SIANTAR": "21137"
+  },
+  "NORTH SIANTAR": {
+    "PEMATANG SIANTAR": "21141"
+  },
+  "SIANTAR": {
+    "SIMALUNGUN": "21151"
+  },
+  "JAWA MARAJA BAH JAMBI": {
+    "SIMALUNGUN": "21153"
+  },
+  "TAPIAN DOLOK": {
+    "SIMALUNGUN": "21154"
+  },
+  "DOLOK BATU NANGGAR": {
+    "SIMALUNGUN": "21155"
+  },
+  "RAYA KAHEAN": {
+    "SIMALUNGUN": "21156"
+  },
+  "SILOU KAHEAN": {
+    "SIMALUNGUN": "21157"
+  },
+  "RAYA": {
+    "SIMALUNGUN": "21160"
+  },
+  "PANEI": {
+    "SIMALUNGUN": "21161"
+  },
+  "BANDAR": {
+    "SIMALUNGUN": "21162",
+    "BENER MERIAH": "24582",
+    "BATANG": "51254",
+    "PACITAN": "63583"
+  },
+  "DOLOK PARDAMEAN": {
+    "SIMALUNGUN": "21163"
+  },
+  "DOLOG MASAGAL": {
+    "SIMALUNGUN": "21164"
+  },
+  "PANOMBEIAN PANE": {
+    "SIMALUNGUN": "21165"
+  },
+  "PURBA": {
+    "SIMALUNGUN": "21166"
+  },
+  "PEMATANG / PAMATANG SILIMA HUTA": {
+    "SIMALUNGUN": "21167"
+  },
+  "DOLOK SILAU": {
+    "SIMALUNGUN": "21168"
+  },
+  "SILIMAKUTA": {
+    "SIMALUNGUN": "21169"
+  },
+  "SIDAMANIK": {
+    "SIMALUNGUN": "21171"
+  },
+  "JORLANG HATARAN": {
+    "SIMALUNGUN": "21172"
+  },
+  "DOLOK PANRIBUAN": {
+    "SIMALUNGUN": "21173"
+  },
+  "GIRSANG SIPANGAN BOLON": {
+    "SIMALUNGUN": "21174"
+  },
+  "GUNUNG MALELA": {
+    "SIMALUNGUN": "21175"
+  },
+  "GUNUNG MALIGAS": {
+    "SIMALUNGUN": "21176"
+  },
+  "HARANGGAOL HORISON": {
+    "SIMALUNGUN": "21177"
+  },
+  "HATONDUHAN": {
+    "SIMALUNGUN": "21178"
+  },
+  "TANAH JAWA": {
+    "SIMALUNGUN": "21181"
+  },
+  "HUTA BAYU RAJA": {
+    "SIMALUNGUN": "21182"
+  },
+  "BOSAR MALIGAS": {
+    "SIMALUNGUN": "21183"
+  },
+  "BANDAR HULUAN": {
+    "SIMALUNGUN": "21184"
+  },
+  "BANDAR MASILAM": {
+    "SIMALUNGUN": "21185"
+  },
+  "PEMATANG BANDAR": {
+    "SIMALUNGUN": "21186"
+  },
+  "UJUNG PADANG": {
+    "SIMALUNGUN": "21187"
+  },
+  "PEMATANG SIDAMANIK": {
+    "SIMALUNGUN": "21188"
+  },
+  "WEST KOTA KISARAN": {
+    "ASAHAN": "21211"
+  },
+  "EAST KOTA KISARAN": {
+    "ASAHAN": "21219"
+  },
+  "SEI BALAI": {
+    "BATU BARA": "21252"
+  },
+  "TANJUNG TIRAM": {
+    "BATU BARA": "21253"
+  },
+  "TALAWI": {
+    "BATU BARA": "21254",
+    "SAWAH LUNTO": "27441"
+  },
+  "LIMA PULUH (LIMAPULUH)": {
+    "BATU BARA": "21255"
+  },
+  "AIR PUTIH": {
+    "BATU BARA": "21256"
+  },
+  "SEI SUKA": {
+    "BATU BARA": "21257"
+  },
+  "MEDANG DERAS": {
+    "BATU BARA": "21258"
+  },
+  "SETIA JANJI": {
+    "ASAHAN": "21260"
+  },
+  "BUNTU PANE / TINGGI RAJA": {
+    "ASAHAN": "21261"
+  },
+  "BANDAR PASIR MANDOGE": {
+    "ASAHAN": "21262"
+  },
+  "AIR JOMAN": {
+    "ASAHAN": "21263"
+  },
+  "MERANTI": {
+    "ASAHAN": "21264",
+    "LANDAK": "79366"
+  },
+  "PULO BANDRING": {
+    "ASAHAN": "21265"
+  },
+  "RAWANG PANCA ARGA": {
+    "ASAHAN": "21266"
+  },
+  "SILAU LAUT": {
+    "ASAHAN": "21267"
+  },
+  "TELUK DALAM": {
+    "ASAHAN": "21270",
+    "SOUTH NIAS": "22865",
+    "SIMEULUE": "23890"
+  },
+  "SIMPANG EMPAT": {
+    "ASAHAN": "21271",
+    "KARO": "22150",
+    "BANJAR": "70653",
+    "TANAH BUMBU": "72211"
+  },
+  "AIR BATU": {
+    "ASAHAN": "21272"
+  },
+  "AEK KUASAN": {
+    "ASAHAN": "21273"
+  },
+  "AEK SONGSONGAN": {
+    "ASAHAN": "21274"
+  },
+  "BANDAR ISLAND": {
+    "ASAHAN": "21275"
+  },
+  "RAHUNIG (RAHUNING)": {
+    "ASAHAN": "21276"
+  },
+  "AEK LEDONG": {
+    "ASAHAN": "21277"
+  },
+  "RAKYAT ISLAND": {
+    "ASAHAN": "21278"
+  },
+  "SEI DADAP": {
+    "ASAHAN": "21279"
+  },
+  "SOUTH TANJUNG BALAI": {
+    "TANJUNG BALAI": "21311"
+  },
+  "NORTH TANJUNG BALAI": {
+    "TANJUNG BALAI": "21321"
+  },
+  "TELUK NIBUNG": {
+    "TANJUNG BALAI": "21331"
+  },
+  "SEI TUALANG RASO": {
+    "TANJUNG BALAI": "21341"
+  },
+  "TANJUNG BALAI": {
+    "ASAHAN": "21352"
+  },
+  "DATUK BANDAR": {
+    "TANJUNG BALAI": "21361"
+  },
+  "EAST DATUK BANDAR": {
+    "TANJUNG BALAI": "21364"
+  },
+  "SEI KEPAYANG": {
+    "ASAHAN": "21381"
+  },
+  "WEST SEI KEPAYANG": {
+    "ASAHAN": "21382"
+  },
+  "EAST SEI KEPAYANG": {
+    "ASAHAN": "21383"
+  },
+  "NORTH RANTAU / WEST BILAH": {
+    "LABUHANBATU": "21411"
+  },
+  "SOUTH RANTAU": {
+    "LABUHANBATU": "21421"
+  },
+  "BILAH HULU": {
+    "LABUHANBATU": "21451"
+  },
+  "MARBAU": {
+    "NORTH LABUHANBATU": "21452"
+  },
+  "NA IX-X": {
+    "NORTH LABUHANBATU": "21454"
+  },
+  "AEK KUO": {
+    "NORTH LABUHANBATU": "21455"
+  },
+  "AEK NATAS": {
+    "NORTH LABUHANBATU": "21456"
+  },
+  "KUALUH HULU": {
+    "NORTH LABUHANBATU": "21457"
+  },
+  "SOUTH KUALUH": {
+    "NORTH LABUHANBATU": "21458"
+  },
+  "SILANGKITANG": {
+    "SOUTH LABUHANBATU": "21461"
+  },
+  "PANGKATAN": {
+    "LABUHANBATU": "21462"
+  },
+  "KAMPUNG RAKYAT": {
+    "SOUTH LABUHANBATU": "21463"
+  },
+  "KOTAPINANG (KOTA PINANG)": {
+    "SOUTH LABUHANBATU": "21464"
+  },
+  "SEI/SUNGAI KANAN": {
+    "SOUTH LABUHANBATU": "21465"
+  },
+  "TORGAMBA": {
+    "SOUTH LABUHANBATU": "21466"
+  },
+  "PANAI HULU": {
+    "LABUHANBATU": "21470"
+  },
+  "BILAH HILIR": {
+    "LABUHANBATU": "21471"
+  },
+  "CENTRAL PANAI": {
+    "LABUHANBATU": "21472"
+  },
+  "PANAI HILIR": {
+    "LABUHANBATU": "21473"
+  },
+  "KUALUH HILIR": {
+    "NORTH LABUHANBATU": "21474"
+  },
+  "KUALUH LEIDONG": {
+    "NORTH LABUHANBATU": "21475"
+  },
+  "KABANJAHE": {
+    "KARO": "22111"
+  },
+  "NAMAN TERAN (NAMA TERAN)": {
+    "KARO": "22151"
+  },
+  "BRASTAGI (BERASTAGI)": {
+    "KARO": "22152"
+  },
+  "MERDEKA": {
+    "KARO": "22153"
+  },
+  "PAYUNG": {
+    "KARO": "22154",
+    "SOUTH BANGKA": "33778"
+  },
+  "KUTABULUH (KUTA BULUH)": {
+    "KARO": "22155"
+  },
+  "TIGANDERKET": {
+    "KARO": "22156"
+  },
+  "MUNTE": {
+    "KARO": "22161"
+  },
+  "TIGABINANGA (TIGA BINANGA)": {
+    "KARO": "22162"
+  },
+  "JUHAR": {
+    "KARO": "22163"
+  },
+  "LAUBALENG": {
+    "KARO": "22164"
+  },
+  "MARDINGDING (MARDINDING)": {
+    "KARO": "22165"
+  },
+  "TIGAPANAH (TIGA PANAH)": {
+    "KARO": "22170"
+  },
+  "DOLAT RAYAT": {
+    "KARO": "22171"
+  },
+  "BARUSJAHE (BARUS JAHE)": {
+    "KARO": "22172"
+  },
+  "MEREK": {
+    "KARO": "22173"
+  },
+  "SIDIKALANG": {
+    "DAIRI": "22211"
+  },
+  "SITINJO": {
+    "DAIRI": "22219"
+  },
+  "GUNUNG SITEMBER": {
+    "DAIRI": "22250"
+  },
+  "BERAMPU (BRAMPU)": {
+    "DAIRI": "22251"
+  },
+  "TIGALINGGA (TIGA LINGGA)": {
+    "DAIRI": "22252"
+  },
+  "TANAH PINEM": {
+    "DAIRI": "22253"
+  },
+  "SIEMPAT NEMPU HULU": {
+    "DAIRI": "22254"
+  },
+  "SIEMPAT NEMPU": {
+    "DAIRI": "22261"
+  },
+  "SILIMA PUNGGA PUNGGA": {
+    "DAIRI": "22262"
+  },
+  "SIEMPAT NEMPU HILIR": {
+    "DAIRI": "22263"
+  },
+  "PAGINDAR": {
+    "PAKPAK BHARAT": "22270"
+  },
+  "KERAJAAN": {
+    "PAKPAK BHARAT": "22271"
+  },
+  "SALAK": {
+    "PAKPAK BHARAT": "22272"
+  },
+  "PERGETTENG GETTENG SENGKUT": {
+    "PAKPAK BHARAT": "22273"
+  },
+  "SIEMPAT RUBE": {
+    "PAKPAK BHARAT": "22274"
+  },
+  "SITELLU / SITELU TALI URANG JEHE": {
+    "PAKPAK BHARAT": "22275"
+  },
+  "SITELLU / SITELU TALI URANG JULU": {
+    "PAKPAK BHARAT": "22276"
+  },
+  "TINADA": {
+    "PAKPAK BHARAT": "22277"
+  },
+  "SILAHISABUNGAN (SILAHI SABUNGAN)": {
+    "DAIRI": "22280"
+  },
+  "LAE PARIRA": {
+    "DAIRI": "22281"
+  },
+  "PARBULUAN": {
+    "DAIRI": "22282"
+  },
+  "PEGAGAN HILIR": {
+    "DAIRI": "22283"
+  },
+  "SUMBUL": {
+    "DAIRI": "22284"
+  },
+  "BALIGE / TAMPAHAN": {
+    "TOBA SAMOSIR": "22312"
+  },
+  "SIGUMPAR": {
+    "TOBA SAMOSIR": "22380"
+  },
+  "LAGUBOTI": {
+    "TOBA SAMOSIR": "22381"
+  },
+  "SILAEN": {
+    "TOBA SAMOSIR": "22382"
+  },
+  "BORBOR": {
+    "TOBA SAMOSIR": "22383"
+  },
+  "HABINSARAN": {
+    "TOBA SAMOSIR": "22383"
+  },
+  "NASSAU": {
+    "TOBA SAMOSIR": "22383"
+  },
+  "PARMAKSIAN": {
+    "TOBA SAMOSIR": "22384"
+  },
+  "PINTU POHAN MERANTI": {
+    "TOBA SAMOSIR": "22384"
+  },
+  "PORSEA": {
+    "TOBA SAMOSIR": "22384"
+  },
+  "SIANTAR NARUMONDA": {
+    "TOBA SAMOSIR": "22384"
+  },
+  "ULUAN": {
+    "TOBA SAMOSIR": "22385"
+  },
+  "AJIBATA": {
+    "TOBA SAMOSIR": "22386"
+  },
+  "BONATUA LUNASI": {
+    "TOBA SAMOSIR": "22387"
+  },
+  "LUMBAN JULU": {
+    "TOBA SAMOSIR": "22388"
+  },
+  "PANGURURAN": {
+    "SAMOSIR": "22390"
+  },
+  "HARIAN": {
+    "SAMOSIR": "22391"
+  },
+  "RONGGUR NIHUTA": {
+    "SAMOSIR": "22392"
+  },
+  "PALIPI": {
+    "SAMOSIR": "22393"
+  },
+  "NAINGGOLAN": {
+    "SAMOSIR": "22394"
+  },
+  "SIMANINDO": {
+    "SAMOSIR": "22395"
+  },
+  "SIANJUR / SIANJAR MULA MULA": {
+    "SAMOSIR": "22396"
+  },
+  "SITIO-TIO": {
+    "SAMOSIR": "22397"
+  },
+  "ONAN RUNGGU": {
+    "SAMOSIR": "22398"
+  },
+  "TARUTUNG": {
+    "NORTH TAPANULI": "22411"
+  },
+  "SIATAS BARITA": {
+    "NORTH TAPANULI": "22417"
+  },
+  "TARABINTANG (TARA BINTANG)": {
+    "HUMBANG HASUNDUTAN": "22451"
+  },
+  "SIPOHOLON": {
+    "NORTH TAPANULI": "22452"
+  },
+  "PARMONANGAN": {
+    "NORTH TAPANULI": "22453"
+  },
+  "ONAN GANJANG": {
+    "HUMBANG HASUNDUTAN": "22454"
+  },
+  "PAKKAT": {
+    "HUMBANG HASUNDUTAN": "22455"
+  },
+  "PARLILITAN": {
+    "HUMBANG HASUNDUTAN": "22456"
+  },
+  "BAKTIRAJA (BAKTI RAJA)": {
+    "HUMBANG HASUNDUTAN": "22457"
+  },
+  "DOLOK SANGGUL": {
+    "HUMBANG HASUNDUTAN": "22457"
+  },
+  "POLLUNG": {
+    "HUMBANG HASUNDUTAN": "22457"
+  },
+  "PAGARAN": {
+    "NORTH TAPANULI": "22458"
+  },
+  "SIJAMAPOLANG (SIJAMA POLANG)": {
+    "HUMBANG HASUNDUTAN": "22459"
+  },
+  "ADIAN KOTING": {
+    "NORTH TAPANULI": "22461"
+  },
+  "PAHAE JULU": {
+    "NORTH TAPANULI": "22463"
+  },
+  "PURBA TUA (PURBATUA)": {
+    "NORTH TAPANULI": "22464"
+  },
+  "PAHAE JAE": {
+    "NORTH TAPANULI": "22465"
+  },
+  "SIMANGUMBAN": {
+    "NORTH TAPANULI": "22466"
+  },
+  "SIPAHUTAR": {
+    "NORTH TAPANULI": "22471"
+  },
+  "PANGARIBUAN": {
+    "NORTH TAPANULI": "22472"
+  },
+  "GAROGA": {
+    "NORTH TAPANULI": "22473"
+  },
+  "SIBORONG-BORONG": {
+    "NORTH TAPANULI": "22474"
+  },
+  "LINTONG NIHUTA": {
+    "HUMBANG HASUNDUTAN": "22475"
+  },
+  "MUARA": {
+    "NORTH TAPANULI": "22476",
+    "PUNCAK JAYA": "98914",
+    "LANNY JAYA": "99569"
+  },
+  "PARANGINAN": {
+    "HUMBANG HASUNDUTAN": "22477"
+  },
+  "NORTH SIBOLGA": {
+    "SIBOLGA": "22511"
+  },
+  "SIBOLGA KOTA": {
+    "SIBOLGA": "22521"
+  },
+  "SIBOLGA SAMBAS": {
+    "SIBOLGA": "22531"
+  },
+  "SOUTH SIBOLGA": {
+    "SIBOLGA": "22533"
+  },
+  "SORKAM": {
+    "CENTRAL TAPANULI": "22560"
+  },
+  "WEST SORKAM": {
+    "CENTRAL TAPANULI": "22561"
+  },
+  "KOLANG": {
+    "CENTRAL TAPANULI": "22562"
+  },
+  "PASARIBU TOBING": {
+    "CENTRAL TAPANULI": "22563"
+  },
+  "BARUS": {
+    "CENTRAL TAPANULI": "22564"
+  },
+  "MANDUAMAS": {
+    "CENTRAL TAPANULI": "22565"
+  },
+  "SIRANDORUNG": {
+    "CENTRAL TAPANULI": "22566"
+  },
+  "NORTH BARUS": {
+    "CENTRAL TAPANULI": "22567"
+  },
+  "SOSORGADONG (SOSOR GADONG)": {
+    "CENTRAL TAPANULI": "22568"
+  },
+  "PANDAN / SARUDIK / SITAHUIS": {
+    "CENTRAL TAPANULI": "22611"
+  },
+  "TUKKA": {
+    "CENTRAL TAPANULI": "22617"
+  },
+  "TAPIAN NAULI": {
+    "CENTRAL TAPANULI": "22618"
+  },
+  "ANDAM DEWI": {
+    "CENTRAL TAPANULI": "22651"
+  },
+  "LUMUT": {
+    "CENTRAL TAPANULI": "22652"
+  },
+  "PINANGSORI": {
+    "CENTRAL TAPANULI": "22653"
+  },
+  "BADIRI": {
+    "CENTRAL TAPANULI": "22654"
+  },
+  "SIBABANGUN": {
+    "CENTRAL TAPANULI": "22655"
+  },
+  "SUKA BANGUN": {
+    "CENTRAL TAPANULI": "22656"
+  },
+  "PADANGSIDIMPUAN / PADANG SIDEMPUAN HUTAIMBARU": {
+    "PADANG SIDEMPUAN": "22700"
+  },
+  "NORTH PADANGSIDIMPUAN / PADANG SIDEMPUAN": {
+    "PADANG SIDEMPUAN": "22711"
+  },
+  "SOUTH PADANGSIDIMPUAN / PADANG SIDEMPUAN": {
+    "PADANG SIDEMPUAN": "22721"
+  },
+  "PADANGSIDIMPUAN / PADANG SIDEMPUAN ANGKOLA JULU": {
+    "PADANG SIDEMPUAN": "22729"
+  },
+  "SOUTHEAST PADANGSIDIMPUAN / PADANG SIDEMPUAN": {
+    "PADANG SIDEMPUAN": "22730"
+  },
+  "PADANGSIDIMPUAN / PADANG SIDEMPUAN BATUNADUA": {
+    "PADANG SIDEMPUAN": "22731"
+  },
+  "SOUTH ANGKOLA": {
+    "SOUTH TAPANULI": "22732"
+  },
+  "ANGKOLA TIMUR": {
+    "SOUTH TAPANULI": "22733"
+  },
+  "ANGKOLA SANGKUNUR": {
+    "SOUTH TAPANULI": "22734"
+  },
+  "WEST ANGKOLA": {
+    "SOUTH TAPANULI": "22735"
+  },
+  "MUARA BATANG TORU": {
+    "SOUTH TAPANULI": "22736"
+  },
+  "MARANCAR": {
+    "SOUTH TAPANULI": "22737"
+  },
+  "BATANG TORU": {
+    "SOUTH TAPANULI": "22738"
+  },
+  "SIPIROK": {
+    "SOUTH TAPANULI": "22739"
+  },
+  "HULU SIHAPAS": {
+    "NORTH PADANG LAWAS": "22740"
+  },
+  "PORTIBI": {
+    "NORTH PADANG LAWAS": "22741"
+  },
+  "BATANG LUBU SUTAM": {
+    "PADANG LAWAS": "22742"
+  },
+  "HURISTAK": {
+    "PADANG LAWAS": "22743"
+  },
+  "UJUNG BATU": {
+    "NORTH PADANG LAWAS": "22746",
+    "ROKAN HULU": "28553"
+  },
+  "SIMANGAMBAT": {
+    "NORTH PADANG LAWAS": "22747"
+  },
+  "ARSE": {
+    "SOUTH TAPANULI": "22748"
+  },
+  "SOUTHEAST PADANG BOLAK": {
+    "NORTH PADANG LAWAS": "22751"
+  },
+  "EAST HALONGONAN": {
+    "NORTH PADANG LAWAS": "22752"
+  },
+  "HALONGONAN": {
+    "NORTH PADANG LAWAS": "22753"
+  },
+  "PADANG BOLAK JULU": {
+    "NORTH PADANG LAWAS": "22753"
+  },
+  "PADANG BOLAK": {
+    "NORTH PADANG LAWAS": "22754"
+  },
+  "AEK NABARA BARUMUN": {
+    "PADANG LAWAS": "22755"
+  },
+  "CENTRAL BARUMUN": {
+    "PADANG LAWAS": "22755"
+  },
+  "SIHAPAS BARUMUN": {
+    "PADANG LAWAS": "22755"
+  },
+  "DOLOK": {
+    "NORTH PADANG LAWAS": "22756"
+  },
+  "DOLOK SIGOMPULON": {
+    "NORTH PADANG LAWAS": "22757"
+  },
+  "AEK BILAH": {
+    "SOUTH TAPANULI": "22758"
+  },
+  "SAIPAR DOLOK HOLE": {
+    "SOUTH TAPANULI": "22759"
+  },
+  "SOSOPAN": {
+    "PADANG LAWAS": "22761"
+  },
+  "BATANG ONANG": {
+    "NORTH PADANG LAWAS": "22762"
+  },
+  "BARUMUN": {
+    "PADANG LAWAS": "22763"
+  },
+  "SOUTH BARUMUN": {
+    "PADANG LAWAS": "22764"
+  },
+  "SOSA": {
+    "PADANG LAWAS": "22765"
+  },
+  "LUBUK BARUMUN": {
+    "PADANG LAWAS": "22766"
+  },
+  "ULU BARUMUN": {
+    "PADANG LAWAS": "22767"
+  },
+  "BATANG ANGKOLA": {
+    "SOUTH TAPANULI": "22773"
+  },
+  "SAYUR MATINGGI": {
+    "SOUTH TAPANULI": "22774"
+  },
+  "TANO TOMBANGAN ANGKOLA": {
+    "SOUTH TAPANULI": "22775"
+  },
+  "HUTA RAJA TINGGI": {
+    "PADANG LAWAS": "22776"
+  },
+  "GUNUNGSITOLI": {
+    "GUNUNGSITOLI": "22810"
+  },
+  "WEST GUNUNGSITOLI": {
+    "GUNUNGSITOLI": "22811"
+  },
+  "WEST MANDREHE": {
+    "WEST NIAS": "22812"
+  },
+  "NORTH MANDREHE": {
+    "WEST NIAS": "22813"
+  },
+  "ALASA TALUMUZOI": {
+    "NORTH NIAS": "22814"
+  },
+  "BOTOMUZOI": {
+    "NIAS": "22815"
+  },
+  "NAMOHALU ESIWA": {
+    "NORTH NIAS": "22816"
+  },
+  "HILISERANGKAI (HILI SERANGKAI / HILISARANGGU)": {
+    "NIAS": "22850"
+  },
+  "GUNUNGSITOLI ALO'OA": {
+    "GUNUNGSITOLI": "22851"
+  },
+  "NORTH GUNUNGSITOLI": {
+    "GUNUNGSITOLI": "22851"
+  },
+  "SOUTH GUNUNGSITOLI": {
+    "GUNUNGSITOLI": "22851"
+  },
+  "SAWO": {
+    "NORTH NIAS": "22852"
+  },
+  "SITOLU ORI": {
+    "NORTH NIAS": "22852"
+  },
+  "TUHEMBERUA": {
+    "NORTH NIAS": "22852"
+  },
+  "LAHEWA": {
+    "NORTH NIAS": "22853"
+  },
+  "HILIDUHO": {
+    "NIAS": "22854"
+  },
+  "MA'U": {
+    "NIAS": "22855"
+  },
+  "LOTU": {
+    "NORTH NIAS": "22856"
+  },
+  "AFULU": {
+    "NORTH NIAS": "22857"
+  },
+  "EAST LAHEWA": {
+    "NORTH NIAS": "22858"
+  },
+  "TUGALA OYO": {
+    "NORTH NIAS": "22860"
+  },
+  "ULUGAWO": {
+    "NIAS": "22861"
+  },
+  "ALASA": {
+    "NORTH NIAS": "22861"
+  },
+  "MANDREHE / MORO'O / ULU MORO'O (ULU NARWO)": {
+    "WEST NIAS": "22862"
+  },
+  "SIROMBU": {
+    "WEST NIAS": "22863"
+  },
+  "HILIMEGAI": {
+    "SOUTH NIAS": "22864"
+  },
+  "HILISALAWA'AHE (HILISALAWAAHE)": {
+    "SOUTH NIAS": "22864"
+  },
+  "LOLOWAU": {
+    "SOUTH NIAS": "22864"
+  },
+  "ONOHAZUMBA": {
+    "SOUTH NIAS": "22864"
+  },
+  "O'O'U (OOU)": {
+    "SOUTH NIAS": "22864"
+  },
+  "LAHOMI (GAHORI)": {
+    "WEST NIAS": "22864"
+  },
+  "FANAYAMA": {
+    "SOUTH NIAS": "22865"
+  },
+  "MANIAMOLO": {
+    "SOUTH NIAS": "22865"
+  },
+  "MAZINO": {
+    "SOUTH NIAS": "22865"
+  },
+  "TOMA": {
+    "SOUTH NIAS": "22865"
+  },
+  "AMANDRAYA": {
+    "SOUTH NIAS": "22866"
+  },
+  "ARAMO": {
+    "SOUTH NIAS": "22866"
+  },
+  "ULUSUSUA": {
+    "SOUTH NIAS": "22866"
+  },
+  "HURUNA": {
+    "SOUTH NIAS": "22867"
+  },
+  "LOLOMATUA": {
+    "SOUTH NIAS": "22867"
+  },
+  "ULUNOYO": {
+    "SOUTH NIAS": "22867"
+  },
+  "LUAHAGUNDRE MANIAMOLO": {
+    "SOUTH NIAS": "22868"
+  },
+  "ONOLALU": {
+    "SOUTH NIAS": "22869"
+  },
+  "GUNUNGSITOLI IDANOI": {
+    "GUNUNGSITOLI": "22870"
+  },
+  "GIDO": {
+    "NIAS": "22871"
+  },
+  "SOGAE'ADU (SOGAE ADU / SOGAEADU)": {
+    "NIAS": "22871"
+  },
+  "SOMOLO-MOLO (SAMOLO)": {
+    "NIAS": "22871"
+  },
+  "IDANOGAWO (IDANO GAWO)": {
+    "NIAS": "22872"
+  },
+  "BORONADU": {
+    "SOUTH NIAS": "22873"
+  },
+  "GOMO": {
+    "SOUTH NIAS": "22873"
+  },
+  "MAZO": {
+    "SOUTH NIAS": "22873"
+  },
+  "SUSUA": {
+    "SOUTH NIAS": "22873"
+  },
+  "UMBUNASI": {
+    "SOUTH NIAS": "22873"
+  },
+  "LAHUSA": {
+    "SOUTH NIAS": "22874"
+  },
+  "SIDUA'ORI": {
+    "SOUTH NIAS": "22874"
+  },
+  "SOMAMBAWA": {
+    "SOUTH NIAS": "22874"
+  },
+  "LOLOFITU MOI": {
+    "WEST NIAS": "22875"
+  },
+  "BAWOLATO": {
+    "NIAS": "22876"
+  },
+  "ULU IDANOTAE": {
+    "SOUTH NIAS": "22877"
+  },
+  "IDANOTAE": {
+    "SOUTH NIAS": "22878"
+  },
+  "HIBALA": {
+    "SOUTH NIAS": "22881"
+  },
+  "BATU ISLANDS": {
+    "SOUTH NIAS": "22882"
+  },
+  "WEST BATU ISLANDS": {
+    "SOUTH NIAS": "22883"
+  },
+  "EAST BATU ISLANDS": {
+    "SOUTH NIAS": "22884"
+  },
+  "NORTH BATU ISLANDS": {
+    "SOUTH NIAS": "22885"
+  },
+  "SIMUK": {
+    "SOUTH NIAS": "22886"
+  },
+  "TANAH MASA": {
+    "SOUTH NIAS": "22887"
+  },
+  "WEST PANYABUNGAN": {
+    "MANDAILING NATAL": "22911"
+  },
+  "EAST PANYABUNGAN": {
+    "MANDAILING NATAL": "22912"
+  },
+  "PANYABUNGAN": {
+    "MANDAILING NATAL": "22915"
+  },
+  "SOUTH PANYABUNGAN": {
+    "MANDAILING NATAL": "22952"
+  },
+  "NAGA JUANG": {
+    "MANDAILING NATAL": "22975"
+  },
+  "SIABU": {
+    "MANDAILING NATAL": "22976"
+  },
+  "BUKIT MALINTANG": {
+    "MANDAILING NATAL": "22977"
+  },
+  "HUTA BARGOT": {
+    "MANDAILING NATAL": "22978"
+  },
+  "NORTH PANYABUNGAN": {
+    "MANDAILING NATAL": "22979"
+  },
+  "LINGGA BAYU": {
+    "MANDAILING NATAL": "22982"
+  },
+  "BATANG NATAL": {
+    "MANDAILING NATAL": "22983"
+  },
+  "RANTO BAEK": {
+    "MANDAILING NATAL": "22984"
+  },
+  "SINUNUKAN": {
+    "MANDAILING NATAL": "22986"
+  },
+  "NATAL": {
+    "MANDAILING NATAL": "22987"
+  },
+  "BATAHAN": {
+    "MANDAILING NATAL": "22988"
+  },
+  "MUARA BATANG GADIS": {
+    "MANDAILING NATAL": "22989"
+  },
+  "LEMBAH SORIK MARAPI": {
+    "MANDAILING NATAL": "22993"
+  },
+  "KOTANOPAN": {
+    "MANDAILING NATAL": "22994"
+  },
+  "PUNCAK SORIK MARAPI": {
+    "MANDAILING NATAL": "22995"
+  },
+  "TAMBANGAN": {
+    "MANDAILING NATAL": "22996"
+  },
+  "PAKANTAN": {
+    "MANDAILING NATAL": "22997"
+  },
+  "MUARA SIPONGI": {
+    "MANDAILING NATAL": "22998"
+  },
+  "ULU PUNGKUT": {
+    "MANDAILING NATAL": "22999"
+  },
+  "SYIAH KUALA": {
+    "BANDA ACEH": "23111"
+  },
+  "ULEE KARENG": {
+    "BANDA ACEH": "23117"
+  },
+  "KUTA ALAM": {
+    "BANDA ACEH": "23126"
+  },
+  "KUTA RAJA": {
+    "BANDA ACEH": "23128"
+  },
+  "JAYA BARU": {
+    "BANDA ACEH": "23230"
+  },
+  "MEURAXA": {
+    "BANDA ACEH": "23231"
+  },
+  "BANDA RAYA": {
+    "BANDA ACEH": "23238"
+  },
+  "BAITURRAHMAN": {
+    "BANDA ACEH": "23241"
+  },
+  "LUENG BATA": {
+    "BANDA ACEH": "23244"
+  },
+  "DARUL KAMAL": {
+    "ACEH BESAR": "23350"
+  },
+  "PEUKAN BADA": {
+    "ACEH BESAR": "23351"
+  },
+  "DARUL IMARAH": {
+    "ACEH BESAR": "23352"
+  },
+  "LEUPUNG": {
+    "ACEH BESAR": "23353"
+  },
+  "LHOONG": {
+    "ACEH BESAR": "23354"
+  },
+  "LHOKNGA (LHO'NGA)": {
+    "ACEH BESAR": "23355"
+  },
+  "BLANG BINTANG (BLANK BINTANG)": {
+    "ACEH BESAR": "23360"
+  },
+  "SUKAMAKMUR (SUKA MAKMUR)": {
+    "ACEH BESAR": "23361"
+  },
+  "MANTASIEK (MONTASIK)": {
+    "ACEH BESAR": "23362"
+  },
+  "INDRAPURI": {
+    "ACEH BESAR": "23363"
+  },
+  "KOTA COT GLIE (KUTA COT GLIE)": {
+    "ACEH BESAR": "23364"
+  },
+  "KOTA MALAKA (KUTA MALAKA)": {
+    "ACEH BESAR": "23365"
+  },
+  "KRUENG BARONA JAYA": {
+    "ACEH BESAR": "23370"
+  },
+  "INGIN JAYA": {
+    "ACEH BESAR": "23371"
+  },
+  "KUTA BARO": {
+    "ACEH BESAR": "23372"
+  },
+  "BAITUSSALAM": {
+    "ACEH BESAR": "23373"
+  },
+  "DARUSSALAM": {
+    "ACEH BESAR": "23374"
+  },
+  "SIMPANG TIGA": {
+    "ACEH BESAR": "23375",
+    "PIDIE": "24181"
+  },
+  "MESJID RAYA": {
+    "ACEH BESAR": "23381"
+  },
+  "PULO ACEH": {
+    "ACEH BESAR": "23391"
+  },
+  "MEUREUBO": {
+    "WEST ACEH": "23615"
+  },
+  "JOHAN PAHWALAN (JOHAN PAHLAWAN)": {
+    "WEST ACEH": "23617"
+  },
+  "SAMATIGA": {
+    "WEST ACEH": "23650"
+  },
+  "BUBON": {
+    "WEST ACEH": "23651"
+  },
+  "ARONGAN LAMBALEK": {
+    "WEST ACEH": "23652"
+  },
+  "PANGA (KEUDE PANGA)": {
+    "ACEH JAYA": "23653"
+  },
+  "PASIE RAYA": {
+    "ACEH JAYA": "23653"
+  },
+  "TEUNOM": {
+    "ACEH JAYA": "23653"
+  },
+  "KRUENG SABEE": {
+    "ACEH JAYA": "23654"
+  },
+  "WOYLA": {
+    "WEST ACEH": "23654"
+  },
+  "SETIA BHAKTI (SETIA BAKTI)": {
+    "ACEH JAYA": "23655"
+  },
+  "DARUL HIKMAH": {
+    "ACEH JAYA": "23656"
+  },
+  "INDRA JAYA": {
+    "ACEH JAYA": "23657",
+    "PIDIE": "24171"
+  },
+  "JAYA": {
+    "ACEH JAYA": "23658"
+  },
+  "SAMPOINIET": {
+    "ACEH JAYA": "23659"
+  },
+  "KUALA PESISIR": {
+    "NAGAN RAYA": "23660"
+  },
+  "DARUL MAKMUR": {
+    "NAGAN RAYA": "23662"
+  },
+  "TRIPA MAKMUR": {
+    "NAGAN RAYA": "23663"
+  },
+  "TADU RAYA": {
+    "NAGAN RAYA": "23664"
+  },
+  "EAST SEUNAGAN": {
+    "NAGAN RAYA": "23670"
+  },
+  "SEUNAGAN": {
+    "NAGAN RAYA": "23671"
+  },
+  "BEUTONG": {
+    "NAGAN RAYA": "23672"
+  },
+  "BEUTONG ATEUH BANGGALANG": {
+    "NAGAN RAYA": "23673"
+  },
+  "SUKA MAKMUE": {
+    "NAGAN RAYA": "23674"
+  },
+  "PANTE CEUREUMEN (PANTAI CEUREMEN)": {
+    "WEST ACEH": "23680"
+  },
+  "KAWAY XVI": {
+    "WEST ACEH": "23681"
+  },
+  "WEST WOYLA": {
+    "WEST ACEH": "23682"
+  },
+  "EAST WOYLA": {
+    "WEST ACEH": "23683"
+  },
+  "PANTON REU": {
+    "WEST ACEH": "23684"
+  },
+  "SUNGAI MAS": {
+    "WEST ACEH": "23685"
+  },
+  "TAPAKTUAN (TAPAK TUAN)": {
+    "SOUTH ACEH": "23711"
+  },
+  "SAMADUA (SAMA DUA)": {
+    "SOUTH ACEH": "23752"
+  },
+  "SAWANG": {
+    "SOUTH ACEH": "23753",
+    "NORTH ACEH": "24377"
+  },
+  "MEUKEK": {
+    "SOUTH ACEH": "23754"
+  },
+  "PASI RAJA (PASIE RAJA)": {
+    "SOUTH ACEH": "23755"
+  },
+  "WEST LABUHAN HAJI": {
+    "SOUTH ACEH": "23757"
+  },
+  "EAST LABUHAN HAJI": {
+    "SOUTH ACEH": "23758"
+  },
+  "MANGGENG": {
+    "SOUTHWEST ACEH": "23760"
+  },
+  "LABUHAN HAJI": {
+    "SOUTH ACEH": "23761",
+    "EAST LOMBOK": "83615"
+  },
+  "LEMBAH SABIL": {
+    "SOUTHWEST ACEH": "23762"
+  },
+  "SETIA": {
+    "SOUTHWEST ACEH": "23763"
+  },
+  "BLANG PIDIE": {
+    "SOUTHWEST ACEH": "23764"
+  },
+  "SUSOH": {
+    "SOUTHWEST ACEH": "23765"
+  },
+  "KUALA BATEE": {
+    "SOUTHWEST ACEH": "23766"
+  },
+  "BABAH ROT": {
+    "SOUTHWEST ACEH": "23767"
+  },
+  "TANGAN-TANGAN": {
+    "SOUTHWEST ACEH": "23768"
+  },
+  "JEUMPA": {
+    "SOUTHWEST ACEH": "23769",
+    "BIREUEN": "24251"
+  },
+  "CENTRAL KLUET": {
+    "SOUTH ACEH": "23770"
+  },
+  "NORTH KLUET": {
+    "SOUTH ACEH": "23771"
+  },
+  "SOUTH KLUET": {
+    "SOUTH ACEH": "23772"
+  },
+  "BAKONGAN": {
+    "SOUTH ACEH": "23773"
+  },
+  "TRUMON": {
+    "SOUTH ACEH": "23774"
+  },
+  "CENTRAL TRUMON": {
+    "SOUTH ACEH": "23775"
+  },
+  "EAST TRUMON": {
+    "SOUTH ACEH": "23776"
+  },
+  "EAST BAKONGAN": {
+    "SOUTH ACEH": "23777"
+  },
+  "KOTA BAHAGIA": {
+    "SOUTH ACEH": "23778"
+  },
+  "EAST KLUET": {
+    "SOUTH ACEH": "23779"
+  },
+  "EAST SIMEULUE / SIMEULEU": {
+    "SIMEULUE": "23891"
+  },
+  "WEST SIMEULUE / SIMEULEU": {
+    "SIMEULUE": "23892"
+  },
+  "ALAPAN (ALAFAN)": {
+    "SIMEULUE": "23893"
+  },
+  "CENTRAL SIMEULUE / SIMEULEU": {
+    "SIMEULUE": "23894"
+  },
+  "SIMEULUE CUT": {
+    "SIMEULUE": "23895"
+  },
+  "SALANG": {
+    "SIMEULUE": "23896"
+  },
+  "WEST TEUPAH": {
+    "SIMEULUE": "23897"
+  },
+  "SOUTH TEUPAH": {
+    "SIMEULUE": "23898"
+  },
+  "CENTRAL TEUPAH": {
+    "SIMEULUE": "23899"
+  },
+  "KOTA JANTHO": {
+    "ACEH BESAR": "23918"
+  },
+  "SEULIMEUM": {
+    "ACEH BESAR": "23951"
+  },
+  "LEMBAH SEULAWAH": {
+    "ACEH BESAR": "23952"
+  },
+  "KOTA SIGLI": {
+    "PIDIE": "24115"
+  },
+  "GRONG GRONG": {
+    "PIDIE": "24150"
+  },
+  "PIDIE": {
+    "PIDIE": "24151"
+  },
+  "BATEE": {
+    "PIDIE": "24152"
+  },
+  "MUARA TIGA": {
+    "PIDIE": "24153"
+  },
+  "PADANG TIJI": {
+    "PIDIE": "24161"
+  },
+  "DELIMA": {
+    "PIDIE": "24162"
+  },
+  "MILA": {
+    "PIDIE": "24163"
+  },
+  "SAKTI": {
+    "PIDIE": "24164"
+  },
+  "KEUMALA": {
+    "PIDIE": "24165"
+  },
+  "TANGSE": {
+    "PIDIE": "24166"
+  },
+  "GEUMPANG": {
+    "PIDIE": "24167"
+  },
+  "TITEUE": {
+    "PIDIE": "24168"
+  },
+  "PEUKAN BARO": {
+    "PIDIE": "24172"
+  },
+  "MUTIARA": {
+    "PIDIE": "24173"
+  },
+  "TIRO/TRUSEB": {
+    "PIDIE": "24174"
+  },
+  "EAST MUTIARA": {
+    "PIDIE": "24175"
+  },
+  "GLUMPANG BARO": {
+    "PIDIE": "24180"
+  },
+  "KEMBANG TANJONG": {
+    "PIDIE": "24182"
+  },
+  "GEULUMPANG TIGA": {
+    "PIDIE": "24183"
+  },
+  "BANDAR BARU": {
+    "PIDIE JAYA": "24184"
+  },
+  "PANTERAJA": {
+    "PIDIE JAYA": "24185"
+  },
+  "TRIENGGADENG": {
+    "PIDIE JAYA": "24185"
+  },
+  "JANGKA BUAYA (JANGKA BUYA)": {
+    "PIDIE JAYA": "24186"
+  },
+  "MEURAH DUA": {
+    "PIDIE JAYA": "24186"
+  },
+  "MEUREUDU": {
+    "PIDIE JAYA": "24186"
+  },
+  "ULIM": {
+    "PIDIE JAYA": "24187"
+  },
+  "BANDAR DUA": {
+    "PIDIE JAYA": "24188"
+  },
+  "MANE": {
+    "PIDIE": "24189"
+  },
+  "JULI": {
+    "BIREUEN": "24250"
+  },
+  "KOTA JUANG": {
+    "BIREUEN": "24252"
+  },
+  "SIMPANG MAMPLAM": {
+    "BIREUEN": "24253"
+  },
+  "JANGKA": {
+    "BIREUEN": "24261"
+  },
+  "PEUDADA": {
+    "BIREUEN": "24262"
+  },
+  "JEUNIEB": {
+    "BIREUEN": "24263"
+  },
+  "SAMALANGA": {
+    "BIREUEN": "24264"
+  },
+  "PANDRAH": {
+    "BIREUEN": "24265"
+  },
+  "PEULIMBANG (PLIMBANG)": {
+    "BIREUEN": "24266"
+  },
+  "PEUSANGAN": {
+    "BIREUEN": "24267"
+  },
+  "SOUTH PEUSANGAN": {
+    "BIREUEN": "24268"
+  },
+  "PEUSANGAN SIBLAH KRUENG": {
+    "BIREUEN": "24269"
+  },
+  "SIMPANG KRAMAT (KERAMAT)": {
+    "NORTH ACEH": "24313"
+  },
+  "BANDA SAKTI": {
+    "LHOKSEUMAWE": "24315"
+  },
+  "MUARA DUA": {
+    "LHOKSEUMAWE": "24351"
+  },
+  "COT GIREK": {
+    "NORTH ACEH": "24352"
+  },
+  "MUARA SATU": {
+    "LHOKSEUMAWE": "24353"
+  },
+  "DEWANTARA": {
+    "NORTH ACEH": "24354"
+  },
+  "MUARA BATU": {
+    "NORTH ACEH": "24355"
+  },
+  "GANDAPURA (GANDA PURA)": {
+    "BIREUEN": "24356"
+  },
+  "MAKMUR": {
+    "BIREUEN": "24357"
+  },
+  "KUTA BLANG": {
+    "BIREUEN": "24358"
+  },
+  "SYAMTALIRA BAYU": {
+    "NORTH ACEH": "24370"
+  },
+  "KUTA MAKMUR": {
+    "NORTH ACEH": "24371"
+  },
+  "MEURAH MULIA": {
+    "NORTH ACEH": "24372"
+  },
+  "GEUREDONG PASE": {
+    "NORTH ACEH": "24373"
+  },
+  "SAMUDERA": {
+    "NORTH ACEH": "24374"
+  },
+  "BLANG MANGAT": {
+    "LHOKSEUMAWE": "24375"
+  },
+  "BANDA BARO": {
+    "NORTH ACEH": "24376"
+  },
+  "NISAM": {
+    "NORTH ACEH": "24378"
+  },
+  "NISAM ANTARA": {
+    "NORTH ACEH": "24379"
+  },
+  "SYAMTALIRA ARON": {
+    "NORTH ACEH": "24381"
+  },
+  "LHOKSUKON": {
+    "NORTH ACEH": "24382"
+  },
+  "PAYA BAKONG": {
+    "NORTH ACEH": "24383"
+  },
+  "EAST PIRAK": {
+    "NORTH ACEH": "24384"
+  },
+  "NIBONG": {
+    "NORTH ACEH": "24385"
+  },
+  "MATANGKULI": {
+    "NORTH ACEH": "24386"
+  },
+  "TANAH LUAS": {
+    "NORTH ACEH": "24387"
+  },
+  "TANAH PASIR": {
+    "NORTH ACEH": "24390"
+  },
+  "LAPANG": {
+    "NORTH ACEH": "24391"
+  },
+  "BAKTIYA": {
+    "NORTH ACEH": "24392"
+  },
+  "SEUNUDDON (SEUNUDON)": {
+    "NORTH ACEH": "24393"
+  },
+  "LANGKAHAN": {
+    "NORTH ACEH": "24394"
+  },
+  "TANAH JAMBO AYE": {
+    "NORTH ACEH": "24395"
+  },
+  "WEST BAKTIYA": {
+    "NORTH ACEH": "24396"
+  },
+  "LANGSA KOTA / WEST LANGSA": {
+    "LANGSA": "24410"
+  },
+  "LANGSA LAMA / EAST LANGSA": {
+    "LANGSA": "24411"
+  },
+  "LANGSA BARO": {
+    "LANGSA": "24415"
+  },
+  "EAST PEUREULAK": {
+    "EAST ACEH": "24440"
+  },
+  "RANTAU PEUREULAK (RANTO PEUREULAK)": {
+    "EAST ACEH": "24441"
+  },
+  "IDI RAYEUK": {
+    "EAST ACEH": "24442"
+  },
+  "IDI TUNONG": {
+    "EAST ACEH": "24443"
+  },
+  "WEST PEUREULAK": {
+    "EAST ACEH": "24450"
+  },
+  "RANTAU SELAMAT": {
+    "EAST ACEH": "24451"
+  },
+  "BIREM BAYEUN": {
+    "EAST ACEH": "24452"
+  },
+  "PEUREULAK": {
+    "EAST ACEH": "24453"
+  },
+  "DARUL FALAH": {
+    "EAST ACEH": "24454"
+  },
+  "DARUL AMAN": {
+    "EAST ACEH": "24455"
+  },
+  "EAST IDI": {
+    "EAST ACEH": "24456"
+  },
+  "INDRA MAKMU (INDRA MAKMUR)": {
+    "EAST ACEH": "24457"
+  },
+  "BANDA ALAM": {
+    "EAST ACEH": "24458"
+  },
+  "JULOK": {
+    "EAST ACEH": "24459"
+  },
+  "SERBAJADI": {
+    "EAST ACEH": "24460"
+  },
+  "PEUNARON": {
+    "EAST ACEH": "24461"
+  },
+  "MADAT": {
+    "EAST ACEH": "24462"
+  },
+  "PANTE BIDARI": {
+    "EAST ACEH": "24463"
+  },
+  "SIMPANG JERNIH": {
+    "EAST ACEH": "24464"
+  },
+  "SIMPANG ULIM": {
+    "EAST ACEH": "24465"
+  },
+  "SUNGAI RAYA": {
+    "EAST ACEH": "24466",
+    "SOUTH HULU SUNGAI": "71271",
+    "KUBU RAYA": "78234",
+    "BENGKAYANG": "79272"
+  },
+  "NURUSSALAM": {
+    "EAST ACEH": "24467"
+  },
+  "DARUL IKSAN (IHSAN)": {
+    "EAST ACEH": "24468"
+  },
+  "PEUDAWA": {
+    "EAST ACEH": "24469"
+  },
+  "BENDAHARA": {
+    "ACEH TAMIANG": "24470"
+  },
+  "MANYAK PAYED": {
+    "ACEH TAMIANG": "24471"
+  },
+  "BANDA MULIA": {
+    "ACEH TAMIANG": "24472"
+  },
+  "SERUWAY": {
+    "ACEH TAMIANG": "24473"
+  },
+  "RANTAU": {
+    "ACEH TAMIANG": "24474"
+  },
+  "KOTA KUALASINPANG (KOTA KUALA SIMPANG)": {
+    "ACEH TAMIANG": "24475"
+  },
+  "KARANG BARU": {
+    "ACEH TAMIANG": "24476"
+  },
+  "SEKERAK": {
+    "ACEH TAMIANG": "24476"
+  },
+  "KEJURUAN MUDA": {
+    "ACEH TAMIANG": "24477"
+  },
+  "TENGGULUN": {
+    "ACEH TAMIANG": "24477"
+  },
+  "BANDAR PUSAKA": {
+    "ACEH TAMIANG": "24478"
+  },
+  "TAMIANG HULU": {
+    "ACEH TAMIANG": "24479"
+  },
+  "LAUT TAWAR (LUT TAWAR)": {
+    "CENTRAL ACEH": "24511"
+  },
+  "KEBAYAKAN": {
+    "CENTRAL ACEH": "24517"
+  },
+  "BEBESEN": {
+    "CENTRAL ACEH": "24552"
+  },
+  "GAJAH PUTIH": {
+    "BENER MERIAH": "24553"
+  },
+  "PINTU RIME GAYO": {
+    "BENER MERIAH": "24554"
+  },
+  "TIMANG GAJAH": {
+    "BENER MERIAH": "24555"
+  },
+  "PEGASING": {
+    "CENTRAL ACEH": "24560"
+  },
+  "BIES": {
+    "CENTRAL ACEH": "24561"
+  },
+  "CELALA": {
+    "CENTRAL ACEH": "24562"
+  },
+  "ATU LINTANG": {
+    "CENTRAL ACEH": "24563"
+  },
+  "JAGONG JEGET": {
+    "CENTRAL ACEH": "24564"
+  },
+  "LINGE": {
+    "CENTRAL ACEH": "24565"
+  },
+  "KETOL": {
+    "CENTRAL ACEH": "24566"
+  },
+  "RUSIP ANTARA": {
+    "CENTRAL ACEH": "24567"
+  },
+  "KUTE PANANG": {
+    "CENTRAL ACEH": "24568"
+  },
+  "SILIH NARA": {
+    "CENTRAL ACEH": "24569"
+  },
+  "BINTANG": {
+    "CENTRAL ACEH": "24571"
+  },
+  "WIH PESAM": {
+    "BENER MERIAH": "24580"
+  },
+  "BUKIT": {
+    "BENER MERIAH": "24581"
+  },
+  "BENER KELIPAH": {
+    "BENER MERIAH": "24583"
+  },
+  "MESIDAH": {
+    "BENER MERIAH": "24584"
+  },
+  "PERMATA": {
+    "BENER MERIAH": "24585"
+  },
+  "SYIAH UTAMA": {
+    "BENER MERIAH": "24586"
+  },
+  "KUTAPANJANG (KUTA PANJANG)": {
+    "GAYO LUES": "24650"
+  },
+  "RIKIT GAIB": {
+    "GAYO LUES": "24651"
+  },
+  "DABUN GELANG (DEBUN GELANG)": {
+    "GAYO LUES": "24652"
+  },
+  "BLANGPEGAYON (BLANG PEGAYON)": {
+    "GAYO LUES": "24653"
+  },
+  "PANTAN CUACA": {
+    "GAYO LUES": "24654"
+  },
+  "BLANGJERANGO (BLANG JERANGO)": {
+    "GAYO LUES": "24655"
+  },
+  "BLANGKEJEREN (BLANG KEJEREN)": {
+    "GAYO LUES": "24655"
+  },
+  "TERANGUN (TERANGON)": {
+    "GAYO LUES": "24656"
+  },
+  "TERIPE/TRIPE JAYA": {
+    "GAYO LUES": "24657"
+  },
+  "PUTERI BETUNG (PUTRI BETUNG)": {
+    "GAYO LUES": "24658"
+  },
+  "PINING (PINDING)": {
+    "GAYO LUES": "24659"
+  },
+  "DELENG POKHKISEN (DELENG POKHISEN)": {
+    "SOUTHEAST ACEH": "24660"
+  },
+  "LAWE ALAS": {
+    "SOUTHEAST ACEH": "24661"
+  },
+  "KETAMBE": {
+    "SOUTHEAST ACEH": "24662"
+  },
+  "DARUL HASANAH": {
+    "SOUTHEAST ACEH": "24663"
+  },
+  "BABUSSALAM": {
+    "SOUTHEAST ACEH": "24664"
+  },
+  "LAWE BULAN": {
+    "SOUTHEAST ACEH": "24665"
+  },
+  "BADAR": {
+    "SOUTHEAST ACEH": "24666"
+  },
+  "LAWE SUMUR": {
+    "SOUTHEAST ACEH": "24670"
+  },
+  "BUKIT TUSAM": {
+    "SOUTHEAST ACEH": "24671"
+  },
+  "BAMBEL": {
+    "SOUTHEAST ACEH": "24672"
+  },
+  "BABUL MAKMUR": {
+    "SOUTHEAST ACEH": "24673"
+  },
+  "TANOH ALAS (TANAH ALAS)": {
+    "SOUTHEAST ACEH": "24674"
+  },
+  "BABUL RAHMAH": {
+    "SOUTHEAST ACEH": "24675"
+  },
+  "LAWE SIGALA GALA": {
+    "SOUTHEAST ACEH": "24676"
+  },
+  "LEUSER": {
+    "SOUTHEAST ACEH": "24677"
+  },
+  "SEMADAM": {
+    "SOUTHEAST ACEH": "24678"
+  },
+  "RUNDENG": {
+    "SUBULUSSALAM": "24779"
+  },
+  "PENANGGALAN": {
+    "SUBULUSSALAM": "24780"
+  },
+  "SIMPANG KIRI": {
+    "SUBULUSSALAM": "24781"
+  },
+  "LONGKIB": {
+    "SUBULUSSALAM": "24782"
+  },
+  "SULTAN DAULAT": {
+    "SUBULUSSALAM": "24783"
+  },
+  "DANAU PARIS": {
+    "ACEH SINGKIL": "24784"
+  },
+  "SINGKIL": {
+    "ACEH SINGKIL": "24785",
+    "MANADO": "95231"
+  },
+  "SURO MAKMUR": {
+    "ACEH SINGKIL": "24787"
+  },
+  "SINGKOHOR": {
+    "ACEH SINGKIL": "24788"
+  },
+  "KUALA BARU": {
+    "ACEH SINGKIL": "24789"
+  },
+  "WEST BANYAK ISLAND": {
+    "ACEH SINGKIL": "24790"
+  },
+  "BANYAK ISLAND": {
+    "ACEH SINGKIL": "24791"
+  },
+  "NORTH SINGKIL": {
+    "ACEH SINGKIL": "24791"
+  },
+  "KOTA BAHARU": {
+    "ACEH SINGKIL": "24792"
+  },
+  "GUNUNG MERIAH (MARIAH)": {
+    "ACEH SINGKIL": "24793"
+  },
+  "SIMPANG KANAN": {
+    "ACEH SINGKIL": "24794",
+    "ROKAN HILIR": "28994"
+  },
+  "WEST PADANG": {
+    "PADANG": "25111"
+  },
+  "EAST PADANG": {
+    "PADANG": "25121"
+  },
+  "NORTH PADANG": {
+    "PADANG": "25132"
+  },
+  "NANGGALO": {
+    "PADANG": "25142"
+  },
+  "KURANJI": {
+    "PADANG": "25151",
+    "TANAH BUMBU": "72272"
+  },
+  "PAUH": {
+    "PADANG": "25161",
+    "SAROLANGUN": "37491"
+  },
+  "KOTO TANGAH": {
+    "PADANG": "25171"
+  },
+  "SOUTH PADANG": {
+    "PADANG": "25211"
+  },
+  "LUBUK BEGALUNG": {
+    "PADANG": "25221"
+  },
+  "LUBUK KILANGAN": {
+    "PADANG": "25231"
+  },
+  "BUNGUS TELUK KABUNG": {
+    "PADANG": "25237"
+  },
+  "NORTH PAGAI": {
+    "MENTAWAI ISLANDS": "25390"
+  },
+  "SOUTH PAGAI": {
+    "MENTAWAI ISLANDS": "25391"
+  },
+  "SOUTH SIPORA": {
+    "MENTAWAI ISLANDS": "25392"
+  },
+  "SOUTHWEST SIBERUT": {
+    "MENTAWAI ISLANDS": "25393"
+  },
+  "WEST SIBERUT": {
+    "MENTAWAI ISLANDS": "25394"
+  },
+  "NORTH SIBERUT": {
+    "MENTAWAI ISLANDS": "25395"
+  },
+  "CENTRAL SIBERUT": {
+    "MENTAWAI ISLANDS": "25396"
+  },
+  "SOUTH SIBERUT": {
+    "MENTAWAI ISLANDS": "25397"
+  },
+  "NORTH SIPORA": {
+    "MENTAWAI ISLANDS": "25398"
+  },
+  "SIKAKAP": {
+    "MENTAWAI ISLANDS": "25399"
+  },
+  "CENTRAL PARIAMAN": {
+    "PARIAMAN": "25511"
+  },
+  "EAST PARIAMAN": {
+    "PARIAMAN": "25516"
+  },
+  "NORTH PARIAMAN": {
+    "PARIAMAN": "25521"
+  },
+  "SOUTH PARIAMAN": {
+    "PARIAMAN": "25531"
+  },
+  "V KOTO KAMPUNG DALAM": {
+    "PADANG PARIAMAN": "25552"
+  },
+  "SUNGAI LIMAU": {
+    "PADANG PARIAMAN": "25561"
+  },
+  "SUNGAI GARINGGING": {
+    "PADANG PARIAMAN": "25562"
+  },
+  "BATANG GASAN": {
+    "PADANG PARIAMAN": "25563"
+  },
+  "IV KOTO AUR MALINTANG": {
+    "PADANG PARIAMAN": "25564"
+  },
+  "NAN SABARIS": {
+    "PADANG PARIAMAN": "25571"
+  },
+  "ULAKAN TAPAKIH": {
+    "PADANG PARIAMAN": "25572"
+  },
+  "PADANG SAGO": {
+    "PADANG PARIAMAN": "25573"
+  },
+  "PATAMUAN": {
+    "PADANG PARIAMAN": "25574"
+  },
+  "EAST V KOTO": {
+    "PADANG PARIAMAN": "25575"
+  },
+  "VII KOTO SUNGAI SARIK": {
+    "PADANG PARIAMAN": "25576"
+  },
+  "LUBUK ALUNG": {
+    "PADANG PARIAMAN": "25581"
+  },
+  "SINTUAK TOBOH GADANG": {
+    "PADANG PARIAMAN": "25582"
+  },
+  "ENAM LINGKUNG": {
+    "PADANG PARIAMAN": "25583"
+  },
+  "2 X 11 ENAM LINGKUANG": {
+    "PADANG PARIAMAN": "25584"
+  },
+  "2 X 11 KAYU TANAM": {
+    "PADANG PARIAMAN": "25585"
+  },
+  "BATANG ANAI": {
+    "PADANG PARIAMAN": "25586"
+  },
+  "IV JURAI": {
+    "SOUTH PESISIR": "25651"
+  },
+  "BAYANG": {
+    "SOUTH PESISIR": "25652"
+  },
+  "NORTH IV NAGARI BAYANG": {
+    "SOUTH PESISIR": "25653"
+  },
+  "KOTO XI TARUSAN": {
+    "SOUTH PESISIR": "25654"
+  },
+  "BATANG KAPAS": {
+    "SOUTH PESISIR": "25661"
+  },
+  "SUTERA": {
+    "SOUTH PESISIR": "25662"
+  },
+  "LENGAYANG": {
+    "SOUTH PESISIR": "25663"
+  },
+  "RANAH PESISIR": {
+    "SOUTH PESISIR": "25666"
+  },
+  "LINGGO SARI BAGANTI": {
+    "SOUTH PESISIR": "25668"
+  },
+  "RANAH AMPEK HULU TAPAN": {
+    "SOUTH PESISIR": "25670"
+  },
+  "PANCUNG SOAL": {
+    "SOUTH PESISIR": "25671"
+  },
+  "BASA AMPEK BALAI TAPAN": {
+    "SOUTH PESISIR": "25672"
+  },
+  "AIRPURA": {
+    "SOUTH PESISIR": "25673"
+  },
+  "LUNANG": {
+    "SOUTH PESISIR": "25674"
+  },
+  "SILAUT": {
+    "SOUTH PESISIR": "25675"
+  },
+  "GUGUK PANJANG (GUGUAK PANJANG)": {
+    "BUKITTINGGI": "26111"
+  },
+  "MANDIANGIN KOTO SELAYAN": {
+    "BUKITTINGGI": "26121"
+  },
+  "AUR BIRUGO TIGO BALEH": {
+    "BUKITTINGGI": "26131"
+  },
+  "PALUPUH": {
+    "AGAM": "26151"
+  },
+  "KAMANG MAGEK": {
+    "AGAM": "26152"
+  },
+  "TILATANG KAMANG": {
+    "AGAM": "26153"
+  },
+  "IV KOTO (AMPEK KOTO)": {
+    "AGAM": "26160"
+  },
+  "AMPEK NAGARI (IV NAGARI )": {
+    "AGAM": "26161"
+  },
+  "MATUR": {
+    "AGAM": "26162"
+  },
+  "MALALAK (MALAKAK)": {
+    "AGAM": "26163"
+  },
+  "PELEMBAYAN (PALEMBAYAN)": {
+    "AGAM": "26164"
+  },
+  "BANUHAMPU": {
+    "AGAM": "26181"
+  },
+  "SUNGAI PUA (PUAR)": {
+    "AGAM": "26182"
+  },
+  "IV ANGKAT CANDUNG (AMPEK ANGKEK)": {
+    "AGAM": "26190"
+  },
+  "CANDUNG": {
+    "AGAM": "26191"
+  },
+  "BASO": {
+    "AGAM": "26192"
+  },
+  "NORTH PAYAKUMBUH": {
+    "PAYAKUMBUH": "26211"
+  },
+  "LAMPOSI TIGO NAGORI / NAGARI": {
+    "PAYAKUMBUH": "26219"
+  },
+  "WEST PAYAKUMBUH": {
+    "PAYAKUMBUH": "26221"
+  },
+  "SOUTH PAYAKUMBUH": {
+    "PAYAKUMBUH": "26226"
+  },
+  "EAST PAYAKUMBUH": {
+    "PAYAKUMBUH": "26231"
+  },
+  "SITUJUAH LIMO/LIMA NAGARI": {
+    "LIMA PULUH KOTA": "26250"
+  },
+  "PAYAKUMBUH": {
+    "LIMA PULUH KOTA": "26251"
+  },
+  "AKABILURU": {
+    "LIMA PULUH KOTA": "26252"
+  },
+  "GUGUAK (GUGU)": {
+    "LIMA PULUH KOTA": "26253"
+  },
+  "MUNGKA": {
+    "LIMA PULUH KOTA": "26254"
+  },
+  "SULIKI": {
+    "LIMA PULUH KOTA": "26255"
+  },
+  "GUNUANG OMEH (GUNUNG MAS)": {
+    "LIMA PULUH KOTA": "26256"
+  },
+  "BUKIK BARISAN": {
+    "LIMA PULUH KOTA": "26257"
+  },
+  "LUAK (LUHAK)": {
+    "LIMA PULUH KOTA": "26261"
+  },
+  "LAREH SAGO HALABAN": {
+    "LIMA PULUH KOTA": "26262"
+  },
+  "HARAU": {
+    "LIMA PULUH KOTA": "26271"
+  },
+  "PANGKALAN KOTO BARU": {
+    "LIMA PULUH KOTA": "26272"
+  },
+  "KAPUR IX/SEMBILAN": {
+    "LIMA PULUH KOTA": "26273"
+  },
+  "DUO KOTO": {
+    "PASAMAN": "26311"
+  },
+  "LUBUK SIKAPING": {
+    "PASAMAN": "26318"
+  },
+  "PANTI": {
+    "PASAMAN": "26351",
+    "JEMBER": "68153"
+  },
+  "PADANG GELUGUR": {
+    "PASAMAN": "26352"
+  },
+  "MAPAT TUNGGUL": {
+    "PASAMAN": "26353"
+  },
+  "SOUTH MAPAT TUNGGUL": {
+    "PASAMAN": "26354"
+  },
+  "RAO": {
+    "PASAMAN": "26355"
+  },
+  "SOUTH RAO": {
+    "PASAMAN": "26356"
+  },
+  "NORTH RAO": {
+    "PASAMAN": "26357"
+  },
+  "TIGO NAGARI": {
+    "PASAMAN": "26358"
+  },
+  "RANAH BATAHAN": {
+    "WEST PASAMAN": "26366"
+  },
+  "SASAK RANAH PESISIR / PASISIR / PESISIE": {
+    "WEST PASAMAN": "26367"
+  },
+  "BONJOL": {
+    "PASAMAN": "26381"
+  },
+  "SIMPANG ALAHAN MATI": {
+    "PASAMAN": "26382"
+  },
+  "LUBUK BASUNG": {
+    "AGAM": "26451"
+  },
+  "TANJUNG RAYA": {
+    "AGAM": "26471",
+    "MESUJI": "34692"
+  },
+  "TANJUNG MUTIARA": {
+    "AGAM": "26473"
+  },
+  "TALAMAU": {
+    "WEST PASAMAN": "26561"
+  },
+  "PASAMAN": {
+    "WEST PASAMAN": "26566"
+  },
+  "KINALI": {
+    "WEST PASAMAN": "26567"
+  },
+  "LUHAK NAN DUO": {
+    "WEST PASAMAN": "26568"
+  },
+  "LEMBAH MELINTANG": {
+    "WEST PASAMAN": "26570"
+  },
+  "GUNUNGTULEH (GUNUNG TULEH)": {
+    "WEST PASAMAN": "26571"
+  },
+  "KOTO BALINGKA": {
+    "WEST PASAMAN": "26572"
+  },
+  "SUNGAIBEREMAS (SEI BEREMAS)": {
+    "WEST PASAMAN": "26573"
+  },
+  "SUNGAIAUR (SUNGAI AUR)": {
+    "WEST PASAMAN": "26574"
+  },
+  "WEST PADANG PANJANG": {
+    "PADANG PANJANG": "27111"
+  },
+  "EAST PADANG PANJANG": {
+    "PADANG PANJANG": "27121"
+  },
+  "SEPULUH KOTO (X KOTO)": {
+    "TANAH DATAR": "27151"
+  },
+  "LIMA KAUM": {
+    "TANAH DATAR": "27211"
+  },
+  "SUNGAI TARAB": {
+    "TANAH DATAR": "27261"
+  },
+  "SALIMPAUANG (SALIMPAUNG)": {
+    "TANAH DATAR": "27262"
+  },
+  "PARIANGAN": {
+    "TANAH DATAR": "27264"
+  },
+  "BATIPUH": {
+    "TANAH DATAR": "27265"
+  },
+  "SOUTH BATIPUAH / BATIPUH": {
+    "TANAH DATAR": "27266"
+  },
+  "RAMBATAN": {
+    "TANAH DATAR": "27271"
+  },
+  "TANJUNG EMAS": {
+    "TANAH DATAR": "27280"
+  },
+  "TANJUANG BARU (TANJUNG BARU)": {
+    "TANAH DATAR": "27281"
+  },
+  "PADANG GANTING": {
+    "TANAH DATAR": "27282"
+  },
+  "LINTAU BUO": {
+    "TANAH DATAR": "27292"
+  },
+  "NORTH LINTAU BUO": {
+    "TANAH DATAR": "27293"
+  },
+  "SUNGAYANG": {
+    "TANAH DATAR": "27294"
+  },
+  "LUBUK SIKARAH": {
+    "SOLOK": "27311"
+  },
+  "TANJUNG HARAPAN": {
+    "SOLOK": "27321",
+    "PASER": "76260"
+  },
+  "X KOTO DIATAS": {
+    "SOLOK": "27355"
+  },
+  "X KOTO SINGKARAK": {
+    "SOLOK": "27356"
+  },
+  "KUBUNG": {
+    "SOLOK": "27361"
+  },
+  "GUNUNG TALANG": {
+    "SOLOK": "27365"
+  },
+  "LEMBAH GUMANTI": {
+    "SOLOK": "27371"
+  },
+  "HILIRAN GUMANTI": {
+    "SOLOK": "27372"
+  },
+  "TIGO LURAH": {
+    "SOLOK": "27374"
+  },
+  "BUKIT SUNDI": {
+    "SOLOK": "27381"
+  },
+  "DANAU KEMBAR": {
+    "SOLOK": "27383"
+  },
+  "LEMBANG JAYA": {
+    "SOLOK": "27384"
+  },
+  "PAYUNG SEKAKI": {
+    "SOLOK": "27387",
+    "PEKANBARU": "28292"
+  },
+  "IX KOTO SUNGAI LASI": {
+    "SOLOK": "27388"
+  },
+  "JUNJUNG SIRIH": {
+    "SOLOK": "27389"
+  },
+  "LEMBAH SEGAR": {
+    "SAWAH LUNTO": "27411"
+  },
+  "BARANGIN": {
+    "SAWAH LUNTO": "27421"
+  },
+  "SILUNGKANG": {
+    "SAWAH LUNTO": "27431"
+  },
+  "LUBUAK TAROK": {
+    "SIJUNJUNG": "27553"
+  },
+  "SIJUNJUNG": {
+    "SIJUNJUNG": "27554"
+  },
+  "IV NAGARI": {
+    "SIJUNJUNG": "27561"
+  },
+  "KOTO VII": {
+    "SIJUNJUNG": "27562"
+  },
+  "SUMPUR KUDUS": {
+    "SIJUNJUNG": "27563"
+  },
+  "KUPITAN": {
+    "SIJUNJUNG": "27564"
+  },
+  "TANJUNG GADANG": {
+    "SIJUNJUNG": "27571"
+  },
+  "KAMANG BARU": {
+    "SIJUNJUNG": "27572"
+  },
+  "PUNJUNG ISLAND": {
+    "DHARMASRAYA": "27573"
+  },
+  "SITIUNG": {
+    "DHARMASRAYA": "27678"
+  },
+  "TIMPEH": {
+    "DHARMASRAYA": "27679"
+  },
+  "KOTO SALAK": {
+    "DHARMASRAYA": "27680"
+  },
+  "KOTO BARU": {
+    "DHARMASRAYA": "27681",
+    "SUNGAIPENUH": "37152"
+  },
+  "PADANG LAWEH": {
+    "DHARMASRAYA": "27682"
+  },
+  "SEMBILAN KOTO": {
+    "DHARMASRAYA": "27683"
+  },
+  "ASAM JUJUHAN": {
+    "DHARMASRAYA": "27684"
+  },
+  "KOTO BESAR": {
+    "DHARMASRAYA": "27685"
+  },
+  "SUNGAI RUMBAI": {
+    "DHARMASRAYA": "27686",
+    "MUKO MUKO": "38761"
+  },
+  "TIUMANG": {
+    "DHARMASRAYA": "27687"
+  },
+  "SANGIR JUJUAN": {
+    "SOUTH SOLOK": "27773"
+  },
+  "SUNGAI PAGU": {
+    "SOUTH SOLOK": "27774"
+  },
+  "KOTO PARIK GADANG DIATEH": {
+    "SOUTH SOLOK": "27775"
+  },
+  "PAUH DUO": {
+    "SOUTH SOLOK": "27776"
+  },
+  "SANGIR BALAI JANGGO": {
+    "SOUTH SOLOK": "27777"
+  },
+  "SANGIR": {
+    "SOUTH SOLOK": "27778"
+  },
+  "SANGIR BATANG HARI": {
+    "SOUTH SOLOK": "27779"
+  },
+  "PEKANBARU KOTA": {
+    "PEKANBARU": "28111"
+  },
+  "SUKAJADI": {
+    "PEKANBARU": "28121",
+    "BANDUNG": "40161"
+  },
+  "MARPOYAN DAMAI": {
+    "PEKANBARU": "28125"
+  },
+  "SAIL": {
+    "PEKANBARU": "28131"
+  },
+  "LIMA PULUH": {
+    "PEKANBARU": "28141"
+  },
+  "SENAPELAN": {
+    "PEKANBARU": "28151"
+  },
+  "RUMBAI / RUMBAI PESISIR / BUKIT RAYA / TENAYAN RAYA": {
+    "PEKANBARU": "28261"
+  },
+  "TAMPAN": {
+    "PEKANBARU": "28290"
+  },
+  "KERUMUTAN": {
+    "PELALAWAN": "28352"
+  },
+  "PELALAWAN": {
+    "PELALAWAN": "28353"
+  },
+  "TELUK MERANTI": {
+    "PELALAWAN": "28354"
+  },
+  "LANGGAM": {
+    "PELALAWAN": "28380"
+  },
+  "PANGKALAN KERINCI": {
+    "PELALAWAN": "28381"
+  },
+  "PANGKALAN KURAS": {
+    "PELALAWAN": "28382"
+  },
+  "BANDAR SEI KIJANG": {
+    "PELALAWAN": "28383"
+  },
+  "BANDAR PETALANGAN": {
+    "PELALAWAN": "28384"
+  },
+  "KUALA KAMPAR": {
+    "PELALAWAN": "28385"
+  },
+  "BUNUT": {
+    "PELALAWAN": "28386"
+  },
+  "PANGKALAN LESUNG": {
+    "PELALAWAN": "28387"
+  },
+  "UKUI": {
+    "PELALAWAN": "28388"
+  },
+  "BANGKINANG KOTA": {
+    "KAMPAR": "28411"
+  },
+  "SALO": {
+    "KAMPAR": "28451"
+  },
+  "SIAK HULU": {
+    "KAMPAR": "28452"
+  },
+  "KOTO KAMPAR HULU": {
+    "KAMPAR": "28453"
+  },
+  "XIII KOTO KAMPAR": {
+    "KAMPAR": "28454"
+  },
+  "RUMBIO JAYA": {
+    "KAMPAR": "28458"
+  },
+  "KAMPA (EAST KAMPAR)": {
+    "KAMPAR": "28460"
+  },
+  "KAMPAR": {
+    "KAMPAR": "28461"
+  },
+  "PERHENTIAN RAJA": {
+    "KAMPAR": "28462"
+  },
+  "BANGKINANG": {
+    "KAMPAR": "28463"
+  },
+  "TAPUNG": {
+    "KAMPAR": "28464"
+  },
+  "TAPUNG HILIR": {
+    "KAMPAR": "28465"
+  },
+  "TAPUNG HULU": {
+    "KAMPAR": "28466"
+  },
+  "KUOK": {
+    "KAMPAR": "28467"
+  },
+  "TAMBANG": {
+    "KAMPAR": "28468"
+  },
+  "NORTH KAMPAR": {
+    "KAMPAR": "28469"
+  },
+  "GUNUNG SAHILAN": {
+    "KAMPAR": "28471"
+  },
+  "KAMPAR KIRI": {
+    "KAMPAR": "28472"
+  },
+  "KAMPAR KIRI HILIR": {
+    "KAMPAR": "28473"
+  },
+  "KAMPAR KIRI HULU": {
+    "KAMPAR": "28474"
+  },
+  "CENTRAL KAMPAR KIRI": {
+    "KAMPAR": "28475"
+  },
+  "PAGARAN TAPAH DARUSSALAM": {
+    "ROKAN HULU": "28550"
+  },
+  "ROKAN IV KOTO": {
+    "ROKAN HULU": "28551"
+  },
+  "TANDUN": {
+    "ROKAN HULU": "28552"
+  },
+  "KABUN": {
+    "ROKAN HULU": "28554"
+  },
+  "PENDALIAN IV KOTO": {
+    "ROKAN HULU": "28555"
+  },
+  "KUNTO DARUSSALAM": {
+    "ROKAN HULU": "28556"
+  },
+  "TAMBUSAI": {
+    "ROKAN HULU": "28558"
+  },
+  "BONAI DARUSSALAM": {
+    "ROKAN HULU": "28559"
+  },
+  "RAMBAH": {
+    "ROKAN HULU": "28560"
+  },
+  "RAMBAH HILIR": {
+    "ROKAN HULU": "28561"
+  },
+  "NORTH TAMBUSAI": {
+    "ROKAN HULU": "28562"
+  },
+  "KEPENUHAN": {
+    "ROKAN HULU": "28563"
+  },
+  "KEPENUHAN HULU": {
+    "ROKAN HULU": "28564"
+  },
+  "RAMBAH SAMO": {
+    "ROKAN HULU": "28565"
+  },
+  "KERINCI KANAN": {
+    "SIAK": "28654"
+  },
+  "LUBUK DALAM": {
+    "SIAK": "28655"
+  },
+  "SUNGAI APIT": {
+    "SIAK": "28662"
+  },
+  "DAYUN": {
+    "SIAK": "28671"
+  },
+  "KOTO GASIB": {
+    "SIAK": "28672"
+  },
+  "SIAK": {
+    "SIAK": "28673"
+  },
+  "SUNGAI MANDAU": {
+    "SIAK": "28674"
+  },
+  "SABAK AUH": {
+    "SIAK": "28684"
+  },
+  "MINAS": {
+    "SIAK": "28685"
+  },
+  "KANDIS": {
+    "SIAK": "28686",
+    "OGAN ILIR": "30867"
+  },
+  "BENGKALIS": {
+    "BENGKALIS": "28711"
+  },
+  "PULAUMERBAU": {
+    "MERANTI ISLANDS": "28750"
+  },
+  "TASIK PUTRI PUYU": {
+    "MERANTI ISLANDS": "28751"
+  },
+  "MERBAU": {
+    "MERANTI ISLANDS": "28752"
+  },
+  "EAST TEBING TINGGI": {
+    "MERANTI ISLANDS": "28754"
+  },
+  "RANGSANG": {
+    "MERANTI ISLANDS": "28755"
+  },
+  "WEST RANGSANG": {
+    "MERANTI ISLANDS": "28756"
+  },
+  "RANGSANG PESISIR": {
+    "MERANTI ISLANDS": "28757"
+  },
+  "WEST TEBING TINGGI": {
+    "MERANTI ISLANDS": "28758"
+  },
+  "BUKIT BATU": {
+    "BENGKALIS": "28761",
+    "PALANGKA RAYA": "73221"
+  },
+  "BANDAR LAKSAMANA": {
+    "BENGKALIS": "28762"
+  },
+  "BANTAN": {
+    "BENGKALIS": "28763"
+  },
+  "BUNGA RAYA": {
+    "SIAK": "28764"
+  },
+  "PUSAKO": {
+    "SIAK": "28765"
+  },
+  "SIAK KECIL": {
+    "BENGKALIS": "28771"
+  },
+  "TUALANG": {
+    "SIAK": "28772"
+  },
+  "MEMPURA": {
+    "SIAK": "28773"
+  },
+  "RUPAT": {
+    "BENGKALIS": "28781"
+  },
+  "NORTH RUPAT": {
+    "BENGKALIS": "28782"
+  },
+  "MANDAU": {
+    "BENGKALIS": "28783"
+  },
+  "PINGGIR": {
+    "BENGKALIS": "28784"
+  },
+  "BATHIN SOLAPAN": {
+    "BENGKALIS": "28785"
+  },
+  "TALANG MUANDAU": {
+    "BENGKALIS": "28786"
+  },
+  "EAST DUMAI": {
+    "DUMAI": "28811"
+  },
+  "SOUTH DUMAI": {
+    "DUMAI": "28813"
+  },
+  "DUMAI KOTA": {
+    "DUMAI": "28817"
+  },
+  "WEST DUMAI": {
+    "DUMAI": "28821"
+  },
+  "MEDANG KAMPAI": {
+    "DUMAI": "28825"
+  },
+  "SUNGAI SEMBILAN": {
+    "DUMAI": "28826"
+  },
+  "BUKIT KAPUR": {
+    "DUMAI": "28882"
+  },
+  "BANGKO": {
+    "ROKAN HILIR": "28911",
+    "MERANGIN": "37311"
+  },
+  "BATU HAMPAR": {
+    "ROKAN HILIR": "28912"
+  },
+  "PEKAITAN": {
+    "ROKAN HILIR": "28913"
+  },
+  "SINABOI (SENABOI)": {
+    "ROKAN HILIR": "28914"
+  },
+  "RIMBA MELINTANG": {
+    "ROKAN HILIR": "28953"
+  },
+  "PUJUD": {
+    "ROKAN HILIR": "28983"
+  },
+  "RANTAU KOPAR": {
+    "ROKAN HILIR": "28984"
+  },
+  "TANAH PUTIH": {
+    "ROKAN HILIR": "28985"
+  },
+  "TANAH PUTIH TANJUNG MELAWAN": {
+    "ROKAN HILIR": "28986"
+  },
+  "KUBU BABUSSALAM": {
+    "ROKAN HILIR": "28990"
+  },
+  "KUBU": {
+    "ROKAN HILIR": "28991",
+    "KUBU RAYA": "78384",
+    "KARANGASEM": "80853",
+    "TOLIKARA": "99030"
+  },
+  "BAGAN SINEMBAH": {
+    "ROKAN HILIR": "28992"
+  },
+  "BANGKO PUSAKA (PUSAKO)": {
+    "ROKAN HILIR": "28993"
+  },
+  "PASIR LIMAU KAPAS": {
+    "ROKAN HILIR": "28995"
+  },
+  "TANJUNG PINANG KOTA": {
+    "TANJUNG PINANG": "29111"
+  },
+  "WEST TANJUNG PINANG": {
+    "TANJUNG PINANG": "29111"
+  },
+  "BUKIT BESTARI": {
+    "TANJUNG PINANG": "29122"
+  },
+  "EAST TANJUNG PINANG": {
+    "TANJUNG PINANG": "29122"
+  },
+  "TELUK BINTAN": {
+    "BINTAN": "29132"
+  },
+  "EAST BINTAN": {
+    "BINTAN": "29150"
+  },
+  "BINTAN PESISIR": {
+    "BINTAN": "29151"
+  },
+  "NORTH BINTAN": {
+    "BINTAN": "29152"
+  },
+  "SERI/SRI KUALA LOBAM": {
+    "BINTAN": "29153"
+  },
+  "TELOK SEBONG (TELUK SEBONG)": {
+    "BINTAN": "29154"
+  },
+  "GUNUNG KIJANG": {
+    "BINTAN": "29155"
+  },
+  "MANTANG": {
+    "BINTAN": "29156"
+  },
+  "TOAPAYA": {
+    "BINTAN": "29157"
+  },
+  "TAMBELAN": {
+    "BINTAN": "29193"
+  },
+  "TEMBILAHAN": {
+    "INDRAGIRI HILIR": "29211"
+  },
+  "TEMBILAHAN HULU": {
+    "INDRAGIRI HILIR": "29213"
+  },
+  "BATANG TUAKA": {
+    "INDRAGIRI HILIR": "29252"
+  },
+  "GAUNG ANAK SERKA": {
+    "INDRAGIRI HILIR": "29253"
+  },
+  "MANDAH": {
+    "INDRAGIRI HILIR": "29254"
+  },
+  "KATEMAN": {
+    "INDRAGIRI HILIR": "29255"
+  },
+  "BURUNG ISLAND": {
+    "INDRAGIRI HILIR": "29256"
+  },
+  "PELANGIRAN": {
+    "INDRAGIRI HILIR": "29257"
+  },
+  "TELUK BELENGKONG": {
+    "INDRAGIRI HILIR": "29258"
+  },
+  "KEMPAS": {
+    "INDRAGIRI HILIR": "29261"
+  },
+  "TEMPULING": {
+    "INDRAGIRI HILIR": "29262"
+  },
+  "SUNGAI BATANG": {
+    "INDRAGIRI HILIR": "29270"
+  },
+  "TANAH MERAH": {
+    "INDRAGIRI HILIR": "29271",
+    "BANGKALAN": "69172"
+  },
+  "ENOK": {
+    "INDRAGIRI HILIR": "29272"
+  },
+  "RETEH": {
+    "INDRAGIRI HILIR": "29273"
+  },
+  "KEMUNING": {
+    "INDRAGIRI HILIR": "29274",
+    "PALEMBANG": "30127"
+  },
+  "KERITANG": {
+    "INDRAGIRI HILIR": "29275"
+  },
+  "KUALA INDRAGIRI": {
+    "INDRAGIRI HILIR": "29280"
+  },
+  "CONCONG": {
+    "INDRAGIRI HILIR": "29281"
+  },
+  "GAUNG": {
+    "INDRAGIRI HILIR": "29282"
+  },
+  "RENGAT": {
+    "INDRAGIRI HULU": "29311"
+  },
+  "KUALA CENAKU": {
+    "INDRAGIRI HULU": "29335"
+  },
+  "WEST RENGAT": {
+    "INDRAGIRI HULU": "29345"
+  },
+  "LUBUK BATU JAYA": {
+    "INDRAGIRI HULU": "29350"
+  },
+  "KELAYANG": {
+    "INDRAGIRI HULU": "29352"
+  },
+  "LIRIK": {
+    "INDRAGIRI HULU": "29353"
+  },
+  "BATANG PERANAP": {
+    "INDRAGIRI HULU": "29354"
+  },
+  "BATANG CENAKU": {
+    "INDRAGIRI HULU": "29355"
+  },
+  "BATANG GANGSAL (BATANG GANSAL)": {
+    "INDRAGIRI HULU": "29356"
+  },
+  "PERANAP": {
+    "INDRAGIRI HULU": "29357"
+  },
+  "PASIR PENYU": {
+    "INDRAGIRI HULU": "29358"
+  },
+  "RAKIT KULIM": {
+    "INDRAGIRI HULU": "29359"
+  },
+  "SUNGAI LALA": {
+    "INDRAGIRI HULU": "29363"
+  },
+  "SIBERIDA (SEBERIDA)": {
+    "INDRAGIRI HULU": "29371"
+  },
+  "BELAKANG PADANG": {
+    "BATAM": "29411"
+  },
+  "BATU AJI": {
+    "BATAM": "29422"
+  },
+  "SEKUPANG": {
+    "BATAM": "29424"
+  },
+  "BATAM KOTA": {
+    "BATAM": "29431"
+  },
+  "BENGKONG": {
+    "BATAM": "29432"
+  },
+  "LUBUK BAJA": {
+    "BATAM": "29432"
+  },
+  "SEI/SUNGAI BEDUK": {
+    "BATAM": "29433"
+  },
+  "SAGULUNG": {
+    "BATAM": "29439"
+  },
+  "BATU AMPAR": {
+    "BATAM": "29451",
+    "TANAH LAUT": "70882",
+    "SERUYAN": "74281",
+    "EAST KUTAI": "75654",
+    "KUBU RAYA": "78385"
+  },
+  "NONGSA": {
+    "BATAM": "29465"
+  },
+  "BULANG": {
+    "BATAM": "29471"
+  },
+  "CENTRAL KUANTAN": {
+    "KUANTAN SINGINGI": "29511"
+  },
+  "PANGEAN": {
+    "KUANTAN SINGINGI": "29553"
+  },
+  "CERENTI": {
+    "KUANTAN SINGINGI": "29555"
+  },
+  "LOGAS TANAH DARAT": {
+    "KUANTAN SINGINGI": "29556"
+  },
+  "PUCUK RANTAU": {
+    "KUANTAN SINGINGI": "29557"
+  },
+  "SINGINGI HILIR": {
+    "KUANTAN SINGINGI": "29560"
+  },
+  "KUANTAN HILIR": {
+    "KUANTAN SINGINGI": "29561"
+  },
+  "KUANTAN HILIR SEBERANG": {
+    "KUANTAN SINGINGI": "29562"
+  },
+  "SINGINGI": {
+    "KUANTAN SINGINGI": "29563"
+  },
+  "KUANTAN MUDIK": {
+    "KUANTAN SINGINGI": "29564"
+  },
+  "GUNUNGTOAR (GUNUNG TOAR)": {
+    "KUANTAN SINGINGI": "29565"
+  },
+  "BENAI": {
+    "KUANTAN SINGINGI": "29566"
+  },
+  "SENTAJO RAYA": {
+    "KUANTAN SINGINGI": "29567"
+  },
+  "HULU KUANTAN": {
+    "KUANTAN SINGINGI": "29568"
+  },
+  "INUMAN": {
+    "KUANTAN SINGINGI": "29569"
+  },
+  "BELAT": {
+    "KARIMUN": "29660"
+  },
+  "KARIMUN": {
+    "KARIMUN": "29661"
+  },
+  "KUNDUR": {
+    "KARIMUN": "29662"
+  },
+  "NORTH KUNDUR": {
+    "KARIMUN": "29662"
+  },
+  "WEST KUNDUR": {
+    "KARIMUN": "29662"
+  },
+  "MORO": {
+    "KARIMUN": "29663"
+  },
+  "BURU": {
+    "KARIMUN": "29664"
+  },
+  "DURAI": {
+    "KARIMUN": "29665"
+  },
+  "MERAL": {
+    "KARIMUN": "29666"
+  },
+  "WEST MERAL": {
+    "KARIMUN": "29667"
+  },
+  "TEBING": {
+    "KARIMUN": "29668"
+  },
+  "UNGAR": {
+    "KARIMUN": "29669"
+  },
+  "NORTH BUNGURAN": {
+    "NATUNA": "29775"
+  },
+  "NORTHEAST BUNGURAN": {
+    "NATUNA": "29776"
+  },
+  "EAST BUNGURAN": {
+    "NATUNA": "29777"
+  },
+  "CENTRAL BUNGURAN": {
+    "NATUNA": "29778"
+  },
+  "SUBI": {
+    "NATUNA": "29779"
+  },
+  "EAST SERASAN": {
+    "NATUNA": "29780"
+  },
+  "SERASAN": {
+    "NATUNA": "29781"
+  },
+  "WEST BUNGURAN": {
+    "NATUNA": "29782"
+  },
+  "SOUTH BUNGURAN": {
+    "NATUNA": "29783"
+  },
+  "MIDAI": {
+    "NATUNA": "29784"
+  },
+  "SUAK MIDAI": {
+    "NATUNA": "29785"
+  },
+  "WEST TIGA ISLAND": {
+    "NATUNA": "29786"
+  },
+  "BUNGURAN BATUBI": {
+    "NATUNA": "29787"
+  },
+  "TIGA ISLAND": {
+    "NATUNA": "29788",
+    "ASMAT": "99778"
+  },
+  "LAUT ISLAND": {
+    "NATUNA": "29789"
+  },
+  "SOUTH SIANTAN": {
+    "ANAMBAS ISLANDS": "29790"
+  },
+  "SIANTAN": {
+    "ANAMBAS ISLANDS": "29791",
+    "MEMPAWAH": "78352"
+  },
+  "JEMAJA": {
+    "ANAMBAS ISLANDS": "29792"
+  },
+  "EAST JEMAJA": {
+    "ANAMBAS ISLANDS": "29793"
+  },
+  "EAST SIANTAN": {
+    "ANAMBAS ISLANDS": "29794"
+  },
+  "CENTRAL SIANTAN": {
+    "ANAMBAS ISLANDS": "29795"
+  },
+  "PALMATAK": {
+    "ANAMBAS ISLANDS": "29796"
+  },
+  "SINGKEP PESISIR": {
+    "LINGGA": "29870"
+  },
+  "SINGKEP": {
+    "LINGGA": "29871"
+  },
+  "EAST LINGGA": {
+    "LINGGA": "29872"
+  },
+  "LINGGA": {
+    "LINGGA": "29872"
+  },
+  "SENAYANG": {
+    "LINGGA": "29873"
+  },
+  "NORTH LINGGA": {
+    "LINGGA": "29874"
+  },
+  "WEST SINGKEP": {
+    "LINGGA": "29875"
+  },
+  "POSEK ISLANDS": {
+    "LINGGA": "29876"
+  },
+  "SELAYAR": {
+    "LINGGA": "29877"
+  },
+  "SOUTH SINGKEP": {
+    "LINGGA": "29878"
+  },
+  "ILIR TIMUR II": {
+    "PALEMBANG": "30111"
+  },
+  "ILIR TIMUR TIGA": {
+    "PALEMBANG": "30111"
+  },
+  "KALIDONI": {
+    "PALEMBANG": "30114"
+  },
+  "EAST ILIR I": {
+    "PALEMBANG": "30121"
+  },
+  "WEST ILIR I": {
+    "PALEMBANG": "30131"
+  },
+  "BUKIT KECIL": {
+    "PALEMBANG": "30135"
+  },
+  "WEST ILIR II": {
+    "PALEMBANG": "30141"
+  },
+  "GANDUS": {
+    "PALEMBANG": "30147"
+  },
+  "ALANG ALANG LEBAR": {
+    "PALEMBANG": "30151"
+  },
+  "SUKARAMI": {
+    "PALEMBANG": "30151"
+  },
+  "SAKO": {
+    "PALEMBANG": "30161"
+  },
+  "SEMATANG BORANG": {
+    "PALEMBANG": "30161"
+  },
+  "JAKABARING": {
+    "PALEMBANG": "30251"
+  },
+  "SEBERANG ULU I": {
+    "PALEMBANG": "30251"
+  },
+  "KERTAPATI": {
+    "PALEMBANG": "30258"
+  },
+  "SEBERANG ULU II": {
+    "PALEMBANG": "30261"
+  },
+  "PLAJU": {
+    "PALEMBANG": "30266"
+  },
+  "KAYU AGUNG": {
+    "OGAN KOMERING ILIR": "30617"
+  },
+  "SIRAH ISLAND PADANG": {
+    "OGAN KOMERING ILIR": "30651"
+  },
+  "JEJAWI": {
+    "OGAN KOMERING ILIR": "30652"
+  },
+  "PEMULUTAN": {
+    "OGAN ILIR": "30653"
+  },
+  "SOUTH PEMULUTAN": {
+    "OGAN ILIR": "30653"
+  },
+  "WEST PEMULUTAN": {
+    "OGAN ILIR": "30653"
+  },
+  "PAMPANGAN": {
+    "OGAN KOMERING ILIR": "30654"
+  },
+  "TULUNG SELAPAN": {
+    "OGAN KOMERING ILIR": "30655"
+  },
+  "AIR SUGIHAN": {
+    "OGAN KOMERING ILIR": "30656"
+  },
+  "LEMPUING": {
+    "OGAN KOMERING ILIR": "30657"
+  },
+  "LEMPUING JAYA": {
+    "OGAN KOMERING ILIR": "30657"
+  },
+  "CENGAL": {
+    "OGAN KOMERING ILIR": "30658"
+  },
+  "PANGKALAN LAMPAM": {
+    "OGAN KOMERING ILIR": "30659"
+  },
+  "RANTAU PANJANG": {
+    "OGAN ILIR": "30661"
+  },
+  "SUNGAI PINANG": {
+    "OGAN ILIR": "30662",
+    "SAMARINDA": "75117"
+  },
+  "TANJUNG RAJA": {
+    "OGAN ILIR": "30663",
+    "NORTH LAMPUNG": "34557"
+  },
+  "PAYARAMAN": {
+    "OGAN ILIR": "30664"
+  },
+  "TANJUNG BATU": {
+    "OGAN ILIR": "30665"
+  },
+  "EAST PEDAMARAN": {
+    "OGAN KOMERING ILIR": "30670"
+  },
+  "TANJUNG LUBUK": {
+    "OGAN KOMERING ILIR": "30671"
+  },
+  "PEDAMARAN": {
+    "OGAN KOMERING ILIR": "30672"
+  },
+  "TELUK GELAM": {
+    "OGAN KOMERING ILIR": "30673"
+  },
+  "MESUJI": {
+    "OGAN KOMERING ILIR": "30681",
+    "MESUJI": "34697"
+  },
+  "MESUJI MAKMUR": {
+    "OGAN KOMERING ILIR": "30682"
+  },
+  "MESUJI RAYA": {
+    "OGAN KOMERING ILIR": "30683"
+  },
+  "SUNGAI MENANG": {
+    "OGAN KOMERING ILIR": "30684"
+  },
+  "SEKAYU": {
+    "MUSI BANYUASIN": "30711"
+  },
+  "SUNGAI LILIN": {
+    "MUSI BANYUASIN": "30750"
+  },
+  "SUNGAI KERUH": {
+    "MUSI BANYUASIN": "30751"
+  },
+  "BABAT TOMAN": {
+    "MUSI BANYUASIN": "30752"
+  },
+  "LAWANG WETAN": {
+    "MUSI BANYUASIN": "30753"
+  },
+  "KELUANG": {
+    "MUSI BANYUASIN": "30754"
+  },
+  "BABAT SUPAT": {
+    "MUSI BANYUASIN": "30755"
+  },
+  "BATANG HARI LEKO": {
+    "MUSI BANYUASIN": "30755"
+  },
+  "BAYUNG LENCIR": {
+    "MUSI BANYUASIN": "30756"
+  },
+  "TUNGKAL JAYA": {
+    "MUSI BANYUASIN": "30756"
+  },
+  "LAIS": {
+    "MUSI BANYUASIN": "30757",
+    "NORTH BENGKULU": "38654"
+  },
+  "LALAN": {
+    "MUSI BANYUASIN": "30758"
+  },
+  "PLAKAT TINGGI (PELAKAT TINGGI)": {
+    "MUSI BANYUASIN": "30758"
+  },
+  "SANGA DESA": {
+    "MUSI BANYUASIN": "30759"
+  },
+  "CENTRAL SUKU LAKITAN ULU TERAWAS": {
+    "MUSI RAWAS": "30771"
+  },
+  "SUMBER HARTA": {
+    "MUSI RAWAS": "30772"
+  },
+  "NORTH INDRALAYA": {
+    "OGAN ILIR": "30812"
+  },
+  "INDRALAYA": {
+    "OGAN ILIR": "30814"
+  },
+  "SOUTH INDRALAYA": {
+    "OGAN ILIR": "30862"
+  },
+  "MUARA KUANG": {
+    "OGAN ILIR": "30865"
+  },
+  "RANTAU ALAI": {
+    "OGAN ILIR": "30866"
+  },
+  "LUBUK KELIAT": {
+    "OGAN ILIR": "30868"
+  },
+  "RAMBANG KUANG": {
+    "OGAN ILIR": "30869"
+  },
+  "BANYUASIN III": {
+    "BANYUASIN": "30911"
+  },
+  "SEMBAWA": {
+    "BANYUASIN": "30953"
+  },
+  "TUNGKAL ILIR": {
+    "BANYUASIN": "30956",
+    "WEST TANJUNG JABUNG": "36557"
+  },
+  "SUAK TAPEH": {
+    "BANYUASIN": "30957"
+  },
+  "BETUNG": {
+    "BANYUASIN": "30958"
+  },
+  "RIMAU ISLAND": {
+    "BANYUASIN": "30959"
+  },
+  "TANJUNG LAGO": {
+    "BANYUASIN": "30960"
+  },
+  "TALANG KELAPA": {
+    "BANYUASIN": "30961"
+  },
+  "AIR KUMBANG": {
+    "BANYUASIN": "30962"
+  },
+  "BANYUASIN I": {
+    "BANYUASIN": "30963"
+  },
+  "RANTAU BAYUR": {
+    "BANYUASIN": "30968"
+  },
+  "BANYUASIN II": {
+    "BANYUASIN": "30971"
+  },
+  "MAKARTI JAYA": {
+    "BANYUASIN": "30972"
+  },
+  "AIR SALEK": {
+    "BANYUASIN": "30973"
+  },
+  "MUARA TELANG": {
+    "BANYUASIN": "30974"
+  },
+  "MUARA PADANG": {
+    "BANYUASIN": "30975"
+  },
+  "MUARA SUGIHAN": {
+    "BANYUASIN": "30976"
+  },
+  "SUMBER MARGA TELANG": {
+    "BANYUASIN": "30977"
+  },
+  "EAST PRABUMULIH": {
+    "PRABUMULIH": "31111"
+  },
+  "SOUTH PRABUMULIH": {
+    "PRABUMULIH": "31112"
+  },
+  "NORTH PRABUMULIH": {
+    "PRABUMULIH": "31121"
+  },
+  "WEST PRABUMULIH": {
+    "PRABUMULIH": "31121"
+  },
+  "CENTRAL RAMBANG KAPAK": {
+    "PRABUMULIH": "31131"
+  },
+  "CAMBAI": {
+    "PRABUMULIH": "31141"
+  },
+  "GELUMBANG": {
+    "MUARA ENIM": "31170"
+  },
+  "BELIDA DARAT": {
+    "MUARA ENIM": "31171"
+  },
+  "RAMBANG DANGKU": {
+    "MUARA ENIM": "31172"
+  },
+  "LUBAI": {
+    "MUARA ENIM": "31173"
+  },
+  "LUBAI ULU": {
+    "MUARA ENIM": "31174"
+  },
+  "RAMBANG": {
+    "MUARA ENIM": "31175"
+  },
+  "KELEKAR": {
+    "MUARA ENIM": "31176"
+  },
+  "LEMBAK": {
+    "MUARA ENIM": "31177"
+  },
+  "MUARA BELIDA": {
+    "MUARA ENIM": "31178"
+  },
+  "TALANG UBI": {
+    "PENUKAL ABAB LEMATANG ILIR": "31211"
+  },
+  "MUARA ENIM": {
+    "MUARA ENIM": "31311"
+  },
+  "ABAB": {
+    "PENUKAL ABAB LEMATANG ILIR": "31315"
+  },
+  "PENUKAL": {
+    "PENUKAL ABAB LEMATANG ILIR": "31316"
+  },
+  "NORTH PENUKAL": {
+    "PENUKAL ABAB LEMATANG ILIR": "31317"
+  },
+  "SUKAMERINDU": {
+    "LAHAT": "31350"
+  },
+  "UJAN MAS": {
+    "MUARA ENIM": "31351",
+    "KEPAHIANG": "39370"
+  },
+  "BELIMBING": {
+    "MUARA ENIM": "31352",
+    "MELAWI": "79671"
+  },
+  "GUNUNG MEGANG": {
+    "MUARA ENIM": "31353"
+  },
+  "TANJUNG AGUNG": {
+    "MUARA ENIM": "31354"
+  },
+  "SEMENDE DARAT ULU": {
+    "MUARA ENIM": "31355"
+  },
+  "PAJAR BULAN": {
+    "LAHAT": "31356"
+  },
+  "SUNGAI ROTAN": {
+    "MUARA ENIM": "31357"
+  },
+  "SEMENDE DARAT LAUT": {
+    "MUARA ENIM": "31358"
+  },
+  "CENTRAL SEMENDE DARAT": {
+    "MUARA ENIM": "31359"
+  },
+  "LAHAT": {
+    "LAHAT": "31411"
+  },
+  "PSEKSU": {
+    "LAHAT": "31417"
+  },
+  "GUMAY TALANG": {
+    "LAHAT": "31419"
+  },
+  "LAHAT SELATAN": {
+    "LAHAT": "31420"
+  },
+  "SOUTH KIKIM": {
+    "LAHAT": "31451"
+  },
+  "WEST KIKIM": {
+    "LAHAT": "31452"
+  },
+  "MULAK ULU": {
+    "LAHAT": "31453"
+  },
+  "MULAK SEBINGKAI": {
+    "LAHAT": "31454"
+  },
+  "TANJUNGTEBAT (TANJUNG TEBAT)": {
+    "LAHAT": "31455"
+  },
+  "SALING": {
+    "EMPAT LAWANG": "31457"
+  },
+  "EAST KIKIM": {
+    "LAHAT": "31458"
+  },
+  "CENTRAL KIKIM": {
+    "LAHAT": "31459"
+  },
+  "PAGAR GUNUNG": {
+    "LAHAT": "31460"
+  },
+  "GUMAY ULU": {
+    "LAHAT": "31461"
+  },
+  "KOTA AGUNG": {
+    "LAHAT": "31462"
+  },
+  "PINANG ISLAND": {
+    "LAHAT": "31463"
+  },
+  "WEST MERAPI": {
+    "LAHAT": "31471"
+  },
+  "SOUTH MERAPI": {
+    "LAHAT": "31472"
+  },
+  "EAST MERAPI": {
+    "LAHAT": "31473"
+  },
+  "NORTH DEMPO": {
+    "PAGAR ALAM": "31510"
+  },
+  "NORTH PAGAR ALAM": {
+    "PAGAR ALAM": "31511"
+  },
+  "CENTRAL DEMPO": {
+    "PAGAR ALAM": "31520"
+  },
+  "SOUTH DEMPO": {
+    "PAGAR ALAM": "31521"
+  },
+  "SOUTH PAGAR ALAM": {
+    "PAGAR ALAM": "31522"
+  },
+  "TANJUNG SAKTI PUMI": {
+    "LAHAT": "31581"
+  },
+  "TANJUNGSAKTI PUMU (TANJUNG SAKTI PUMU)": {
+    "LAHAT": "31582"
+  },
+  "MUARAPAYANG": {
+    "LAHAT": "31590"
+  },
+  "JARAI": {
+    "LAHAT": "31591"
+  },
+  "MUARA PINANG": {
+    "EMPAT LAWANG": "31592"
+  },
+  "LINTANG KANAN": {
+    "EMPAT LAWANG": "31593"
+  },
+  "SIKAP DALAM": {
+    "EMPAT LAWANG": "31594"
+  },
+  "PASEMAH AIR KERUH": {
+    "EMPAT LAWANG": "31595"
+  },
+  "TALANG PADANG": {
+    "EMPAT LAWANG": "31596",
+    "TANGGAMUS": "35377"
+  },
+  "ULU MUSI": {
+    "EMPAT LAWANG": "31597"
+  },
+  "PENDOPO": {
+    "EMPAT LAWANG": "31598"
+  },
+  "WEST PENDOPO": {
+    "EMPAT LAWANG": "31599"
+  },
+  "WEST LUBUK LINGGAU DUA (II)": {
+    "LUBUK LINGGAU": "31611"
+  },
+  "WEST LUBUK LINGGAU SATU (I)": {
+    "LUBUK LINGGAU": "31611"
+  },
+  "NORTH LUBUK LINGGAU DUA (II)": {
+    "LUBUK LINGGAU": "31617"
+  },
+  "NORTH LUBUK LINGGAU SATU (I)": {
+    "LUBUK LINGGAU": "31618"
+  },
+  "EAST LUBUK LINGGAU DUA (II)": {
+    "LUBUK LINGGAU": "31621"
+  },
+  "SELANGIT": {
+    "MUSI RAWAS": "31625"
+  },
+  "BENAKAT": {
+    "MUARA ENIM": "31626"
+  },
+  "SOUTH LUBUK LINGGAU DUA (II)": {
+    "LUBUK LINGGAU": "31627"
+  },
+  "EAST LUBUK LINGGAU SATU (I)": {
+    "LUBUK LINGGAU": "31628"
+  },
+  "SOUTH LUBUK LINGGAU SATU (I)": {
+    "LUBUK LINGGAU": "31629"
+  },
+  "BTS ULU": {
+    "MUSI RAWAS": "31652"
+  },
+  "RUPIT": {
+    "NORTH MUSI RAWAS": "31653"
+  },
+  "KARANG JAYA": {
+    "NORTH MUSI RAWAS": "31654",
+    "TASIKMALAYA": "46199"
+  },
+  "RAWAS ILIR": {
+    "NORTH MUSI RAWAS": "31655"
+  },
+  "RAWAS ULU": {
+    "NORTH MUSI RAWAS": "31656"
+  },
+  "MEGANG SAKTI": {
+    "MUSI RAWAS": "31657"
+  },
+  "KARANG DAPO": {
+    "NORTH MUSI RAWAS": "31658"
+  },
+  "TIANG PUMPUNG KEPUNGUT": {
+    "MUSI RAWAS": "31660"
+  },
+  "MUARA BELITI": {
+    "MUSI RAWAS": "31661"
+  },
+  "TUGUMULYO": {
+    "MUSI RAWAS": "31662"
+  },
+  "MUARA KELINGI": {
+    "MUSI RAWAS": "31663"
+  },
+  "TUAH NEGERI": {
+    "MUSI RAWAS": "31664"
+  },
+  "JAYALOKA (JAYA LOKA)": {
+    "MUSI RAWAS": "31665"
+  },
+  "SUKA KARYA (SUKAKARYA)": {
+    "MUSI RAWAS": "31665"
+  },
+  "MUARA LAKITAN": {
+    "MUSI RAWAS": "31666"
+  },
+  "NIBUNG": {
+    "NORTH MUSI RAWAS": "31667"
+  },
+  "PURWODADI": {
+    "MUSI RAWAS": "31668",
+    "PURWOREJO": "54173",
+    "GROBOGAN": "58111",
+    "PASURUAN": "67163"
+  },
+  "ULU RAWAS": {
+    "NORTH MUSI RAWAS": "31669"
+  },
+  "LAWANG KIDUL": {
+    "MUARA ENIM": "31711"
+  },
+  "EAST BATURAJA": {
+    "OGAN KOMERING ULU": "32111"
+  },
+  "WEST BATURAJA": {
+    "OGAN KOMERING ULU": "32121"
+  },
+  "SOSOH BUAY RAYAP": {
+    "OGAN KOMERING ULU": "32151"
+  },
+  "LUBUK RAJA": {
+    "OGAN KOMERING ULU": "32152"
+  },
+  "PENGANDONAN": {
+    "OGAN KOMERING ULU": "32154"
+  },
+  "MUARA JAYA": {
+    "OGAN KOMERING ULU": "32155"
+  },
+  "SEMIDANG AJI": {
+    "OGAN KOMERING ULU": "32156"
+  },
+  "ULU OGAN": {
+    "OGAN KOMERING ULU": "32157"
+  },
+  "LENGKITI": {
+    "OGAN KOMERING ULU": "32158"
+  },
+  "SINAR PENINJAUAN": {
+    "OGAN KOMERING ULU": "32159"
+  },
+  "WEST SEMENDAWAI": {
+    "EAST OGAN KOMERING ULU": "32184"
+  },
+  "EAST SEMENDAWAI": {
+    "EAST OGAN KOMERING ULU": "32185"
+  },
+  "PENINJAUAN": {
+    "OGAN KOMERING ULU": "32191"
+  },
+  "LUBUK BATANG": {
+    "OGAN KOMERING ULU": "32192"
+  },
+  "KEDATON PENINJAUAN RAYA": {
+    "OGAN KOMERING ULU": "32193"
+  },
+  "BUAY RAWAN": {
+    "SOUTH OGAN KOMERING ULU": "32211"
+  },
+  "MUARA DUA (MUARADUA)": {
+    "SOUTH OGAN KOMERING ULU": "32212"
+  },
+  "TIGA DIHAJI": {
+    "SOUTH OGAN KOMERING ULU": "32262"
+  },
+  "SIMPANG": {
+    "SOUTH OGAN KOMERING ULU": "32263"
+  },
+  "BUANA PEMACA": {
+    "SOUTH OGAN KOMERING ULU": "32264"
+  },
+  "BUAY PEMACA": {
+    "SOUTH OGAN KOMERING ULU": "32265"
+  },
+  "SINDANG DANAU": {
+    "SOUTH OGAN KOMERING ULU": "32266"
+  },
+  "SUNGAI ARE": {
+    "SOUTH OGAN KOMERING ULU": "32267"
+  },
+  "CENTRAL BUAY PEMATANG RIBU RANAU": {
+    "SOUTH OGAN KOMERING ULU": "32268"
+  },
+  "RUNJUNG AGUNG": {
+    "SOUTH OGAN KOMERING ULU": "32270"
+  },
+  "MUARA DUA KISAM (MUARADUA KISAM)": {
+    "SOUTH OGAN KOMERING ULU": "32271"
+  },
+  "KISAM ILIR": {
+    "SOUTH OGAN KOMERING ULU": "32272"
+  },
+  "BERINGIN ISLAND": {
+    "SOUTH OGAN KOMERING ULU": "32273"
+  },
+  "BANDING AGUNG": {
+    "SOUTH OGAN KOMERING ULU": "32274"
+  },
+  "SOUTH WARKUK RANAU": {
+    "SOUTH OGAN KOMERING ULU": "32275"
+  },
+  "MEKAKAU ILIR": {
+    "SOUTH OGAN KOMERING ULU": "32276"
+  },
+  "BUAY SANDANG AJI": {
+    "SOUTH OGAN KOMERING ULU": "32277"
+  },
+  "BUAY RUNJUNG": {
+    "SOUTH OGAN KOMERING ULU": "32278"
+  },
+  "KISAM TINGGI": {
+    "SOUTH OGAN KOMERING ULU": "32279"
+  },
+  "MARTAPURA": {
+    "EAST OGAN KOMERING ULU": "32311"
+  },
+  "EAST BUAY MADANG": {
+    "EAST OGAN KOMERING ULU": "32360"
+  },
+  "BUAY MADANG": {
+    "EAST OGAN KOMERING ULU": "32361"
+  },
+  "MADANG SUKU I": {
+    "EAST OGAN KOMERING ULU": "32362"
+  },
+  "BELITANG MADANG RAYA": {
+    "EAST OGAN KOMERING ULU": "32363"
+  },
+  "BUAY PEMUKA BANGSA RAJA": {
+    "EAST OGAN KOMERING ULU": "32364"
+  },
+  "MADANG SUKU III": {
+    "EAST OGAN KOMERING ULU": "32365"
+  },
+  "MADANG SUKU II": {
+    "EAST OGAN KOMERING ULU": "32366"
+  },
+  "BUAY PEMUKA PELIUNG": {
+    "EAST OGAN KOMERING ULU": "32367"
+  },
+  "BELITANG JAYA": {
+    "EAST OGAN KOMERING ULU": "32380"
+  },
+  "JAYAPURA": {
+    "EAST OGAN KOMERING ULU": "32381"
+  },
+  "BELITANG": {
+    "EAST OGAN KOMERING ULU": "32382",
+    "SEKADAU": "79588"
+  },
+  "BELITANG II": {
+    "EAST OGAN KOMERING ULU": "32383"
+  },
+  "CEMPAKA": {
+    "EAST OGAN KOMERING ULU": "32384",
+    "BANJARBARU": "70731"
+  },
+  "BELITANG III": {
+    "EAST OGAN KOMERING ULU": "32385"
+  },
+  "SEMENDAWAI SUKU III": {
+    "EAST OGAN KOMERING ULU": "32386"
+  },
+  "BUNGA MAYANG": {
+    "EAST OGAN KOMERING ULU": "32387",
+    "NORTH LAMPUNG": "34555"
+  },
+  "BELITANG MULYA": {
+    "EAST OGAN KOMERING ULU": "32388"
+  },
+  "GABEK": {
+    "PANGKAL PINANG": "33111"
+  },
+  "PANGKAL BALAM": {
+    "PANGKAL PINANG": "33111"
+  },
+  "GERUNGGANG": {
+    "PANGKAL PINANG": "33123"
+  },
+  "RANGKUI": {
+    "PANGKAL PINANG": "33132"
+  },
+  "GIRIMAYA": {
+    "PANGKAL PINANG": "33141"
+  },
+  "BUKITINTAN (BUKIT INTAN)": {
+    "PANGKAL PINANG": "33147"
+  },
+  "MERAWANG": {
+    "BANGKA": "33172"
+  },
+  "WEST MENDO": {
+    "BANGKA": "33173"
+  },
+  "PUDING BESAR": {
+    "BANGKA": "33179"
+  },
+  "SUNGAILIAT (SUNGAI LIAT)": {
+    "BANGKA": "33211"
+  },
+  "PEMALI": {
+    "BANGKA": "33251"
+  },
+  "BAKAM": {
+    "BANGKA": "33252"
+  },
+  "BELINYU": {
+    "BANGKA": "33253"
+  },
+  "RIAU SILIP": {
+    "BANGKA": "33254"
+  },
+  "MENTOK (MUNTOK)": {
+    "WEST BANGKA": "33311"
+  },
+  "JEBUS": {
+    "WEST BANGKA": "33362"
+  },
+  "PARITTIGA": {
+    "WEST BANGKA": "33363"
+  },
+  "KELAPA": {
+    "WEST BANGKA": "33364"
+  },
+  "TEMPILANG": {
+    "WEST BANGKA": "33365"
+  },
+  "SIMPANG TERITIP": {
+    "WEST BANGKA": "33366"
+  },
+  "TANJUNG PANDAN": {
+    "BELITUNG": "33411"
+  },
+  "SIJUK": {
+    "BELITUNG": "33414"
+  },
+  "BADAU": {
+    "BELITUNG": "33451",
+    "KAPUAS HULU": "78767"
+  },
+  "MEMBALONG": {
+    "BELITUNG": "33452"
+  },
+  "SELAT NASIK": {
+    "BELITUNG": "33481"
+  },
+  "MANGGAR": {
+    "EAST BELITUNG": "33511"
+  },
+  "SIMPANG PESAK": {
+    "EAST BELITUNG": "33560"
+  },
+  "DENDANG": {
+    "EAST BELITUNG": "33561",
+    "EAST TANJUNG JABUNG": "36763"
+  },
+  "GANTUNG": {
+    "EAST BELITUNG": "33562"
+  },
+  "SIMPANG RENGGIANG": {
+    "EAST BELITUNG": "33563"
+  },
+  "DAMAR": {
+    "EAST BELITUNG": "33571"
+  },
+  "KELAPA KAMPIT": {
+    "EAST BELITUNG": "33572"
+  },
+  "SIMPANG KATIS": {
+    "CENTRAL BANGKA": "33674"
+  },
+  "SUNGAI SELAN": {
+    "CENTRAL BANGKA": "33675"
+  },
+  "KOBA": {
+    "CENTRAL BANGKA": "33681"
+  },
+  "LUBUK BESAR": {
+    "CENTRAL BANGKA": "33682"
+  },
+  "NAMANG": {
+    "CENTRAL BANGKA": "33683"
+  },
+  "PANGKALAN BARU": {
+    "CENTRAL BANGKA": "33684"
+  },
+  "SIMPANG RIMBA": {
+    "SOUTH BANGKA": "33777"
+  },
+  "BESAR ISLAND": {
+    "SOUTH BANGKA": "33779"
+  },
+  "AIR GEGAS": {
+    "SOUTH BANGKA": "33782"
+  },
+  "TOBOALI": {
+    "SOUTH BANGKA": "33783"
+  },
+  "TUKAK SADAI": {
+    "SOUTH BANGKA": "33784"
+  },
+  "PONGOK ISLANDS": {
+    "SOUTH BANGKA": "33791"
+  },
+  "LEPAR PONGOK": {
+    "SOUTH BANGKA": "33792"
+  },
+  "CENTRAL METRO": {
+    "METRO": "34111"
+  },
+  "EAST METRO": {
+    "METRO": "34111"
+  },
+  "WEST METRO": {
+    "METRO": "34114"
+  },
+  "NORTH METRO": {
+    "METRO": "34117"
+  },
+  "SOUTH METRO": {
+    "METRO": "34119"
+  },
+  "PUNGGUR": {
+    "CENTRAL LAMPUNG": "34152"
+  },
+  "KOTA GAJAH": {
+    "CENTRAL LAMPUNG": "34153"
+  },
+  "RUMBIA": {
+    "CENTRAL LAMPUNG": "34154",
+    "JENEPONTO": "92314",
+    "BOMBANA": "93771"
+  },
+  "SEPUTIH RAMAN": {
+    "CENTRAL LAMPUNG": "34155"
+  },
+  "SEPUTIH BANYAK": {
+    "CENTRAL LAMPUNG": "34156"
+  },
+  "PUTRA RUMBIA": {
+    "CENTRAL LAMPUNG": "34157"
+  },
+  "SEPUTIH SURABAYA": {
+    "CENTRAL LAMPUNG": "34158"
+  },
+  "BANDAR SURABAYA": {
+    "CENTRAL LAMPUNG": "34159"
+  },
+  "BUMI RATU NUBAN": {
+    "CENTRAL LAMPUNG": "34160"
+  },
+  "ANAK TUHA": {
+    "CENTRAL LAMPUNG": "34161"
+  },
+  "BEKRI": {
+    "CENTRAL LAMPUNG": "34162"
+  },
+  "TERBANGGI BESAR": {
+    "CENTRAL LAMPUNG": "34163"
+  },
+  "SEPUTIH MATARAM": {
+    "CENTRAL LAMPUNG": "34164"
+  },
+  "GUNUNG SUGIH": {
+    "CENTRAL LAMPUNG": "34165"
+  },
+  "SEPUTIH AGUNG": {
+    "CENTRAL LAMPUNG": "34166"
+  },
+  "TERUSAN NUNYAI": {
+    "CENTRAL LAMPUNG": "34167"
+  },
+  "BUMI NABUNG": {
+    "CENTRAL LAMPUNG": "34168"
+  },
+  "BANDAR MATARAM": {
+    "CENTRAL LAMPUNG": "34169"
+  },
+  "TRIMURJO": {
+    "CENTRAL LAMPUNG": "34171"
+  },
+  "BANGUN REJO": {
+    "CENTRAL LAMPUNG": "34173"
+  },
+  "KALIREJO": {
+    "CENTRAL LAMPUNG": "34174"
+  },
+  "PADANG RATU": {
+    "CENTRAL LAMPUNG": "34175"
+  },
+  "PUBIAN": {
+    "CENTRAL LAMPUNG": "34176"
+  },
+  "SELAGAI LINGGA": {
+    "CENTRAL LAMPUNG": "34177"
+  },
+  "SENDANG AGUNG": {
+    "CENTRAL LAMPUNG": "34178"
+  },
+  "WAY SEPUTIH": {
+    "CENTRAL LAMPUNG": "34179"
+  },
+  "BUMI AGUNG": {
+    "EAST LAMPUNG": "34182",
+    "WAY KANAN": "34760"
+  },
+  "PURBOLINGGO": {
+    "EAST LAMPUNG": "34192"
+  },
+  "SUKADANA": {
+    "EAST LAMPUNG": "34194",
+    "CIAMIS": "46272",
+    "NORTH KAYONG": "78852"
+  },
+  "BRAJA SELEBAH (BRAJA SLEBAH)": {
+    "EAST LAMPUNG": "34196"
+  },
+  "LABUHAN MARINGGAI": {
+    "EAST LAMPUNG": "34198"
+  },
+  "MATARAM BARU": {
+    "EAST LAMPUNG": "34199"
+  },
+  "METRO KIBANG": {
+    "EAST LAMPUNG": "34331"
+  },
+  "NORTH RAMAN": {
+    "EAST LAMPUNG": "34371"
+  },
+  "BATANGHARI NUBAN": {
+    "EAST LAMPUNG": "34372"
+  },
+  "NORTH WAY BUNGUR (PURBOLINGGO)": {
+    "EAST LAMPUNG": "34373"
+  },
+  "LABUHAN RATU": {
+    "EAST LAMPUNG": "34375",
+    "BANDAR LAMPUNG": "35142"
+  },
+  "WAWAY KARYA": {
+    "EAST LAMPUNG": "34376"
+  },
+  "MELINTING": {
+    "EAST LAMPUNG": "34377"
+  },
+  "BATANGHARI": {
+    "EAST LAMPUNG": "34381"
+  },
+  "SEKAMPUNG": {
+    "EAST LAMPUNG": "34382"
+  },
+  "MARGA SEKAMPUNG": {
+    "EAST LAMPUNG": "34383"
+  },
+  "JABUNG": {
+    "EAST LAMPUNG": "34384",
+    "MALANG": "65155"
+  },
+  "SEKAMPUNG UDIK": {
+    "EAST LAMPUNG": "34385"
+  },
+  "MARGA TIGA (MARGATIGA)": {
+    "EAST LAMPUNG": "34386"
+  },
+  "PASIR SAKTI": {
+    "EAST LAMPUNG": "34387"
+  },
+  "GUNUNG PELINDUNG": {
+    "EAST LAMPUNG": "34388"
+  },
+  "BANDAR SRIBHAWONO (BANDAR SRIBAWONO)": {
+    "EAST LAMPUNG": "34389"
+  },
+  "PEKALONGAN": {
+    "EAST LAMPUNG": "34391"
+  },
+  "WAY JEPARA": {
+    "EAST LAMPUNG": "34396"
+  },
+  "KOTABUMI": {
+    "NORTH LAMPUNG": "34511"
+  },
+  "NORTH KOTABUMI": {
+    "NORTH LAMPUNG": "34511"
+  },
+  "SOUTH KOTABUMI": {
+    "NORTH LAMPUNG": "34511"
+  },
+  "WEST SUNGKAI": {
+    "NORTH LAMPUNG": "34552"
+  },
+  "SUNGKAI JAYA": {
+    "NORTH LAMPUNG": "34553"
+  },
+  "SOUTH SUNGKAI": {
+    "NORTH LAMPUNG": "34554"
+  },
+  "ABUNG TINGGI": {
+    "NORTH LAMPUNG": "34556"
+  },
+  "WEST ABUNG": {
+    "NORTH LAMPUNG": "34558"
+  },
+  "MUARA SUNGKAI": {
+    "NORTH LAMPUNG": "34559"
+  },
+  "HULU SUNGKAI": {
+    "NORTH LAMPUNG": "34561"
+  },
+  "CENTRAL SUNGKAI": {
+    "NORTH LAMPUNG": "34562"
+  },
+  "NORTH SUNGKAI": {
+    "NORTH LAMPUNG": "34563"
+  },
+  "BUKIT KEMUNING": {
+    "NORTH LAMPUNG": "34564"
+  },
+  "ABUNG KUNANG": {
+    "NORTH LAMPUNG": "34565"
+  },
+  "ABUNG SEMULI": {
+    "NORTH LAMPUNG": "34580"
+  },
+  "SOUTH ABUNG": {
+    "NORTH LAMPUNG": "34581"
+  },
+  "ABUNG PEKURUN": {
+    "NORTH LAMPUNG": "34582"
+  },
+  "EAST ABUNG": {
+    "NORTH LAMPUNG": "34583"
+  },
+  "CENTRAL ABUNG": {
+    "NORTH LAMPUNG": "34584"
+  },
+  "ABUNG SURAKARTA": {
+    "NORTH LAMPUNG": "34585"
+  },
+  "BLAMBANGAN PAGAR": {
+    "NORTH LAMPUNG": "34586"
+  },
+  "EAST RAWA JITU / RAWAJITU": {
+    "TULANG BAWANG": "34590"
+  },
+  "SOUTH RAWA JITU / RAWAJITU": {
+    "TULANG BAWANG": "34591"
+  },
+  "PENAWAR AJI": {
+    "TULANG BAWANG": "34592"
+  },
+  "PENAWAR TAMA": {
+    "TULANG BAWANG": "34593"
+  },
+  "RAWA PITU": {
+    "TULANG BAWANG": "34594"
+  },
+  "GEDUNG AJI BARU": {
+    "TULANG BAWANG": "34595"
+  },
+  "DENTE TELADAS": {
+    "TULANG BAWANG": "34596"
+  },
+  "GEDUNG MENENG": {
+    "TULANG BAWANG": "34597"
+  },
+  "MENGGALA": {
+    "TULANG BAWANG": "34611"
+  },
+  "EAST MENGGALA": {
+    "TULANG BAWANG": "34615"
+  },
+  "MERAKSA AJI": {
+    "TULANG BAWANG": "34680"
+  },
+  "GEDUNG AJI": {
+    "TULANG BAWANG": "34681"
+  },
+  "BANJAR AGUNG": {
+    "TULANG BAWANG": "34682"
+  },
+  "BANJAR MARGO": {
+    "TULANG BAWANG": "34684"
+  },
+  "BANJAR BARU": {
+    "TULANG BAWANG": "34685"
+  },
+  "WAY SERDANG": {
+    "MESUJI": "34694"
+  },
+  "EAST MESUJI": {
+    "MESUJI": "34695"
+  },
+  "NORTH RAWA JITU": {
+    "MESUJI": "34696"
+  },
+  "PANCA JAYA": {
+    "MESUJI": "34698"
+  },
+  "SIMPANG PEMATANG": {
+    "MESUJI": "34699"
+  },
+  "BARADATU": {
+    "WAY KANAN": "34761"
+  },
+  "PAKUAN RATU": {
+    "WAY KANAN": "34762"
+  },
+  "BAHUGA": {
+    "WAY KANAN": "34763"
+  },
+  "BLAMBANGAN UMPU": {
+    "WAY KANAN": "34764"
+  },
+  "KASUI": {
+    "WAY KANAN": "34765"
+  },
+  "BANJIT": {
+    "WAY KANAN": "34766"
+  },
+  "BUAY BAHUGA": {
+    "WAY KANAN": "34767"
+  },
+  "GUNUNG LABUHAN": {
+    "WAY KANAN": "34768"
+  },
+  "NEGARA BATIN": {
+    "WAY KANAN": "34769"
+  },
+  "REBANG TANGKAS": {
+    "WAY KANAN": "34771"
+  },
+  "WAY TUBA": {
+    "WAY KANAN": "34772"
+  },
+  "NEGERI AGUNG": {
+    "WAY KANAN": "34773"
+  },
+  "NEGERI BESAR": {
+    "WAY KANAN": "34774"
+  },
+  "GUNUNG AGUNG": {
+    "WEST TULANG BAWANG": "34783"
+  },
+  "GUNUNG TERANG": {
+    "WEST TULANG BAWANG": "34784"
+  },
+  "BATU PUTIH": {
+    "WEST TULANG BAWANG": "34785",
+    "BERAU": "77372",
+    "SOUTH TIMOR TENGAH": "85565",
+    "NORTH KOLAKA": "93955"
+  },
+  "LAMBU KIBANG": {
+    "WEST TULANG BAWANG": "34787"
+  },
+  "WAY KENANGA": {
+    "WEST TULANG BAWANG": "34788"
+  },
+  "TULANG BAWANG UDIK": {
+    "WEST TULANG BAWANG": "34791"
+  },
+  "PAGAR DEWA": {
+    "WEST TULANG BAWANG": "34792",
+    "WEST LAMPUNG": "34885"
+  },
+  "CENTRAL TULANG BAWANG": {
+    "WEST TULANG BAWANG": "34793"
+  },
+  "TUMIJAJAR": {
+    "WEST TULANG BAWANG": "34794"
+  },
+  "BALIK BUKIT": {
+    "WEST LAMPUNG": "34811"
+  },
+  "AIR HITAM": {
+    "WEST LAMPUNG": "34866",
+    "SAROLANGUN": "37490"
+  },
+  "KEBUN TEBU": {
+    "WEST LAMPUNG": "34867"
+  },
+  "SUKAU": {
+    "WEST LAMPUNG": "34868"
+  },
+  "SUMBER JAYA": {
+    "WEST LAMPUNG": "34870"
+  },
+  "GEDUNG SURIAN": {
+    "WEST LAMPUNG": "34871"
+  },
+  "BATU KETULIS": {
+    "WEST LAMPUNG": "34872"
+  },
+  "BELALAU": {
+    "WEST LAMPUNG": "34873"
+  },
+  "SOUTH KRUI": {
+    "WEST PESISIR": "34874"
+  },
+  "SOUTH PESISIR": {
+    "WEST PESISIR": "34875"
+  },
+  "NORTH PESISIR": {
+    "WEST PESISIR": "34876"
+  },
+  "LEMONG": {
+    "WEST PESISIR": "34877"
+  },
+  "KARYA PENGGAWA": {
+    "WEST PESISIR": "34878"
+  },
+  "LUMBOK SEMINUNG": {
+    "WEST LAMPUNG": "34879"
+  },
+  "SUOH": {
+    "WEST LAMPUNG": "34880"
+  },
+  "BATU BRAK": {
+    "WEST LAMPUNG": "34881"
+  },
+  "BANDAR NEGERI SUOH": {
+    "WEST LAMPUNG": "34882"
+  },
+  "NGAMBUR": {
+    "WEST PESISIR": "34883"
+  },
+  "WAY TENONG": {
+    "WEST LAMPUNG": "34884"
+  },
+  "SEKINCAU": {
+    "WEST LAMPUNG": "34886"
+  },
+  "BANGKUNAT (BENGKUNAT)": {
+    "WEST PESISIR": "34887"
+  },
+  "NGARAS (BENGKUNAT BELIMBING)": {
+    "WEST PESISIR": "34888"
+  },
+  "CENTRAL PESISIR": {
+    "WEST PESISIR": "34894"
+  },
+  "PISANG ISLAND": {
+    "WEST PESISIR": "34896"
+  },
+  "WAY KRUI": {
+    "WEST PESISIR": "34898"
+  },
+  "CENTRAL TANJUNGKARANG / TANJUNG KARANG": {
+    "BANDAR LAMPUNG": "35111"
+  },
+  "ENGGAL": {
+    "BANDAR LAMPUNG": "35111"
+  },
+  "EAST TANJUNGKARANG / TANJUNG KARANG": {
+    "BANDAR LAMPUNG": "35121"
+  },
+  "KEDAMAIAN": {
+    "BANDAR LAMPUNG": "35122"
+  },
+  "SUKABUMI": {
+    "BANDAR LAMPUNG": "35122",
+    "SUKABUMI": "43151"
+  },
+  "WAY HALIM": {
+    "BANDAR LAMPUNG": "35123"
+  },
+  "SUKARAME": {
+    "BANDAR LAMPUNG": "35131",
+    "TASIKMALAYA": "46461"
+  },
+  "KEDATON": {
+    "BANDAR LAMPUNG": "35141"
+  },
+  "TANJUNG SENANG": {
+    "BANDAR LAMPUNG": "35141"
+  },
+  "RAJABASA": {
+    "BANDAR LAMPUNG": "35144"
+  },
+  "WEST TANJUNGKARANG / TANJUNG KARANG": {
+    "BANDAR LAMPUNG": "35151"
+  },
+  "LANGKAPURA": {
+    "BANDAR LAMPUNG": "35152"
+  },
+  "KEMILING": {
+    "BANDAR LAMPUNG": "35153"
+  },
+  "NORTH TELUKBETUNG": {
+    "BANDAR LAMPUNG": "35211"
+  },
+  "SOUTH TELUKBETUNG": {
+    "BANDAR LAMPUNG": "35211"
+  },
+  "WAY PANGUBUAN": {
+    "CENTRAL LAMPUNG": "35213"
+  },
+  "BUMI WARAS": {
+    "BANDAR LAMPUNG": "35224"
+  },
+  "EAST TELUKBETUNG": {
+    "BANDAR LAMPUNG": "35231"
+  },
+  "WEST TELUKBETUNG": {
+    "BANDAR LAMPUNG": "35232"
+  },
+  "PANJANG": {
+    "BANDAR LAMPUNG": "35241"
+  },
+  "SIDOMULYO": {
+    "SOUTH LAMPUNG": "35352"
+  },
+  "NEGERI KATON": {
+    "PESAWARAN": "35353"
+  },
+  "WAY PANJI": {
+    "SOUTH LAMPUNG": "35354"
+  },
+  "CANDIPURO": {
+    "SOUTH LAMPUNG": "35356",
+    "LUMAJANG": "67373"
+  },
+  "MERBAU MATARAM": {
+    "SOUTH LAMPUNG": "35357"
+  },
+  "TANJUNG SARI": {
+    "SOUTH LAMPUNG": "35360"
+  },
+  "TANJUNG BINTANG": {
+    "SOUTH LAMPUNG": "35361"
+  },
+  "NATAR": {
+    "SOUTH LAMPUNG": "35362"
+  },
+  "TEGINENENG": {
+    "PESAWARAN": "35363"
+  },
+  "JATI AGUNG": {
+    "SOUTH LAMPUNG": "35365"
+  },
+  "GEDONG TATAAN": {
+    "PESAWARAN": "35366"
+  },
+  "WAY LIMA": {
+    "PESAWARAN": "35367"
+  },
+  "KEDONDONG": {
+    "PESAWARAN": "35368"
+  },
+  "WAY KHILAU": {
+    "PESAWARAN": "35369"
+  },
+  "NORTH PAGELARAN": {
+    "PRINGSEWU": "35370"
+  },
+  "PRINGSEWU": {
+    "PRINGSEWU": "35371"
+  },
+  "GADING REJO": {
+    "PRINGSEWU": "35372"
+  },
+  "BANYUMAS": {
+    "PRINGSEWU": "35373",
+    "BANYUMAS": "53192"
+  },
+  "SUMBER REJO (SUMBEREJO)": {
+    "TANGGAMUS": "35374"
+  },
+  "PAGELARAN": {
+    "PRINGSEWU": "35375",
+    "PANDEGLANG": "42265",
+    "CIANJUR": "43266",
+    "MALANG": "65170"
+  },
+  "AMBARAWA": {
+    "PRINGSEWU": "35376",
+    "SEMARANG": "50611"
+  },
+  "GISTING": {
+    "TANGGAMUS": "35378"
+  },
+  "GUNUNG ALIP": {
+    "TANGGAMUS": "35379"
+  },
+  "CENTRAL KOTA AGUNG (KOTA AGUNG)": {
+    "TANGGAMUS": "35381"
+  },
+  "PEMATANG SAWA": {
+    "TANGGAMUS": "35382"
+  },
+  "EAST KOTA AGUNG": {
+    "TANGGAMUS": "35383"
+  },
+  "WEST KOTA AGUNG": {
+    "TANGGAMUS": "35384"
+  },
+  "SEMAKA": {
+    "TANGGAMUS": "35386"
+  },
+  "ULU BELU (ULUBELU)": {
+    "TANGGAMUS": "35387"
+  },
+  "KLUMBAYAN (KELUMBAYAN)": {
+    "TANGGAMUS": "35388"
+  },
+  "WEST KLUMBAYAN / KELUMBAYAN": {
+    "TANGGAMUS": "35389"
+  },
+  "TELUK PANDAN": {
+    "PESAWARAN": "35450",
+    "EAST KUTAI": "75682"
+  },
+  "PADANG CERMIN": {
+    "PESAWARAN": "35451"
+  },
+  "KATIBUNG": {
+    "SOUTH LAMPUNG": "35452"
+  },
+  "MARGA PUNDUH": {
+    "PESAWARAN": "35453"
+  },
+  "PUNDUH PIDADA": {
+    "PESAWARAN": "35454"
+  },
+  "WAY RATAI": {
+    "PESAWARAN": "35455"
+  },
+  "WAY SULAN": {
+    "SOUTH LAMPUNG": "35456"
+  },
+  "ANAK RATU AJI": {
+    "CENTRAL LAMPUNG": "35513"
+  },
+  "KALIANDA": {
+    "SOUTH LAMPUNG": "35551"
+  },
+  "RAJA BASA (RAJABASA)": {
+    "SOUTH LAMPUNG": "35552"
+  },
+  "BAKAUHENI": {
+    "SOUTH LAMPUNG": "35592"
+  },
+  "PENENGAHAN": {
+    "SOUTH LAMPUNG": "35593"
+  },
+  "PALAS": {
+    "SOUTH LAMPUNG": "35594"
+  },
+  "KETAPANG": {
+    "SOUTH LAMPUNG": "35596",
+    "SAMPANG": "69261"
+  },
+  "SRAGI": {
+    "SOUTH LAMPUNG": "35597",
+    "PEKALONGAN": "51155"
+  },
+  "LIMAU": {
+    "TANGGAMUS": "35613"
+  },
+  "SUKOHARJO": {
+    "PRINGSEWU": "35673",
+    "WONOSOBO": "56363",
+    "SUKOHARJO": "57511"
+  },
+  "ADILUWIH (ADI LUWIH)": {
+    "PRINGSEWU": "35674"
+  },
+  "PUGUNG": {
+    "TANGGAMUS": "35675"
+  },
+  "PANGGUNG ISLAND": {
+    "TANGGAMUS": "35678"
+  },
+  "AIR NANINGAN": {
+    "TANGGAMUS": "35679"
+  },
+  "PARDASUKA": {
+    "PRINGSEWU": "35681"
+  },
+  "BULOK": {
+    "TANGGAMUS": "35682"
+  },
+  "CUKUH BALAK": {
+    "TANGGAMUS": "35683"
+  },
+  "WONOSOBO": {
+    "TANGGAMUS": "35685",
+    "WONOSOBO": "56311"
+  },
+  "BANDAR NEGERI SEMUONG": {
+    "TANGGAMUS": "35686"
+  },
+  "PASAR JAMBI": {
+    "JAMBI": "36111"
+  },
+  "DANAU SIPIN": {
+    "JAMBI": "36121"
+  },
+  "TELANAIPURA": {
+    "JAMBI": "36122"
+  },
+  "ALAM BARAJO": {
+    "JAMBI": "36125"
+  },
+  "KOTA BARU": {
+    "JAMBI": "36126",
+    "ENDE": "86111"
+  },
+  "SOUTH JAMBI": {
+    "JAMBI": "36131"
+  },
+  "JELUTUNG": {
+    "JAMBI": "36133"
+  },
+  "PAAL MERAH": {
+    "JAMBI": "36139"
+  },
+  "EAST JAMBI": {
+    "JAMBI": "36141"
+  },
+  "PELAYANGAN": {
+    "JAMBI": "36251"
+  },
+  "DANAU TELUK": {
+    "JAMBI": "36261"
+  },
+  "JAMBI LUAR KOTA": {
+    "MUARO JAMBI": "36361"
+  },
+  "SUNGAI GELAM": {
+    "MUARO JAMBI": "36363"
+  },
+  "MESTONG": {
+    "MUARO JAMBI": "36364"
+  },
+  "SUNGAI BAHAR": {
+    "MUARO JAMBI": "36365"
+  },
+  "SOUTH BAHAR": {
+    "MUARO JAMBI": "36366"
+  },
+  "NORTH BAHAR": {
+    "MUARO JAMBI": "36367"
+  },
+  "KUMPEH": {
+    "MUARO JAMBI": "36371"
+  },
+  "KUMPEH ULU": {
+    "MUARO JAMBI": "36373"
+  },
+  "SEKERNAN": {
+    "MUARO JAMBI": "36381"
+  },
+  "MARO SEBO": {
+    "MUARO JAMBI": "36382"
+  },
+  "TAMAN RAJO": {
+    "MUARO JAMBI": "36383"
+  },
+  "SEBERANG KOTA": {
+    "WEST TANJUNG JABUNG": "36511"
+  },
+  "SENYERANG": {
+    "WEST TANJUNG JABUNG": "36513"
+  },
+  "BRAM ITAM": {
+    "WEST TANJUNG JABUNG": "36514"
+  },
+  "BATANG ASAM": {
+    "WEST TANJUNG JABUNG": "36550"
+  },
+  "TUNGKAL ULU": {
+    "WEST TANJUNG JABUNG": "36552"
+  },
+  "PENGABUAN": {
+    "WEST TANJUNG JABUNG": "36553"
+  },
+  "MERLUNG": {
+    "WEST TANJUNG JABUNG": "36554"
+  },
+  "BETARA": {
+    "WEST TANJUNG JABUNG": "36555"
+  },
+  "KUALA BETARA": {
+    "WEST TANJUNG JABUNG": "36556"
+  },
+  "MUARA PAPALIK": {
+    "WEST TANJUNG JABUNG": "36558"
+  },
+  "RENAH MENDALUH": {
+    "WEST TANJUNG JABUNG": "36559"
+  },
+  "MUARA BULIAN": {
+    "BATANG HARI": "36611"
+  },
+  "BAJUBANG": {
+    "BATANG HARI": "36615"
+  },
+  "MARO SEBO ULU": {
+    "BATANG HARI": "36652"
+  },
+  "MUARA TEMBESI": {
+    "BATANG HARI": "36653"
+  },
+  "MERSAM": {
+    "BATANG HARI": "36654"
+  },
+  "MARO SEBO ILIR": {
+    "BATANG HARI": "36655"
+  },
+  "BATIN XXIV": {
+    "BATANG HARI": "36656"
+  },
+  "PEMAYUNG": {
+    "BATANG HARI": "36657"
+  },
+  "BERBAK": {
+    "EAST TANJUNG JABUNG": "36751"
+  },
+  "KUALA JAMBI": {
+    "EAST TANJUNG JABUNG": "36760"
+  },
+  "WEST MUARA SABAK": {
+    "EAST TANJUNG JABUNG": "36761"
+  },
+  "EAST MUARA SABAK": {
+    "EAST TANJUNG JABUNG": "36762"
+  },
+  "GERAGAI": {
+    "EAST TANJUNG JABUNG": "36764"
+  },
+  "MENDAHARA": {
+    "EAST TANJUNG JABUNG": "36765"
+  },
+  "MENDAHARA ULU": {
+    "EAST TANJUNG JABUNG": "36766"
+  },
+  "NIPAH PANJANG": {
+    "EAST TANJUNG JABUNG": "36771"
+  },
+  "RANTAU RASAU": {
+    "EAST TANJUNG JABUNG": "36772"
+  },
+  "SADU": {
+    "EAST TANJUNG JABUNG": "36773"
+  },
+  "KUMUN DEBAI": {
+    "SUNGAIPENUH": "37111"
+  },
+  "PESISIR BUKIT": {
+    "SUNGAIPENUH": "37111"
+  },
+  "PONDOK TINGGI": {
+    "SUNGAIPENUH": "37111"
+  },
+  "SUNGAI BUNGKAL": {
+    "SUNGAIPENUH": "37111"
+  },
+  "SUNGAI PENUH": {
+    "SUNGAIPENUH": "37111"
+  },
+  "TANAH KAMPUNG": {
+    "SUNGAIPENUH": "37121"
+  },
+  "HAMPARAN RAWANG": {
+    "SUNGAIPENUH": "37151"
+  },
+  "SIULAK": {
+    "KERINCI": "37160"
+  },
+  "DEPATI TUJUH": {
+    "KERINCI": "37161"
+  },
+  "GUNUNG KERINCI": {
+    "KERINCI": "37162"
+  },
+  "GUNUNG TUJUH": {
+    "KERINCI": "37163"
+  },
+  "KAYU ARO": {
+    "KERINCI": "37164"
+  },
+  "WEST KAYU ARO": {
+    "KERINCI": "37165"
+  },
+  "WEST AIR HANGAT": {
+    "KERINCI": "37166"
+  },
+  "EAST AIR HANGAT": {
+    "KERINCI": "37167"
+  },
+  "AIR HANGAT": {
+    "KERINCI": "37168"
+  },
+  "SIULAK MUKAI": {
+    "KERINCI": "37169"
+  },
+  "SITINJAU LAUT": {
+    "KERINCI": "37171"
+  },
+  "DANAU KERINCI": {
+    "KERINCI": "37172"
+  },
+  "KELILING DANAU": {
+    "KERINCI": "37173"
+  },
+  "GUNUNG RAYA": {
+    "KERINCI": "37174"
+  },
+  "BATANG MERANGIN": {
+    "KERINCI": "37175"
+  },
+  "BUKITKERMAN": {
+    "KERINCI": "37176"
+  },
+  "BATHIN / BATIN II BABEKO": {
+    "BUNGO": "37210"
+  },
+  "BATHIN III": {
+    "BUNGO": "37211"
+  },
+  "BUNGO DANI": {
+    "BUNGO": "37212"
+  },
+  "LIMBUR LUBUK MENGKUANG": {
+    "BUNGO": "37213"
+  },
+  "PASAR MUARO BUNGO (PASAR MUARA BUNGO)": {
+    "BUNGO": "37214"
+  },
+  "CENTRAL RIMBO": {
+    "BUNGO": "37215"
+  },
+  "MUKO-MUKO BATHIN / BATIN VII": {
+    "BUNGO": "37216"
+  },
+  "PELEPAT ILIR": {
+    "BUNGO": "37252"
+  },
+  "BATHIN II PELAYANG": {
+    "BUNGO": "37254"
+  },
+  "TANAH TUMBUH": {
+    "BUNGO": "37255"
+  },
+  "JUJUHAN": {
+    "BUNGO": "37256"
+  },
+  "JUJUHAN ILIR": {
+    "BUNGO": "37257"
+  },
+  "BATHIN III ULU": {
+    "BUNGO": "37260"
+  },
+  "RANTAU PANDAN": {
+    "BUNGO": "37261"
+  },
+  "PELEPAT": {
+    "BUNGO": "37262"
+  },
+  "TANAH SEPENGGAL": {
+    "BUNGO": "37263"
+  },
+  "TANAH SEPENGGAL LINTAS": {
+    "BUNGO": "37264"
+  },
+  "WEST BANGKO": {
+    "MERANGIN": "37315"
+  },
+  "BATANG MASUMAI": {
+    "MERANGIN": "37316"
+  },
+  "NALO TATAN (NALO TANTAN)": {
+    "MERANGIN": "37317"
+  },
+  "WEST PAMENANG": {
+    "MERANGIN": "37318"
+  },
+  "SOUTH PAMENANG": {
+    "MERANGIN": "37319"
+  },
+  "TABIR": {
+    "MERANGIN": "37350"
+  },
+  "RENAH PAMENANG (RENAH PEMENANG)": {
+    "MERANGIN": "37351"
+  },
+  "PAMENANG": {
+    "MERANGIN": "37352"
+  },
+  "WEST TABIR": {
+    "MERANGIN": "37353"
+  },
+  "SOUTH TABIR": {
+    "MERANGIN": "37354"
+  },
+  "EAST TABIR": {
+    "MERANGIN": "37355"
+  },
+  "TABIR ULU": {
+    "MERANGIN": "37356"
+  },
+  "TABIR LINTAS": {
+    "MERANGIN": "37357"
+  },
+  "TABIR ILIR": {
+    "MERANGIN": "37358"
+  },
+  "MARGO TABIR": {
+    "MERANGIN": "37359"
+  },
+  "PANGKALAN JAMBU": {
+    "MERANGIN": "37361"
+  },
+  "RENAH PEMBARAP": {
+    "MERANGIN": "37362"
+  },
+  "SUNGAI MANAU": {
+    "MERANGIN": "37363"
+  },
+  "MUARA SIAU": {
+    "MERANGIN": "37370"
+  },
+  "TIANG PUMPUNG": {
+    "MERANGIN": "37371"
+  },
+  "JANGKAT": {
+    "MERANGIN": "37372"
+  },
+  "LEMBAH MASURAI": {
+    "MERANGIN": "37373"
+  },
+  "JANGKAT TIMUR (SUNGAI TENANG)": {
+    "MERANGIN": "37374"
+  },
+  "CERMIN NAN GEDANG / GADANG": {
+    "SAROLANGUN": "37381"
+  },
+  "LIMUN": {
+    "SAROLANGUN": "37382"
+  },
+  "BATHIN VIII (BATIN VIII)": {
+    "SAROLANGUN": "37480"
+  },
+  "SAROLANGUN": {
+    "SAROLANGUN": "37481"
+  },
+  "PELAWAN": {
+    "SAROLANGUN": "37482"
+  },
+  "SINGKUT": {
+    "SAROLANGUN": "37483"
+  },
+  "BATANG ASAI": {
+    "SAROLANGUN": "37485"
+  },
+  "MANDIANGIN": {
+    "SAROLANGUN": "37492"
+  },
+  "RIMBO BUJANG": {
+    "TEBO": "37551"
+  },
+  "RIMBO ILIR": {
+    "TEBO": "37552"
+  },
+  "RIMBO ULU": {
+    "TEBO": "37553"
+  },
+  "SERAI SERUMPUN": {
+    "TEBO": "37554"
+  },
+  "TEBO ULU": {
+    "TEBO": "37555"
+  },
+  "VII KOTO": {
+    "TEBO": "37561"
+  },
+  "VII KOTO ILIR": {
+    "TEBO": "37562"
+  },
+  "MUARA TABIR": {
+    "TEBO": "37570"
+  },
+  "CENTRAL TEBO": {
+    "TEBO": "37571"
+  },
+  "TEBO ILIR": {
+    "TEBO": "37572"
+  },
+  "SUMAY": {
+    "TEBO": "37573"
+  },
+  "TENGAH ILIR": {
+    "TEBO": "37574"
+  },
+  "TELUK SEGARA": {
+    "BENGKULU": "38113"
+  },
+  "SUNGAI SERUT": {
+    "BENGKULU": "38119"
+  },
+  "MUARA BANGKA HULU": {
+    "BENGKULU": "38121"
+  },
+  "SELEBAR": {
+    "BENGKULU": "38211"
+  },
+  "KAMPUNG MELAYU": {
+    "BENGKULU": "38215"
+  },
+  "GADING CEMPAKA": {
+    "BENGKULU": "38221"
+  },
+  "RATU SAMBAN": {
+    "BENGKULU": "38221"
+  },
+  "SINGARAN PATI": {
+    "BENGKULU": "38221"
+  },
+  "RATU AGUNG": {
+    "BENGKULU": "38223"
+  },
+  "MARGA SAKTI SEBELAT (MARGA SAKTI)": {
+    "NORTH BENGKULU": "38325"
+  },
+  "PUTRI HIJAU": {
+    "NORTH BENGKULU": "38326"
+  },
+  "KETAHUN": {
+    "NORTH BENGKULU": "38361"
+  },
+  "PINANG RAYA": {
+    "NORTH BENGKULU": "38362"
+  },
+  "NAPAL PUTIH": {
+    "NORTH BENGKULU": "38363"
+  },
+  "ULOK KUPAI": {
+    "NORTH BENGKULU": "38364"
+  },
+  "PEMATANG TIGA": {
+    "CENTRAL BENGKULU": "38370"
+  },
+  "PONDOK KELAPA": {
+    "CENTRAL BENGKULU": "38371"
+  },
+  "BANG HAJI": {
+    "CENTRAL BENGKULU": "38372"
+  },
+  "AIR NAPAL": {
+    "NORTH BENGKULU": "38373"
+  },
+  "HULU PALIK": {
+    "NORTH BENGKULU": "38374"
+  },
+  "PONDOK KUBANG": {
+    "CENTRAL BENGKULU": "38375"
+  },
+  "KERKAP": {
+    "NORTH BENGKULU": "38379"
+  },
+  "PAGAR JATI": {
+    "CENTRAL BENGKULU": "38381"
+  },
+  "KARANG TINGGI": {
+    "CENTRAL BENGKULU": "38382"
+  },
+  "MERIGI SAKTI": {
+    "CENTRAL BENGKULU": "38383"
+  },
+  "TALANG EMPAT": {
+    "CENTRAL BENGKULU": "38385"
+  },
+  "MERIGI KELINDANG": {
+    "CENTRAL BENGKULU": "38386"
+  },
+  "ENGGANO": {
+    "NORTH BENGKULU": "38387"
+  },
+  "TABA PENANJUNG": {
+    "CENTRAL BENGKULU": "38388"
+  },
+  "BUNGA MAS": {
+    "SOUTH BENGKULU": "38511"
+  },
+  "KOTA MANNA": {
+    "SOUTH BENGKULU": "38511"
+  },
+  "MANNA": {
+    "SOUTH BENGKULU": "38511"
+  },
+  "PASAR MANNA": {
+    "SOUTH BENGKULU": "38513"
+  },
+  "SEGINIM": {
+    "SOUTH BENGKULU": "38552"
+  },
+  "KEDURANG": {
+    "SOUTH BENGKULU": "38553"
+  },
+  "KEDURANG ILIR": {
+    "SOUTH BENGKULU": "38554"
+  },
+  "PINO": {
+    "SOUTH BENGKULU": "38570"
+  },
+  "AIR NIPIS": {
+    "SOUTH BENGKULU": "38571"
+  },
+  "PINO RAYA (PINORAYA)": {
+    "SOUTH BENGKULU": "38572"
+  },
+  "ULU MANNA": {
+    "SOUTH BENGKULU": "38573"
+  },
+  "AIR BESI": {
+    "NORTH BENGKULU": "38575"
+  },
+  "TANJUNG AGUNG PALIK": {
+    "NORTH BENGKULU": "38576"
+  },
+  "ARMA JAYA": {
+    "NORTH BENGKULU": "38611"
+  },
+  "KOTA ARGA MAKMUR": {
+    "NORTH BENGKULU": "38611"
+  },
+  "AIR PADANG": {
+    "NORTH BENGKULU": "38653"
+  },
+  "GIRI MULIA (GIRI MULYA)": {
+    "NORTH BENGKULU": "38655"
+  },
+  "BATIK NAU": {
+    "NORTH BENGKULU": "38656"
+  },
+  "PADANG JAYA": {
+    "NORTH BENGKULU": "38657"
+  },
+  "NORTH KOTA MUKOMUKO (MUKOMUKO)": {
+    "MUKO MUKO": "38711"
+  },
+  "XIV KOTO": {
+    "MUKO MUKO": "38755"
+  },
+  "LUBUK PINANG": {
+    "MUKO MUKO": "38756"
+  },
+  "V KOTO": {
+    "MUKO MUKO": "38757"
+  },
+  "TERAS TERUNJAM": {
+    "MUKO MUKO": "38758"
+  },
+  "TERAMANG JAYA": {
+    "MUKO MUKO": "38760"
+  },
+  "MALIN DEMAN": {
+    "MUKO MUKO": "38762"
+  },
+  "IPUH (SOUTH MUKO MUKO)": {
+    "MUKO MUKO": "38763"
+  },
+  "AIR RAMI": {
+    "MUKO MUKO": "38764"
+  },
+  "AIR DIKIT": {
+    "MUKO MUKO": "38765"
+  },
+  "PONDOK SUGUH": {
+    "MUKO MUKO": "38766"
+  },
+  "AIR MAJUNTO": {
+    "MUKO MUKO": "38767"
+  },
+  "PENARIK": {
+    "MUKO MUKO": "38768"
+  },
+  "SELAGAN RAYA": {
+    "MUKO MUKO": "38769"
+  },
+  "SEMIDANG ALAS": {
+    "SELUMA": "38873"
+  },
+  "TALO": {
+    "SELUMA": "38874"
+  },
+  "SEMIDANG ALAS MARAS": {
+    "SELUMA": "38875"
+  },
+  "SELUMA": {
+    "SELUMA": "38876"
+  },
+  "SOUTH SELUMA": {
+    "SELUMA": "38878"
+  },
+  "AIR PERIUKAN": {
+    "SELUMA": "38881"
+  },
+  "LUBUK SANDI": {
+    "SELUMA": "38882"
+  },
+  "WEST SELUMA": {
+    "SELUMA": "38883"
+  },
+  "NORTH SELUMA": {
+    "SELUMA": "38884"
+  },
+  "EAST SELUMA": {
+    "SELUMA": "38885"
+  },
+  "ULU TALO": {
+    "SELUMA": "38886"
+  },
+  "ILIR TALO": {
+    "SELUMA": "38887"
+  },
+  "TALO KECIL": {
+    "SELUMA": "38888"
+  },
+  "CENTRAL KELAM": {
+    "KAUR": "38954"
+  },
+  "TANJUNG KEMUNING": {
+    "KAUR": "38955"
+  },
+  "NORTH KAUR": {
+    "KAUR": "38956"
+  },
+  "LUNGKANG KULE": {
+    "KAUR": "38957"
+  },
+  "PADANG GUCI HILIR": {
+    "KAUR": "38958"
+  },
+  "PADANG GUCI HULU": {
+    "KAUR": "38959"
+  },
+  "LUAS": {
+    "KAUR": "38960"
+  },
+  "CENTRAL KAUR": {
+    "KAUR": "38961"
+  },
+  "KINAL": {
+    "KAUR": "38962"
+  },
+  "SOUTH KAUR": {
+    "KAUR": "38963"
+  },
+  "NASAL": {
+    "KAUR": "38964"
+  },
+  "MAJE": {
+    "KAUR": "38965"
+  },
+  "MUARA SAHUNG": {
+    "KAUR": "38966"
+  },
+  "SEMIDANG GUMAI (GUMAY)": {
+    "KAUR": "38967"
+  },
+  "TETAP (MUARA TETAP)": {
+    "KAUR": "38968"
+  },
+  "CURUP": {
+    "REJANG LEBONG": "39111"
+  },
+  "SOUTH CURUP": {
+    "REJANG LEBONG": "39112"
+  },
+  "CENTRAL CURUP": {
+    "REJANG LEBONG": "39113"
+  },
+  "EAST CURUP": {
+    "REJANG LEBONG": "39115"
+  },
+  "NORTH CURUP": {
+    "REJANG LEBONG": "39119"
+  },
+  "BERMANI ULU RAYA": {
+    "REJANG LEBONG": "39151"
+  },
+  "BERMANI ULU": {
+    "REJANG LEBONG": "39152"
+  },
+  "SELUPU REJANG": {
+    "REJANG LEBONG": "39153"
+  },
+  "SINDANG DATARAN (SINDANG DARATAN)": {
+    "REJANG LEBONG": "39154"
+  },
+  "SINDANG KELINGI": {
+    "REJANG LEBONG": "39155"
+  },
+  "PADANG ULAK TANDING": {
+    "REJANG LEBONG": "39180"
+  },
+  "SINDANG BELITI ULU": {
+    "REJANG LEBONG": "39181"
+  },
+  "BINDURIANG": {
+    "REJANG LEBONG": "39182"
+  },
+  "KOTA PADANG": {
+    "REJANG LEBONG": "39183"
+  },
+  "SINDANG BELITI ILIR": {
+    "REJANG LEBONG": "39184"
+  },
+  "SOUTH LEBONG": {
+    "LEBONG": "39258"
+  },
+  "NORTH LEBONG": {
+    "LEBONG": "39259"
+  },
+  "TOPOS": {
+    "LEBONG": "39260"
+  },
+  "RIMBO PENGADANG": {
+    "LEBONG": "39261"
+  },
+  "BINGIN KUNING": {
+    "LEBONG": "39262"
+  },
+  "CENTRAL LEBONG": {
+    "LEBONG": "39263"
+  },
+  "AMEN": {
+    "LEBONG": "39264"
+  },
+  "LEBONG ATAS": {
+    "LEBONG": "39265"
+  },
+  "PELABAI": {
+    "LEBONG": "39266"
+  },
+  "LEBONG SAKTI": {
+    "LEBONG": "39267"
+  },
+  "URAM JAYA": {
+    "LEBONG": "39268"
+  },
+  "PINANG BELAPIS": {
+    "LEBONG": "39269"
+  },
+  "MERIGI": {
+    "KEPAHIANG": "39371"
+  },
+  "KEPAHIANG": {
+    "KEPAHIANG": "39372"
+  },
+  "TEBAT KARAI": {
+    "KEPAHIANG": "39373"
+  },
+  "BERMANI ILIR": {
+    "KEPAHIANG": "39374"
+  },
+  "MUARA KEMUMU": {
+    "KEPAHIANG": "39375"
+  },
+  "KEBAWETAN": {
+    "KEPAHIANG": "39376"
+  },
+  "SEBERANG MUSI": {
+    "KEPAHIANG": "39377"
+  },
+  "SUMUR BANDUNG": {
+    "BANDUNG": "40111"
+  },
+  "BANDUNG WETAN": {
+    "BANDUNG": "40114"
+  },
+  "CIBEUNYING KIDUL": {
+    "BANDUNG": "40121"
+  },
+  "CIBEUNYING KALER": {
+    "BANDUNG": "40122"
+  },
+  "COBLONG": {
+    "BANDUNG": "40131"
+  },
+  "CIDADAP": {
+    "BANDUNG": "40141",
+    "SUKABUMI": "43183"
+  },
+  "SUKASARI": {
+    "BANDUNG": "40151",
+    "PURWAKARTA": "41116",
+    "SUBANG": "41250",
+    "SUMEDANG": "45366"
+  },
+  "CICENDO": {
+    "BANDUNG": "40171"
+  },
+  "ANDIR": {
+    "BANDUNG": "40181"
+  },
+  "CIMENYAN (CIMEUNYAN)": {
+    "BANDUNG": "40191"
+  },
+  "MANDALAJATI": {
+    "BANDUNG": "40195"
+  },
+  "BANDUNG KULON": {
+    "BANDUNG": "40211"
+  },
+  "MARGAASIH": {
+    "BANDUNG": "40214"
+  },
+  "NAGREG": {
+    "BANDUNG": "40215"
+  },
+  "BABAKAN CIPARAY": {
+    "BANDUNG": "40221"
+  },
+  "MARGAHAYU": {
+    "BANDUNG": "40225"
+  },
+  "BOJONGLOA KALER": {
+    "BANDUNG": "40231"
+  },
+  "BOJONGLOA KIDUL": {
+    "BANDUNG": "40234"
+  },
+  "CANGKUANG": {
+    "BANDUNG": "40238"
+  },
+  "DAYEUHKOLOT": {
+    "BANDUNG": "40238"
+  },
+  "ASTANA ANYAR": {
+    "BANDUNG": "40241"
+  },
+  "REGOL": {
+    "BANDUNG": "40251"
+  },
+  "BANDUNG KIDUL": {
+    "BANDUNG": "40256"
+  },
+  "BALEENDAH": {
+    "BANDUNG": "40258"
+  },
+  "LENGKONG": {
+    "BANDUNG": "40261",
+    "SUKABUMI": "43174",
+    "NGANJUK": "64393"
+  },
+  "BATUNUNGGAL": {
+    "BANDUNG": "40271"
+  },
+  "KIARACONDONG": {
+    "BANDUNG": "40281"
+  },
+  "BUAHBATU (MARGACINTA)": {
+    "BANDUNG": "40286"
+  },
+  "BOJONGSOANG": {
+    "BANDUNG": "40287"
+  },
+  "ANTAPANI (CICADAS)": {
+    "BANDUNG": "40291"
+  },
+  "RANCASARI": {
+    "BANDUNG": "40292"
+  },
+  "ARCAMANIK": {
+    "BANDUNG": "40293"
+  },
+  "GEDEBAGE": {
+    "BANDUNG": "40294"
+  },
+  "CINAMBO": {
+    "BANDUNG": "40296"
+  },
+  "CIMAUNG": {
+    "BANDUNG": "40374"
+  },
+  "SOLOKANJERUK (SOLOKAN JERUK)": {
+    "BANDUNG": "40375"
+  },
+  "PAMEUNGPEUK": {
+    "BANDUNG": "40376",
+    "GARUT": "44175"
+  },
+  "BANJARAN": {
+    "BANDUNG": "40377",
+    "MAJALENGKA": "45468"
+  },
+  "PANGALENGAN": {
+    "BANDUNG": "40378"
+  },
+  "ARJASARI": {
+    "BANDUNG": "40379"
+  },
+  "CIPARAY": {
+    "BANDUNG": "40381"
+  },
+  "MAJALAYA": {
+    "BANDUNG": "40382",
+    "KARAWANG": "41370"
+  },
+  "PASEH": {
+    "BANDUNG": "40383",
+    "SUMEDANG": "45381"
+  },
+  "IBUN": {
+    "BANDUNG": "40384"
+  },
+  "PACET": {
+    "BANDUNG": "40385",
+    "CIANJUR": "43253",
+    "MOJOKERTO": "61374"
+  },
+  "KERTASARI": {
+    "BANDUNG": "40386"
+  },
+  "LEMBANG": {
+    "WEST BANDUNG": "40391",
+    "PINRANG": "91254"
+  },
+  "RANCAEKEK": {
+    "BANDUNG": "40394"
+  },
+  "CICALENGKA": {
+    "BANDUNG": "40395"
+  },
+  "CIKANCUNG": {
+    "BANDUNG": "40396"
+  },
+  "NORTH CIMAHI": {
+    "CIMAHI": "40511"
+  },
+  "CENTRAL CIMAHI": {
+    "CIMAHI": "40521"
+  },
+  "SOUTH CIMAHI": {
+    "CIMAHI": "40531"
+  },
+  "NGAMPRAH": {
+    "WEST BANDUNG": "40552"
+  },
+  "PADALARANG": {
+    "WEST BANDUNG": "40553"
+  },
+  "CIPATAT": {
+    "WEST BANDUNG": "40554"
+  },
+  "CIKALONGWETAN (CIKALONG WETAN)": {
+    "WEST BANDUNG": "40556"
+  },
+  "CIPEUNDEUY": {
+    "WEST BANDUNG": "40558",
+    "SUBANG": "41272"
+  },
+  "PARONGPONG": {
+    "WEST BANDUNG": "40559"
+  },
+  "SAGULING": {
+    "WEST BANDUNG": "40560"
+  },
+  "BATUJAJAR": {
+    "WEST BANDUNG": "40561"
+  },
+  "CIHAMPELAS": {
+    "WEST BANDUNG": "40562"
+  },
+  "SINDANGKERTA": {
+    "WEST BANDUNG": "40563"
+  },
+  "CIPONGKOR": {
+    "WEST BANDUNG": "40564"
+  },
+  "GUNUNGHALU": {
+    "WEST BANDUNG": "40565"
+  },
+  "RONGGA": {
+    "WEST BANDUNG": "40566"
+  },
+  "CILILIN": {
+    "WEST BANDUNG": "40567"
+  },
+  "UJUNGBERUNG (UJUNG BERUNG)": {
+    "BANDUNG": "40611"
+  },
+  "CIBIRU": {
+    "BANDUNG": "40614"
+  },
+  "PANYILEUKAN": {
+    "BANDUNG": "40614"
+  },
+  "CILENGKRANG": {
+    "BANDUNG": "40615"
+  },
+  "CILEUNYI": {
+    "BANDUNG": "40621"
+  },
+  "KUTAWARINGIN": {
+    "BANDUNG": "40911"
+  },
+  "SOREANG": {
+    "BANDUNG": "40911",
+    "PAREPARE": "91131"
+  },
+  "KATAPANG": {
+    "BANDUNG": "40921"
+  },
+  "PASIRJAMBU": {
+    "BANDUNG": "40972"
+  },
+  "CIWIDEY": {
+    "BANDUNG": "40973"
+  },
+  "RANCABALI (RANCA BALI)": {
+    "BANDUNG": "40974"
+  },
+  "PURWAKARTA": {
+    "PURWAKARTA": "41111",
+    "CILEGON": "42431"
+  },
+  "PONDOKSALAM": {
+    "PURWAKARTA": "41115"
+  },
+  "BABAKANCIKAO": {
+    "PURWAKARTA": "41151"
+  },
+  "JATILUHUR": {
+    "PURWAKARTA": "41152"
+  },
+  "PLERED": {
+    "PURWAKARTA": "41162",
+    "CIREBON": "45154"
+  },
+  "DARANGDAN": {
+    "PURWAKARTA": "41163"
+  },
+  "BOJONG": {
+    "PURWAKARTA": "41164",
+    "PANDEGLANG": "42274",
+    "PEKALONGAN": "51156",
+    "TEGAL": "52465"
+  },
+  "TEGALWARU (TEGAL WARU)": {
+    "PURWAKARTA": "41165"
+  },
+  "MANIIS": {
+    "PURWAKARTA": "41166"
+  },
+  "PASAWAHAN": {
+    "PURWAKARTA": "41171",
+    "KUNINGAN": "45559"
+  },
+  "WANAYASA": {
+    "PURWAKARTA": "41174",
+    "BANJARNEGARA": "53457"
+  },
+  "KIARAPEDES": {
+    "PURWAKARTA": "41175"
+  },
+  "CAMPAKA": {
+    "PURWAKARTA": "41180",
+    "CIANJUR": "43263"
+  },
+  "BUNGURSARI": {
+    "PURWAKARTA": "41181",
+    "TASIKMALAYA": "46151"
+  },
+  "CIBATU": {
+    "PURWAKARTA": "41182",
+    "GARUT": "44185"
+  },
+  "SUBANG": {
+    "SUBANG": "41211",
+    "KUNINGAN": "45586"
+  },
+  "PAGADEN": {
+    "SUBANG": "41251"
+  },
+  "WEST PAGADEN": {
+    "SUBANG": "41252"
+  },
+  "BINONG": {
+    "SUBANG": "41253"
+  },
+  "LEGONKULON": {
+    "SUBANG": "41254"
+  },
+  "PUSAKAJAYA": {
+    "SUBANG": "41255"
+  },
+  "CIASEM": {
+    "SUBANG": "41256"
+  },
+  "CIPUNAGARA": {
+    "SUBANG": "41257"
+  },
+  "COMPRENG": {
+    "SUBANG": "41258"
+  },
+  "BLANAKAN": {
+    "SUBANG": "41259"
+  },
+  "PURWADADI": {
+    "SUBANG": "41261",
+    "CIAMIS": "46380"
+  },
+  "PABUARAN": {
+    "SUBANG": "41262",
+    "SERANG": "42163",
+    "SUKABUMI": "43173",
+    "CIREBON": "45194"
+  },
+  "PATOKBEUSI": {
+    "SUBANG": "41263"
+  },
+  "PAMANUKAN": {
+    "SUBANG": "41264"
+  },
+  "PUSAKANAGARA": {
+    "SUBANG": "41265"
+  },
+  "CIKAUM": {
+    "SUBANG": "41266"
+  },
+  "TAMBAKDAHAN": {
+    "SUBANG": "41267"
+  },
+  "DAWUAN": {
+    "SUBANG": "41270",
+    "MAJALENGKA": "45453"
+  },
+  "KALIJATI": {
+    "SUBANG": "41271"
+  },
+  "CIATER": {
+    "SUBANG": "41280"
+  },
+  "JALANCAGAK": {
+    "SUBANG": "41281"
+  },
+  "SAGALAHERANG": {
+    "SUBANG": "41282"
+  },
+  "CISALAK": {
+    "SUBANG": "41283"
+  },
+  "TANJUNGSIANG": {
+    "SUBANG": "41284"
+  },
+  "CIBOGO": {
+    "SUBANG": "41285"
+  },
+  "CIJAMBE": {
+    "SUBANG": "41286"
+  },
+  "KASOMALANG": {
+    "SUBANG": "41287"
+  },
+  "SERANGPANJANG": {
+    "SUBANG": "41288"
+  },
+  "WEST KARAWANG": {
+    "KARAWANG": "41311"
+  },
+  "EAST KARAWANG": {
+    "KARAWANG": "41313"
+  },
+  "CILEBAR": {
+    "KARAWANG": "41350"
+  },
+  "JAYAKERTA": {
+    "KARAWANG": "41351"
+  },
+  "RENGASDENGKLOK": {
+    "KARAWANG": "41352"
+  },
+  "PEDES": {
+    "KARAWANG": "41353"
+  },
+  "BATUJAYA": {
+    "KARAWANG": "41354"
+  },
+  "PAKISJAYA": {
+    "KARAWANG": "41355"
+  },
+  "CIBUAYA": {
+    "KARAWANG": "41356"
+  },
+  "TIRTAJAYA": {
+    "KARAWANG": "41357"
+  },
+  "KUTAWALUYA": {
+    "KARAWANG": "41358"
+  },
+  "EAST TELUKJAMBE": {
+    "KARAWANG": "41360"
+  },
+  "WEST TELUKJAMBE": {
+    "KARAWANG": "41361"
+  },
+  "PANGKALAN": {
+    "KARAWANG": "41362"
+  },
+  "CIAMPEL": {
+    "KARAWANG": "41363"
+  },
+  "TEGALWARU": {
+    "KARAWANG": "41364"
+  },
+  "KLARI": {
+    "KARAWANG": "41371"
+  },
+  "TIRTAMULYA": {
+    "KARAWANG": "41372"
+  },
+  "CIKAMPEK": {
+    "KARAWANG": "41373"
+  },
+  "BANYUSARI": {
+    "KARAWANG": "41374"
+  },
+  "JATISARI": {
+    "KARAWANG": "41375"
+  },
+  "KOTA BARU (KOTABARU)": {
+    "KARAWANG": "41376"
+  },
+  "PURWASARI": {
+    "KARAWANG": "41377"
+  },
+  "TELAGASARI (TALAGASARI)": {
+    "KARAWANG": "41381"
+  },
+  "RAWAMERTA": {
+    "KARAWANG": "41382"
+  },
+  "LEMAHABANG": {
+    "KARAWANG": "41383",
+    "CIREBON": "45183"
+  },
+  "CILAMAYA KULON": {
+    "KARAWANG": "41384"
+  },
+  "TEMPURAN": {
+    "KARAWANG": "41385",
+    "MAGELANG": "56161"
+  },
+  "CILAMAYA WETAN": {
+    "KARAWANG": "41386"
+  },
+  "SERANG": {
+    "SERANG": "42111"
+  },
+  "CIPOCOK JAYA": {
+    "SERANG": "42121"
+  },
+  "GUNUNG SARI (GUNUNGSARI)": {
+    "SERANG": "42160"
+  },
+  "KRAMATWATU": {
+    "SERANG": "42161"
+  },
+  "TAKTAKAN": {
+    "SERANG": "42162"
+  },
+  "MANCAK": {
+    "SERANG": "42165"
+  },
+  "ANYAR": {
+    "SERANG": "42166"
+  },
+  "CINANGKA": {
+    "SERANG": "42167"
+  },
+  "PADARINCANG": {
+    "SERANG": "42168"
+  },
+  "PETIR": {
+    "SERANG": "42172"
+  },
+  "BAROS": {
+    "SERANG": "42173",
+    "SUKABUMI": "43161"
+  },
+  "TUNJUNG TEJA": {
+    "SERANG": "42174"
+  },
+  "CIKEUSAL": {
+    "SERANG": "42175"
+  },
+  "BANDUNG": {
+    "SERANG": "42176",
+    "TULUNGAGUNG": "66274"
+  },
+  "JAWILAN": {
+    "SERANG": "42177"
+  },
+  "KOPO": {
+    "SERANG": "42178"
+  },
+  "PAMARAYAN": {
+    "SERANG": "42179"
+  },
+  "LEBAK WANGI": {
+    "SERANG": "42181"
+  },
+  "CIRUAS": {
+    "SERANG": "42182"
+  },
+  "WALANTAKA": {
+    "SERANG": "42183"
+  },
+  "KRAGILAN": {
+    "SERANG": "42184"
+  },
+  "KIBIN": {
+    "SERANG": "42185"
+  },
+  "CIKANDE": {
+    "SERANG": "42186"
+  },
+  "KASEMEN": {
+    "SERANG": "42191"
+  },
+  "PONTANG": {
+    "SERANG": "42192"
+  },
+  "TIRTAYASA": {
+    "SERANG": "42193"
+  },
+  "TANARA": {
+    "SERANG": "42194"
+  },
+  "CARENANG (CERENANG)": {
+    "SERANG": "42195"
+  },
+  "BINUANG": {
+    "SERANG": "42196",
+    "TAPIN": "71183",
+    "POLEWALI MANDAR": "91311"
+  },
+  "MAJASARI": {
+    "PANDEGLANG": "42211"
+  },
+  "PANDEGLANG": {
+    "PANDEGLANG": "42211"
+  },
+  "KARANG TANJUNG": {
+    "PANDEGLANG": "42213"
+  },
+  "KORONCONG": {
+    "PANDEGLANG": "42250"
+  },
+  "CADASARI": {
+    "PANDEGLANG": "42251"
+  },
+  "BANJAR": {
+    "PANDEGLANG": "42252",
+    "BANJAR": "46311",
+    "BULELENG": "81152"
+  },
+  "KADUHEJO": {
+    "PANDEGLANG": "42253"
+  },
+  "PULOSARI": {
+    "PANDEGLANG": "42254",
+    "PEMALANG": "52355"
+  },
+  "LABUAN": {
+    "PANDEGLANG": "42260",
+    "DONGGALA": "94352"
+  },
+  "MANDALAWANGI": {
+    "PANDEGLANG": "42261"
+  },
+  "MENES": {
+    "PANDEGLANG": "42262"
+  },
+  "JIPUT": {
+    "PANDEGLANG": "42263"
+  },
+  "CARITA": {
+    "PANDEGLANG": "42264"
+  },
+  "PATIA": {
+    "PANDEGLANG": "42266"
+  },
+  "SUKARESMI": {
+    "PANDEGLANG": "42267",
+    "CIANJUR": "43254",
+    "GARUT": "44154"
+  },
+  "CIMANUK": {
+    "PANDEGLANG": "42270"
+  },
+  "CIKEUDAL (CIKEDAL)": {
+    "PANDEGLANG": "42271"
+  },
+  "CIPEUCANG": {
+    "PANDEGLANG": "42272"
+  },
+  "CISATA": {
+    "PANDEGLANG": "42273"
+  },
+  "MUNJUL": {
+    "PANDEGLANG": "42275"
+  },
+  "PICUNG": {
+    "PANDEGLANG": "42275"
+  },
+  "SINDANGRESMI": {
+    "PANDEGLANG": "42276"
+  },
+  "ANGSANA": {
+    "PANDEGLANG": "42277",
+    "TANAH BUMBU": "72275"
+  },
+  "SAKETI": {
+    "PANDEGLANG": "42278"
+  },
+  "MEKARJAYA": {
+    "PANDEGLANG": "42279"
+  },
+  "SOBANG": {
+    "PANDEGLANG": "42280",
+    "LEBAK": "42315"
+  },
+  "PANIMBANG": {
+    "PANDEGLANG": "42281"
+  },
+  "CIGEULIS": {
+    "PANDEGLANG": "42282"
+  },
+  "SUMUR": {
+    "PANDEGLANG": "42283"
+  },
+  "CIMANGGU": {
+    "PANDEGLANG": "42284",
+    "SUKABUMI": "43178",
+    "CILACAP": "53256"
+  },
+  "CIBALIUNG": {
+    "PANDEGLANG": "42285"
+  },
+  "CIKEUSIK": {
+    "PANDEGLANG": "42286"
+  },
+  "KALANGANYAR": {
+    "LEBAK": "42311"
+  },
+  "RANGKASBITUNG": {
+    "LEBAK": "42311"
+  },
+  "LEBAKGEDONG": {
+    "LEBAK": "42351"
+  },
+  "WARUNGGUNUNG": {
+    "LEBAK": "42352"
+  },
+  "CILELES": {
+    "LEBAK": "42353"
+  },
+  "GUNUNGKENCANA (GUNUNG KENCANA)": {
+    "LEBAK": "42354"
+  },
+  "BANJARSARI": {
+    "LEBAK": "42355",
+    "CIAMIS": "46383",
+    "SURAKARTA": "57131"
+  },
+  "CIKULUR": {
+    "LEBAK": "42356"
+  },
+  "CIBADAK": {
+    "LEBAK": "42357",
+    "SUKABUMI": "43351"
+  },
+  "CIMARGA": {
+    "LEBAK": "42361"
+  },
+  "LEUWIDAMAR": {
+    "LEBAK": "42362"
+  },
+  "BOJONGMANIK": {
+    "LEBAK": "42363"
+  },
+  "MUNCANG": {
+    "LEBAK": "42364"
+  },
+  "CIRINTEN": {
+    "LEBAK": "42365"
+  },
+  "SAJIRA": {
+    "LEBAK": "42371"
+  },
+  "CIPANAS": {
+    "LEBAK": "42372",
+    "CIANJUR": "43253"
+  },
+  "CURUG BITUNG (CURUGBITUNG)": {
+    "LEBAK": "42381"
+  },
+  "MAJA": {
+    "LEBAK": "42382",
+    "MAJALENGKA": "45461"
+  },
+  "PANGGARANGAN": {
+    "LEBAK": "42390"
+  },
+  "MALINGPING": {
+    "LEBAK": "42391"
+  },
+  "CIHARA": {
+    "LEBAK": "42392"
+  },
+  "BAYAH": {
+    "LEBAK": "42393"
+  },
+  "CIBEBER": {
+    "LEBAK": "42394",
+    "CILEGON": "42422",
+    "CIANJUR": "43262"
+  },
+  "CIGEMLONG (CIGEMBLONG)": {
+    "LEBAK": "42395"
+  },
+  "WANASALAM": {
+    "LEBAK": "42396"
+  },
+  "CIJAKU": {
+    "LEBAK": "42397"
+  },
+  "CILOGRANG": {
+    "LEBAK": "42398"
+  },
+  "JOMBANG": {
+    "CILEGON": "42411",
+    "JOMBANG": "61411",
+    "JEMBER": "68168"
+  },
+  "CILEGON": {
+    "CILEGON": "42415"
+  },
+  "PULOMERAK": {
+    "CILEGON": "42431"
+  },
+  "GEROGOL": {
+    "CILEGON": "42436"
+  },
+  "CITANGKIL": {
+    "CILEGON": "42441"
+  },
+  "CIWANDAN": {
+    "CILEGON": "42441"
+  },
+  "WARINGINKURUNG (WARINGIN KURUNG)": {
+    "SERANG": "42453"
+  },
+  "BOJONEGARA": {
+    "SERANG": "42454"
+  },
+  "PULO AMPEL": {
+    "SERANG": "42455"
+  },
+  "CIKOLE": {
+    "SUKABUMI": "43111"
+  },
+  "GUNUNGPUYUH (GUNUNG PUYUH)": {
+    "SUKABUMI": "43121"
+  },
+  "WARUDOYONG": {
+    "SUKABUMI": "43131"
+  },
+  "CISAAT": {
+    "SUKABUMI": "43132"
+  },
+  "LEMBURSITU": {
+    "SUKABUMI": "43134"
+  },
+  "CITAMIANG": {
+    "SUKABUMI": "43141"
+  },
+  "CIBEUREUM": {
+    "SUKABUMI": "43142",
+    "KUNINGAN": "45588",
+    "TASIKMALAYA": "46196"
+  },
+  "KADUDAMPIT": {
+    "SUKABUMI": "43153"
+  },
+  "GEGERBITUNG (GEGER BITUNG)": {
+    "SUKABUMI": "43154"
+  },
+  "CICANTAYAN": {
+    "SUKABUMI": "43155"
+  },
+  "GUNUNGGURUH": {
+    "SUKABUMI": "43156"
+  },
+  "CIKEMBAR": {
+    "SUKABUMI": "43157"
+  },
+  "JAMPANGKULON (JAMPANG KULON)": {
+    "SUKABUMI": "43170"
+  },
+  "CENTRAL JAMPANG": {
+    "SUKABUMI": "43171"
+  },
+  "WALURAN": {
+    "SUKABUMI": "43175"
+  },
+  "CIRACAP": {
+    "SUKABUMI": "43176"
+  },
+  "CIEMAS": {
+    "SUKABUMI": "43177"
+  },
+  "SURADE": {
+    "SUKABUMI": "43179"
+  },
+  "SAGARANTEN": {
+    "SUKABUMI": "43181"
+  },
+  "CURUGKEMBAR": {
+    "SUKABUMI": "43182"
+  },
+  "CIDOLOG": {
+    "SUKABUMI": "43184",
+    "CIAMIS": "46352"
+  },
+  "KALIBUNDER": {
+    "SUKABUMI": "43185"
+  },
+  "TEGALBULEUD": {
+    "SUKABUMI": "43186"
+  },
+  "PURABAYA": {
+    "SUKABUMI": "43187"
+  },
+  "SUKALARANG": {
+    "SUKABUMI": "43191"
+  },
+  "CIREUNGHAS": {
+    "SUKABUMI": "43193"
+  },
+  "KEBONPEDES": {
+    "SUKABUMI": "43194"
+  },
+  "NYALINDUNG": {
+    "SUKABUMI": "43196"
+  },
+  "CIANJUR": {
+    "CIANJUR": "43215"
+  },
+  "CUGENANG": {
+    "CIANJUR": "43252"
+  },
+  "WARUNGKONDANG": {
+    "CIANJUR": "43260"
+  },
+  "GEKBRONG": {
+    "CIANJUR": "43261"
+  },
+  "SUKANAGARA": {
+    "CIANJUR": "43264"
+  },
+  "TAKOKAK": {
+    "CIANJUR": "43265"
+  },
+  "PASIRKUDA": {
+    "CIANJUR": "43266"
+  },
+  "TANGGEUNG": {
+    "CIANJUR": "43267"
+  },
+  "KADUPANDAK": {
+    "CIANJUR": "43268"
+  },
+  "CAMPAKAMULYA (CAMPAKA MULYA)": {
+    "CIANJUR": "43269"
+  },
+  "SINDANGBARANG": {
+    "CIANJUR": "43272"
+  },
+  "LELES": {
+    "CIANJUR": "43273",
+    "GARUT": "44119"
+  },
+  "NARINGGUL": {
+    "CIANJUR": "43274"
+  },
+  "CIDAUN": {
+    "CIANJUR": "43275"
+  },
+  "AGRABINTA": {
+    "CIANJUR": "43276"
+  },
+  "HAURWANGI": {
+    "CIANJUR": "43280"
+  },
+  "KARANGTENGAH": {
+    "CIANJUR": "43281",
+    "GARUT": "44184",
+    "WONOGIRI": "57677"
+  },
+  "CIRANJANG": {
+    "CIANJUR": "43282"
+  },
+  "BOJONGPICUNG": {
+    "CIANJUR": "43283"
+  },
+  "CIJATI": {
+    "CIANJUR": "43284"
+  },
+  "CILAKU": {
+    "CIANJUR": "43285"
+  },
+  "CIKADU": {
+    "CIANJUR": "43286"
+  },
+  "SUKALUYU": {
+    "CIANJUR": "43287"
+  },
+  "CIKALONGKULON": {
+    "CIANJUR": "43291"
+  },
+  "MANDE": {
+    "CIANJUR": "43292"
+  },
+  "NAGRAK": {
+    "SUKABUMI": "43352"
+  },
+  "BOJONGGENTENG (BOJONG GENTENG)": {
+    "SUKABUMI": "43353"
+  },
+  "KALAPANUNGGAL (KALAPA NUNGGAL)": {
+    "SUKABUMI": "43354"
+  },
+  "PARAKANSALAK (PARAKAN SALAK)": {
+    "SUKABUMI": "43355"
+  },
+  "CIAMBAR": {
+    "SUKABUMI": "43356"
+  },
+  "PARUNGKUDA (PARUNG KUDA)": {
+    "SUKABUMI": "43357"
+  },
+  "CIDAHU": {
+    "SUKABUMI": "43358",
+    "KUNINGAN": "45595"
+  },
+  "CICURUG": {
+    "SUKABUMI": "43359"
+  },
+  "SIMPENAN": {
+    "SUKABUMI": "43361"
+  },
+  "WARUNGKIARA": {
+    "SUKABUMI": "43362"
+  },
+  "BANTARGADUNG": {
+    "SUKABUMI": "43363"
+  },
+  "PALABUHANRATU (PELABUHANRATU)": {
+    "SUKABUMI": "43364"
+  },
+  "CIKAKAK": {
+    "SUKABUMI": "43365"
+  },
+  "CISOLOK": {
+    "SUKABUMI": "43366"
+  },
+  "CIKIDANG": {
+    "SUKABUMI": "43367"
+  },
+  "KABANDUNGAN": {
+    "SUKABUMI": "43368"
+  },
+  "GARUT KOTA": {
+    "GARUT": "44111"
+  },
+  "SUCINARAJA": {
+    "GARUT": "44115"
+  },
+  "CIGEDUG": {
+    "GARUT": "44116"
+  },
+  "TAROGONG KIDUL": {
+    "GARUT": "44150"
+  },
+  "TAROGONG KALER": {
+    "GARUT": "44151"
+  },
+  "KADUNGORA": {
+    "GARUT": "44153"
+  },
+  "MEKARMUKTI": {
+    "GARUT": "44155"
+  },
+  "SAMARANG": {
+    "GARUT": "44160"
+  },
+  "PASIRWANGI": {
+    "GARUT": "44161"
+  },
+  "BAYONGBONG": {
+    "GARUT": "44162"
+  },
+  "CISURUPAN": {
+    "GARUT": "44163"
+  },
+  "PAKENJENG": {
+    "GARUT": "44164"
+  },
+  "BUNGBULANG": {
+    "GARUT": "44165"
+  },
+  "TALEGONG": {
+    "GARUT": "44167"
+  },
+  "PAMULIHAN": {
+    "GARUT": "44168",
+    "SUMEDANG": "45365"
+  },
+  "CISEWU": {
+    "GARUT": "44169"
+  },
+  "SINGAJAYA": {
+    "GARUT": "44170"
+  },
+  "CIKAJANG": {
+    "GARUT": "44171"
+  },
+  "BANJARWANGI": {
+    "GARUT": "44172"
+  },
+  "CIHURIP": {
+    "GARUT": "44173"
+  },
+  "CISOMPET": {
+    "GARUT": "44174"
+  },
+  "CIBALONG": {
+    "GARUT": "44176",
+    "TASIKMALAYA": "46185"
+  },
+  "CIKELET": {
+    "GARUT": "44177"
+  },
+  "PEUNDEUY": {
+    "GARUT": "44178"
+  },
+  "SUKAWENING": {
+    "GARUT": "44179"
+  },
+  "WANARAJA": {
+    "GARUT": "44180"
+  },
+  "CILAWU": {
+    "GARUT": "44181"
+  },
+  "KARANGPAWITAN": {
+    "GARUT": "44182"
+  },
+  "PANGATIKAN": {
+    "GARUT": "44183"
+  },
+  "BLUBUR LIMBANGAN": {
+    "GARUT": "44186"
+  },
+  "SELAAWI": {
+    "GARUT": "44187"
+  },
+  "MALANGBONG": {
+    "GARUT": "44188"
+  },
+  "KERSAMANAH": {
+    "GARUT": "44189"
+  },
+  "BANYURESMI": {
+    "GARUT": "44191"
+  },
+  "LEUWIGOONG": {
+    "GARUT": "44192"
+  },
+  "CIBIUK": {
+    "GARUT": "44193"
+  },
+  "LEMAH WUNGKUK (LEMAHWUNGKUK)": {
+    "CIREBON": "45111"
+  },
+  "PEKALIPAN": {
+    "CIREBON": "45115"
+  },
+  "KEJAKSAN": {
+    "CIREBON": "45121"
+  },
+  "KESAMBI": {
+    "CIREBON": "45131"
+  },
+  "HARJAMUKTI": {
+    "CIREBON": "45141"
+  },
+  "SURANENGGALA": {
+    "CIREBON": "45150"
+  },
+  "NORTH GUNUNG JATI (CIREBON)": {
+    "CIREBON": "45151"
+  },
+  "KAPETAKAN": {
+    "CIREBON": "45152"
+  },
+  "KEDAWUNG": {
+    "CIREBON": "45153",
+    "SRAGEN": "57292"
+  },
+  "DEPOK": {
+    "CIREBON": "45155",
+    "SLEMAN": "55281"
+  },
+  "JAMBLANG": {
+    "CIREBON": "45156"
+  },
+  "KLANGENAN": {
+    "CIREBON": "45157"
+  },
+  "PLUMBON": {
+    "CIREBON": "45158"
+  },
+  "WERU": {
+    "CIREBON": "45159",
+    "SUKOHARJO": "57562"
+  },
+  "PALIMANAN": {
+    "CIREBON": "45160"
+  },
+  "GEMPOL": {
+    "CIREBON": "45161",
+    "PASURUAN": "67155"
+  },
+  "ARJAWINANGUN": {
+    "CIREBON": "45162"
+  },
+  "PANGURAGAN": {
+    "CIREBON": "45163"
+  },
+  "GEGESIK": {
+    "CIREBON": "45164"
+  },
+  "KALIWEDI": {
+    "CIREBON": "45165"
+  },
+  "SUSUKAN": {
+    "CIREBON": "45166",
+    "SEMARANG": "50777",
+    "BANJARNEGARA": "53475"
+  },
+  "CIWARINGIN": {
+    "CIREBON": "45167"
+  },
+  "TENGAH TANI": {
+    "CIREBON": "45168"
+  },
+  "GREGED (GREGET)": {
+    "CIREBON": "45170"
+  },
+  "SOUTH TALUN (CIREBON)": {
+    "CIREBON": "45171"
+  },
+  "BEBER": {
+    "CIREBON": "45172"
+  },
+  "MUNDU": {
+    "CIREBON": "45173"
+  },
+  "WALED": {
+    "CIREBON": "45180"
+  },
+  "ASTANAJAPURA": {
+    "CIREBON": "45181"
+  },
+  "PANGENAN": {
+    "CIREBON": "45182"
+  },
+  "KARANGWARENG": {
+    "CIREBON": "45184"
+  },
+  "SUSUKAN LEBAK": {
+    "CIREBON": "45185"
+  },
+  "KARANGSEMBUNG": {
+    "CIREBON": "45186"
+  },
+  "PASALEMAN": {
+    "CIREBON": "45187"
+  },
+  "SEDONG": {
+    "CIREBON": "45189"
+  },
+  "BABAKAN": {
+    "CIREBON": "45191"
+  },
+  "LOSARI": {
+    "CIREBON": "45192",
+    "BREBES": "52255"
+  },
+  "PABEDILAN": {
+    "CIREBON": "45193"
+  },
+  "INDRAMAYU": {
+    "INDRAMAYU": "45211"
+  },
+  "KANDANGHAUR": {
+    "INDRAMAYU": "45213"
+  },
+  "PASEKAN": {
+    "INDRAMAYU": "45213"
+  },
+  "BALONGAN": {
+    "INDRAMAYU": "45217"
+  },
+  "SINDANG": {
+    "INDRAMAYU": "45221",
+    "MAJALENGKA": "45471"
+  },
+  "LOHBENER": {
+    "INDRAMAYU": "45252"
+  },
+  "CANTIGI": {
+    "INDRAMAYU": "45253"
+  },
+  "LOSARANG": {
+    "INDRAMAYU": "45253"
+  },
+  "BONGAS": {
+    "INDRAMAYU": "45255"
+  },
+  "ANJATAN": {
+    "INDRAMAYU": "45256"
+  },
+  "PATROL": {
+    "INDRAMAYU": "45257"
+  },
+  "SUKRA": {
+    "INDRAMAYU": "45259"
+  },
+  "TRISI/TERISI": {
+    "INDRAMAYU": "45260"
+  },
+  "LELEA": {
+    "INDRAMAYU": "45261"
+  },
+  "CIKEDUNG": {
+    "INDRAMAYU": "45262"
+  },
+  "GABUSWETAN": {
+    "INDRAMAYU": "45263"
+  },
+  "GANTAR": {
+    "INDRAMAYU": "45264"
+  },
+  "KROYA": {
+    "INDRAMAYU": "45265",
+    "CILACAP": "53282"
+  },
+  "HAURGEULIS": {
+    "INDRAMAYU": "45266"
+  },
+  "ARAHAN": {
+    "INDRAMAYU": "45267"
+  },
+  "TUKDANA": {
+    "INDRAMAYU": "45270"
+  },
+  "WIDASARI": {
+    "INDRAMAYU": "45271"
+  },
+  "BANGODUA": {
+    "INDRAMAYU": "45272"
+  },
+  "JATIBARANG": {
+    "INDRAMAYU": "45273",
+    "BREBES": "52261"
+  },
+  "KERTASEMAYA": {
+    "INDRAMAYU": "45274"
+  },
+  "SUKAGUMIWANG": {
+    "INDRAMAYU": "45275"
+  },
+  "KEDOKAN BUNDER": {
+    "INDRAMAYU": "45280"
+  },
+  "SLIYEG": {
+    "INDRAMAYU": "45281"
+  },
+  "JUNTINYUAT": {
+    "INDRAMAYU": "45282"
+  },
+  "KARANGAMPEL": {
+    "INDRAMAYU": "45283"
+  },
+  "KRANGKENG": {
+    "INDRAMAYU": "45284"
+  },
+  "SOUTH SUMEDANG": {
+    "SUMEDANG": "45311"
+  },
+  "NORTH SUMEDANG": {
+    "SUMEDANG": "45321"
+  },
+  "TANJUNGMEDAR": {
+    "SUMEDANG": "45352"
+  },
+  "CIMALAKA": {
+    "SUMEDANG": "45353"
+  },
+  "TANJUNGKERTA": {
+    "SUMEDANG": "45354"
+  },
+  "GANEAS": {
+    "SUMEDANG": "45356"
+  },
+  "JATINANGOR": {
+    "SUMEDANG": "45360"
+  },
+  "RANCAKALONG": {
+    "SUMEDANG": "45361"
+  },
+  "CISITU": {
+    "SUMEDANG": "45363"
+  },
+  "CIMANGGUNG": {
+    "SUMEDANG": "45364"
+  },
+  "SITURAJA": {
+    "SUMEDANG": "45371"
+  },
+  "DARMARAJA": {
+    "SUMEDANG": "45372"
+  },
+  "WADO": {
+    "SUMEDANG": "45373"
+  },
+  "CIBUGEL": {
+    "SUMEDANG": "45375"
+  },
+  "JATINUNGGAL": {
+    "SUMEDANG": "45376"
+  },
+  "JATIGEDE": {
+    "SUMEDANG": "45377"
+  },
+  "TOMO": {
+    "SUMEDANG": "45382"
+  },
+  "UJUNGJAYA": {
+    "SUMEDANG": "45383"
+  },
+  "CONGGEANG": {
+    "SUMEDANG": "45391"
+  },
+  "BUAHDUA": {
+    "SUMEDANG": "45392"
+  },
+  "SURIAN": {
+    "SUMEDANG": "45393"
+  },
+  "MAJALENGKA": {
+    "MAJALENGKA": "45411"
+  },
+  "KASOKANDEL": {
+    "MAJALENGKA": "45451"
+  },
+  "KADIPATEN": {
+    "MAJALENGKA": "45452",
+    "TASIKMALAYA": "46157"
+  },
+  "JATIWANGI": {
+    "MAJALENGKA": "45454"
+  },
+  "SUMBERJAYA": {
+    "MAJALENGKA": "45455"
+  },
+  "LIGUNG": {
+    "MAJALENGKA": "45456"
+  },
+  "KERTAJATI": {
+    "MAJALENGKA": "45457"
+  },
+  "JATITUJUH": {
+    "MAJALENGKA": "45458"
+  },
+  "PANYINGKIRAN": {
+    "MAJALENGKA": "45459"
+  },
+  "MALAUSMA": {
+    "MAJALENGKA": "45460"
+  },
+  "ARGAPURA": {
+    "MAJALENGKA": "45462"
+  },
+  "TALAGA": {
+    "MAJALENGKA": "45463"
+  },
+  "BANTARUJEG": {
+    "MAJALENGKA": "45464"
+  },
+  "LEMAHSUGIH": {
+    "MAJALENGKA": "45465"
+  },
+  "CIKIJING": {
+    "MAJALENGKA": "45466"
+  },
+  "CINGAMBUL": {
+    "MAJALENGKA": "45467"
+  },
+  "SUKAHAJI": {
+    "MAJALENGKA": "45470"
+  },
+  "RAJAGALUH": {
+    "MAJALENGKA": "45472"
+  },
+  "LEUWIMUNDING": {
+    "MAJALENGKA": "45473"
+  },
+  "SINDANGWANGI": {
+    "MAJALENGKA": "45474"
+  },
+  "PALASAH": {
+    "MAJALENGKA": "45475"
+  },
+  "CIGASONG": {
+    "MAJALENGKA": "45476"
+  },
+  "KUNINGAN": {
+    "KUNINGAN": "45511"
+  },
+  "CILIMUS": {
+    "KUNINGAN": "45551"
+  },
+  "CIGUGUR": {
+    "KUNINGAN": "45552",
+    "PANGANDARAN": "46392"
+  },
+  "JALAKSANA": {
+    "KUNINGAN": "45553"
+  },
+  "KRAMATMULYA (KRAMAT MULYA)": {
+    "KUNINGAN": "45553"
+  },
+  "JAPARA": {
+    "KUNINGAN": "45555"
+  },
+  "CIGANDAMEKAR": {
+    "KUNINGAN": "45556"
+  },
+  "PANCALANG": {
+    "KUNINGAN": "45557"
+  },
+  "MANDIRANCAN": {
+    "KUNINGAN": "45558"
+  },
+  "KADUGEDE": {
+    "KUNINGAN": "45561"
+  },
+  "DARMA": {
+    "KUNINGAN": "45562"
+  },
+  "NUSAHERANG": {
+    "KUNINGAN": "45563"
+  },
+  "HANTARA": {
+    "KUNINGAN": "45564"
+  },
+  "CINIRU": {
+    "KUNINGAN": "45565"
+  },
+  "SELAJAMBE": {
+    "KUNINGAN": "45566"
+  },
+  "GARAWANGI": {
+    "KUNINGAN": "45571"
+  },
+  "SINDANG AGUNG (SINDANGAGUNG)": {
+    "KUNINGAN": "45573"
+  },
+  "LEBAKWANGI": {
+    "KUNINGAN": "45574"
+  },
+  "MALEBER": {
+    "KUNINGAN": "45574"
+  },
+  "CIPICUNG": {
+    "KUNINGAN": "45576"
+  },
+  "LURAGUNG": {
+    "KUNINGAN": "45581"
+  },
+  "CIMAHI": {
+    "KUNINGAN": "45582"
+  },
+  "CIWARU": {
+    "KUNINGAN": "45583"
+  },
+  "KARANG KANCANA (KARANGKANCANA)": {
+    "KUNINGAN": "45584"
+  },
+  "CILEBAK": {
+    "KUNINGAN": "45585"
+  },
+  "CIBINGBIN": {
+    "KUNINGAN": "45587"
+  },
+  "CIAWIGEBANG": {
+    "KUNINGAN": "45591"
+  },
+  "KALIMANGGIS": {
+    "KUNINGAN": "45594"
+  },
+  "SUMBER": {
+    "CIREBON": "45611",
+    "REMBANG": "59253",
+    "PROBOLINGGO": "67263"
+  },
+  "DUKUPUNTANG": {
+    "CIREBON": "45652"
+  },
+  "TAWANG": {
+    "TASIKMALAYA": "46111"
+  },
+  "CIHIDEUNG": {
+    "TASIKMALAYA": "46121"
+  },
+  "CIPEDES": {
+    "TASIKMALAYA": "46131"
+  },
+  "INDIHIANG": {
+    "TASIKMALAYA": "46151"
+  },
+  "CISAYONG": {
+    "TASIKMALAYA": "46153"
+  },
+  "RAJAPOLAH": {
+    "TASIKMALAYA": "46155"
+  },
+  "SUKAHENING": {
+    "TASIKMALAYA": "46155"
+  },
+  "PAGERAGEUNG": {
+    "TASIKMALAYA": "46158"
+  },
+  "BANTARKALONG": {
+    "TASIKMALAYA": "46168"
+  },
+  "JAMANIS": {
+    "TASIKMALAYA": "46175"
+  },
+  "JATIWARAS": {
+    "TASIKMALAYA": "46180"
+  },
+  "MANGKUBUMI": {
+    "TASIKMALAYA": "46181"
+  },
+  "KAWALU": {
+    "TASIKMALAYA": "46182"
+  },
+  "TANJUNGJAYA": {
+    "TASIKMALAYA": "46184"
+  },
+  "KARANGNUNGGAL": {
+    "TASIKMALAYA": "46186"
+  },
+  "CIPATUJAH": {
+    "TASIKMALAYA": "46187"
+  },
+  "CULAMEGA": {
+    "TASIKMALAYA": "46188"
+  },
+  "PARUNGPONTENG": {
+    "TASIKMALAYA": "46189"
+  },
+  "PURBARATU": {
+    "TASIKMALAYA": "46190"
+  },
+  "SALOPA": {
+    "TASIKMALAYA": "46192"
+  },
+  "CIKATOMAS": {
+    "TASIKMALAYA": "46193"
+  },
+  "PANCATENGAH": {
+    "TASIKMALAYA": "46194"
+  },
+  "CIKALONG": {
+    "TASIKMALAYA": "46195"
+  },
+  "MANONJAYA": {
+    "TASIKMALAYA": "46197"
+  },
+  "CINEAM": {
+    "TASIKMALAYA": "46198"
+  },
+  "CIAMIS": {
+    "CIAMIS": "46211"
+  },
+  "CIPAKU": {
+    "CIAMIS": "46252"
+  },
+  "KAWALI": {
+    "CIAMIS": "46253"
+  },
+  "RAJADESA": {
+    "CIAMIS": "46254"
+  },
+  "PANAWANGAN": {
+    "CIAMIS": "46255"
+  },
+  "SADANANYA": {
+    "CIAMIS": "46256"
+  },
+  "LUMBUNG": {
+    "CIAMIS": "46258"
+  },
+  "CIKONENG": {
+    "CIAMIS": "46261"
+  },
+  "CIHAURBEUTI": {
+    "CIAMIS": "46262"
+  },
+  "PANUMBANGAN": {
+    "CIAMIS": "46263"
+  },
+  "PANJALU": {
+    "CIAMIS": "46264"
+  },
+  "SUKAMANTRI": {
+    "CIAMIS": "46265"
+  },
+  "PADAHERANG": {
+    "PANGANDARAN": "46267"
+  },
+  "SINDANGKASIH": {
+    "CIAMIS": "46268"
+  },
+  "CIJEUNGJING": {
+    "CIAMIS": "46271"
+  },
+  "JATINAGARA": {
+    "CIAMIS": "46273"
+  },
+  "BAREGBEG": {
+    "CIAMIS": "46274"
+  },
+  "PATARUMAN": {
+    "BANJAR": "46316"
+  },
+  "LANGENSARI": {
+    "BANJAR": "46324"
+  },
+  "PURWAHARJA": {
+    "BANJAR": "46331"
+  },
+  "PAMARICAN": {
+    "CIAMIS": "46361"
+  },
+  "SIDAMULIH": {
+    "PANGANDARAN": "46365"
+  },
+  "MANGUNJAYA": {
+    "PANGANDARAN": "46371"
+  },
+  "CIMARAGAS": {
+    "CIAMIS": "46381"
+  },
+  "BANJARANYAR": {
+    "CIAMIS": "46384"
+  },
+  "LAKBOK": {
+    "CIAMIS": "46385"
+  },
+  "CISAGA": {
+    "CIAMIS": "46386"
+  },
+  "RANCAH": {
+    "CIAMIS": "46387"
+  },
+  "TAMBAKSARI": {
+    "CIAMIS": "46388",
+    "SURABAYA": "60131"
+  },
+  "LANGKAPLANCAR": {
+    "PANGANDARAN": "46391"
+  },
+  "PARIGI": {
+    "PANGANDARAN": "46393",
+    "GOWA": "92174",
+    "MUNA": "93667",
+    "PARIGI MOUTONG": "94471"
+  },
+  "CIJULANG": {
+    "PANGANDARAN": "46394"
+  },
+  "CIMERAK": {
+    "PANGANDARAN": "46395"
+  },
+  "PANGANDARAN": {
+    "PANGANDARAN": "46396"
+  },
+  "KALIPUCANG": {
+    "PANGANDARAN": "46397"
+  },
+  "SINGAPARNA": {
+    "TASIKMALAYA": "46411"
+  },
+  "SUKARATU": {
+    "TASIKMALAYA": "46415"
+  },
+  "GUNUNG TANJUNG": {
+    "TASIKMALAYA": "46418"
+  },
+  "SUKARESIK": {
+    "TASIKMALAYA": "46419"
+  },
+  "MANGUNREJA": {
+    "TASIKMALAYA": "46462"
+  },
+  "CIGALONTANG": {
+    "TASIKMALAYA": "46463"
+  },
+  "LEUWISARI": {
+    "TASIKMALAYA": "46464"
+  },
+  "SARIWANGI": {
+    "TASIKMALAYA": "46465"
+  },
+  "PADAKEMBANG": {
+    "TASIKMALAYA": "46466"
+  },
+  "PUSPAHIANG": {
+    "TASIKMALAYA": "46471"
+  },
+  "SALAWU": {
+    "TASIKMALAYA": "46472"
+  },
+  "SODONGHILIR": {
+    "TASIKMALAYA": "46473"
+  },
+  "TARAJU": {
+    "TASIKMALAYA": "46474"
+  },
+  "BOJONGASIH": {
+    "TASIKMALAYA": "46475"
+  },
+  "BOJONGGAMBIR": {
+    "TASIKMALAYA": "46476"
+  },
+  "GENUK": {
+    "SEMARANG": "50111"
+  },
+  "PEDURUNGAN": {
+    "SEMARANG": "50113"
+  },
+  "EAST SEMARANG": {
+    "SEMARANG": "50122"
+  },
+  "SUMOWONO": {
+    "SEMARANG": "50123"
+  },
+  "BANCAK": {
+    "SEMARANG": "50125"
+  },
+  "CENTRAL SEMARANG": {
+    "SEMARANG": "50131"
+  },
+  "TUNTANG": {
+    "SEMARANG": "50131"
+  },
+  "WEST SEMARANG": {
+    "SEMARANG": "50141"
+  },
+  "TUGU": {
+    "SEMARANG": "50151",
+    "TRENGGALEK": "66318"
+  },
+  "GAYAMSARI": {
+    "SEMARANG": "50162"
+  },
+  "NORTH SEMARANG": {
+    "SEMARANG": "50171"
+  },
+  "NGALIYAN": {
+    "SEMARANG": "50181"
+  },
+  "SURUH": {
+    "SEMARANG": "50186",
+    "TRENGGALEK": "66360"
+  },
+  "BERGAS": {
+    "SEMARANG": "50187"
+  },
+  "MIJEN": {
+    "SEMARANG": "50211",
+    "DEMAK": "59584"
+  },
+  "PRINGAPUS": {
+    "SEMARANG": "50212"
+  },
+  "BRINGIN": {
+    "SEMARANG": "50218",
+    "NGAWI": "63285"
+  },
+  "GUNUNGPATI": {
+    "SEMARANG": "50221"
+  },
+  "KALIWUNGU": {
+    "SEMARANG": "50221",
+    "KENDAL": "51372",
+    "KUDUS": "59332"
+  },
+  "TENGARAN": {
+    "SEMARANG": "50225"
+  },
+  "GAJAHMUNGKUR (GAJAH MUNGKUR)": {
+    "SEMARANG": "50231"
+  },
+  "SOUTH SEMARANG": {
+    "SEMARANG": "50241"
+  },
+  "CANDISARI": {
+    "SEMARANG": "50252"
+  },
+  "BANYUMANIK": {
+    "SEMARANG": "50261"
+  },
+  "JAMBU": {
+    "SEMARANG": "50271"
+  },
+  "TEMBALANG": {
+    "SEMARANG": "50271"
+  },
+  "WEST UNGARAN": {
+    "SEMARANG": "50511"
+  },
+  "EAST UNGARAN": {
+    "SEMARANG": "50514"
+  },
+  "BANDUNGAN": {
+    "SEMARANG": "50614"
+  },
+  "BAWEN": {
+    "SEMARANG": "50661"
+  },
+  "BANYUBIRU": {
+    "SEMARANG": "50664"
+  },
+  "SIDOREJO": {
+    "SALATIGA": "50711",
+    "MAGETAN": "63319"
+  },
+  "SIDOMUKTI": {
+    "SALATIGA": "50721"
+  },
+  "ARGOMULYO": {
+    "SALATIGA": "50732"
+  },
+  "TINGKIR": {
+    "SALATIGA": "50741"
+  },
+  "PABELAN": {
+    "SEMARANG": "50771"
+  },
+  "GETASAN": {
+    "SEMARANG": "50774"
+  },
+  "WEST PEKALONGAN": {
+    "PEKALONGAN": "51111"
+  },
+  "EAST PEKALONGAN": {
+    "PEKALONGAN": "51122"
+  },
+  "WIRADESA": {
+    "PEKALONGAN": "51127"
+  },
+  "SOUTH PEKALONGAN": {
+    "PEKALONGAN": "51132"
+  },
+  "SIWALAN": {
+    "PEKALONGAN": "51137"
+  },
+  "NORTH PEKALONGAN": {
+    "PEKALONGAN": "51141"
+  },
+  "TIRTO": {
+    "PEKALONGAN": "51151"
+  },
+  "WONOKERTO": {
+    "PEKALONGAN": "51153"
+  },
+  "KAJEN": {
+    "PEKALONGAN": "51161"
+  },
+  "KESESI": {
+    "PEKALONGAN": "51162"
+  },
+  "KANDANGSERANG": {
+    "PEKALONGAN": "51163"
+  },
+  "PANINGGARAN": {
+    "PEKALONGAN": "51164"
+  },
+  "BUARAN": {
+    "PEKALONGAN": "51171"
+  },
+  "KEDUNGWUNI": {
+    "PEKALONGAN": "51173"
+  },
+  "KARANGDADAP": {
+    "PEKALONGAN": "51174"
+  },
+  "WONOPRINGGO": {
+    "PEKALONGAN": "51181"
+  },
+  "KARANGANYAR": {
+    "PEKALONGAN": "51182",
+    "PURBALINGGA": "53354",
+    "KEBUMEN": "54364",
+    "KARANGANYAR": "57711",
+    "DEMAK": "59582",
+    "NGAWI": "63257"
+  },
+  "LEBAKBARANG": {
+    "PEKALONGAN": "51183"
+  },
+  "DORO": {
+    "PEKALONGAN": "51191"
+  },
+  "TALUN": {
+    "PEKALONGAN": "51192",
+    "BLITAR": "66183"
+  },
+  "PETUNGKRIONO/PETUNGKRIYONO": {
+    "PEKALONGAN": "51193"
+  },
+  "BATANG": {
+    "BATANG": "51211",
+    "JENEPONTO": "92360"
+  },
+  "WARUNGASEM": {
+    "BATANG": "51252"
+  },
+  "WONOTUNGGAL": {
+    "BATANG": "51253"
+  },
+  "TULIS": {
+    "BATANG": "51254"
+  },
+  "BLADO": {
+    "BATANG": "51255"
+  },
+  "KANDEMAN": {
+    "BATANG": "51261"
+  },
+  "PECALUNGAN": {
+    "BATANG": "51262"
+  },
+  "SUBAH": {
+    "BATANG": "51263",
+    "SAMBAS": "79417"
+  },
+  "BANYUPUTIH": {
+    "BATANG": "51271",
+    "SITUBONDO": "68374"
+  },
+  "LIMPUNG": {
+    "BATANG": "51271"
+  },
+  "TERSONO": {
+    "BATANG": "51272"
+  },
+  "REBAN": {
+    "BATANG": "51273"
+  },
+  "BAWANG": {
+    "BATANG": "51274",
+    "BANJARNEGARA": "53471"
+  },
+  "GRINGSING": {
+    "BATANG": "51281"
+  },
+  "KENDAL": {
+    "KENDAL": "51311",
+    "NGAWI": "63261"
+  },
+  "ROWOSARI": {
+    "KENDAL": "51319"
+  },
+  "PATEBON": {
+    "KENDAL": "51351"
+  },
+  "CEPIRING": {
+    "KENDAL": "51352"
+  },
+  "KANGKUNG": {
+    "KENDAL": "51353"
+  },
+  "WELERI": {
+    "KENDAL": "51355"
+  },
+  "GEMUH": {
+    "KENDAL": "51356"
+  },
+  "NGAMPEL": {
+    "KENDAL": "51357"
+  },
+  "PEGANDON": {
+    "KENDAL": "51358"
+  },
+  "RINGINARUM": {
+    "KENDAL": "51359"
+  },
+  "PAGERUYUNG (PAGERRUYUNG)": {
+    "KENDAL": "51361"
+  },
+  "PLANTUNGAN": {
+    "KENDAL": "51362"
+  },
+  "SUKOREJO": {
+    "KENDAL": "51363",
+    "PONOROGO": "63453",
+    "BLITAR": "66121",
+    "PASURUAN": "67161"
+  },
+  "PATEAN": {
+    "KENDAL": "51364"
+  },
+  "BRANGSONG": {
+    "KENDAL": "51371"
+  },
+  "SOUTH KALIWUNGU": {
+    "KENDAL": "51372"
+  },
+  "BOJA": {
+    "KENDAL": "51381"
+  },
+  "SINGOROJO": {
+    "KENDAL": "51382"
+  },
+  "LIMBANGAN": {
+    "KENDAL": "51383"
+  },
+  "WEST TEGAL": {
+    "TEGAL": "52111"
+  },
+  "ADIWERNA": {
+    "TEGAL": "52121"
+  },
+  "EAST TEGAL": {
+    "TEGAL": "52121"
+  },
+  "SOUTH TEGAL": {
+    "TEGAL": "52131"
+  },
+  "MARGADANA": {
+    "TEGAL": "52141"
+  },
+  "KRAMAT": {
+    "TEGAL": "52181"
+  },
+  "SURADADI (SURODADI)": {
+    "TEGAL": "52182"
+  },
+  "WARUREJA (WARUREJO)": {
+    "TEGAL": "52183"
+  },
+  "TARUB": {
+    "TEGAL": "52184"
+  },
+  "DUKUHTURI": {
+    "TEGAL": "52192"
+  },
+  "TALANG": {
+    "TEGAL": "52193"
+  },
+  "BREBES": {
+    "BREBES": "52211"
+  },
+  "WANASARI": {
+    "BREBES": "52221"
+  },
+  "BULAKAMBA": {
+    "BREBES": "52253"
+  },
+  "TANJUNG": {
+    "BREBES": "52254",
+    "TABALONG": "71512",
+    "NORTH LOMBOK": "83350"
+  },
+  "KETANGGUNGAN": {
+    "BREBES": "52263"
+  },
+  "KERSANA": {
+    "BREBES": "52264"
+  },
+  "BANJARHARJO": {
+    "BREBES": "52265"
+  },
+  "SONGGOM": {
+    "BREBES": "52266"
+  },
+  "TONJONG": {
+    "BREBES": "52271"
+  },
+  "SIRAMPOG": {
+    "BREBES": "52272"
+  },
+  "BUMIAYU": {
+    "BREBES": "52273"
+  },
+  "BANTARKAWUNG": {
+    "BREBES": "52274"
+  },
+  "SALEM": {
+    "BREBES": "52275"
+  },
+  "PAGUYANGAN": {
+    "BREBES": "52276"
+  },
+  "PEMALANG": {
+    "PEMALANG": "52311"
+  },
+  "BANTARBOLANG": {
+    "PEMALANG": "52352"
+  },
+  "RANDUDONGKAL": {
+    "PEMALANG": "52353"
+  },
+  "MOGA": {
+    "PEMALANG": "52354"
+  },
+  "BELIK": {
+    "PEMALANG": "52356"
+  },
+  "WATUKUMPUL": {
+    "PEMALANG": "52357"
+  },
+  "WARUNGPRING": {
+    "PEMALANG": "52358"
+  },
+  "TAMAN": {
+    "PEMALANG": "52361",
+    "SIDOARJO": "61212",
+    "MADIUN": "63131"
+  },
+  "PETARUKAN": {
+    "PEMALANG": "52362"
+  },
+  "COMAL": {
+    "PEMALANG": "52363"
+  },
+  "AMPELGADING": {
+    "PEMALANG": "52364",
+    "MALANG": "65183"
+  },
+  "BODEH": {
+    "PEMALANG": "52365"
+  },
+  "ULUJAMI": {
+    "PEMALANG": "52371"
+  },
+  "SLAWI": {
+    "TEGAL": "52411"
+  },
+  "DUKUHWARU": {
+    "TEGAL": "52451"
+  },
+  "LEBAKSIU": {
+    "TEGAL": "52461"
+  },
+  "PAGERBARANG": {
+    "TEGAL": "52462"
+  },
+  "MARGASARI": {
+    "TEGAL": "52463"
+  },
+  "BALAPULANG": {
+    "TEGAL": "52464"
+  },
+  "BUMIJAWA": {
+    "TEGAL": "52466"
+  },
+  "PANGKAH": {
+    "TEGAL": "52471"
+  },
+  "KEDUNGBANTENG (KEDUNG BANTENG)": {
+    "TEGAL": "52472",
+    "BANYUMAS": "53152"
+  },
+  "EAST PURWOKERTO": {
+    "BANYUMAS": "53111"
+  },
+  "NORTH PURWOKERTO": {
+    "BANYUMAS": "53121"
+  },
+  "BATURRADEN (BATURADEN)": {
+    "BANYUMAS": "53126"
+  },
+  "WEST PURWOKERTO": {
+    "BANYUMAS": "53131"
+  },
+  "SOUTH PURWOKERTO": {
+    "BANYUMAS": "53141"
+  },
+  "KARANGLEWAS": {
+    "BANYUMAS": "53161"
+  },
+  "CILONGOK": {
+    "BANYUMAS": "53162"
+  },
+  "AJIBARANG": {
+    "BANYUMAS": "53163"
+  },
+  "PEKUNCEN": {
+    "BANYUMAS": "53164"
+  },
+  "GUMELAR": {
+    "BANYUMAS": "53165"
+  },
+  "PATIKRAJA": {
+    "BANYUMAS": "53171"
+  },
+  "KEBASEN": {
+    "BANYUMAS": "53172"
+  },
+  "RAWALO": {
+    "BANYUMAS": "53173"
+  },
+  "JATILAWANG": {
+    "BANYUMAS": "53174"
+  },
+  "PURWOJATI": {
+    "BANYUMAS": "53175"
+  },
+  "WANGON": {
+    "BANYUMAS": "53176"
+  },
+  "LUMBIR": {
+    "BANYUMAS": "53177"
+  },
+  "SOKARAJA": {
+    "BANYUMAS": "53181"
+  },
+  "KEMBARAN": {
+    "BANYUMAS": "53182"
+  },
+  "SUMBANG": {
+    "BANYUMAS": "53183"
+  },
+  "KALIBAGOR": {
+    "BANYUMAS": "53191"
+  },
+  "SOMAGEDE": {
+    "BANYUMAS": "53193"
+  },
+  "KEMRANJEN": {
+    "BANYUMAS": "53194"
+  },
+  "SUMPIUH": {
+    "BANYUMAS": "53195"
+  },
+  "TAMBAK": {
+    "BANYUMAS": "53196",
+    "GRESIK": "61182"
+  },
+  "SOUTH CILACAP": {
+    "CILACAP": "53211"
+  },
+  "CENTRAL CILACAP": {
+    "CILACAP": "53221"
+  },
+  "WANAREJA": {
+    "CILACAP": "53222"
+  },
+  "NORTH CILACAP": {
+    "CILACAP": "53231"
+  },
+  "KAWUNGANTEN": {
+    "CILACAP": "53251"
+  },
+  "JERUKLEGI": {
+    "CILACAP": "53252"
+  },
+  "KAMPUNG LAUT": {
+    "CILACAP": "53253"
+  },
+  "GANDRUNGMANGU": {
+    "CILACAP": "53254"
+  },
+  "KARANGPUCUNG": {
+    "CILACAP": "53255"
+  },
+  "MAJENANG": {
+    "CILACAP": "53257"
+  },
+  "SIDAREJA": {
+    "CILACAP": "53261"
+  },
+  "CIPARI": {
+    "CILACAP": "53262"
+  },
+  "KEDUNGREJA": {
+    "CILACAP": "53263"
+  },
+  "PATIMUAN": {
+    "CILACAP": "53264"
+  },
+  "DAYEUHLUHUR": {
+    "CILACAP": "53266"
+  },
+  "ADIPALA": {
+    "CILACAP": "53271"
+  },
+  "MAOS": {
+    "CILACAP": "53272"
+  },
+  "SAMPANG": {
+    "CILACAP": "53273",
+    "SAMPANG": "69212"
+  },
+  "KESUGIHAN": {
+    "CILACAP": "53274"
+  },
+  "BINANGUN": {
+    "CILACAP": "53280",
+    "BLITAR": "66193"
+  },
+  "BANTARSARI": {
+    "CILACAP": "53281"
+  },
+  "NUSAWUNGU": {
+    "CILACAP": "53283"
+  },
+  "PURBALINGGA": {
+    "PURBALINGGA": "53311"
+  },
+  "KEJOBONG": {
+    "PURBALINGGA": "53314"
+  },
+  "KALIMANAH": {
+    "PURBALINGGA": "53321"
+  },
+  "KALIGONDANG": {
+    "PURBALINGGA": "53331"
+  },
+  "KERTANEGARA": {
+    "PURBALINGGA": "53351"
+  },
+  "MREBET": {
+    "PURBALINGGA": "53352"
+  },
+  "BOBOTSARI": {
+    "PURBALINGGA": "53353"
+  },
+  "KARANGMONCOL": {
+    "PURBALINGGA": "53355"
+  },
+  "REMBANG": {
+    "PURBALINGGA": "53356",
+    "REMBANG": "59211",
+    "PASURUAN": "67152"
+  },
+  "KARANGJAMBU": {
+    "PURBALINGGA": "53357"
+  },
+  "KARANGREJA": {
+    "PURBALINGGA": "53358"
+  },
+  "KUTASARI": {
+    "PURBALINGGA": "53361"
+  },
+  "PADAMARA": {
+    "PURBALINGGA": "53372"
+  },
+  "KEMANGKON": {
+    "PURBALINGGA": "53381"
+  },
+  "BUKATEJA": {
+    "PURBALINGGA": "53382"
+  },
+  "PENGADEGAN": {
+    "PURBALINGGA": "53393"
+  },
+  "BANJARNEGARA": {
+    "BANJARNEGARA": "53411"
+  },
+  "PAGEDONGAN": {
+    "BANJARNEGARA": "53418"
+  },
+  "BANJARMANGU": {
+    "BANJARNEGARA": "53452"
+  },
+  "KARANGKOBAR": {
+    "BANJARNEGARA": "53453"
+  },
+  "PEJAWARAN": {
+    "BANJARNEGARA": "53454"
+  },
+  "PAGENTAN": {
+    "BANJARNEGARA": "53455"
+  },
+  "BATUR": {
+    "BANJARNEGARA": "53456"
+  },
+  "KALIBENING": {
+    "BANJARNEGARA": "53458"
+  },
+  "PANDANARUM": {
+    "BANJARNEGARA": "53459"
+  },
+  "WANADADI (WONODADI)": {
+    "BANJARNEGARA": "53461"
+  },
+  "PUNGGELAN": {
+    "BANJARNEGARA": "53462"
+  },
+  "RAKIT": {
+    "BANJARNEGARA": "53463"
+  },
+  "PURWANEGARA (PURWONEGORO)": {
+    "BANJARNEGARA": "53472"
+  },
+  "MANDIRAJA": {
+    "BANJARNEGARA": "53473"
+  },
+  "PURWOREJA KLAMPOK (PURWOREJO KLAMPOK)": {
+    "BANJARNEGARA": "53474"
+  },
+  "SIGALUH": {
+    "BANJARNEGARA": "53481"
+  },
+  "MADUKARA": {
+    "BANJARNEGARA": "53482"
+  },
+  "PURWOREJO": {
+    "PURWOREJO": "54112",
+    "PASURUAN": "67111"
+  },
+  "BUTUH": {
+    "PURWOREJO": "54116"
+  },
+  "BANYUURIP": {
+    "PURWOREJO": "54171"
+  },
+  "NGOMBOL": {
+    "PURWOREJO": "54172"
+  },
+  "BAGELEN": {
+    "PURWOREJO": "54174"
+  },
+  "KALIGESING": {
+    "PURWOREJO": "54175"
+  },
+  "LOANO": {
+    "PURWOREJO": "54181"
+  },
+  "BENER": {
+    "PURWOREJO": "54183"
+  },
+  "KUTOARJO": {
+    "PURWOREJO": "54211"
+  },
+  "BAYAN": {
+    "PURWOREJO": "54222",
+    "NORTH LOMBOK": "83354"
+  },
+  "BRUNO": {
+    "PURWOREJO": "54261"
+  },
+  "PITURUH": {
+    "PURWOREJO": "54263"
+  },
+  "GRABAG": {
+    "PURWOREJO": "54265",
+    "MAGELANG": "56196"
+  },
+  "KEBUMEN": {
+    "KEBUMEN": "54311"
+  },
+  "ALIAN/ALIYAN": {
+    "KEBUMEN": "54352"
+  },
+  "KARANGSAMBUNG": {
+    "KEBUMEN": "54353"
+  },
+  "SADANG": {
+    "KEBUMEN": "54354"
+  },
+  "PEJAGOAN": {
+    "KEBUMEN": "54361"
+  },
+  "SRUWENG": {
+    "KEBUMEN": "54362"
+  },
+  "ADIMULYO": {
+    "KEBUMEN": "54363"
+  },
+  "KARANGGAYAM": {
+    "KEBUMEN": "54365"
+  },
+  "KUWARASAN": {
+    "KEBUMEN": "54366"
+  },
+  "KLIRONG": {
+    "KEBUMEN": "54381"
+  },
+  "PETANAHAN": {
+    "KEBUMEN": "54382"
+  },
+  "PURING": {
+    "KEBUMEN": "54383"
+  },
+  "PONCOWARNO": {
+    "KEBUMEN": "54390"
+  },
+  "BULUSPESANTREN": {
+    "KEBUMEN": "54391"
+  },
+  "AMBAL": {
+    "KEBUMEN": "54392"
+  },
+  "KUTOWINANGUN": {
+    "KEBUMEN": "54393"
+  },
+  "PADURESO": {
+    "KEBUMEN": "54394"
+  },
+  "BONOROWO": {
+    "KEBUMEN": "54395"
+  },
+  "MIRIT": {
+    "KEBUMEN": "54396"
+  },
+  "PREMBUN": {
+    "KEBUMEN": "54397"
+  },
+  "GOMBONG": {
+    "KEBUMEN": "54411"
+  },
+  "SEMPOR": {
+    "KEBUMEN": "54421"
+  },
+  "ROWOKELE": {
+    "KEBUMEN": "54472"
+  },
+  "AYAH": {
+    "KEBUMEN": "54473"
+  },
+  "BUAYAN": {
+    "KEBUMEN": "54474"
+  },
+  "PAKUALAMAN": {
+    "YOGYAKARTA": "55111"
+  },
+  "GONDOMANAN": {
+    "YOGYAKARTA": "55121"
+  },
+  "KRATON": {
+    "YOGYAKARTA": "55131",
+    "PASURUAN": "67151"
+  },
+  "MANTRIJERON": {
+    "YOGYAKARTA": "55141"
+  },
+  "MERGANGSAN": {
+    "YOGYAKARTA": "55151"
+  },
+  "UMBULHARJO": {
+    "YOGYAKARTA": "55161"
+  },
+  "KOTAGEDE": {
+    "YOGYAKARTA": "55171"
+  },
+  "KASIHAN": {
+    "BANTUL": "55181"
+  },
+  "SEWON": {
+    "BANTUL": "55185"
+  },
+  "BANGUNTAPAN": {
+    "BANTUL": "55191"
+  },
+  "DANUREJAN": {
+    "YOGYAKARTA": "55211"
+  },
+  "GONDOKUSUMAN": {
+    "YOGYAKARTA": "55221"
+  },
+  "JETIS": {
+    "YOGYAKARTA": "55231",
+    "BANTUL": "55781",
+    "MOJOKERTO": "61352",
+    "PONOROGO": "63473"
+  },
+  "TEGALREJO": {
+    "YOGYAKARTA": "55241",
+    "MAGELANG": "56192"
+  },
+  "WIROBRAJAN": {
+    "YOGYAKARTA": "55251"
+  },
+  "NGAMPILAN": {
+    "YOGYAKARTA": "55261"
+  },
+  "GODEAN": {
+    "SLEMAN": "55264"
+  },
+  "GEDONGTENGEN (GEDONG TENGEN)": {
+    "YOGYAKARTA": "55271"
+  },
+  "MLATI": {
+    "SLEMAN": "55284"
+  },
+  "GAMPING": {
+    "SLEMAN": "55291"
+  },
+  "SLEMAN": {
+    "SLEMAN": "55511"
+  },
+  "TURI": {
+    "SLEMAN": "55551",
+    "LAMONGAN": "62252"
+  },
+  "TEMPEL": {
+    "SLEMAN": "55552"
+  },
+  "SEYEGAN": {
+    "SLEMAN": "55561"
+  },
+  "MINGGIR": {
+    "SLEMAN": "55562"
+  },
+  "MOYUDAN": {
+    "SLEMAN": "55563"
+  },
+  "KALASAN": {
+    "SLEMAN": "55571"
+  },
+  "PRAMBANAN": {
+    "SLEMAN": "55572",
+    "KLATEN": "57454"
+  },
+  "BERBAH": {
+    "SLEMAN": "55573"
+  },
+  "NGAGLIK": {
+    "SLEMAN": "55581"
+  },
+  "PAKEM": {
+    "SLEMAN": "55582",
+    "BONDOWOSO": "68253"
+  },
+  "CANGKRINGAN": {
+    "SLEMAN": "55583"
+  },
+  "NGEMPLAK": {
+    "SLEMAN": "55584",
+    "BOYOLALI": "57375"
+  },
+  "WATES": {
+    "KULON PROGO": "55651",
+    "KEDIRI": "64174",
+    "BLITAR": "66194"
+  },
+  "PENGASIH": {
+    "KULON PROGO": "55652"
+  },
+  "KOKAP": {
+    "KULON PROGO": "55653"
+  },
+  "TEMON": {
+    "KULON PROGO": "55654"
+  },
+  "PANJATAN": {
+    "KULON PROGO": "55655"
+  },
+  "GALUR": {
+    "KULON PROGO": "55661"
+  },
+  "LENDAH": {
+    "KULON PROGO": "55663"
+  },
+  "SENTOLO": {
+    "KULON PROGO": "55664"
+  },
+  "NANGGULAN": {
+    "KULON PROGO": "55671"
+  },
+  "KALIBAWANG": {
+    "KULON PROGO": "55672",
+    "WONOSOBO": "56373"
+  },
+  "SAMIGALUH": {
+    "KULON PROGO": "55673"
+  },
+  "GIRIMULYO": {
+    "KULON PROGO": "55674"
+  },
+  "BANTUL": {
+    "BANTUL": "55711"
+  },
+  "PAJANGAN": {
+    "BANTUL": "55751"
+  },
+  "SEDAYU": {
+    "BANTUL": "55752"
+  },
+  "PANDAK": {
+    "BANTUL": "55761"
+  },
+  "SRANDAKAN": {
+    "BANTUL": "55762"
+  },
+  "SANDEN": {
+    "BANTUL": "55763"
+  },
+  "BAMBANGLIPURO (BAMBANG LIPURO)": {
+    "BANTUL": "55764"
+  },
+  "PUNDONG": {
+    "BANTUL": "55771"
+  },
+  "KRETEK": {
+    "BANTUL": "55772"
+  },
+  "IMOGIRI": {
+    "BANTUL": "55782"
+  },
+  "DLINGO": {
+    "BANTUL": "55783"
+  },
+  "PLERET": {
+    "BANTUL": "55791"
+  },
+  "PIYUNGAN": {
+    "BANTUL": "55792"
+  },
+  "WONOSARI": {
+    "GUNUNG KIDUL": "55811",
+    "KLATEN": "57473",
+    "MALANG": "65161",
+    "BONDOWOSO": "68282",
+    "BOALEMO": "96262"
+  },
+  "NGLIPAR": {
+    "GUNUNG KIDUL": "55852"
+  },
+  "NGAWEN": {
+    "GUNUNG KIDUL": "55853",
+    "KLATEN": "57466",
+    "BLORA": "58254"
+  },
+  "SEMIN": {
+    "GUNUNG KIDUL": "55854"
+  },
+  "PLAYEN": {
+    "GUNUNG KIDUL": "55861"
+  },
+  "PATUK": {
+    "GUNUNG KIDUL": "55862"
+  },
+  "GEDANGSARI (GEDANG SARI)": {
+    "GUNUNG KIDUL": "55863"
+  },
+  "SAPTOSARI (SAPTO SARI)": {
+    "GUNUNG KIDUL": "55870"
+  },
+  "PALIYAN": {
+    "GUNUNG KIDUL": "55871"
+  },
+  "PANGGANG": {
+    "GUNUNG KIDUL": "55872"
+  },
+  "PURWOSARI": {
+    "GUNUNG KIDUL": "55873",
+    "BOJONEGORO": "62161",
+    "PASURUAN": "67162"
+  },
+  "TEPUS": {
+    "GUNUNG KIDUL": "55882"
+  },
+  "GIRISUBO": {
+    "GUNUNG KIDUL": "55883"
+  },
+  "RONGKOP": {
+    "GUNUNG KIDUL": "55884"
+  },
+  "KARANGMOJO": {
+    "GUNUNG KIDUL": "55891"
+  },
+  "PONJONG": {
+    "GUNUNG KIDUL": "55892"
+  },
+  "SEMANU": {
+    "GUNUNG KIDUL": "55893"
+  },
+  "CENTRAL MAGELANG": {
+    "MAGELANG": "56111"
+  },
+  "NORTH MAGELANG": {
+    "MAGELANG": "56113"
+  },
+  "SOUTH MAGELANG": {
+    "MAGELANG": "56123"
+  },
+  "SALAMAN": {
+    "MAGELANG": "56126"
+  },
+  "BANDONGAN": {
+    "MAGELANG": "56151"
+  },
+  "WINDUSARI": {
+    "MAGELANG": "56152"
+  },
+  "KALIANGKRIK": {
+    "MAGELANG": "56153"
+  },
+  "KAJORAN": {
+    "MAGELANG": "56163"
+  },
+  "MERTOYUDAN": {
+    "MAGELANG": "56172"
+  },
+  "CANDIMULYO": {
+    "MAGELANG": "56191"
+  },
+  "PAKIS": {
+    "MAGELANG": "56193",
+    "MALANG": "65154"
+  },
+  "NGABLAK": {
+    "MAGELANG": "56194"
+  },
+  "SECANG": {
+    "MAGELANG": "56195"
+  },
+  "TEMANGGUNG": {
+    "TEMANGGUNG": "56211"
+  },
+  "KEDU": {
+    "TEMANGGUNG": "56252"
+  },
+  "BULU": {
+    "TEMANGGUNG": "56253",
+    "SUKOHARJO": "57563",
+    "REMBANG": "59255"
+  },
+  "PARAKAN": {
+    "TEMANGGUNG": "56254"
+  },
+  "NGADIREJO": {
+    "TEMANGGUNG": "56255"
+  },
+  "JUMO": {
+    "TEMANGGUNG": "56256"
+  },
+  "CANDIROTO": {
+    "TEMANGGUNG": "56257"
+  },
+  "BEJEN": {
+    "TEMANGGUNG": "56258"
+  },
+  "TRETEP": {
+    "TEMANGGUNG": "56259"
+  },
+  "TEMBARAK": {
+    "TEMANGGUNG": "56261"
+  },
+  "SELOPAMPANG": {
+    "TEMANGGUNG": "56262"
+  },
+  "TLOGOMULYO": {
+    "TEMANGGUNG": "56263"
+  },
+  "KLEDUNG": {
+    "TEMANGGUNG": "56264"
+  },
+  "BANSARI": {
+    "TEMANGGUNG": "56265"
+  },
+  "WONOBOYO": {
+    "TEMANGGUNG": "56266"
+  },
+  "KRANGGAN": {
+    "TEMANGGUNG": "56271",
+    "MOJOKERTO": "61311"
+  },
+  "PRINGSURAT": {
+    "TEMANGGUNG": "56272"
+  },
+  "KANDANGAN": {
+    "TEMANGGUNG": "56281",
+    "KEDIRI": "64294",
+    "SOUTH HULU SUNGAI": "71211"
+  },
+  "KALORAN": {
+    "TEMANGGUNG": "56282"
+  },
+  "GEMAWANG": {
+    "TEMANGGUNG": "56283"
+  },
+  "KEJAJAR": {
+    "WONOSOBO": "56314"
+  },
+  "MOJOTENGAH": {
+    "WONOSOBO": "56351"
+  },
+  "WATUMALANG": {
+    "WONOSOBO": "56352"
+  },
+  "GARUNG": {
+    "WONOSOBO": "56353"
+  },
+  "SELOMERTO": {
+    "WONOSOBO": "56361"
+  },
+  "LEKSONO": {
+    "WONOSOBO": "56362"
+  },
+  "KALIWIRO": {
+    "WONOSOBO": "56364"
+  },
+  "WADASLINTANG": {
+    "WONOSOBO": "56365"
+  },
+  "KERTEK": {
+    "WONOSOBO": "56371"
+  },
+  "KALIKAJAR": {
+    "WONOSOBO": "56372"
+  },
+  "KEPIL": {
+    "WONOSOBO": "56374"
+  },
+  "SAPURAN": {
+    "WONOSOBO": "56375"
+  },
+  "MUNTILAN": {
+    "MAGELANG": "56411"
+  },
+  "BOROBUDUR": {
+    "MAGELANG": "56413"
+  },
+  "DUKUN": {
+    "MAGELANG": "56482",
+    "GRESIK": "61155"
+  },
+  "SRUMBUNG": {
+    "MAGELANG": "56483"
+  },
+  "SALAM": {
+    "MAGELANG": "56484"
+  },
+  "NGLUWAR": {
+    "MAGELANG": "56485"
+  },
+  "MUNGKID": {
+    "MAGELANG": "56511"
+  },
+  "PASAR KLIWON": {
+    "SURAKARTA": "57116"
+  },
+  "JEBRES": {
+    "SURAKARTA": "57121"
+  },
+  "LAWEYAN": {
+    "SURAKARTA": "57141"
+  },
+  "SERENGAN": {
+    "SURAKARTA": "57151"
+  },
+  "KARTASURA": {
+    "SUKOHARJO": "57161"
+  },
+  "COLOMADU": {
+    "KARANGANYAR": "57171"
+  },
+  "GONDANGREJO": {
+    "KARANGANYAR": "57181"
+  },
+  "SRAGEN": {
+    "SRAGEN": "57211"
+  },
+  "KARANGMALANG": {
+    "SRAGEN": "57221"
+  },
+  "NGRAMPAL": {
+    "SRAGEN": "57252"
+  },
+  "SAMBUNGMACAN (SAMBUNG MACAN)": {
+    "SRAGEN": "57253"
+  },
+  "GONDANG": {
+    "SRAGEN": "57254",
+    "MOJOKERTO": "61372",
+    "BOJONEGORO": "62173",
+    "NGANJUK": "64451",
+    "TULUNGAGUNG": "66263"
+  },
+  "JENAR": {
+    "SRAGEN": "57256"
+  },
+  "TANGEN": {
+    "SRAGEN": "57261"
+  },
+  "GESI": {
+    "SRAGEN": "57262"
+  },
+  "SUKODONO": {
+    "SRAGEN": "57263",
+    "SIDOARJO": "61216",
+    "LUMAJANG": "67351"
+  },
+  "MONDOKAN": {
+    "SRAGEN": "57271"
+  },
+  "SUMBERLAWANG": {
+    "SRAGEN": "57272"
+  },
+  "GEMOLONG": {
+    "SRAGEN": "57274"
+  },
+  "KALIJAMBE": {
+    "SRAGEN": "57275"
+  },
+  "MIRI": {
+    "SRAGEN": "57276"
+  },
+  "TANON": {
+    "SRAGEN": "57277"
+  },
+  "SIDOHARJO": {
+    "SRAGEN": "57281",
+    "WONOGIRI": "57682"
+  },
+  "MASARAN": {
+    "SRAGEN": "57282"
+  },
+  "PLUPUH": {
+    "SRAGEN": "57283"
+  },
+  "SAMBIREJO": {
+    "SRAGEN": "57293"
+  },
+  "BOYOLALI": {
+    "BOYOLALI": "57311"
+  },
+  "KARANGGEDE": {
+    "BOYOLALI": "57311"
+  },
+  "AMPEL": {
+    "BOYOLALI": "57316"
+  },
+  "MOJOSONGO": {
+    "BOYOLALI": "57321"
+  },
+  "MUSUK": {
+    "BOYOLALI": "57331"
+  },
+  "CEPOGO": {
+    "BOYOLALI": "57362"
+  },
+  "SELO": {
+    "BOYOLALI": "57363"
+  },
+  "TERAS": {
+    "BOYOLALI": "57372"
+  },
+  "BANYUDONO": {
+    "BOYOLALI": "57373"
+  },
+  "SAWIT": {
+    "BOYOLALI": "57374"
+  },
+  "SAMBI": {
+    "BOYOLALI": "57376"
+  },
+  "SIMO": {
+    "BOYOLALI": "57377"
+  },
+  "NOGOSARI": {
+    "BOYOLALI": "57378"
+  },
+  "WONOSEGORO": {
+    "BOYOLALI": "57382"
+  },
+  "KEMUSU": {
+    "BOYOLALI": "57383"
+  },
+  "ANDONG": {
+    "BOYOLALI": "57384"
+  },
+  "KLEGO": {
+    "BOYOLALI": "57385"
+  },
+  "JUWANGI": {
+    "BOYOLALI": "57391"
+  },
+  "CENTRAL KLATEN": {
+    "KLATEN": "57411"
+  },
+  "SOUTH KLATEN": {
+    "KLATEN": "57421"
+  },
+  "NORTH KLATEN": {
+    "KLATEN": "57432"
+  },
+  "KALIKOTES": {
+    "KLATEN": "57451"
+  },
+  "JOGONALAN": {
+    "KLATEN": "57452"
+  },
+  "GANTIWARNO": {
+    "KLATEN": "57455"
+  },
+  "WEDI": {
+    "KLATEN": "57461"
+  },
+  "BAYAT": {
+    "KLATEN": "57462"
+  },
+  "CAWAS": {
+    "KLATEN": "57463"
+  },
+  "KARANGDOWO": {
+    "KLATEN": "57464"
+  },
+  "CEPER": {
+    "KLATEN": "57465"
+  },
+  "TRUCUK": {
+    "KLATEN": "57467",
+    "BOJONEGORO": "62155"
+  },
+  "PEDAN": {
+    "KLATEN": "57468"
+  },
+  "DELANGGU": {
+    "KLATEN": "57471"
+  },
+  "JUWIRING": {
+    "KLATEN": "57472"
+  },
+  "POLANHARJO": {
+    "KLATEN": "57474"
+  },
+  "KARANGANOM": {
+    "KLATEN": "57475"
+  },
+  "JATINOM": {
+    "KLATEN": "57481"
+  },
+  "TULUNG": {
+    "KLATEN": "57482"
+  },
+  "KARANGNONGKO": {
+    "KLATEN": "57483"
+  },
+  "KEMALANG": {
+    "KLATEN": "57484"
+  },
+  "MANISRENGGO": {
+    "KLATEN": "57485"
+  },
+  "KEBONARUM": {
+    "KLATEN": "57486"
+  },
+  "POLOKARTO": {
+    "SUKOHARJO": "57513"
+  },
+  "BENDOSARI": {
+    "SUKOHARJO": "57521"
+  },
+  "GROGOL": {
+    "SUKOHARJO": "57552",
+    "KEDIRI": "64151"
+  },
+  "MOJOLABAN": {
+    "SUKOHARJO": "57554"
+  },
+  "BAKI": {
+    "SUKOHARJO": "57556"
+  },
+  "GATAK": {
+    "SUKOHARJO": "57557"
+  },
+  "TAWANGSARI": {
+    "SUKOHARJO": "57561"
+  },
+  "NGUTER": {
+    "SUKOHARJO": "57571"
+  },
+  "WONOGIRI": {
+    "WONOGIRI": "57611"
+  },
+  "SELOGIRI": {
+    "WONOGIRI": "57652"
+  },
+  "WURYANTORO": {
+    "WONOGIRI": "57661"
+  },
+  "MANYARAN": {
+    "WONOGIRI": "57662"
+  },
+  "EROMOKO": {
+    "WONOGIRI": "57663"
+  },
+  "PRACIMANTORO": {
+    "WONOGIRI": "57664"
+  },
+  "NGUNTORONADI": {
+    "WONOGIRI": "57671",
+    "MAGETAN": "63383"
+  },
+  "TIRTOMOYO": {
+    "WONOGIRI": "57672"
+  },
+  "BATURETNO": {
+    "WONOGIRI": "57673"
+  },
+  "BATUWARNO": {
+    "WONOGIRI": "57674"
+  },
+  "GIRIWOYO": {
+    "WONOGIRI": "57675"
+  },
+  "GIRITONTRO": {
+    "WONOGIRI": "57678"
+  },
+  "PARANGGUPITO": {
+    "WONOGIRI": "57679"
+  },
+  "NGADIROJO": {
+    "WONOGIRI": "57681",
+    "PACITAN": "63572"
+  },
+  "GIRIMARTO": {
+    "WONOGIRI": "57683"
+  },
+  "JATISRONO": {
+    "WONOGIRI": "57691"
+  },
+  "JATIROTO": {
+    "WONOGIRI": "57692",
+    "LUMAJANG": "67355"
+  },
+  "JATIPURNO": {
+    "WONOGIRI": "57693"
+  },
+  "SLOGOHIMO": {
+    "WONOGIRI": "57694"
+  },
+  "PURWANTORO": {
+    "WONOGIRI": "57695"
+  },
+  "KISMANTORO": {
+    "WONOGIRI": "57696"
+  },
+  "BULUKERTO": {
+    "WONOGIRI": "57697"
+  },
+  "PUHPELEM": {
+    "WONOGIRI": "57698"
+  },
+  "KERJO": {
+    "KARANGANYAR": "57711"
+  },
+  "KARANGPANDAN": {
+    "KARANGANYAR": "57715"
+  },
+  "JUMAPOLO": {
+    "KARANGANYAR": "57716"
+  },
+  "MOJOGEDANG": {
+    "KARANGANYAR": "57716"
+  },
+  "TASIKMADU": {
+    "KARANGANYAR": "57721"
+  },
+  "JATEN": {
+    "KARANGANYAR": "57731"
+  },
+  "NGARGOYOSO": {
+    "KARANGANYAR": "57731"
+  },
+  "KEBAKKRAMAT": {
+    "KARANGANYAR": "57762"
+  },
+  "MATESIH": {
+    "KARANGANYAR": "57781"
+  },
+  "JUMANTONO": {
+    "KARANGANYAR": "57782"
+  },
+  "JATIPURO": {
+    "KARANGANYAR": "57784"
+  },
+  "JATIYOSO": {
+    "KARANGANYAR": "57785"
+  },
+  "TAWANGMANGU": {
+    "KARANGANYAR": "57792"
+  },
+  "JENAWI": {
+    "KARANGANYAR": "57794"
+  },
+  "GROBOGAN": {
+    "GROBOGAN": "58152"
+  },
+  "BRATI": {
+    "GROBOGAN": "58153"
+  },
+  "KLAMBU": {
+    "GROBOGAN": "58154"
+  },
+  "PENAWANGAN": {
+    "GROBOGAN": "58161"
+  },
+  "GODONG": {
+    "GROBOGAN": "58162"
+  },
+  "KARANGRAYUNG": {
+    "GROBOGAN": "58163"
+  },
+  "GUBUG": {
+    "GROBOGAN": "58164"
+  },
+  "TEGOWANU": {
+    "GROBOGAN": "58165"
+  },
+  "TANGGUNGHARJO": {
+    "GROBOGAN": "58166"
+  },
+  "KEDUNGJATI": {
+    "GROBOGAN": "58167"
+  },
+  "TOROH": {
+    "GROBOGAN": "58171"
+  },
+  "GEYER": {
+    "GROBOGAN": "58172"
+  },
+  "PULOKULON": {
+    "GROBOGAN": "58181"
+  },
+  "KRADENAN": {
+    "GROBOGAN": "58182",
+    "BLORA": "58383"
+  },
+  "GABUS": {
+    "GROBOGAN": "58183",
+    "PATI": "59173"
+  },
+  "TAWANGHARJO": {
+    "GROBOGAN": "58191"
+  },
+  "WIROSARI": {
+    "GROBOGAN": "58192"
+  },
+  "NGARINGAN": {
+    "GROBOGAN": "58193"
+  },
+  "BLORA (BLORA KOTA)": {
+    "BLORA": "58211"
+  },
+  "TUNJUNGAN": {
+    "BLORA": "58252"
+  },
+  "BANJAREJO": {
+    "BLORA": "58253"
+  },
+  "KUNDURAN": {
+    "BLORA": "58255"
+  },
+  "TODANAN": {
+    "BLORA": "58256"
+  },
+  "JAPAH": {
+    "BLORA": "58257"
+  },
+  "JEPON": {
+    "BLORA": "58261"
+  },
+  "BOGOREJO": {
+    "BLORA": "58262"
+  },
+  "CEPU": {
+    "BLORA": "58311"
+  },
+  "SAMBONG": {
+    "BLORA": "58371"
+  },
+  "JIKEN": {
+    "BLORA": "58372"
+  },
+  "KEDUNGTUBAN": {
+    "BLORA": "58381"
+  },
+  "RANDUBLATUNG": {
+    "BLORA": "58382"
+  },
+  "JATI": {
+    "BLORA": "58384",
+    "KUDUS": "59341"
+  },
+  "PATI": {
+    "PATI": "59111"
+  },
+  "WEDARIJAKSA": {
+    "PATI": "59152"
+  },
+  "TRANGKIL": {
+    "PATI": "59153"
+  },
+  "MARGOYOSO": {
+    "PATI": "59154"
+  },
+  "TAYU": {
+    "PATI": "59155"
+  },
+  "GUNUNGWUNGKAL": {
+    "PATI": "59156"
+  },
+  "CLUWAK": {
+    "PATI": "59157"
+  },
+  "DUKUHSETI": {
+    "PATI": "59158"
+  },
+  "TLOGOWUNGU": {
+    "PATI": "59161"
+  },
+  "GEMBONG": {
+    "PATI": "59162"
+  },
+  "MARGOREJO": {
+    "PATI": "59163"
+  },
+  "KAYEN": {
+    "PATI": "59171"
+  },
+  "SUKOLILO": {
+    "PATI": "59172",
+    "SURABAYA": "60111"
+  },
+  "TAMBAKROMO": {
+    "PATI": "59174"
+  },
+  "WINONG": {
+    "PATI": "59181"
+  },
+  "JAKENAN": {
+    "PATI": "59182"
+  },
+  "PUCAKWANGI": {
+    "PATI": "59183"
+  },
+  "JAKEN": {
+    "PATI": "59184"
+  },
+  "JUWANA": {
+    "PATI": "59185"
+  },
+  "BATANGAN": {
+    "PATI": "59186"
+  },
+  "KALIORI": {
+    "REMBANG": "59252"
+  },
+  "SULANG": {
+    "REMBANG": "59254"
+  },
+  "PAMOTAN": {
+    "REMBANG": "59261"
+  },
+  "PANCUR": {
+    "REMBANG": "59262"
+  },
+  "GUNEM": {
+    "REMBANG": "59263"
+  },
+  "SEDAN": {
+    "REMBANG": "59264"
+  },
+  "SALE": {
+    "REMBANG": "59265"
+  },
+  "LASEM": {
+    "REMBANG": "59271"
+  },
+  "SLUKE": {
+    "REMBANG": "59272"
+  },
+  "KRAGAN": {
+    "REMBANG": "59273"
+  },
+  "SARANG": {
+    "REMBANG": "59274"
+  },
+  "KOTA KUDUS (KUDUS KOTA)": {
+    "KUDUS": "59311"
+  },
+  "BAE": {
+    "KUDUS": "59321"
+  },
+  "GEBOG": {
+    "KUDUS": "59333"
+  },
+  "DAWE": {
+    "KUDUS": "59353"
+  },
+  "UNDAAN": {
+    "KUDUS": "59372"
+  },
+  "MEJOBO": {
+    "KUDUS": "59381"
+  },
+  "JEKULO": {
+    "KUDUS": "59382"
+  },
+  "JEPARA": {
+    "JEPARA": "59411"
+  },
+  "TAHUNAN": {
+    "JEPARA": "59421"
+  },
+  "PAKIS AJI": {
+    "JEPARA": "59450"
+  },
+  "MLONGGO": {
+    "JEPARA": "59452"
+  },
+  "BANGSRI": {
+    "JEPARA": "59453"
+  },
+  "DONOROJO": {
+    "JEPARA": "59454",
+    "PACITAN": "63554"
+  },
+  "KARIMUN JAWA (KARIMUNJAWA)": {
+    "JEPARA": "59455"
+  },
+  "KELING": {
+    "JEPARA": "59456"
+  },
+  "KEMBANG": {
+    "JEPARA": "59457"
+  },
+  "PECANGAAN": {
+    "JEPARA": "59460"
+  },
+  "BATEALIT": {
+    "JEPARA": "59461"
+  },
+  "KALINYAMATAN": {
+    "JEPARA": "59462"
+  },
+  "KEDUNG": {
+    "JEPARA": "59463"
+  },
+  "WELAHAN": {
+    "JEPARA": "59464"
+  },
+  "MAYONG": {
+    "JEPARA": "59465"
+  },
+  "NALUMSARI": {
+    "JEPARA": "59466"
+  },
+  "BONANG": {
+    "DEMAK": "59511"
+  },
+  "DEMAK": {
+    "DEMAK": "59511"
+  },
+  "WEDUNG": {
+    "DEMAK": "59554"
+  },
+  "SAYUNG": {
+    "DEMAK": "59563"
+  },
+  "GUNTUR": {
+    "DEMAK": "59565"
+  },
+  "KARANGAWEN": {
+    "DEMAK": "59566"
+  },
+  "MRANGGEN": {
+    "DEMAK": "59567"
+  },
+  "WONOSALAM": {
+    "DEMAK": "59571",
+    "JOMBANG": "61476"
+  },
+  "DEMPET": {
+    "DEMAK": "59573"
+  },
+  "GAJAH": {
+    "DEMAK": "59581"
+  },
+  "KEBONAGUNG": {
+    "DEMAK": "59583"
+  },
+  "MULYOREJO": {
+    "SURABAYA": "60112"
+  },
+  "BULAK": {
+    "SURABAYA": "60121"
+  },
+  "KENJERAN": {
+    "SURABAYA": "60126"
+  },
+  "SIMOKERTO": {
+    "SURABAYA": "60141"
+  },
+  "SEMAMPIR": {
+    "SURABAYA": "60151"
+  },
+  "PABEAN CANTIAN (PABEAN CANTIKAN)": {
+    "SURABAYA": "60161"
+  },
+  "BUBUTAN": {
+    "SURABAYA": "60171"
+  },
+  "KREMBANGAN": {
+    "SURABAYA": "60175"
+  },
+  "ASEM ROWO (ASEMROWO)": {
+    "SURABAYA": "60182"
+  },
+  "TANDES": {
+    "SURABAYA": "60184"
+  },
+  "SUKOMANUNGGAL": {
+    "SURABAYA": "60187"
+  },
+  "BENOWO": {
+    "SURABAYA": "60191"
+  },
+  "PAKAL": {
+    "SURABAYA": "60192"
+  },
+  "SAMBIKEREP": {
+    "SURABAYA": "60195"
+  },
+  "LAKARSANTRI": {
+    "SURABAYA": "60211"
+  },
+  "KARANGPILANG": {
+    "SURABAYA": "60221"
+  },
+  "WIYUNG": {
+    "SURABAYA": "60222"
+  },
+  "DUKUH PAKIS": {
+    "SURABAYA": "60224"
+  },
+  "GAYUNGAN": {
+    "SURABAYA": "60231"
+  },
+  "JAMBANGAN": {
+    "SURABAYA": "60232"
+  },
+  "WONOCOLO": {
+    "SURABAYA": "60236"
+  },
+  "WONOKROMO": {
+    "SURABAYA": "60241"
+  },
+  "SAWAHAN": {
+    "SURABAYA": "60253",
+    "MADIUN": "63162",
+    "NGANJUK": "64475"
+  },
+  "TEGALSARI": {
+    "SURABAYA": "60261",
+    "BANYUWANGI": "68485"
+  },
+  "GENTENG": {
+    "SURABAYA": "60271",
+    "BANYUWANGI": "68465"
+  },
+  "GUBENG": {
+    "SURABAYA": "60281"
+  },
+  "TENGGILIS MEJOYO": {
+    "SURABAYA": "60291"
+  },
+  "GUNUNG ANYAR (GUNUNGANYAR)": {
+    "SURABAYA": "60293"
+  },
+  "RUNGKUT": {
+    "SURABAYA": "60293"
+  },
+  "GRESIK": {
+    "GRESIK": "61111"
+  },
+  "KEBOMAS": {
+    "GRESIK": "61121"
+  },
+  "MANYAR": {
+    "GRESIK": "61151"
+  },
+  "BUNGAH": {
+    "GRESIK": "61152"
+  },
+  "SIDAYU": {
+    "GRESIK": "61153"
+  },
+  "UJUNGPANGKAH (UJUNG PANGKAH)": {
+    "GRESIK": "61154"
+  },
+  "PANCENG": {
+    "GRESIK": "61156"
+  },
+  "DUDUKSAMPEYAN (DUDUK SAMPEYAN)": {
+    "GRESIK": "61162"
+  },
+  "CERME": {
+    "GRESIK": "61171"
+  },
+  "BENJENG": {
+    "GRESIK": "61172"
+  },
+  "BALONGPANGGANG (BALONG PANGGANG)": {
+    "GRESIK": "61173"
+  },
+  "MENGANTI": {
+    "GRESIK": "61174"
+  },
+  "KEDAMEAN": {
+    "GRESIK": "61175"
+  },
+  "WRINGINANOM (WRINGIN ANOM)": {
+    "GRESIK": "61176"
+  },
+  "DRIYOREJO": {
+    "GRESIK": "61177"
+  },
+  "SANGKAPURA": {
+    "GRESIK": "61181"
+  },
+  "SIDOARJO": {
+    "SIDOARJO": "61212"
+  },
+  "BUDURAN": {
+    "SIDOARJO": "61252"
+  },
+  "SEDATI": {
+    "SIDOARJO": "61253"
+  },
+  "GEDANGAN": {
+    "SIDOARJO": "61254",
+    "MALANG": "65178"
+  },
+  "WARU": {
+    "SIDOARJO": "61256",
+    "PAMEKASAN": "69353",
+    "NORTH PENAJAM PASER": "76284"
+  },
+  "WONOAYU": {
+    "SIDOARJO": "61261"
+  },
+  "KRIAN": {
+    "SIDOARJO": "61262"
+  },
+  "BALONGBENDO": {
+    "SIDOARJO": "61263"
+  },
+  "PRAMBON": {
+    "SIDOARJO": "61264",
+    "NGANJUK": "64484"
+  },
+  "TARIK": {
+    "SIDOARJO": "61265"
+  },
+  "CANDI": {
+    "SIDOARJO": "61271"
+  },
+  "TANGGULANGIN": {
+    "SIDOARJO": "61272"
+  },
+  "TULANGAN": {
+    "SIDOARJO": "61273"
+  },
+  "PORONG": {
+    "SIDOARJO": "61274"
+  },
+  "KREMBUNG": {
+    "SIDOARJO": "61275"
+  },
+  "JABON": {
+    "SIDOARJO": "61276"
+  },
+  "MAGERSARI": {
+    "MOJOKERTO": "61314"
+  },
+  "PRAJURITKULON (PRAJURIT KULON)": {
+    "MOJOKERTO": "61323"
+  },
+  "GEDEG": {
+    "MOJOKERTO": "61351"
+  },
+  "KEMLAGI": {
+    "MOJOKERTO": "61353"
+  },
+  "DAWARBLANDONG (DAWAR BLANDONG)": {
+    "MOJOKERTO": "61354"
+  },
+  "SOOKO": {
+    "MOJOKERTO": "61361",
+    "PONOROGO": "63482"
+  },
+  "TROWULAN": {
+    "MOJOKERTO": "61362"
+  },
+  "MOJOANYAR": {
+    "MOJOKERTO": "61363"
+  },
+  "PURI": {
+    "MOJOKERTO": "61363"
+  },
+  "DLANGGU": {
+    "MOJOKERTO": "61371"
+  },
+  "JATIREJO": {
+    "MOJOKERTO": "61373"
+  },
+  "TRAWAS": {
+    "MOJOKERTO": "61375"
+  },
+  "BANGSAL": {
+    "MOJOKERTO": "61381"
+  },
+  "MOJOSARI": {
+    "MOJOKERTO": "61382"
+  },
+  "KUTOREJO": {
+    "MOJOKERTO": "61383"
+  },
+  "PUNGGING": {
+    "MOJOKERTO": "61384"
+  },
+  "NGORO": {
+    "MOJOKERTO": "61385",
+    "JOMBANG": "61473"
+  },
+  "NGUSIKAN": {
+    "JOMBANG": "61450"
+  },
+  "TEMBELANG": {
+    "JOMBANG": "61452"
+  },
+  "PLOSO": {
+    "JOMBANG": "61453"
+  },
+  "KUDU": {
+    "JOMBANG": "61454"
+  },
+  "KABUH": {
+    "JOMBANG": "61455"
+  },
+  "PLANDAAN": {
+    "JOMBANG": "61456"
+  },
+  "MEGALUH": {
+    "JOMBANG": "61457"
+  },
+  "PERAK": {
+    "JOMBANG": "61461"
+  },
+  "BANDARKEDUNGMULYO (BANDAR KEDUNG MULYO)": {
+    "JOMBANG": "61462"
+  },
+  "GUDO": {
+    "JOMBANG": "61463"
+  },
+  "DIWEK": {
+    "JOMBANG": "61471"
+  },
+  "BARENG": {
+    "JOMBANG": "61474"
+  },
+  "MOJOWARNO": {
+    "JOMBANG": "61475"
+  },
+  "PETERONGAN": {
+    "JOMBANG": "61481"
+  },
+  "MOJOAGUNG": {
+    "JOMBANG": "61482"
+  },
+  "SUMOBITO": {
+    "JOMBANG": "61483"
+  },
+  "KESAMBEN": {
+    "JOMBANG": "61484",
+    "BLITAR": "66191"
+  },
+  "JOGOROTO": {
+    "JOMBANG": "61485"
+  },
+  "BOJONEGORO": {
+    "BOJONEGORO": "62111"
+  },
+  "GAYAM": {
+    "BOJONEGORO": "62152",
+    "SUMENEP": "69483"
+  },
+  "KALITIDU": {
+    "BOJONEGORO": "62152"
+  },
+  "MALO": {
+    "BOJONEGORO": "62153"
+  },
+  "NGASEM": {
+    "BOJONEGORO": "62154",
+    "KEDIRI": "64181"
+  },
+  "KEDEWAN": {
+    "BOJONEGORO": "62160"
+  },
+  "PADANGAN": {
+    "BOJONEGORO": "62162"
+  },
+  "KASIMAN": {
+    "BOJONEGORO": "62164"
+  },
+  "NGRAHO": {
+    "BOJONEGORO": "62165"
+  },
+  "TAMBAKREJO": {
+    "BOJONEGORO": "62166"
+  },
+  "NGAMBON": {
+    "BOJONEGORO": "62167"
+  },
+  "BALEN": {
+    "BOJONEGORO": "62168"
+  },
+  "MARGOMULYO": {
+    "BOJONEGORO": "62168"
+  },
+  "SEKAR": {
+    "BOJONEGORO": "62169"
+  },
+  "DANDER": {
+    "BOJONEGORO": "62171"
+  },
+  "BUBULAN": {
+    "BOJONEGORO": "62172"
+  },
+  "KAPAS": {
+    "BOJONEGORO": "62181"
+  },
+  "SUGIHWARAS": {
+    "BOJONEGORO": "62183"
+  },
+  "TEMAYANG": {
+    "BOJONEGORO": "62184"
+  },
+  "SUKOSEWU": {
+    "BOJONEGORO": "62185"
+  },
+  "SUMBEREJO": {
+    "BOJONEGORO": "62191"
+  },
+  "BAURENO": {
+    "BOJONEGORO": "62192"
+  },
+  "KANOR": {
+    "BOJONEGORO": "62193"
+  },
+  "KEPOHBARU": {
+    "BOJONEGORO": "62194"
+  },
+  "KEDUNGADEM": {
+    "BOJONEGORO": "62195"
+  },
+  "LAMONGAN": {
+    "LAMONGAN": "62211"
+  },
+  "SUKODADI": {
+    "LAMONGAN": "62253"
+  },
+  "KARANGGENENG (KARANG GENENG)": {
+    "LAMONGAN": "62254"
+  },
+  "KALITENGAH": {
+    "LAMONGAN": "62255"
+  },
+  "SUGIO": {
+    "LAMONGAN": "62256"
+  },
+  "PUCUK": {
+    "LAMONGAN": "62257"
+  },
+  "SEKARAN": {
+    "LAMONGAN": "62260"
+  },
+  "MADURAN": {
+    "LAMONGAN": "62261"
+  },
+  "LAREN": {
+    "LAMONGAN": "62262"
+  },
+  "BRONDONG": {
+    "LAMONGAN": "62263"
+  },
+  "PACIRAN": {
+    "LAMONGAN": "62264"
+  },
+  "SOLOKURO": {
+    "LAMONGAN": "62265"
+  },
+  "BABAT": {
+    "LAMONGAN": "62271"
+  },
+  "KEDUNGPRING": {
+    "LAMONGAN": "62272"
+  },
+  "NGIMBANG": {
+    "LAMONGAN": "62273"
+  },
+  "BLULUK": {
+    "LAMONGAN": "62274"
+  },
+  "MODO": {
+    "LAMONGAN": "62275"
+  },
+  "SUKORAME": {
+    "LAMONGAN": "62276"
+  },
+  "TIKUNG": {
+    "LAMONGAN": "62280"
+  },
+  "SARIREJO": {
+    "LAMONGAN": "62281"
+  },
+  "KEMBANGBAHU": {
+    "LAMONGAN": "62282"
+  },
+  "MANTUP": {
+    "LAMONGAN": "62283"
+  },
+  "SAMBENG": {
+    "LAMONGAN": "62284"
+  },
+  "DEKET": {
+    "LAMONGAN": "62291"
+  },
+  "GLAGAH": {
+    "LAMONGAN": "62292",
+    "BANYUWANGI": "68431"
+  },
+  "KARANGBINANGUN": {
+    "LAMONGAN": "62293"
+  },
+  "TUBAN": {
+    "TUBAN": "62311"
+  },
+  "JENU": {
+    "TUBAN": "62352"
+  },
+  "TAMBAKBOYO": {
+    "TUBAN": "62353"
+  },
+  "BANCAR": {
+    "TUBAN": "62354"
+  },
+  "MERAKURAK": {
+    "TUBAN": "62355"
+  },
+  "KEREK": {
+    "TUBAN": "62356"
+  },
+  "MONTONG": {
+    "TUBAN": "62357"
+  },
+  "SINGGAHAN": {
+    "TUBAN": "62361"
+  },
+  "JATIROGO": {
+    "TUBAN": "62362"
+  },
+  "KENDURUAN": {
+    "TUBAN": "62363"
+  },
+  "BANGILAN": {
+    "TUBAN": "62364"
+  },
+  "SENORI": {
+    "TUBAN": "62365"
+  },
+  "PARENGAN": {
+    "TUBAN": "62366"
+  },
+  "RENGEL": {
+    "TUBAN": "62370"
+  },
+  "GRABAGAN": {
+    "TUBAN": "62371"
+  },
+  "SOKO": {
+    "TUBAN": "62372"
+  },
+  "SEMANDING": {
+    "TUBAN": "62381"
+  },
+  "PLUMPANG": {
+    "TUBAN": "62382"
+  },
+  "WIDANG": {
+    "TUBAN": "62383"
+  },
+  "PALANG": {
+    "TUBAN": "62391"
+  },
+  "KARTOHARJO": {
+    "MADIUN": "63111"
+  },
+  "MEJAYAN": {
+    "MADIUN": "63112"
+  },
+  "MANGUHARJO": {
+    "MADIUN": "63121"
+  },
+  "BARAT": {
+    "MAGETAN": "63137"
+  },
+  "MADIUN": {
+    "MADIUN": "63151"
+  },
+  "BALEREJO": {
+    "MADIUN": "63152"
+  },
+  "PILANGKENCENG": {
+    "MADIUN": "63154"
+  },
+  "SARADAN": {
+    "MADIUN": "63155"
+  },
+  "GEMARANG": {
+    "MADIUN": "63156"
+  },
+  "WONOASRI": {
+    "MADIUN": "63157"
+  },
+  "JIWAN": {
+    "MADIUN": "63161"
+  },
+  "GEGER": {
+    "MADIUN": "63171",
+    "BANGKALAN": "69152"
+  },
+  "DAGANGAN": {
+    "MADIUN": "63172"
+  },
+  "KEBON SARI (KEBONSARI)": {
+    "MADIUN": "63173"
+  },
+  "DOLOPO": {
+    "MADIUN": "63174"
+  },
+  "WUNGU": {
+    "MADIUN": "63181"
+  },
+  "KARE": {
+    "MADIUN": "63182"
+  },
+  "NGAWI": {
+    "NGAWI": "63211"
+  },
+  "PITU": {
+    "NGAWI": "63252"
+  },
+  "PARON": {
+    "NGAWI": "63253"
+  },
+  "KEDUNGGALAR": {
+    "NGAWI": "63254"
+  },
+  "WIDODAREN": {
+    "NGAWI": "63256"
+  },
+  "MANTINGAN": {
+    "NGAWI": "63260"
+  },
+  "JOGOROGO": {
+    "NGAWI": "63262"
+  },
+  "NGRAMBE": {
+    "NGAWI": "63263"
+  },
+  "SINE": {
+    "NGAWI": "63264"
+  },
+  "GERIH": {
+    "NGAWI": "63270"
+  },
+  "GENENG": {
+    "NGAWI": "63271"
+  },
+  "PADAS": {
+    "NGAWI": "63280"
+  },
+  "KASREMAN": {
+    "NGAWI": "63281"
+  },
+  "PANGKUR": {
+    "NGAWI": "63282"
+  },
+  "KWADUNGAN": {
+    "NGAWI": "63283"
+  },
+  "KARANGJATI": {
+    "NGAWI": "63284"
+  },
+  "MAGETAN": {
+    "MAGETAN": "63311"
+  },
+  "NGARIBOYO": {
+    "MAGETAN": "63351"
+  },
+  "PANEKAN": {
+    "MAGETAN": "63352"
+  },
+  "PLAOSAN": {
+    "MAGETAN": "63361"
+  },
+  "PONCOL": {
+    "MAGETAN": "63362"
+  },
+  "PARANG": {
+    "MAGETAN": "63371"
+  },
+  "LEMBEYAN": {
+    "MAGETAN": "63372"
+  },
+  "TAKERAN": {
+    "MAGETAN": "63381"
+  },
+  "KAWEDANAN": {
+    "MAGETAN": "63382"
+  },
+  "BENDO": {
+    "MAGETAN": "63384"
+  },
+  "SUKOMORO": {
+    "MAGETAN": "63391",
+    "NGANJUK": "64481"
+  },
+  "MAOSPATI": {
+    "MAGETAN": "63392"
+  },
+  "KARAS": {
+    "MAGETAN": "63393",
+    "FAKFAK": "98032"
+  },
+  "KARTOHARJO (KERTOHARJO)": {
+    "MAGETAN": "63394"
+  },
+  "KARANGREJO": {
+    "MAGETAN": "63395"
+  },
+  "PONOROGO": {
+    "PONOROGO": "63411"
+  },
+  "PUDAK": {
+    "PONOROGO": "63418"
+  },
+  "KAUMAN": {
+    "PONOROGO": "63451",
+    "TULUNGAGUNG": "66261"
+  },
+  "SAMPUNG": {
+    "PONOROGO": "63454"
+  },
+  "BADEGAN": {
+    "PONOROGO": "63455"
+  },
+  "JAMBON": {
+    "PONOROGO": "63456"
+  },
+  "BALONG": {
+    "PONOROGO": "63461"
+  },
+  "BUNGKAL": {
+    "PONOROGO": "63462"
+  },
+  "SLAHUNG": {
+    "PONOROGO": "63463"
+  },
+  "NGRAYUN": {
+    "PONOROGO": "63464"
+  },
+  "SIMAN": {
+    "PONOROGO": "63471"
+  },
+  "MLARAK": {
+    "PONOROGO": "63472"
+  },
+  "SAMBIT": {
+    "PONOROGO": "63474"
+  },
+  "SAWOO": {
+    "PONOROGO": "63475"
+  },
+  "PULUNG": {
+    "PONOROGO": "63481"
+  },
+  "BABADAN": {
+    "PONOROGO": "63491"
+  },
+  "JENANGAN": {
+    "PONOROGO": "63492"
+  },
+  "NGEBEL": {
+    "PONOROGO": "63493"
+  },
+  "PACITAN": {
+    "PACITAN": "63511"
+  },
+  "PRINGKUKU": {
+    "PACITAN": "63552"
+  },
+  "PUNUNG": {
+    "PACITAN": "63553"
+  },
+  "KEBONAGUNG (KEBON AGUNG)": {
+    "PACITAN": "63561"
+  },
+  "TULAKAN": {
+    "PACITAN": "63571"
+  },
+  "SUDIMORO": {
+    "PACITAN": "63573"
+  },
+  "ARJOSARI": {
+    "PACITAN": "63581"
+  },
+  "TEGALOMBO": {
+    "PACITAN": "63582"
+  },
+  "NAWANGAN": {
+    "PACITAN": "63584"
+  },
+  "MOJOROTO": {
+    "KEDIRI": "64111"
+  },
+  "GURAH": {
+    "KEDIRI": "64113"
+  },
+  "KOTA (KEDIRI KOTA)": {
+    "KEDIRI": "64121"
+  },
+  "PESANTREN": {
+    "KEDIRI": "64131"
+  },
+  "KANDAT": {
+    "KEDIRI": "64137"
+  },
+  "TAROKAN": {
+    "KEDIRI": "64152"
+  },
+  "PAPAR": {
+    "KEDIRI": "64153"
+  },
+  "PURWOASRI": {
+    "KEDIRI": "64154"
+  },
+  "PLEMAHAN": {
+    "KEDIRI": "64155"
+  },
+  "KUNJANG": {
+    "KEDIRI": "64156"
+  },
+  "NGANCAR": {
+    "KEDIRI": "64156"
+  },
+  "BANYAKAN": {
+    "KEDIRI": "64157"
+  },
+  "SEMEN": {
+    "KEDIRI": "64161"
+  },
+  "MOJO": {
+    "KEDIRI": "64162"
+  },
+  "NGADILUWIH": {
+    "KEDIRI": "64171"
+  },
+  "KRAS": {
+    "KEDIRI": "64172"
+  },
+  "PLOSOKLATEN": {
+    "KEDIRI": "64175"
+  },
+  "RINGINREJO": {
+    "KEDIRI": "64176"
+  },
+  "GAMPENGREJO": {
+    "KEDIRI": "64182"
+  },
+  "KAYEN KIDUL": {
+    "KEDIRI": "64183"
+  },
+  "PAGU": {
+    "KEDIRI": "64184"
+  },
+  "PARE": {
+    "KEDIRI": "64211"
+  },
+  "BADAS": {
+    "KEDIRI": "64216"
+  },
+  "PUNCU": {
+    "KEDIRI": "64292"
+  },
+  "KEPUNG": {
+    "KEDIRI": "64293"
+  },
+  "KERTOSONO": {
+    "NGANJUK": "64311"
+  },
+  "PATIANROWO": {
+    "NGANJUK": "64391"
+  },
+  "JATIKALEN": {
+    "NGANJUK": "64392"
+  },
+  "BARON": {
+    "NGANJUK": "64394"
+  },
+  "NGRONGGOT": {
+    "NGANJUK": "64395"
+  },
+  "NGANJUK": {
+    "NGANJUK": "64411"
+  },
+  "PACE": {
+    "NGANJUK": "64451"
+  },
+  "NGLUYU": {
+    "NGANJUK": "64452"
+  },
+  "REJOSO": {
+    "NGANJUK": "64453",
+    "PASURUAN": "67181"
+  },
+  "BAGOR": {
+    "NGANJUK": "64461"
+  },
+  "WILANGAN": {
+    "NGANJUK": "64462"
+  },
+  "LOCERET": {
+    "NGANJUK": "64471"
+  },
+  "BERBEK": {
+    "NGANJUK": "64473"
+  },
+  "NGETOS": {
+    "NGANJUK": "64474"
+  },
+  "TANJUNGANOM": {
+    "NGANJUK": "64482"
+  },
+  "KLOJEN": {
+    "MALANG": "65111"
+  },
+  "BLIMBING": {
+    "MALANG": "65121"
+  },
+  "KEDUNGKANDANG": {
+    "MALANG": "65132"
+  },
+  "LOWOKWARU": {
+    "MALANG": "65141"
+  },
+  "SUKUN": {
+    "MALANG": "65146"
+  },
+  "DAU": {
+    "MALANG": "65151"
+  },
+  "KARANG PLOSO (KARANGPLOSO)": {
+    "MALANG": "65152"
+  },
+  "SINGOSARI": {
+    "MALANG": "65153"
+  },
+  "TUMPANG": {
+    "MALANG": "65156"
+  },
+  "PONCOKUSUMO": {
+    "MALANG": "65157"
+  },
+  "WAGIR": {
+    "MALANG": "65158"
+  },
+  "SUMBERPUCUNG": {
+    "MALANG": "65160"
+  },
+  "PAKISAJI": {
+    "MALANG": "65162"
+  },
+  "KEPANJEN": {
+    "MALANG": "65163"
+  },
+  "NGAJUNG (NGAJUM)": {
+    "MALANG": "65164"
+  },
+  "KROMENGAN": {
+    "MALANG": "65165"
+  },
+  "KALIPARE": {
+    "MALANG": "65166"
+  },
+  "DONOMULYO": {
+    "MALANG": "65167"
+  },
+  "PAGAK": {
+    "MALANG": "65168"
+  },
+  "BULULAWANG": {
+    "MALANG": "65171"
+  },
+  "TAJINAN": {
+    "MALANG": "65172"
+  },
+  "WAJAK": {
+    "MALANG": "65173"
+  },
+  "GONDANGLEGI": {
+    "MALANG": "65174"
+  },
+  "TUREN": {
+    "MALANG": "65175"
+  },
+  "SUMBERMANJING WETAN": {
+    "MALANG": "65176"
+  },
+  "BANTUR": {
+    "MALANG": "65179"
+  },
+  "DAMPIT": {
+    "MALANG": "65181"
+  },
+  "TIRTOYUDO": {
+    "MALANG": "65182"
+  },
+  "LAWANG": {
+    "MALANG": "65211"
+  },
+  "BATU": {
+    "BATU": "65311"
+  },
+  "JUNREJO": {
+    "BATU": "65321"
+  },
+  "BUMIAJI": {
+    "BATU": "65331"
+  },
+  "PUJON": {
+    "MALANG": "65391"
+  },
+  "NGANTANG": {
+    "MALANG": "65392"
+  },
+  "KASEMBON": {
+    "MALANG": "65393"
+  },
+  "KEPANJENKIDUL (KEPANJEN KIDUL)": {
+    "BLITAR": "66113"
+  },
+  "SANANWETAN (SANAN WETAN)": {
+    "BLITAR": "66133"
+  },
+  "SANANKULON (SANAN KULON)": {
+    "BLITAR": "66151"
+  },
+  "SRENGAT": {
+    "BLITAR": "66152"
+  },
+  "PONGGOK": {
+    "BLITAR": "66153"
+  },
+  "UDANAWU": {
+    "BLITAR": "66154"
+  },
+  "WONODADI": {
+    "BLITAR": "66155"
+  },
+  "KADEMANGAN": {
+    "BLITAR": "66161",
+    "PROBOLINGGO": "67221"
+  },
+  "BAKUNG": {
+    "BLITAR": "66163"
+  },
+  "KANIGORO": {
+    "BLITAR": "66171"
+  },
+  "SUTOJAYAN": {
+    "BLITAR": "66172"
+  },
+  "WONOTIRTO": {
+    "BLITAR": "66173"
+  },
+  "PANGGUNGREJO": {
+    "BLITAR": "66174",
+    "PASURUAN": "67111"
+  },
+  "NGLEGOK": {
+    "BLITAR": "66181"
+  },
+  "GARUM": {
+    "BLITAR": "66182"
+  },
+  "SELOPURO": {
+    "BLITAR": "66184"
+  },
+  "WLINGI": {
+    "BLITAR": "66185"
+  },
+  "DOKO": {
+    "BLITAR": "66186"
+  },
+  "GANDUSARI": {
+    "BLITAR": "66187",
+    "TRENGGALEK": "66372"
+  },
+  "SELOREJO": {
+    "BLITAR": "66192"
+  },
+  "TULUNGAGUNG": {
+    "TULUNGAGUNG": "66212"
+  },
+  "KEDUNGWARU": {
+    "TULUNGAGUNG": "66221"
+  },
+  "BOYOLANGU": {
+    "TULUNGAGUNG": "66231"
+  },
+  "NGANTRU": {
+    "TULUNGAGUNG": "66252"
+  },
+  "KARANGREJO (KARANG REJO)": {
+    "TULUNGAGUNG": "66253"
+  },
+  "SENDANG": {
+    "TULUNGAGUNG": "66254"
+  },
+  "PAGERWOJO": {
+    "TULUNGAGUNG": "66262"
+  },
+  "CAMPURDARAT (CAMPUR DARAT)": {
+    "TULUNGAGUNG": "66272"
+  },
+  "PAKEL": {
+    "TULUNGAGUNG": "66273"
+  },
+  "BESUKI": {
+    "TULUNGAGUNG": "66275",
+    "SITUBONDO": "68356"
+  },
+  "KALIDAWIR": {
+    "TULUNGAGUNG": "66281"
+  },
+  "TANGGUNGGUNUNG (TANGGUNG GUNUNG)": {
+    "TULUNGAGUNG": "66283"
+  },
+  "PUCANGLABAN": {
+    "TULUNGAGUNG": "66284"
+  },
+  "SUMBERGEMPOL": {
+    "TULUNGAGUNG": "66291"
+  },
+  "NGUNUT": {
+    "TULUNGAGUNG": "66292"
+  },
+  "REJOTANGAN": {
+    "TULUNGAGUNG": "66293"
+  },
+  "TRENGGALEK": {
+    "TRENGGALEK": "66311"
+  },
+  "BENDUNGAN": {
+    "TRENGGALEK": "66351"
+  },
+  "KARANGAN": {
+    "TRENGGALEK": "66361",
+    "EAST KUTAI": "75684"
+  },
+  "PULE": {
+    "TRENGGALEK": "66362"
+  },
+  "DONGKO": {
+    "TRENGGALEK": "66363"
+  },
+  "PANGGUL": {
+    "TRENGGALEK": "66364"
+  },
+  "MUNJUNGAN": {
+    "TRENGGALEK": "66365"
+  },
+  "POGALAN": {
+    "TRENGGALEK": "66371"
+  },
+  "KAMPAK": {
+    "TRENGGALEK": "66373"
+  },
+  "DURENAN": {
+    "TRENGGALEK": "66381"
+  },
+  "WATULIMO": {
+    "TRENGGALEK": "66382"
+  },
+  "BUGUL KIDUL": {
+    "PASURUAN": "67123"
+  },
+  "GADINGREJO": {
+    "PASURUAN": "67131"
+  },
+  "BANGIL": {
+    "PASURUAN": "67153"
+  },
+  "PANDAAN": {
+    "PASURUAN": "67156"
+  },
+  "PRIGEN": {
+    "PASURUAN": "67157"
+  },
+  "TUTUR": {
+    "PASURUAN": "67165"
+  },
+  "POHJENTREK": {
+    "PASURUAN": "67171"
+  },
+  "KEJAYAN": {
+    "PASURUAN": "67172"
+  },
+  "WONOREJO": {
+    "PASURUAN": "67173"
+  },
+  "GONDANGWETAN (GONDANG WETAN)": {
+    "PASURUAN": "67174"
+  },
+  "PASREPAN": {
+    "PASURUAN": "67175"
+  },
+  "PUSPO": {
+    "PASURUAN": "67176"
+  },
+  "TOSARI": {
+    "PASURUAN": "67177"
+  },
+  "WINONGAN": {
+    "PASURUAN": "67182"
+  },
+  "LUMBANG": {
+    "PASURUAN": "67183",
+    "PROBOLINGGO": "67255"
+  },
+  "GRATI": {
+    "PASURUAN": "67184"
+  },
+  "NGULING": {
+    "PASURUAN": "67185"
+  },
+  "LEKOK": {
+    "PASURUAN": "67186"
+  },
+  "MAYANGAN": {
+    "PROBOLINGGO": "67216"
+  },
+  "KANIGARAN": {
+    "PROBOLINGGO": "67221"
+  },
+  "KEDOPOK (KEDOPAK)": {
+    "PROBOLINGGO": "67227"
+  },
+  "WONOASIH": {
+    "PROBOLINGGO": "67232"
+  },
+  "SUMBERASIH": {
+    "PROBOLINGGO": "67251"
+  },
+  "TONGAS": {
+    "PROBOLINGGO": "67252"
+  },
+  "WONOMERTO": {
+    "PROBOLINGGO": "67253"
+  },
+  "SUKAPURA": {
+    "PROBOLINGGO": "67254"
+  },
+  "BANTARAN": {
+    "PROBOLINGGO": "67261"
+  },
+  "KURIPAN": {
+    "PROBOLINGGO": "67262",
+    "BARITO KUALA": "70552",
+    "WEST LOMBOK": "83360"
+  },
+  "DRINGU": {
+    "PROBOLINGGO": "67271"
+  },
+  "GENDING": {
+    "PROBOLINGGO": "67272"
+  },
+  "LECES": {
+    "PROBOLINGGO": "67273"
+  },
+  "TEGALSIWALAN (TEGAL SIWALAN)": {
+    "PROBOLINGGO": "67274"
+  },
+  "BANYUANYAR (BANYU ANYAR)": {
+    "PROBOLINGGO": "67275"
+  },
+  "MARON": {
+    "PROBOLINGGO": "67276"
+  },
+  "PEJARAKAN (PAJARAKAN)": {
+    "PROBOLINGGO": "67281"
+  },
+  "KRAKSAAN": {
+    "PROBOLINGGO": "67282"
+  },
+  "BESUK": {
+    "PROBOLINGGO": "67283"
+  },
+  "KREJENGAN": {
+    "PROBOLINGGO": "67284"
+  },
+  "TIRIS": {
+    "PROBOLINGGO": "67287"
+  },
+  "KRUCIL": {
+    "PROBOLINGGO": "67288"
+  },
+  "PAKUNIRAN": {
+    "PROBOLINGGO": "67290"
+  },
+  "PAITON": {
+    "PROBOLINGGO": "67291"
+  },
+  "GADING": {
+    "PROBOLINGGO": "67292"
+  },
+  "KOTAANYAR (KOTA ANYAR)": {
+    "PROBOLINGGO": "67293"
+  },
+  "LUMAJANG": {
+    "LUMAJANG": "67311"
+  },
+  "SUMBERSUKO": {
+    "LUMAJANG": "67316"
+  },
+  "PADANG": {
+    "LUMAJANG": "67352"
+  },
+  "GUCIALIT": {
+    "LUMAJANG": "67353"
+  },
+  "RANDUAGUNG": {
+    "LUMAJANG": "67354"
+  },
+  "KLAKAH": {
+    "LUMAJANG": "67356"
+  },
+  "RANUYOSO": {
+    "LUMAJANG": "67357"
+  },
+  "KEDUNGJAJANG": {
+    "LUMAJANG": "67358"
+  },
+  "ROWOKANGKUNG": {
+    "LUMAJANG": "67359"
+  },
+  "PASRUJAMBE/PASUJAMBE": {
+    "LUMAJANG": "67361"
+  },
+  "SENDURO": {
+    "LUMAJANG": "67362"
+  },
+  "TEMPEH": {
+    "LUMAJANG": "67371"
+  },
+  "PASIRIAN": {
+    "LUMAJANG": "67372"
+  },
+  "PRONOJIWO": {
+    "LUMAJANG": "67374"
+  },
+  "TEMPURSARI": {
+    "LUMAJANG": "67375"
+  },
+  "TEKUNG": {
+    "LUMAJANG": "67381"
+  },
+  "YOSOWILANGUN": {
+    "LUMAJANG": "67382"
+  },
+  "KUNIR": {
+    "LUMAJANG": "67383"
+  },
+  "PATRANG": {
+    "JEMBER": "68111"
+  },
+  "KALISAT": {
+    "JEMBER": "68113"
+  },
+  "MAYANG": {
+    "JEMBER": "68118"
+  },
+  "SUMBERSARI (SUMBER SARI)": {
+    "JEMBER": "68121"
+  },
+  "KALIWATES": {
+    "JEMBER": "68131"
+  },
+  "AMBULU": {
+    "JEMBER": "68132"
+  },
+  "SUKORAMBI": {
+    "JEMBER": "68151"
+  },
+  "RAMBIPUJI": {
+    "JEMBER": "68152"
+  },
+  "BANGSALSARI": {
+    "JEMBER": "68154"
+  },
+  "TANGGUL": {
+    "JEMBER": "68155"
+  },
+  "SUMBERBARU (SUMBER BARU)": {
+    "JEMBER": "68156"
+  },
+  "SEMBORO": {
+    "JEMBER": "68157"
+  },
+  "BALUNG": {
+    "JEMBER": "68161"
+  },
+  "WULUHAN": {
+    "JEMBER": "68162"
+  },
+  "PUGER": {
+    "JEMBER": "68164"
+  },
+  "GUMUKMAS (GUMUK MAS)": {
+    "JEMBER": "68165"
+  },
+  "UMBULSARI": {
+    "JEMBER": "68166"
+  },
+  "KENCONG": {
+    "JEMBER": "68167"
+  },
+  "JENGGAWAH": {
+    "JEMBER": "68171"
+  },
+  "TEMPUREJO": {
+    "JEMBER": "68173"
+  },
+  "MUMBULSARI": {
+    "JEMBER": "68174"
+  },
+  "AJUNG": {
+    "JEMBER": "68175"
+  },
+  "PAKUSARI": {
+    "JEMBER": "68181"
+  },
+  "SILO": {
+    "JEMBER": "68184"
+  },
+  "ARJASA": {
+    "JEMBER": "68191",
+    "SITUBONDO": "68371",
+    "SUMENEP": "69491"
+  },
+  "JELBUK": {
+    "JEMBER": "68192"
+  },
+  "SUKOWONO": {
+    "JEMBER": "68194"
+  },
+  "SUMBERJAMBE (SUMBER JAMBE)": {
+    "JEMBER": "68195"
+  },
+  "LEDOKOMBO": {
+    "JEMBER": "68196"
+  },
+  "BONDOWOSO": {
+    "BONDOWOSO": "68211"
+  },
+  "CURAHDAMI": {
+    "BONDOWOSO": "68250"
+  },
+  "BINAKAL": {
+    "BONDOWOSO": "68251"
+  },
+  "WRINGIN": {
+    "BONDOWOSO": "68252"
+  },
+  "CERMEE": {
+    "BONDOWOSO": "68261"
+  },
+  "GRUJUGAN": {
+    "BONDOWOSO": "68261"
+  },
+  "JAMBESARI / JAMBE SARI DARUS SHOLAH": {
+    "BONDOWOSO": "68261"
+  },
+  "MAESAN": {
+    "BONDOWOSO": "68262"
+  },
+  "TAMANAN": {
+    "BONDOWOSO": "68263"
+  },
+  "PUJER": {
+    "BONDOWOSO": "68271"
+  },
+  "TLOGOSARI": {
+    "BONDOWOSO": "68272"
+  },
+  "TENGGARANG": {
+    "BONDOWOSO": "68281"
+  },
+  "TAPEN": {
+    "BONDOWOSO": "68283"
+  },
+  "BOTOLINGGO": {
+    "BONDOWOSO": "68284"
+  },
+  "KLABANG": {
+    "BONDOWOSO": "68284"
+  },
+  "PRAJEKAN": {
+    "BONDOWOSO": "68285"
+  },
+  "SUKOSARI": {
+    "BONDOWOSO": "68287"
+  },
+  "SEMPOL": {
+    "BONDOWOSO": "68288"
+  },
+  "SUMBERWRINGIN (SUMBER WRINGIN)": {
+    "BONDOWOSO": "68289"
+  },
+  "TAMAN KROCOK": {
+    "BONDOWOSO": "68291"
+  },
+  "TEGALAMPEL": {
+    "BONDOWOSO": "68292"
+  },
+  "SITUBONDO": {
+    "SITUBONDO": "68311"
+  },
+  "PANJI": {
+    "SITUBONDO": "68321"
+  },
+  "PANARUKAN": {
+    "SITUBONDO": "68351"
+  },
+  "KENDIT": {
+    "SITUBONDO": "68352"
+  },
+  "MLANDINGAN": {
+    "SITUBONDO": "68353"
+  },
+  "SUBOH": {
+    "SITUBONDO": "68354"
+  },
+  "SUMBERMALANG": {
+    "SITUBONDO": "68355"
+  },
+  "JATIBANTENG": {
+    "SITUBONDO": "68357"
+  },
+  "BUNGATAN": {
+    "SITUBONDO": "68358"
+  },
+  "BANYUGLUGUR": {
+    "SITUBONDO": "68359"
+  },
+  "KAPONGAN": {
+    "SITUBONDO": "68362"
+  },
+  "MANGARAN": {
+    "SITUBONDO": "68363"
+  },
+  "JANGKAR": {
+    "SITUBONDO": "68372"
+  },
+  "ASEMBAGUS": {
+    "SITUBONDO": "68373"
+  },
+  "BANYUWANGI": {
+    "BANYUWANGI": "68411"
+  },
+  "KALIPURO": {
+    "BANYUWANGI": "68421"
+  },
+  "GIRI": {
+    "BANYUWANGI": "68422"
+  },
+  "WONGSOREJO": {
+    "BANYUWANGI": "68453"
+  },
+  "LICIN": {
+    "BANYUWANGI": "68454"
+  },
+  "BLIMBINGSARI": {
+    "BANYUWANGI": "68460"
+  },
+  "KABAT": {
+    "BANYUWANGI": "68461"
+  },
+  "ROGOJAMPI": {
+    "BANYUWANGI": "68462"
+  },
+  "SONGGON": {
+    "BANYUWANGI": "68463"
+  },
+  "SINGOJURUH": {
+    "BANYUWANGI": "68464"
+  },
+  "GLENMORE": {
+    "BANYUWANGI": "68466"
+  },
+  "KALIBARU": {
+    "BANYUWANGI": "68467"
+  },
+  "SEMPU": {
+    "BANYUWANGI": "68468"
+  },
+  "SRONO": {
+    "BANYUWANGI": "68471"
+  },
+  "MUNCAR": {
+    "BANYUWANGI": "68472"
+  },
+  "CLURING": {
+    "BANYUWANGI": "68482"
+  },
+  "PURWOHARJO": {
+    "BANYUWANGI": "68483"
+  },
+  "TEGALDLIMO": {
+    "BANYUWANGI": "68484"
+  },
+  "GAMBIRAN": {
+    "BANYUWANGI": "68486"
+  },
+  "BANGOREJO": {
+    "BANYUWANGI": "68487"
+  },
+  "PESANGGARAN": {
+    "BANYUWANGI": "68488"
+  },
+  "SILIRAGUNG": {
+    "BANYUWANGI": "68489"
+  },
+  "BANGKALAN": {
+    "BANGKALAN": "69112"
+  },
+  "BURNEH": {
+    "BANGKALAN": "69121"
+  },
+  "AROSBAYA": {
+    "BANGKALAN": "69151"
+  },
+  "KLAMPIS": {
+    "BANGKALAN": "69153"
+  },
+  "SEPULU": {
+    "BANGKALAN": "69154"
+  },
+  "KOKOP": {
+    "BANGKALAN": "69155"
+  },
+  "TANJUNG BUMI (TANJUNGBUMI)": {
+    "BANGKALAN": "69156"
+  },
+  "SOCAH": {
+    "BANGKALAN": "69161"
+  },
+  "KAMAL": {
+    "BANGKALAN": "69162"
+  },
+  "KWANYAR": {
+    "BANGKALAN": "69163"
+  },
+  "LABANG": {
+    "BANGKALAN": "69164"
+  },
+  "TRAGAH": {
+    "BANGKALAN": "69165"
+  },
+  "MODUNG": {
+    "BANGKALAN": "69166"
+  },
+  "GALIS": {
+    "BANGKALAN": "69173",
+    "PAMEKASAN": "69382"
+  },
+  "BLEGA": {
+    "BANGKALAN": "69174"
+  },
+  "KONANG": {
+    "BANGKALAN": "69175"
+  },
+  "KEDUNGDUNG": {
+    "SAMPANG": "69252"
+  },
+  "TAMBELANGAN": {
+    "SAMPANG": "69253"
+  },
+  "KARANGPENANG (KARANG PENANG)": {
+    "SAMPANG": "69254"
+  },
+  "ROBATAL": {
+    "SAMPANG": "69255"
+  },
+  "SOKOBANAH": {
+    "SAMPANG": "69262"
+  },
+  "BANYUATES": {
+    "SAMPANG": "69263"
+  },
+  "TORJUN": {
+    "SAMPANG": "69270"
+  },
+  "PANGARENGAN": {
+    "SAMPANG": "69271"
+  },
+  "JRENGIK": {
+    "SAMPANG": "69272"
+  },
+  "SRESEH": {
+    "SAMPANG": "69273"
+  },
+  "CAMPLONG": {
+    "SAMPANG": "69281"
+  },
+  "OMBEN": {
+    "SAMPANG": "69291"
+  },
+  "PAMEKASAN": {
+    "PAMEKASAN": "69311"
+  },
+  "PADEMAWU": {
+    "PAMEKASAN": "69321"
+  },
+  "PAKONG": {
+    "PAMEKASAN": "69352"
+  },
+  "BATUMARMAR": {
+    "PAMEKASAN": "69354"
+  },
+  "KADUR": {
+    "PAMEKASAN": "69355"
+  },
+  "PASEAN": {
+    "PAMEKASAN": "69356"
+  },
+  "PEGANTENAN": {
+    "PAMEKASAN": "69361"
+  },
+  "PALENGGAAN (PALENGA'AN)": {
+    "PAMEKASAN": "69362"
+  },
+  "PROPPO": {
+    "PAMEKASAN": "69363"
+  },
+  "TLANAKAN": {
+    "PAMEKASAN": "69371"
+  },
+  "KOTA SUMENEP": {
+    "SUMENEP": "69412"
+  },
+  "BATUAN": {
+    "SUMENEP": "69451"
+  },
+  "MANDING": {
+    "SUMENEP": "69452"
+  },
+  "BATUPUTIH": {
+    "SUMENEP": "69453"
+  },
+  "DASUK": {
+    "SUMENEP": "69454"
+  },
+  "AMBUNTEN": {
+    "SUMENEP": "69455"
+  },
+  "RUBARU": {
+    "SUMENEP": "69456"
+  },
+  "PASONGSONGAN": {
+    "SUMENEP": "69457"
+  },
+  "LENTENG": {
+    "SUMENEP": "69461"
+  },
+  "GANDING": {
+    "SUMENEP": "69462"
+  },
+  "GULUK-GULUK (GULUK GULUK)": {
+    "SUMENEP": "69463"
+  },
+  "PRAGAAN": {
+    "SUMENEP": "69465"
+  },
+  "BLUTO": {
+    "SUMENEP": "69466"
+  },
+  "SARONGGI": {
+    "SUMENEP": "69467"
+  },
+  "KALIANGET": {
+    "SUMENEP": "69471"
+  },
+  "GAPURA": {
+    "SUMENEP": "69472"
+  },
+  "BATANG BATANG": {
+    "SUMENEP": "69473"
+  },
+  "DUNGKEK": {
+    "SUMENEP": "69474"
+  },
+  "TALANGO": {
+    "SUMENEP": "69481"
+  },
+  "GILIGINTING (GILI GINTING)": {
+    "SUMENEP": "69482"
+  },
+  "NONGGUNONG": {
+    "SUMENEP": "69484"
+  },
+  "RAAS (RA'AS)": {
+    "SUMENEP": "69485"
+  },
+  "KANGAYAN": {
+    "SUMENEP": "69490"
+  },
+  "MASALEMBU": {
+    "SUMENEP": "69492"
+  },
+  "SAPEKEN": {
+    "SUMENEP": "69493"
+  },
+  "CENTRAL BANJARMASIN": {
+    "BANJARMASIN": "70111"
+  },
+  "WEST BANJARMASIN": {
+    "BANJARMASIN": "70112"
+  },
+  "NORTH BANJARMASIN": {
+    "BANJARMASIN": "70121"
+  },
+  "EAST BANJARMASIN": {
+    "BANJARMASIN": "70234"
+  },
+  "SOUTH BANJARMASIN": {
+    "BANJARMASIN": "70241"
+  },
+  "MARABAHAN": {
+    "BARITO KUALA": "70511"
+  },
+  "BAKUMPAI": {
+    "BARITO KUALA": "70512"
+  },
+  "TABUKAN": {
+    "BARITO KUALA": "70553"
+  },
+  "WANARAYA": {
+    "BARITO KUALA": "70560"
+  },
+  "RANTAU BADAUH": {
+    "BARITO KUALA": "70561"
+  },
+  "BARAMBAI": {
+    "BARITO KUALA": "70562"
+  },
+  "BELAWANG": {
+    "BARITO KUALA": "70563"
+  },
+  "ANJIR MUARA": {
+    "BARITO KUALA": "70564"
+  },
+  "ANJIR PASAR": {
+    "BARITO KUALA": "70565"
+  },
+  "TAMBAN": {
+    "BARITO KUALA": "70566"
+  },
+  "TABUNGANEN": {
+    "BARITO KUALA": "70567"
+  },
+  "MEKARSARI (MEKAR SARI)": {
+    "BARITO KUALA": "70568"
+  },
+  "CERBON": {
+    "BARITO KUALA": "70571"
+  },
+  "MANDASTANA": {
+    "BARITO KUALA": "70580"
+  },
+  "JEJANGKIT": {
+    "BARITO KUALA": "70581"
+  },
+  "ALALAK": {
+    "BARITO KUALA": "70582"
+  },
+  "MARTAPURA (MARTAPURA KOTA)": {
+    "BANJAR": "70611"
+  },
+  "EAST MARTAPURA": {
+    "BANJAR": "70617"
+  },
+  "WEST MARTAPURA": {
+    "BANJAR": "70618"
+  },
+  "TATAH MAKMUR": {
+    "BANJAR": "70650"
+  },
+  "GAMBUT": {
+    "BANJAR": "70652"
+  },
+  "SEI/SUNGAI TABUK": {
+    "BANJAR": "70653"
+  },
+  "KERTAK HANYAR": {
+    "BANJAR": "70654"
+  },
+  "ALUH-ALUH": {
+    "BANJAR": "70655"
+  },
+  "BERUNTUNG BARU": {
+    "BANJAR": "70656"
+  },
+  "KARANG INTAN": {
+    "BANJAR": "70661"
+  },
+  "ASTAMBUL": {
+    "BANJAR": "70670"
+  },
+  "ARANIO": {
+    "BANJAR": "70671"
+  },
+  "MATARAMAN": {
+    "BANJAR": "70672"
+  },
+  "TELAGA BAUNTUNG": {
+    "BANJAR": "70673"
+  },
+  "PENGAROM (PENGARON)": {
+    "BANJAR": "70674"
+  },
+  "PARAMASAN (PERAMASAN)": {
+    "BANJAR": "70675"
+  },
+  "CINTAPURI DARUSSALAM": {
+    "BANJAR": "70676"
+  },
+  "SAMBUNG MAKMUR": {
+    "BANJAR": "70677"
+  },
+  "SEI/SUNGAI PINANG": {
+    "BANJAR": "70678"
+  },
+  "SOUTH BANJARBARU / BANJAR BARU": {
+    "BANJARBARU": "70713"
+  },
+  "NORTH BANJARBARU / BANJAR BARU": {
+    "BANJARBARU": "70714"
+  },
+  "LANDASAN ULIN": {
+    "BANJARBARU": "70721"
+  },
+  "LIANG ANGGANG": {
+    "BANJARBARU": "70722"
+  },
+  "PELAIHARI": {
+    "TANAH LAUT": "70812"
+  },
+  "BAJUIN": {
+    "TANAH LAUT": "70815"
+  },
+  "KURAU": {
+    "TANAH LAUT": "70851"
+  },
+  "BATI-BATI": {
+    "TANAH LAUT": "70852"
+  },
+  "BUMI MAKMUR": {
+    "TANAH LAUT": "70853"
+  },
+  "TAMBANG ULANG": {
+    "TANAH LAUT": "70854"
+  },
+  "TAKISUNG": {
+    "TANAH LAUT": "70861"
+  },
+  "PANYIPATAN": {
+    "TANAH LAUT": "70871"
+  },
+  "JORONG": {
+    "TANAH LAUT": "70881"
+  },
+  "KINTAP": {
+    "TANAH LAUT": "70883"
+  },
+  "NORTH TAPIN": {
+    "TAPIN": "71111"
+  },
+  "BAKARANGAN": {
+    "TAPIN": "71152"
+  },
+  "BUNGUR": {
+    "TAPIN": "71153"
+  },
+  "LOKPAIKAT": {
+    "TAPIN": "71154"
+  },
+  "CENTRAL TAPIN": {
+    "TAPIN": "71161"
+  },
+  "SOUTH CANDI LARAS": {
+    "TAPIN": "71162"
+  },
+  "NORTH CANDI LARAS": {
+    "TAPIN": "71171"
+  },
+  "SOUTH TAPIN": {
+    "TAPIN": "71181"
+  },
+  "HATUNGUN": {
+    "TAPIN": "71184"
+  },
+  "SALAM BABARIS": {
+    "TAPIN": "71185"
+  },
+  "PIANI": {
+    "TAPIN": "71191"
+  },
+  "SOUTH DAHA": {
+    "SOUTH HULU SUNGAI": "71251"
+  },
+  "WEST DAHA": {
+    "SOUTH HULU SUNGAI": "71252"
+  },
+  "NORTH DAHA": {
+    "SOUTH HULU SUNGAI": "71253"
+  },
+  "SIMPUR": {
+    "SOUTH HULU SUNGAI": "71261"
+  },
+  "KALUMPANG (KELUMPANG)": {
+    "SOUTH HULU SUNGAI": "71262"
+  },
+  "PADANG BATUNG": {
+    "SOUTH HULU SUNGAI": "71281"
+  },
+  "LOKSADO": {
+    "SOUTH HULU SUNGAI": "71282"
+  },
+  "ANGKINANG": {
+    "SOUTH HULU SUNGAI": "71291"
+  },
+  "TELAGA LANGSAT": {
+    "SOUTH HULU SUNGAI": "71292"
+  },
+  "BARABAI": {
+    "CENTRAL HULU SUNGAI": "71311"
+  },
+  "PANDAWAN": {
+    "CENTRAL HULU SUNGAI": "71352"
+  },
+  "SOUTH LABUAN AMAS": {
+    "CENTRAL HULU SUNGAI": "71361"
+  },
+  "NORTH LABUAN AMAS": {
+    "CENTRAL HULU SUNGAI": "71362"
+  },
+  "HARUYAN": {
+    "CENTRAL HULU SUNGAI": "71363"
+  },
+  "BATU BENAWA": {
+    "CENTRAL HULU SUNGAI": "71371"
+  },
+  "HANTAKAN": {
+    "CENTRAL HULU SUNGAI": "71372"
+  },
+  "SOUTH BATANG ALAI": {
+    "CENTRAL HULU SUNGAI": "71381"
+  },
+  "EAST BATANG ALAI": {
+    "CENTRAL HULU SUNGAI": "71382"
+  },
+  "NORTH BATANG ALAI": {
+    "CENTRAL HULU SUNGAI": "71391"
+  },
+  "LIMPASU": {
+    "CENTRAL HULU SUNGAI": "71392"
+  },
+  "CENTRAL AMUNTAI": {
+    "NORTH HULU SUNGAI": "71412"
+  },
+  "BANJANG": {
+    "NORTH HULU SUNGAI": "71416"
+  },
+  "PAMINGGIR": {
+    "NORTH HULU SUNGAI": "71451"
+  },
+  "SOUTH AMUNTAI": {
+    "NORTH HULU SUNGAI": "71452"
+  },
+  "DANAU PANGGANG": {
+    "NORTH HULU SUNGAI": "71453"
+  },
+  "BABIRIK": {
+    "NORTH HULU SUNGAI": "71454"
+  },
+  "SUNGAI PANDAN": {
+    "NORTH HULU SUNGAI": "71455"
+  },
+  "SUNGAI TABUKAN": {
+    "NORTH HULU SUNGAI": "71456"
+  },
+  "NORTH AMUNTAI": {
+    "NORTH HULU SUNGAI": "71471"
+  },
+  "HAUR GADING": {
+    "NORTH HULU SUNGAI": "71472"
+  },
+  "KELUA (KLUA)": {
+    "TABALONG": "71552"
+  },
+  "BANUA LAWAS": {
+    "TABALONG": "71553"
+  },
+  "PUGAAN": {
+    "TABALONG": "71554"
+  },
+  "MUARA HARUS": {
+    "TABALONG": "71555"
+  },
+  "TANTA": {
+    "TABALONG": "71561"
+  },
+  "HARUAI": {
+    "TABALONG": "71570"
+  },
+  "MURUNG PUDAK": {
+    "TABALONG": "71571"
+  },
+  "BINTANG ARA": {
+    "TABALONG": "71572"
+  },
+  "MUARA UYA": {
+    "TABALONG": "71573"
+  },
+  "JARO": {
+    "TABALONG": "71574"
+  },
+  "UPAU": {
+    "TABALONG": "71575"
+  },
+  "PARINGIN": {
+    "BALANGAN": "71611"
+  },
+  "SOUTH PARINGIN": {
+    "BALANGAN": "71617"
+  },
+  "LAMPIHONG": {
+    "BALANGAN": "71661"
+  },
+  "BATU MANDI": {
+    "BALANGAN": "71663"
+  },
+  "AWAYAN": {
+    "BALANGAN": "71664"
+  },
+  "JUAI": {
+    "BALANGAN": "71665"
+  },
+  "HALONG": {
+    "BALANGAN": "71666"
+  },
+  "NORTH LAUT ISLAND": {
+    "KOTABARU": "72111"
+  },
+  "LAUT TANJUNG SELAYAR ISLAND": {
+    "KOTABARU": "72151"
+  },
+  "EAST LAUT ISLAND": {
+    "KOTABARU": "72152"
+  },
+  "WEST LAUT ISLAND": {
+    "KOTABARU": "72153"
+  },
+  "LAUT ISLANDS ISLAND": {
+    "KOTABARU": "72154"
+  },
+  "SEBUKU ISLAND": {
+    "KOTABARU": "72155"
+  },
+  "CENTRAL LAUT ISLAND": {
+    "KOTABARU": "72156"
+  },
+  "SOUTH LAUT ISLAND": {
+    "KOTABARU": "72157"
+  },
+  "SOUTH KELUMPANG": {
+    "KOTABARU": "72160"
+  },
+  "KELUMPANG HILIR": {
+    "KOTABARU": "72161"
+  },
+  "KELUMPANG HULU": {
+    "KOTABARU": "72162"
+  },
+  "HAMPANG": {
+    "KOTABARU": "72163"
+  },
+  "CENTRAL KELUMPANG": {
+    "KOTABARU": "72164"
+  },
+  "WEST KELUMPANG": {
+    "KOTABARU": "72164"
+  },
+  "NORTH KELUMPANG": {
+    "KOTABARU": "72165"
+  },
+  "SAMPANAHAN": {
+    "KOTABARU": "72166"
+  },
+  "SUNGAI DURIAN (SUNGAIDURIAN)": {
+    "KOTABARU": "72167"
+  },
+  "SOUTH PAMUKAN": {
+    "KOTABARU": "72168"
+  },
+  "NORTH PAMUKAN": {
+    "KOTABARU": "72169"
+  },
+  "WEST PAMUKAN": {
+    "KOTABARU": "72169"
+  },
+  "SEMBILAN ISLAND": {
+    "KOTABARU": "72181",
+    "SINJAI": "92616"
+  },
+  "KARANG BINTANG": {
+    "TANAH BUMBU": "72210"
+  },
+  "BATU LICIN (BATULICIN)": {
+    "TANAH BUMBU": "72211"
+  },
+  "MANTEWE": {
+    "TANAH BUMBU": "72211"
+  },
+  "KUSAN HULU": {
+    "TANAH BUMBU": "72270"
+  },
+  "KUSAN HILIR": {
+    "TANAH BUMBU": "72273"
+  },
+  "SUNGAI LOBAN": {
+    "TANAH BUMBU": "72274"
+  },
+  "SATUI": {
+    "TANAH BUMBU": "72276"
+  },
+  "JEKAN RAYA": {
+    "PALANGKA RAYA": "73111"
+  },
+  "PAHANDUT": {
+    "PALANGKA RAYA": "73111"
+  },
+  "SABANGAU (SEBANGAU)": {
+    "PALANGKA RAYA": "73113"
+  },
+  "RAKUMPIT": {
+    "PALANGKA RAYA": "73227"
+  },
+  "SELAT": {
+    "KAPUAS": "73511",
+    "KARANGASEM": "80862"
+  },
+  "BATAGUH": {
+    "KAPUAS": "73516"
+  },
+  "KAPUAS HILIR": {
+    "KAPUAS": "73521"
+  },
+  "WEST KAPUAS": {
+    "KAPUAS": "73552"
+  },
+  "MANTANGAI": {
+    "KAPUAS": "73553"
+  },
+  "TIMPAH": {
+    "KAPUAS": "73554"
+  },
+  "CENTRAL KAPUAS": {
+    "KAPUAS": "73555"
+  },
+  "MANDAU TALAWANG": {
+    "KAPUAS": "73556"
+  },
+  "PASAK TALAWANG": {
+    "KAPUAS": "73557"
+  },
+  "BASARANG": {
+    "KAPUAS": "73564"
+  },
+  "EAST KAPUAS": {
+    "KAPUAS": "73581"
+  },
+  "TAMBAN CATUR": {
+    "KAPUAS": "73582"
+  },
+  "KAPUAS KUALA": {
+    "KAPUAS": "73583"
+  },
+  "PETAK ISLAND": {
+    "KAPUAS": "73592"
+  },
+  "DADAHUP": {
+    "KAPUAS": "73593"
+  },
+  "KAPUAS MURUNG": {
+    "KAPUAS": "73594"
+  },
+  "EAST DUSUN": {
+    "EAST BARITO": "73612"
+  },
+  "PAJU EPAT": {
+    "EAST BARITO": "73617"
+  },
+  "KARUSEN JANANG": {
+    "EAST BARITO": "73650"
+  },
+  "CENTRAL DUSUN": {
+    "EAST BARITO": "73652"
+  },
+  "PEMATANG KARAU": {
+    "EAST BARITO": "73653"
+  },
+  "PAKU": {
+    "EAST BARITO": "73654"
+  },
+  "RAREN BATUAH": {
+    "EAST BARITO": "73655"
+  },
+  "BANUA LIMA": {
+    "EAST BARITO": "73661"
+  },
+  "PATANGKEP TUTUI": {
+    "EAST BARITO": "73671"
+  },
+  "AWANG": {
+    "EAST BARITO": "73681"
+  },
+  "SOUTH DUSUN": {
+    "SOUTH BARITO": "73711"
+  },
+  "NORTH DUSUN": {
+    "SOUTH BARITO": "73752"
+  },
+  "GUNUNG BINTANG AWAI": {
+    "SOUTH BARITO": "73753"
+  },
+  "KARAU KUALA": {
+    "SOUTH BARITO": "73761"
+  },
+  "DUSUN HILIR": {
+    "SOUTH BARITO": "73762"
+  },
+  "JENAMAS": {
+    "SOUTH BARITO": "73763"
+  },
+  "CENTRAL TEWEH": {
+    "NORTH BARITO": "73811"
+  },
+  "SOUTH TEWEH": {
+    "NORTH BARITO": "73814"
+  },
+  "TEWEH BARU": {
+    "NORTH BARITO": "73814"
+  },
+  "LAHEI": {
+    "NORTH BARITO": "73852"
+  },
+  "WEST LAHEI": {
+    "NORTH BARITO": "73853"
+  },
+  "MONTALLAT (MONTALAT)": {
+    "NORTH BARITO": "73861"
+  },
+  "GUNUNG TIMANG": {
+    "NORTH BARITO": "73862"
+  },
+  "GUNUNG PUREI": {
+    "NORTH BARITO": "73871"
+  },
+  "EAST TEWEH": {
+    "NORTH BARITO": "73881"
+  },
+  "MURUNG": {
+    "MURUNG RAYA": "73911"
+  },
+  "SOUTH TANAH SIANG": {
+    "MURUNG RAYA": "73960"
+  },
+  "TANAH SIANG": {
+    "MURUNG RAYA": "73961"
+  },
+  "SUNGAI BABUAT": {
+    "MURUNG RAYA": "73970"
+  },
+  "PERMATA INTAN": {
+    "MURUNG RAYA": "73971"
+  },
+  "SERIBU RIAM": {
+    "MURUNG RAYA": "73981"
+  },
+  "SUMBER BARITO": {
+    "MURUNG RAYA": "73982"
+  },
+  "UUT MURUNG": {
+    "MURUNG RAYA": "73983"
+  },
+  "BARITO TUHUP RAYA": {
+    "MURUNG RAYA": "73991"
+  },
+  "LAUNG TUHUP": {
+    "MURUNG RAYA": "73992"
+  },
+  "SOUTH ARUT": {
+    "WEST KOTAWARINGIN": "74111"
+  },
+  "NORTH ARUT": {
+    "WEST KOTAWARINGIN": "74152"
+  },
+  "KOTAWARINGIN LAMA": {
+    "WEST KOTAWARINGIN": "74161"
+  },
+  "BULIK": {
+    "LAMANDAU": "74162"
+  },
+  "EAST BULIK": {
+    "LAMANDAU": "74163"
+  },
+  "MENTHOBI RAYA": {
+    "LAMANDAU": "74164"
+  },
+  "SEMATU JAYA": {
+    "LAMANDAU": "74165"
+  },
+  "PANTAI LUNCI": {
+    "SUKAMARA": "74170"
+  },
+  "JELAI": {
+    "SUKAMARA": "74171"
+  },
+  "SUKAMARA": {
+    "SUKAMARA": "74172"
+  },
+  "BALAI RIAM": {
+    "SUKAMARA": "74173"
+  },
+  "PERMATA KECUBUNG": {
+    "SUKAMARA": "74174"
+  },
+  "KUMAI": {
+    "WEST KOTAWARINGIN": "74181"
+  },
+  "PANGKALAN BANTENG": {
+    "WEST KOTAWARINGIN": "74183"
+  },
+  "PANGKALAN LADA": {
+    "WEST KOTAWARINGIN": "74184"
+  },
+  "SERUYAN HILIR": {
+    "SERUYAN": "74213"
+  },
+  "EAST SERUYAN HILIR": {
+    "SERUYAN": "74215"
+  },
+  "SERUYAN RAYA": {
+    "SERUYAN": "74260"
+  },
+  "DANAU SEMBULUH": {
+    "SERUYAN": "74261"
+  },
+  "HANAU": {
+    "SERUYAN": "74270"
+  },
+  "DANAU SELULUK": {
+    "SERUYAN": "74271"
+  },
+  "CENTRAL SERUYAN": {
+    "SERUYAN": "74280"
+  },
+  "SULING TAMBUN": {
+    "SERUYAN": "74290"
+  },
+  "SERUYAN HULU": {
+    "SERUYAN": "74291"
+  },
+  "BAAMANG": {
+    "EAST KOTAWARINGIN": "74311"
+  },
+  "SERANAU": {
+    "EAST KOTAWARINGIN": "74314"
+  },
+  "MENTAWA BARU KETAPANG": {
+    "EAST KOTAWARINGIN": "74321"
+  },
+  "TELAWANG": {
+    "EAST KOTAWARINGIN": "74350"
+  },
+  "ANTANG KALANG": {
+    "EAST KOTAWARINGIN": "74352"
+  },
+  "TELAGA ANTANG": {
+    "EAST KOTAWARINGIN": "74352"
+  },
+  "KOTA BESI": {
+    "EAST KOTAWARINGIN": "74353"
+  },
+  "CEMPAGA": {
+    "EAST KOTAWARINGIN": "74354"
+  },
+  "PARENGGEAN": {
+    "EAST KOTAWARINGIN": "74355"
+  },
+  "BUKIT SANTUAI (BUKIT SANTUEI)": {
+    "EAST KOTAWARINGIN": "74356"
+  },
+  "MENTAYA HULU": {
+    "EAST KOTAWARINGIN": "74357"
+  },
+  "TUALAN HULU": {
+    "EAST KOTAWARINGIN": "74358"
+  },
+  "CEMPAGA HULU": {
+    "EAST KOTAWARINGIN": "74359"
+  },
+  "NORTH MENTAYA HILIR": {
+    "EAST KOTAWARINGIN": "74361"
+  },
+  "HANAUT ISLAND": {
+    "EAST KOTAWARINGIN": "74362"
+  },
+  "SOUTH MENTAYA HILIR": {
+    "EAST KOTAWARINGIN": "74363"
+  },
+  "TELUK SAMPIT": {
+    "EAST KOTAWARINGIN": "74364"
+  },
+  "KATINGAN HILIR": {
+    "KATINGAN": "74413"
+  },
+  "SANAMAN MANTIKEI (SENAMANG MANTIKEI)": {
+    "KATINGAN": "74451"
+  },
+  "TEWANG SANGALANG / SANGGALANG GARING": {
+    "KATINGAN": "74452"
+  },
+  "MALAN ISLAND": {
+    "KATINGAN": "74453"
+  },
+  "CENTRAL KATINGAN": {
+    "KATINGAN": "74454"
+  },
+  "PETAK MALAI": {
+    "KATINGAN": "74455"
+  },
+  "MARIKIT": {
+    "KATINGAN": "74456"
+  },
+  "BUKIT RAYA": {
+    "KATINGAN": "74457"
+  },
+  "KATINGAN HULU": {
+    "KATINGAN": "74458"
+  },
+  "TASIK PAYAWAN": {
+    "KATINGAN": "74461"
+  },
+  "KAMIPANG": {
+    "KATINGAN": "74462"
+  },
+  "KATINGAN KUALA": {
+    "KATINGAN": "74463"
+  },
+  "MENDAWAI": {
+    "KATINGAN": "74464"
+  },
+  "KURUN": {
+    "GUNUNG MAS": "74511"
+  },
+  "TEWAH": {
+    "GUNUNG MAS": "74552"
+  },
+  "DAMANG BATU": {
+    "GUNUNG MAS": "74553"
+  },
+  "NORTH KAHAYAN HULU": {
+    "GUNUNG MAS": "74554"
+  },
+  "MIRI MANASA": {
+    "GUNUNG MAS": "74555"
+  },
+  "RUNGAN": {
+    "GUNUNG MAS": "74560"
+  },
+  "RUNGAN HULU": {
+    "GUNUNG MAS": "74561"
+  },
+  "WEST RUNGAN": {
+    "GUNUNG MAS": "74561"
+  },
+  "MANUHING": {
+    "GUNUNG MAS": "74562"
+  },
+  "MAHUNING RAYA (MANUHING RAYA)": {
+    "GUNUNG MAS": "74563"
+  },
+  "SEPANG (SEPANG SIMIN)": {
+    "GUNUNG MAS": "74570"
+  },
+  "MIHING RAYA": {
+    "GUNUNG MAS": "74571"
+  },
+  "KAPUAS HULU": {
+    "KAPUAS": "74581"
+  },
+  "LAMANDAU": {
+    "LAMANDAU": "74660"
+  },
+  "BELANTIKAN RAYA": {
+    "LAMANDAU": "74663"
+  },
+  "BATANG KAWA": {
+    "LAMANDAU": "74664"
+  },
+  "DELANG": {
+    "LAMANDAU": "74665"
+  },
+  "KAHAYAN HILIR": {
+    "PULANG PISAU": "74811"
+  },
+  "JABIREN (JABIREN RAYA)": {
+    "PULANG PISAU": "74816"
+  },
+  "CENTRAL KAHAYAN": {
+    "PULANG PISAU": "74862"
+  },
+  "BANAMA TINGANG": {
+    "PULANG PISAU": "74863"
+  },
+  "PANDIH BATU": {
+    "PULANG PISAU": "74871"
+  },
+  "KAHAYAN KUALA": {
+    "PULANG PISAU": "74872"
+  },
+  "MALIKU": {
+    "PULANG PISAU": "74873"
+  },
+  "SEBANGAU KUALA": {
+    "PULANG PISAU": "74874"
+  },
+  "SAMARINDA KOTA": {
+    "SAMARINDA": "75111"
+  },
+  "SAMARINDA ULU": {
+    "SAMARINDA": "75111"
+  },
+  "SAMARINDA ILIR": {
+    "SAMARINDA": "75114"
+  },
+  "SAMBUTAN": {
+    "SAMARINDA": "75114"
+  },
+  "NORTH SAMARINDA": {
+    "SAMARINDA": "75117"
+  },
+  "SUNGAI KUNJANG": {
+    "SAMARINDA": "75125"
+  },
+  "LOA JANAN ILIR": {
+    "SAMARINDA": "75131"
+  },
+  "SAMARINDA SEBERANG": {
+    "SAMARINDA": "75131"
+  },
+  "PALARAN": {
+    "SAMARINDA": "75241"
+  },
+  "SANGA-SANGA": {
+    "KUTAI KARTANEGARA": "75251"
+  },
+  "MUARA JAWA": {
+    "KUTAI KARTANEGARA": "75261"
+  },
+  "SAMBOJA (SEMBOJA)": {
+    "KUTAI KARTANEGARA": "75271"
+  },
+  "NORTH BONTANG": {
+    "BONTANG": "75311"
+  },
+  "WEST BONTANG": {
+    "BONTANG": "75313"
+  },
+  "SOUTH BONTANG": {
+    "BONTANG": "75321"
+  },
+  "ANGGANA": {
+    "KUTAI KARTANEGARA": "75381"
+  },
+  "MUARA BADAK": {
+    "KUTAI KARTANEGARA": "75382"
+  },
+  "MARANG KAYU": {
+    "KUTAI KARTANEGARA": "75385"
+  },
+  "LOA JANAN": {
+    "KUTAI KARTANEGARA": "75391"
+  },
+  "TENGGARONG": {
+    "KUTAI KARTANEGARA": "75511"
+  },
+  "SEBULU": {
+    "KUTAI KARTANEGARA": "75552"
+  },
+  "MUARA KAMAN": {
+    "KUTAI KARTANEGARA": "75553"
+  },
+  "TELEN": {
+    "EAST KUTAI": "75554"
+  },
+  "KOMBENG (KONGBENG)": {
+    "EAST KUTAI": "75555"
+  },
+  "BUSANG": {
+    "EAST KUTAI": "75556"
+  },
+  "MUARA ANCALONG": {
+    "EAST KUTAI": "75556"
+  },
+  "KEMBANG JANGGUT": {
+    "KUTAI KARTANEGARA": "75557"
+  },
+  "TABANG": {
+    "KUTAI KARTANEGARA": "75558",
+    "MAMASA": "91364"
+  },
+  "MUARA WIS": {
+    "KUTAI KARTANEGARA": "75559"
+  },
+  "KOTA BANGUN": {
+    "KUTAI KARTANEGARA": "75561"
+  },
+  "MUARA MUNTAI": {
+    "KUTAI KARTANEGARA": "75562"
+  },
+  "KENOHAN": {
+    "KUTAI KARTANEGARA": "75564"
+  },
+  "LOA KULU": {
+    "KUTAI KARTANEGARA": "75571"
+  },
+  "TENGGARONG SEBERANG": {
+    "KUTAI KARTANEGARA": "75572"
+  },
+  "LINGGANG BIGUNG": {
+    "WEST KUTAI": "75576"
+  },
+  "KALIORANG": {
+    "EAST KUTAI": "75617"
+  },
+  "BENGALON": {
+    "EAST KUTAI": "75618"
+  },
+  "KAUBUN": {
+    "EAST KUTAI": "75619"
+  },
+  "LONG MESANGAT": {
+    "EAST KUTAI": "75654"
+  },
+  "MUARA WAHAU": {
+    "EAST KUTAI": "75655"
+  },
+  "MUARA BENGKAL": {
+    "EAST KUTAI": "75656"
+  },
+  "SOUTH SANGATTA": {
+    "EAST KUTAI": "75680"
+  },
+  "NORTH SANGATTA": {
+    "EAST KUTAI": "75681"
+  },
+  "RANTAU PULUNG": {
+    "EAST KUTAI": "75683"
+  },
+  "SANDARAN": {
+    "EAST KUTAI": "75685"
+  },
+  "SANGKULIRANG": {
+    "EAST KUTAI": "75686"
+  },
+  "TERING": {
+    "WEST KUTAI": "75760"
+  },
+  "PENYINGGAHAN": {
+    "WEST KUTAI": "75763"
+  },
+  "SEKOLAQ DARAT": {
+    "WEST KUTAI": "75764"
+  },
+  "MELAK": {
+    "WEST KUTAI": "75765"
+  },
+  "MOOK MANAAR BULATN": {
+    "WEST KUTAI": "75765"
+  },
+  "LONG IRAM": {
+    "WEST KUTAI": "75766"
+  },
+  "LONG BAGUN": {
+    "MAHAKAM ULU": "75767"
+  },
+  "LONG PAHANGAI": {
+    "MAHAKAM ULU": "75768"
+  },
+  "LONG APARI": {
+    "MAHAKAM ULU": "75769"
+  },
+  "LONG HUBUNG": {
+    "MAHAKAM ULU": "75770"
+  },
+  "SILUQ NGURAI": {
+    "WEST KUTAI": "75771"
+  },
+  "BONGAN": {
+    "WEST KUTAI": "75772"
+  },
+  "JEMPANG": {
+    "WEST KUTAI": "75773"
+  },
+  "MUARA PAHU": {
+    "WEST KUTAI": "75774"
+  },
+  "MUARA LAWA": {
+    "WEST KUTAI": "75775"
+  },
+  "BARONG TONGKOK": {
+    "WEST KUTAI": "75776"
+  },
+  "NYUATAN": {
+    "WEST KUTAI": "75776"
+  },
+  "DAMAI": {
+    "WEST KUTAI": "75777"
+  },
+  "BENTIAN BESAR": {
+    "WEST KUTAI": "75778"
+  },
+  "LAHAM": {
+    "MAHAKAM ULU": "75779"
+  },
+  "BALIKPAPAN KOTA": {
+    "BALIKPAPAN": "76111"
+  },
+  "SOUTH BALIKPAPAN": {
+    "BALIKPAPAN": "76114"
+  },
+  "EAST BALIKPAPAN": {
+    "BALIKPAPAN": "76116"
+  },
+  "CENTRAL BALIKPAPAN": {
+    "BALIKPAPAN": "76121"
+  },
+  "NORTH BALIKPAPAN": {
+    "BALIKPAPAN": "76125"
+  },
+  "WEST BALIKPAPAN": {
+    "BALIKPAPAN": "76131"
+  },
+  "PENAJAM": {
+    "NORTH PENAJAM PASER": "76141"
+  },
+  "SEPAKU": {
+    "NORTH PENAJAM PASER": "76146"
+  },
+  "MUARA SAMU": {
+    "PASER": "76250"
+  },
+  "TANAH GROGOT": {
+    "PASER": "76251"
+  },
+  "BATU SOPANG": {
+    "PASER": "76252"
+  },
+  "MUARA KOMAM": {
+    "PASER": "76253"
+  },
+  "BATU ENGAU": {
+    "PASER": "76261"
+  },
+  "PASER BELENGKONG (PASIR BELENGKONG)": {
+    "PASER": "76271"
+  },
+  "KUARO": {
+    "PASER": "76281"
+  },
+  "LONG IKIS": {
+    "PASER": "76282"
+  },
+  "LONG KALI": {
+    "PASER": "76283"
+  },
+  "BABULU": {
+    "NORTH PENAJAM PASER": "76285"
+  },
+  "WEST TARAKAN": {
+    "TARAKAN": "77111"
+  },
+  "CENTRAL TARAKAN": {
+    "TARAKAN": "77113"
+  },
+  "EAST TARAKAN": {
+    "TARAKAN": "77115"
+  },
+  "NORTH TARAKAN": {
+    "TARAKAN": "77116"
+  },
+  "SESAYAP": {
+    "TANA TIDUNG": "77151"
+  },
+  "BETAYAU": {
+    "TANA TIDUNG": "77152"
+  },
+  "SESAYAP HILIR": {
+    "TANA TIDUNG": "77153"
+  },
+  "MURUK RIAN": {
+    "TANA TIDUNG": "77154"
+  },
+  "MENTARANG HULU": {
+    "MALINAU": "77155"
+  },
+  "TANJUNG PALAS": {
+    "BULUNGAN": "77211"
+  },
+  "TANJUNG SELOR": {
+    "BULUNGAN": "77211"
+  },
+  "EAST TANJUNG PALAS": {
+    "BULUNGAN": "77215"
+  },
+  "CENTRAL TANJUNG PALAS": {
+    "BULUNGAN": "77216"
+  },
+  "WEST TANJUNG PALAS": {
+    "BULUNGAN": "77217"
+  },
+  "NORTH TANJUNG PALAS": {
+    "BULUNGAN": "77218"
+  },
+  "PESO": {
+    "BULUNGAN": "77261"
+  },
+  "PESO HILIR/ILIR": {
+    "BULUNGAN": "77262"
+  },
+  "SEKATAK": {
+    "BULUNGAN": "77263"
+  },
+  "BUNYU (BUNYU ISLAND)": {
+    "BULUNGAN": "77281"
+  },
+  "TANJUNG REDEB": {
+    "BERAU": "77311"
+  },
+  "TELUK BAYUR": {
+    "BERAU": "77313"
+  },
+  "GUNUNG TABUR": {
+    "BERAU": "77352"
+  },
+  "SEGAH": {
+    "BERAU": "77361"
+  },
+  "KELAY": {
+    "BERAU": "77362"
+  },
+  "SAMBALIUNG": {
+    "BERAU": "77371"
+  },
+  "BIATAN": {
+    "BERAU": "77372"
+  },
+  "BIDUK-BIDUK": {
+    "BERAU": "77373"
+  },
+  "TABALAR": {
+    "BERAU": "77374"
+  },
+  "TALISAYAN": {
+    "BERAU": "77375"
+  },
+  "DERAWAN ISLAND": {
+    "BERAU": "77380"
+  },
+  "MARATUA": {
+    "BERAU": "77381"
+  },
+  "LUMBIS OGONG": {
+    "NUNUKAN": "77450"
+  },
+  "TANA LIA": {
+    "TANA TIDUNG": "77451"
+  },
+  "SEMBAKUNG ATULAI": {
+    "NUNUKAN": "77452"
+  },
+  "SEMBAKUNG": {
+    "NUNUKAN": "77453"
+  },
+  "SOUTH KRAYAN": {
+    "NUNUKAN": "77454"
+  },
+  "WEST KRAYAN": {
+    "NUNUKAN": "77455"
+  },
+  "KRAYAN": {
+    "NUNUKAN": "77456"
+  },
+  "LUMBIS": {
+    "NUNUKAN": "77457"
+  },
+  "CENTRAL KRAYAN": {
+    "NUNUKAN": "77458"
+  },
+  "EAST KRAYAN": {
+    "NUNUKAN": "77459"
+  },
+  "SOUTH NUNUKAN": {
+    "NUNUKAN": "77480"
+  },
+  "SEBUKU": {
+    "NUNUKAN": "77481"
+  },
+  "NUNUKAN": {
+    "NUNUKAN": "77482"
+  },
+  "SEBATIK": {
+    "NUNUKAN": "77483"
+  },
+  "SEI MENGGARIS": {
+    "NUNUKAN": "77484"
+  },
+  "TULIN ONSOI": {
+    "NUNUKAN": "77485"
+  },
+  "WEST SEBATIK": {
+    "NUNUKAN": "77486"
+  },
+  "CENTRAL SEBATIK": {
+    "NUNUKAN": "77487"
+  },
+  "EAST SEBATIK": {
+    "NUNUKAN": "77488"
+  },
+  "NORTH SEBATIK": {
+    "NUNUKAN": "77489"
+  },
+  "MALINAU KOTA": {
+    "MALINAU": "77550"
+  },
+  "SOUTH MALINAU": {
+    "MALINAU": "77551"
+  },
+  "SOUTH MALINAU HILIR": {
+    "MALINAU": "77552"
+  },
+  "SOUTH MALINAU HULU": {
+    "MALINAU": "77553"
+  },
+  "WEST MALINAU": {
+    "MALINAU": "77554"
+  },
+  "MENTARANG": {
+    "MALINAU": "77555"
+  },
+  "SUNGAI TUBU": {
+    "MALINAU": "77556"
+  },
+  "NORTH MALINAU": {
+    "MALINAU": "77557"
+  },
+  "BAHAU HULU": {
+    "MALINAU": "77562"
+  },
+  "PUJUNGAN": {
+    "MALINAU": "77563"
+  },
+  "KAYAN HILIR": {
+    "MALINAU": "77571",
+    "SINTANG": "78693"
+  },
+  "KAYAN HULU": {
+    "MALINAU": "77572",
+    "SINTANG": "78694"
+  },
+  "SOUTH KAYAN": {
+    "MALINAU": "77573"
+  },
+  "SUNGAI BOH": {
+    "MALINAU": "77574"
+  },
+  "PONTIANAK KOTA": {
+    "PONTIANAK": "78111"
+  },
+  "WEST PONTIANAK": {
+    "PONTIANAK": "78113"
+  },
+  "SOUTH PONTIANAK": {
+    "PONTIANAK": "78123"
+  },
+  "SOUTHEAST PONTIANAK": {
+    "PONTIANAK": "78124"
+  },
+  "EAST PONTIANAK": {
+    "PONTIANAK": "78132"
+  },
+  "NORTH PONTIANAK": {
+    "PONTIANAK": "78241"
+  },
+  "SEGEDONG": {
+    "MEMPAWAH": "78351"
+  },
+  "ANJONGAN": {
+    "MEMPAWAH": "78353"
+  },
+  "SEI/SUNGAI PINYUH": {
+    "MEMPAWAH": "78354"
+  },
+  "KUALA MANDOR B": {
+    "KUBU RAYA": "78355"
+  },
+  "TOHO": {
+    "MEMPAWAH": "78360"
+  },
+  "SADANIANG": {
+    "MEMPAWAH": "78361"
+  },
+  "SEI/SUNGAI KUNYIT": {
+    "MEMPAWAH": "78371"
+  },
+  "SUNGAI KAKAP": {
+    "KUBU RAYA": "78380"
+  },
+  "RASAU JAYA": {
+    "KUBU RAYA": "78381"
+  },
+  "TELUK PAKEDAI": {
+    "KUBU RAYA": "78383"
+  },
+  "TERENTANG": {
+    "KUBU RAYA": "78392"
+  },
+  "SUNGAI AMBAWANG": {
+    "KUBU RAYA": "78393"
+  },
+  "KAPUAS (SANGGAU KAPUAS)": {
+    "SANGGAU": "78511"
+  },
+  "BONTI": {
+    "SANGGAU": "78552"
+  },
+  "KEMBAYAN": {
+    "SANGGAU": "78553"
+  },
+  "NOYAN": {
+    "SANGGAU": "78554"
+  },
+  "BEDUAI (BEDUWAI)": {
+    "SANGGAU": "78555"
+  },
+  "SEKAYAM": {
+    "SANGGAU": "78556"
+  },
+  "ENTIKONG": {
+    "SANGGAU": "78557"
+  },
+  "PARINDU": {
+    "SANGGAU": "78561"
+  },
+  "TAYAN HULU": {
+    "SANGGAU": "78562"
+  },
+  "BALAI": {
+    "SANGGAU": "78563"
+  },
+  "TAYAN HILIR": {
+    "SANGGAU": "78564"
+  },
+  "MELIAU": {
+    "SANGGAU": "78571"
+  },
+  "TOBA": {
+    "SANGGAU": "78572"
+  },
+  "MUKOK": {
+    "SANGGAU": "78581"
+  },
+  "JANGKANG": {
+    "SANGGAU": "78591"
+  },
+  "SINTANG": {
+    "SINTANG": "78611"
+  },
+  "KETUNGAU HILIR": {
+    "SINTANG": "78652"
+  },
+  "CENTRAL KETUNGAU": {
+    "SINTANG": "78653"
+  },
+  "KETUNGAU HULU": {
+    "SINTANG": "78654"
+  },
+  "SUNGAI TEBELIAN": {
+    "SINTANG": "78655"
+  },
+  "KELAM PERMAI": {
+    "SINTANG": "78656"
+  },
+  "TEMPUNAK": {
+    "SINTANG": "78661"
+  },
+  "SEPAUK": {
+    "SINTANG": "78662"
+  },
+  "BINJAI HULU": {
+    "SINTANG": "78663"
+  },
+  "SERAWAI": {
+    "SINTANG": "78683"
+  },
+  "AMBALAU": {
+    "SINTANG": "78684",
+    "SOUTH BURU": "97546"
+  },
+  "DEDAI": {
+    "SINTANG": "78691"
+  },
+  "SOUTH PUTUSSIBAU": {
+    "KAPUAS HULU": "78714"
+  },
+  "NORTH PUTUSSIBAU": {
+    "KAPUAS HULU": "78716"
+  },
+  "BIKA": {
+    "KAPUAS HULU": "78753"
+  },
+  "EMBALOH HILIR": {
+    "KAPUAS HULU": "78754"
+  },
+  "EMBALOH HULU": {
+    "KAPUAS HULU": "78755"
+  },
+  "KALIS": {
+    "KAPUAS HULU": "78756"
+  },
+  "MENTEBAH": {
+    "KAPUAS HULU": "78757"
+  },
+  "BOYAN TANJUNG": {
+    "KAPUAS HULU": "78758"
+  },
+  "PENGKADAN (BATU DATU)": {
+    "KAPUAS HULU": "78759"
+  },
+  "BUNUT HILIR": {
+    "KAPUAS HULU": "78761"
+  },
+  "BUNUT HULU": {
+    "KAPUAS HULU": "78762"
+  },
+  "JONGKONG (JENGKONG)": {
+    "KAPUAS HULU": "78763"
+  },
+  "HULU GURUNG": {
+    "KAPUAS HULU": "78764"
+  },
+  "SELIMBAU": {
+    "KAPUAS HULU": "78765"
+  },
+  "BATANG LUPAR": {
+    "KAPUAS HULU": "78766"
+  },
+  "EMPANANG": {
+    "KAPUAS HULU": "78768"
+  },
+  "PURING KENCANA": {
+    "KAPUAS HULU": "78769"
+  },
+  "SEMITAU": {
+    "KAPUAS HULU": "78771"
+  },
+  "SEBERUANG": {
+    "KAPUAS HULU": "78772"
+  },
+  "SILAT HILIR": {
+    "KAPUAS HULU": "78773"
+  },
+  "SILAT HULU": {
+    "KAPUAS HULU": "78774"
+  },
+  "SUHAID": {
+    "KAPUAS HULU": "78775"
+  },
+  "MUARA PAWAN": {
+    "KETAPANG": "78810"
+  },
+  "DELTA PAWAN": {
+    "KETAPANG": "78811"
+  },
+  "NORTH MATAN HILIR": {
+    "KETAPANG": "78813"
+  },
+  "BENUA KAYONG": {
+    "KETAPANG": "78821"
+  },
+  "SOUTH MATAN HILIR": {
+    "KETAPANG": "78822"
+  },
+  "SIMPANG HULU": {
+    "KETAPANG": "78850"
+  },
+  "SIMPANG HILIR": {
+    "NORTH KAYONG": "78853"
+  },
+  "SIMPANG DUA": {
+    "KETAPANG": "78854"
+  },
+  "KARIMATA ISLANDS": {
+    "NORTH KAYONG": "78855"
+  },
+  "TELUK BATANG": {
+    "NORTH KAYONG": "78856"
+  },
+  "SEPONTI": {
+    "NORTH KAYONG": "78857"
+  },
+  "MAYA (ISLAND MAYA KARIMATA) ISLAND": {
+    "NORTH KAYONG": "78858"
+  },
+  "KENDAWANGAN": {
+    "KETAPANG": "78862"
+  },
+  "AIR UPAS": {
+    "KETAPANG": "78863"
+  },
+  "MANIS MATA": {
+    "KETAPANG": "78864"
+  },
+  "MARAU": {
+    "KETAPANG": "78865"
+  },
+  "SINGKUP": {
+    "KETAPANG": "78866"
+  },
+  "SANDAI": {
+    "KETAPANG": "78870"
+  },
+  "HULU SUNGAI": {
+    "KETAPANG": "78871"
+  },
+  "SUNGAI LAUR": {
+    "KETAPANG": "78872"
+  },
+  "NANGA TAYAP": {
+    "KETAPANG": "78873"
+  },
+  "PEMAHAN": {
+    "KETAPANG": "78874"
+  },
+  "SUNGAI MELAYU RAYAK": {
+    "KETAPANG": "78875"
+  },
+  "JELAI HULU": {
+    "KETAPANG": "78876"
+  },
+  "TUMBANG TITI": {
+    "KETAPANG": "78877"
+  },
+  "MEMPAWAH HILIR": {
+    "MEMPAWAH": "78911"
+  },
+  "EAST MEMPAWAH": {
+    "MEMPAWAH": "78915"
+  },
+  "CENTRAL SINGKAWANG": {
+    "SINGKAWANG": "79111"
+  },
+  "WEST SINGKAWANG": {
+    "SINGKAWANG": "79121"
+  },
+  "NORTH SINGKAWANG": {
+    "SINGKAWANG": "79151"
+  },
+  "SOUTH JAWAI": {
+    "SAMBAS": "79154"
+  },
+  "SOUTH SINGKAWANG": {
+    "SINGKAWANG": "79163"
+  },
+  "MONTERADO": {
+    "BENGKAYANG": "79181"
+  },
+  "SUNGAI BETUNG": {
+    "BENGKAYANG": "79211"
+  },
+  "BENGKAYANG": {
+    "BENGKAYANG": "79212"
+  },
+  "TERIAK": {
+    "BENGKAYANG": "79214"
+  },
+  "TUJUH BELAS": {
+    "BENGKAYANG": "79250"
+  },
+  "EAST SINGKAWANG": {
+    "SINGKAWANG": "79251"
+  },
+  "CAPKALA": {
+    "BENGKAYANG": "79271"
+  },
+  "SUNGAI RAYA ISLANDS": {
+    "BENGKAYANG": "79273"
+  },
+  "SAMALANTAN": {
+    "BENGKAYANG": "79280"
+  },
+  "LEMBAH BAWANG": {
+    "BENGKAYANG": "79281"
+  },
+  "LUMAR": {
+    "BENGKAYANG": "79282"
+  },
+  "LEDO": {
+    "BENGKAYANG": "79283"
+  },
+  "SANGGAU LEDO": {
+    "BENGKAYANG": "79284"
+  },
+  "SELUAS": {
+    "BENGKAYANG": "79285"
+  },
+  "JAGOI BABANG": {
+    "BENGKAYANG": "79286"
+  },
+  "SIDING": {
+    "BENGKAYANG": "79287"
+  },
+  "SUTI SEMARANG": {
+    "BENGKAYANG": "79288"
+  },
+  "NGABANG": {
+    "LANDAK": "79354"
+  },
+  "MANDOR": {
+    "LANDAK": "79355"
+  },
+  "SENGAH TEMILA": {
+    "LANDAK": "79356"
+  },
+  "JELIMPO": {
+    "LANDAK": "79357"
+  },
+  "SEBANGKI": {
+    "LANDAK": "79358"
+  },
+  "MENYUKE": {
+    "LANDAK": "79360"
+  },
+  "SOMPAK": {
+    "LANDAK": "79361"
+  },
+  "MENJALIN": {
+    "LANDAK": "79362"
+  },
+  "MEMPAWAH HULU": {
+    "LANDAK": "79363"
+  },
+  "BANYUKE HULU": {
+    "LANDAK": "79364"
+  },
+  "AIR BESAR": {
+    "LANDAK": "79365"
+  },
+  "KUALA BEHE": {
+    "LANDAK": "79367"
+  },
+  "EAST SELAKAU": {
+    "SAMBAS": "79451"
+  },
+  "SELAKAU": {
+    "SAMBAS": "79452"
+  },
+  "GALING": {
+    "SAMBAS": "79453"
+  },
+  "JAWAI": {
+    "SAMBAS": "79454"
+  },
+  "PEMANGKAT": {
+    "SAMBAS": "79455"
+  },
+  "SALATIGA": {
+    "SAMBAS": "79456"
+  },
+  "SEMPARUK": {
+    "SAMBAS": "79457"
+  },
+  "SAMBAS": {
+    "SAMBAS": "79460"
+  },
+  "TEBAS": {
+    "SAMBAS": "79461"
+  },
+  "SAJAD": {
+    "SAMBAS": "79462"
+  },
+  "SEJANGKUNG": {
+    "SAMBAS": "79463"
+  },
+  "SEBAWI": {
+    "SAMBAS": "79464"
+  },
+  "TANGARAN": {
+    "SAMBAS": "79465"
+  },
+  "PALOH": {
+    "SAMBAS": "79466"
+  },
+  "SAJINGAN BESAR": {
+    "SAMBAS": "79467"
+  },
+  "TEKARANG": {
+    "SAMBAS": "79468"
+  },
+  "TELUK KERAMAT": {
+    "SAMBAS": "79469"
+  },
+  "SEKADAU HILIR": {
+    "SEKADAU": "79511"
+  },
+  "SEKADAU HULU": {
+    "SEKADAU": "79583"
+  },
+  "NANGA TAMAN": {
+    "SEKADAU": "79584"
+  },
+  "NANGA MAHAP": {
+    "SEKADAU": "79585"
+  },
+  "BELITANG HILIR": {
+    "SEKADAU": "79586"
+  },
+  "BELITANG HULU": {
+    "SEKADAU": "79587"
+  },
+  "BELIMBING HULU": {
+    "MELAWI": "79670"
+  },
+  "NANGA PINOH": {
+    "MELAWI": "79672"
+  },
+  "SAYAN": {
+    "MELAWI": "79673"
+  },
+  "TANAH PINOH": {
+    "MELAWI": "79674"
+  },
+  "SOKAN": {
+    "MELAWI": "79675"
+  },
+  "WEST TANAH PINOH": {
+    "MELAWI": "79676"
+  },
+  "SOUTH PINOH": {
+    "MELAWI": "79677"
+  },
+  "NORTH PINOH": {
+    "MELAWI": "79678"
+  },
+  "ELLA HILIR": {
+    "MELAWI": "79681"
+  },
+  "MENUKUNG": {
+    "MELAWI": "79682"
+  },
+  "NORTH DENPASAR": {
+    "DENPASAR": "80111"
+  },
+  "WEST DENPASAR": {
+    "DENPASAR": "80112"
+  },
+  "SOUTH DENPASAR": {
+    "DENPASAR": "80221"
+  },
+  "EAST DENPASAR": {
+    "DENPASAR": "80232"
+  },
+  "MENGWI": {
+    "BADUNG": "80351"
+  },
+  "ABIANSEMAL": {
+    "BADUNG": "80352"
+  },
+  "PETANG": {
+    "BADUNG": "80353"
+  },
+  "KUTA": {
+    "BADUNG": "80361"
+  },
+  "SOUTH KUTA": {
+    "BADUNG": "80362"
+  },
+  "NORTH KUTA": {
+    "BADUNG": "80363"
+  },
+  "GIANYAR": {
+    "GIANYAR": "80511"
+  },
+  "TAMPAKSIRING (TAMPAK SIRING)": {
+    "GIANYAR": "80552"
+  },
+  "TEGALLALANG": {
+    "GIANYAR": "80561"
+  },
+  "UBUD": {
+    "GIANYAR": "80571"
+  },
+  "PAYANGAN": {
+    "GIANYAR": "80572"
+  },
+  "BELAH BATUH (BLAHBATUH)": {
+    "GIANYAR": "80581"
+  },
+  "SUKAWATI": {
+    "GIANYAR": "80582"
+  },
+  "BANGLI": {
+    "BANGLI": "80611"
+  },
+  "KINTAMANI": {
+    "BANGLI": "80652"
+  },
+  "SUSUT": {
+    "BANGLI": "80661"
+  },
+  "TEMBUKU": {
+    "BANGLI": "80671"
+  },
+  "KLUNGKUNG": {
+    "KLUNGKUNG": "80711"
+  },
+  "BANJARANGKAN": {
+    "KLUNGKUNG": "80752"
+  },
+  "DAWAN": {
+    "KLUNGKUNG": "80761"
+  },
+  "NUSA PENIDA (NUSAPENIDA)": {
+    "KLUNGKUNG": "80771"
+  },
+  "KARANGASEM (KARANG ASEM)": {
+    "KARANGASEM": "80811"
+  },
+  "ABANG": {
+    "KARANGASEM": "80852"
+  },
+  "BEBANDEM": {
+    "KARANGASEM": "80861"
+  },
+  "RENDANG": {
+    "KARANGASEM": "80863"
+  },
+  "SIDEMEN": {
+    "KARANGASEM": "80864"
+  },
+  "MANGGIS": {
+    "KARANGASEM": "80871"
+  },
+  "BULELENG": {
+    "BULELENG": "81111"
+  },
+  "SERIRIT": {
+    "BULELENG": "81153"
+  },
+  "BUSUNG BIU (BUSUNGBIU)": {
+    "BULELENG": "81154"
+  },
+  "GEROKGAK": {
+    "BULELENG": "81155"
+  },
+  "SUKASADA": {
+    "BULELENG": "81161"
+  },
+  "SAWAN": {
+    "BULELENG": "81171"
+  },
+  "KUBUTAMBAHAN": {
+    "BULELENG": "81172"
+  },
+  "TEJAKULA": {
+    "BULELENG": "81173"
+  },
+  "TABANAN": {
+    "TABANAN": "82111"
+  },
+  "KEDIRI": {
+    "TABANAN": "82121",
+    "WEST LOMBOK": "83362"
+  },
+  "PENEBEL": {
+    "TABANAN": "82152"
+  },
+  "EAST SALAMADEG / SALEMADEG": {
+    "TABANAN": "82160"
+  },
+  "KERAMBITAN": {
+    "TABANAN": "82161"
+  },
+  "WEST SALEMADEG": {
+    "TABANAN": "82162"
+  },
+  "PUPUAN": {
+    "TABANAN": "82163"
+  },
+  "SELEMADEG": {
+    "TABANAN": "82164"
+  },
+  "MARGA": {
+    "TABANAN": "82181"
+  },
+  "BATURITI": {
+    "TABANAN": "82191"
+  },
+  "JEMBRANA": {
+    "JEMBRANA": "82211"
+  },
+  "NEGARA": {
+    "JEMBRANA": "82212"
+  },
+  "MELAYA": {
+    "JEMBRANA": "82252"
+  },
+  "MENDOYO": {
+    "JEMBRANA": "82261"
+  },
+  "PEKUTATAN": {
+    "JEMBRANA": "82262"
+  },
+  "SEKARBELA": {
+    "MATARAM": "83115"
+  },
+  "MATARAM": {
+    "MATARAM": "83117"
+  },
+  "AMPENAN": {
+    "MATARAM": "83118"
+  },
+  "SELAPARANG (SELAPRANG)": {
+    "MATARAM": "83126"
+  },
+  "SANDUBAYA (SANDUJAYA)": {
+    "MATARAM": "83232"
+  },
+  "CAKRANEGARA": {
+    "MATARAM": "83238"
+  },
+  "GUNUNGSARI": {
+    "WEST LOMBOK": "83351"
+  },
+  "PEMENANG": {
+    "NORTH LOMBOK": "83352"
+  },
+  "GANGGA": {
+    "NORTH LOMBOK": "83353"
+  },
+  "BATU LAYAR": {
+    "WEST LOMBOK": "83355"
+  },
+  "KAYANGAN": {
+    "NORTH LOMBOK": "83356"
+  },
+  "LABUAPI": {
+    "WEST LOMBOK": "83361"
+  },
+  "GERUNG": {
+    "WEST LOMBOK": "83363"
+  },
+  "LEMBAR": {
+    "WEST LOMBOK": "83364"
+  },
+  "SEKOTONG": {
+    "WEST LOMBOK": "83365"
+  },
+  "NARMADA": {
+    "WEST LOMBOK": "83370"
+  },
+  "LINGSAR": {
+    "WEST LOMBOK": "83371"
+  },
+  "PRAYA": {
+    "CENTRAL LOMBOK": "83511"
+  },
+  "CENTRAL PRAYA": {
+    "CENTRAL LOMBOK": "83513"
+  },
+  "NORTH BATUKLIANG": {
+    "CENTRAL LOMBOK": "83550"
+  },
+  "BATUKLIANG": {
+    "CENTRAL LOMBOK": "83552"
+  },
+  "KOPANG": {
+    "CENTRAL LOMBOK": "83553"
+  },
+  "JANAPRIA": {
+    "CENTRAL LOMBOK": "83554"
+  },
+  "JONGGAT": {
+    "CENTRAL LOMBOK": "83561"
+  },
+  "PRINGGARATA": {
+    "CENTRAL LOMBOK": "83562"
+  },
+  "SOUTHWEST PRAYA": {
+    "CENTRAL LOMBOK": "83571"
+  },
+  "WEST PRAYA": {
+    "CENTRAL LOMBOK": "83572"
+  },
+  "PUJUT": {
+    "CENTRAL LOMBOK": "83573"
+  },
+  "EAST PRAYA": {
+    "CENTRAL LOMBOK": "83581"
+  },
+  "SELONG": {
+    "EAST LOMBOK": "83611"
+  },
+  "WANASABA": {
+    "EAST LOMBOK": "83650"
+  },
+  "SURALAGA": {
+    "EAST LOMBOK": "83651"
+  },
+  "SUKAMULIA": {
+    "EAST LOMBOK": "83652"
+  },
+  "AIKMEL": {
+    "EAST LOMBOK": "83653"
+  },
+  "PRINGGABAYA": {
+    "EAST LOMBOK": "83654"
+  },
+  "SUELA (SUWELA)": {
+    "EAST LOMBOK": "83655"
+  },
+  "SAMBALIA (SAMBELIA)": {
+    "EAST LOMBOK": "83656"
+  },
+  "SEMBALUN": {
+    "EAST LOMBOK": "83657"
+  },
+  "PRINGGASELA": {
+    "EAST LOMBOK": "83660"
+  },
+  "MASBAGIK": {
+    "EAST LOMBOK": "83661"
+  },
+  "SIKUR": {
+    "EAST LOMBOK": "83662"
+  },
+  "MONTONG GADING": {
+    "EAST LOMBOK": "83663"
+  },
+  "TERARA": {
+    "EAST LOMBOK": "83664"
+  },
+  "WEST SAKRA": {
+    "EAST LOMBOK": "83670"
+  },
+  "SAKRA": {
+    "EAST LOMBOK": "83671"
+  },
+  "JEROWARU": {
+    "EAST LOMBOK": "83672"
+  },
+  "KERUAK": {
+    "EAST LOMBOK": "83673"
+  },
+  "EAST SAKRA": {
+    "EAST LOMBOK": "83674"
+  },
+  "MADAPANGGA": {
+    "BIMA": "84111"
+  },
+  "MPUNDA": {
+    "BIMA": "84111"
+  },
+  "WEST RASANAE": {
+    "BIMA": "84111"
+  },
+  "RABA": {
+    "BIMA": "84113"
+  },
+  "EAST RASANAE": {
+    "BIMA": "84114"
+  },
+  "ASAKOTA": {
+    "BIMA": "84119"
+  },
+  "WERA": {
+    "BIMA": "84152"
+  },
+  "AMBALAWI": {
+    "BIMA": "84153"
+  },
+  "BOLO": {
+    "BIMA": "84161"
+  },
+  "DONGGO": {
+    "BIMA": "84162"
+  },
+  "SOROMANDI": {
+    "BIMA": "84163"
+  },
+  "PARADO": {
+    "BIMA": "84170"
+  },
+  "WOHA": {
+    "BIMA": "84171"
+  },
+  "MONTA": {
+    "BIMA": "84172"
+  },
+  "BELO": {
+    "BIMA": "84173"
+  },
+  "PALIBELO": {
+    "BIMA": "84174"
+  },
+  "LANGGUDU": {
+    "BIMA": "84180"
+  },
+  "LAMBITU": {
+    "BIMA": "84181"
+  },
+  "LAMBU": {
+    "BIMA": "84182"
+  },
+  "SAPE": {
+    "BIMA": "84183"
+  },
+  "WAWO": {
+    "BIMA": "84184",
+    "NORTH KOLAKA": "93962"
+  },
+  "SANGGAR": {
+    "BIMA": "84191"
+  },
+  "DOMPU": {
+    "DOMPU": "84211"
+  },
+  "WOJA": {
+    "DOMPU": "84219"
+  },
+  "KILO": {
+    "DOMPU": "84252"
+  },
+  "MANGGALEWA": {
+    "DOMPU": "84253"
+  },
+  "PEKAT": {
+    "DOMPU": "84260"
+  },
+  "KEMPO": {
+    "DOMPU": "84261"
+  },
+  "HU'U": {
+    "DOMPU": "84271"
+  },
+  "PAJO": {
+    "DOMPU": "84272"
+  },
+  "UNTER IWES (UNTERWIRIS)": {
+    "SUMBAWA": "84310"
+  },
+  "SUMBAWA": {
+    "SUMBAWA": "84311"
+  },
+  "LABUHAN BADAS": {
+    "SUMBAWA": "84316"
+  },
+  "UTAN": {
+    "SUMBAWA": "84351"
+  },
+  "RHEE": {
+    "SUMBAWA": "84352"
+  },
+  "ALAS": {
+    "SUMBAWA": "84353"
+  },
+  "WEST ALAS": {
+    "SUMBAWA": "84354"
+  },
+  "BUER": {
+    "SUMBAWA": "84355"
+  },
+  "BATU LANTEH (BATULANTEH)": {
+    "SUMBAWA": "84361"
+  },
+  "LENANGGUAR": {
+    "SUMBAWA": "84370"
+  },
+  "MOYO HULU": {
+    "SUMBAWA": "84371"
+  },
+  "LANTUNG": {
+    "SUMBAWA": "84372"
+  },
+  "LUNYUK": {
+    "SUMBAWA": "84373"
+  },
+  "ORONG TELU": {
+    "SUMBAWA": "84374"
+  },
+  "ROPANG": {
+    "SUMBAWA": "84375"
+  },
+  "NORTH MOYO": {
+    "SUMBAWA": "84380"
+  },
+  "MOYO HILIR": {
+    "SUMBAWA": "84381"
+  },
+  "LAPE (LAPE LOPOK)": {
+    "SUMBAWA": "84382"
+  },
+  "LABANGKA": {
+    "SUMBAWA": "84383"
+  },
+  "EMPANG": {
+    "SUMBAWA": "84384"
+  },
+  "TARANO": {
+    "SUMBAWA": "84385"
+  },
+  "PLAMPANG": {
+    "SUMBAWA": "84386"
+  },
+  "MARONGE": {
+    "SUMBAWA": "84387"
+  },
+  "LOPOK": {
+    "SUMBAWA": "84388"
+  },
+  "TALIWANG": {
+    "WEST SUMBAWA": "84452"
+  },
+  "SATELUK (SETELUK)": {
+    "WEST SUMBAWA": "84453"
+  },
+  "POTO TANO": {
+    "WEST SUMBAWA": "84454"
+  },
+  "BRANG ENE": {
+    "WEST SUMBAWA": "84455"
+  },
+  "BRANG REA": {
+    "WEST SUMBAWA": "84455"
+  },
+  "JEREWEH": {
+    "WEST SUMBAWA": "84456"
+  },
+  "SEKONGKANG": {
+    "WEST SUMBAWA": "84457"
+  },
+  "MALUK": {
+    "WEST SUMBAWA": "84459"
+  },
+  "KOTA RAJA": {
+    "KUPANG": "85111"
+  },
+  "OEBOBO": {
+    "KUPANG": "85111"
+  },
+  "MAULAFA": {
+    "KUPANG": "85141"
+  },
+  "CENTRAL FATULEU": {
+    "KUPANG": "85220"
+  },
+  "KOTA LAMA": {
+    "KUPANG": "85221"
+  },
+  "WEST FATULEU": {
+    "KUPANG": "85223"
+  },
+  "KELAPA LIMA": {
+    "KUPANG": "85228"
+  },
+  "ALAK": {
+    "KUPANG": "85231"
+  },
+  "WEST KUPANG": {
+    "KUPANG": "85351"
+  },
+  "SEMAU": {
+    "KUPANG": "85352"
+  },
+  "SOUTH SEMAU": {
+    "KUPANG": "85353"
+  },
+  "TAEBENU": {
+    "KUPANG": "85360"
+  },
+  "CENTRAL KUPANG": {
+    "KUPANG": "85361"
+  },
+  "AMABI OEFETO": {
+    "KUPANG": "85362"
+  },
+  "EAST KUPANG": {
+    "KUPANG": "85362"
+  },
+  "EAST AMABI OEFETO": {
+    "KUPANG": "85363"
+  },
+  "SOUTHWEST AMFOANG": {
+    "KUPANG": "85364"
+  },
+  "NORTH AMFOANG": {
+    "KUPANG": "85365"
+  },
+  "AMARASI": {
+    "KUPANG": "85367"
+  },
+  "SULAMU": {
+    "KUPANG": "85368"
+  },
+  "TAKARI": {
+    "KUPANG": "85369"
+  },
+  "FATULEU": {
+    "KUPANG": "85371"
+  },
+  "NORTHWEST AMFOANG": {
+    "KUPANG": "85372"
+  },
+  "SOUTH AMFOANG": {
+    "KUPANG": "85373"
+  },
+  "CENTRAL AMFOANG": {
+    "KUPANG": "85374"
+  },
+  "EAST AMFOANG": {
+    "KUPANG": "85375"
+  },
+  "WEST AMARASI": {
+    "KUPANG": "85376"
+  },
+  "SOUTH AMARASI": {
+    "KUPANG": "85377"
+  },
+  "EAST AMARASI": {
+    "KUPANG": "85378"
+  },
+  "NEKAMESE": {
+    "KUPANG": "85390"
+  },
+  "HAWU MEHARA": {
+    "SABU RAIJUA": "85391"
+  },
+  "CENTRAL SABU": {
+    "SABU RAIJUA": "85392"
+  },
+  "RAIJUA": {
+    "SABU RAIJUA": "85393"
+  },
+  "EAST SABU": {
+    "SABU RAIJUA": "85394"
+  },
+  "WEST SABU": {
+    "SABU RAIJUA": "85395"
+  },
+  "SABU LIAE": {
+    "SABU RAIJUA": "85396"
+  },
+  "KOTA SOE": {
+    "SOUTH TIMOR TENGAH": "85511"
+  },
+  "WEST AMANUBAN": {
+    "SOUTH TIMOR TENGAH": "85514"
+  },
+  "WEST MOLLO": {
+    "SOUTH TIMOR TENGAH": "85541"
+  },
+  "SOUTH MOLLO": {
+    "SOUTH TIMOR TENGAH": "85542"
+  },
+  "CENTRAL MOLLO": {
+    "SOUTH TIMOR TENGAH": "85543"
+  },
+  "NUNBENA": {
+    "SOUTH TIMOR TENGAH": "85544"
+  },
+  "POLEN": {
+    "SOUTH TIMOR TENGAH": "85545"
+  },
+  "KUATNANA": {
+    "SOUTH TIMOR TENGAH": "85551"
+  },
+  "NORTH MOLLO": {
+    "SOUTH TIMOR TENGAH": "85552"
+  },
+  "TOBU": {
+    "SOUTH TIMOR TENGAH": "85552"
+  },
+  "FATUMNASI": {
+    "SOUTH TIMOR TENGAH": "85561"
+  },
+  "SOUTH AMANUBAN": {
+    "SOUTH TIMOR TENGAH": "85562"
+  },
+  "KOLBANO": {
+    "SOUTH TIMOR TENGAH": "85563"
+  },
+  "KUANFATU": {
+    "SOUTH TIMOR TENGAH": "85564"
+  },
+  "KUALIN": {
+    "SOUTH TIMOR TENGAH": "85566"
+  },
+  "NOEBEBA": {
+    "SOUTH TIMOR TENGAH": "85567"
+  },
+  "CENTRAL AMANUBAN": {
+    "SOUTH TIMOR TENGAH": "85571"
+  },
+  "EAST AMANUBAN": {
+    "SOUTH TIMOR TENGAH": "85572"
+  },
+  "SOUTH AMANATUN": {
+    "SOUTH TIMOR TENGAH": "85573"
+  },
+  "NORTH AMANATUN": {
+    "SOUTH TIMOR TENGAH": "85574"
+  },
+  "KIE (KI'E)": {
+    "SOUTH TIMOR TENGAH": "85575"
+  },
+  "KOT OLIN": {
+    "SOUTH TIMOR TENGAH": "85576"
+  },
+  "KOK BAUN": {
+    "SOUTH TIMOR TENGAH": "85577"
+  },
+  "TOIANAS": {
+    "SOUTH TIMOR TENGAH": "85578"
+  },
+  "FATUKOPA": {
+    "SOUTH TIMOR TENGAH": "85581"
+  },
+  "FAUTMOLO": {
+    "SOUTH TIMOR TENGAH": "85582"
+  },
+  "OENINO": {
+    "SOUTH TIMOR TENGAH": "85583"
+  },
+  "BOKING": {
+    "SOUTH TIMOR TENGAH": "85584"
+  },
+  "NOEBANA": {
+    "SOUTH TIMOR TENGAH": "85585"
+  },
+  "NUNKOLO": {
+    "SOUTH TIMOR TENGAH": "85586"
+  },
+  "SANTIAN": {
+    "SOUTH TIMOR TENGAH": "85587"
+  },
+  "KOTA KEFAMENANU": {
+    "NORTH TIMOR TENGAH": "85611"
+  },
+  "BIBOKI ANLEU": {
+    "NORTH TIMOR TENGAH": "85613"
+  },
+  "SOUTH BIKOMI": {
+    "NORTH TIMOR TENGAH": "85650"
+  },
+  "BIKOMI NILULAT": {
+    "NORTH TIMOR TENGAH": "85651"
+  },
+  "CENTRAL BIKOMI": {
+    "NORTH TIMOR TENGAH": "85652"
+  },
+  "NORTH BIKOMI": {
+    "NORTH TIMOR TENGAH": "85653"
+  },
+  "EAST MIOMAFO": {
+    "NORTH TIMOR TENGAH": "85654"
+  },
+  "NAIBENU": {
+    "NORTH TIMOR TENGAH": "85655"
+  },
+  "CENTRAL MIOMAFFO / MIOMAFO": {
+    "NORTH TIMOR TENGAH": "85660"
+  },
+  "WEST MIOMAFO": {
+    "NORTH TIMOR TENGAH": "85661"
+  },
+  "MUSI": {
+    "NORTH TIMOR TENGAH": "85662"
+  },
+  "MUTIS": {
+    "NORTH TIMOR TENGAH": "85663"
+  },
+  "NOEMUTI": {
+    "NORTH TIMOR TENGAH": "85664"
+  },
+  "EAST NOEMUTI": {
+    "NORTH TIMOR TENGAH": "85665"
+  },
+  "WEST INSANA": {
+    "NORTH TIMOR TENGAH": "85670"
+  },
+  "INSANA": {
+    "NORTH TIMOR TENGAH": "85671"
+  },
+  "INSANA FAFINESU": {
+    "NORTH TIMOR TENGAH": "85672"
+  },
+  "CENTRAL INSANA": {
+    "NORTH TIMOR TENGAH": "85673"
+  },
+  "NORTH INSANA": {
+    "NORTH TIMOR TENGAH": "85674"
+  },
+  "SOUTH BIBOKI": {
+    "NORTH TIMOR TENGAH": "85680"
+  },
+  "BIBOKI MOENLEU": {
+    "NORTH TIMOR TENGAH": "85681"
+  },
+  "BIBOKI FEOTLEU": {
+    "NORTH TIMOR TENGAH": "85682"
+  },
+  "NORTH BIBOKI": {
+    "NORTH TIMOR TENGAH": "85683"
+  },
+  "BIBOKI TAN PAH": {
+    "NORTH TIMOR TENGAH": "85684"
+  },
+  "EAST TASIFETO": {
+    "BELU": "85711"
+  },
+  "KOTA ATAMBUA (ATAMBUA KOTA)": {
+    "BELU": "85711"
+  },
+  "WEST ATAMBUA": {
+    "BELU": "85713"
+  },
+  "SOUTH ATAMBUA": {
+    "BELU": "85716"
+  },
+  "LAENMANEN": {
+    "MALAKA": "85718"
+  },
+  "NANAET DUABESI": {
+    "BELU": "85751"
+  },
+  "KAKULUK MESAK": {
+    "BELU": "85752"
+  },
+  "WEST TASIFETO": {
+    "BELU": "85753"
+  },
+  "RAIMANUK": {
+    "BELU": "85760"
+  },
+  "EAST MALAKA": {
+    "MALAKA": "85761"
+  },
+  "CENTRAL MALAKA": {
+    "MALAKA": "85762"
+  },
+  "WEST MALAKA": {
+    "MALAKA": "85763"
+  },
+  "RINHAT": {
+    "MALAKA": "85764"
+  },
+  "BOTIN LEOBELE": {
+    "MALAKA": "85765"
+  },
+  "KOBALIMA": {
+    "MALAKA": "85766"
+  },
+  "EAST KOBALIMA": {
+    "MALAKA": "85767"
+  },
+  "IO KUFEU": {
+    "MALAKA": "85768"
+  },
+  "SASITAMEAN": {
+    "MALAKA": "85769"
+  },
+  "SOUTH LAMAKNEN": {
+    "BELU": "85770"
+  },
+  "LASIOLAT": {
+    "BELU": "85771"
+  },
+  "LAMAKNEN": {
+    "BELU": "85772"
+  },
+  "RAIHAT": {
+    "BELU": "85773"
+  },
+  "WELIMAN": {
+    "MALAKA": "85774"
+  },
+  "WEWIKU": {
+    "MALAKA": "85775"
+  },
+  "TELUK MUTIARA": {
+    "ALOR": "85811"
+  },
+  "KABOLA": {
+    "ALOR": "85819"
+  },
+  "PURA ISLAND": {
+    "ALOR": "85850"
+  },
+  "NORTHWEST ALOR": {
+    "ALOR": "85851"
+  },
+  "MATARU": {
+    "ALOR": "85860"
+  },
+  "SOUTHWEST ALOR": {
+    "ALOR": "85861"
+  },
+  "CENTRAL ALOR UTARA": {
+    "ALOR": "85870"
+  },
+  "SOUTH ALOR": {
+    "ALOR": "85871"
+  },
+  "EAST ALOR": {
+    "ALOR": "85872"
+  },
+  "NORTHEAST ALOR": {
+    "ALOR": "85873"
+  },
+  "PUREMAN": {
+    "ALOR": "85874"
+  },
+  "LEMBUR": {
+    "ALOR": "85875"
+  },
+  "WEST PANTAR": {
+    "ALOR": "85880"
+  },
+  "PANTAR": {
+    "ALOR": "85881"
+  },
+  "PANTAR BARU LAUT (PANTAR BARAT LAUT)": {
+    "ALOR": "85882"
+  },
+  "CENTRAL PANTAR": {
+    "ALOR": "85883"
+  },
+  "EAST PANTAR": {
+    "ALOR": "85884"
+  },
+  "LOBALAIN": {
+    "ROTE NDAO": "85912"
+  },
+  "CENTRAL ROTE": {
+    "ROTE NDAO": "85971"
+  },
+  "SOUTH ROTE": {
+    "ROTE NDAO": "85972"
+  },
+  "PANTAI BARU": {
+    "ROTE NDAO": "85973"
+  },
+  "LANDU LEKO": {
+    "ROTE NDAO": "85974"
+  },
+  "EAST ROTE": {
+    "ROTE NDAO": "85975"
+  },
+  "NORTHWEST ROTE": {
+    "ROTE NDAO": "85981"
+  },
+  "WEST ROTE": {
+    "ROTE NDAO": "85981"
+  },
+  "SOUTHWEST ROTE": {
+    "ROTE NDAO": "85982"
+  },
+  "NDAO NUSE": {
+    "ROTE NDAO": "85983"
+  },
+  "PALUE": {
+    "SIKKA": "86110"
+  },
+  "EAST ALOK": {
+    "SIKKA": "86111"
+  },
+  "ALOK": {
+    "SIKKA": "86112"
+  },
+  "MEGO": {
+    "SIKKA": "86113"
+  },
+  "WEST ALOK": {
+    "SIKKA": "86114"
+  },
+  "KOTING": {
+    "SIKKA": "86116"
+  },
+  "NELLE (MAUMEREI)": {
+    "SIKKA": "86119"
+  },
+  "NITA": {
+    "SIKKA": "86151"
+  },
+  "MAGEPANDA": {
+    "SIKKA": "86152"
+  },
+  "PAGA": {
+    "SIKKA": "86153"
+  },
+  "TANA WAWO": {
+    "SIKKA": "86154"
+  },
+  "LELA": {
+    "SIKKA": "86161"
+  },
+  "DORENG": {
+    "SIKKA": "86170"
+  },
+  "BOLA": {
+    "SIKKA": "86171",
+    "WAJO": "90984"
+  },
+  "MAPITARA": {
+    "SIKKA": "86172"
+  },
+  "KANGAE": {
+    "SIKKA": "86180"
+  },
+  "HEWOKLOANG": {
+    "SIKKA": "86181"
+  },
+  "KEWAPANTE": {
+    "SIKKA": "86182"
+  },
+  "TALIBURA": {
+    "SIKKA": "86183"
+  },
+  "WAIBLAMA": {
+    "SIKKA": "86184"
+  },
+  "WAIGETE": {
+    "SIKKA": "86185"
+  },
+  "ILE MANDIRI": {
+    "EAST FLORES": "86211"
+  },
+  "LARANTUKA": {
+    "EAST FLORES": "86212"
+  },
+  "DEMON PAGONG": {
+    "EAST FLORES": "86219"
+  },
+  "TANJUNG BUNGA": {
+    "EAST FLORES": "86251"
+  },
+  "LEWOLEMA": {
+    "EAST FLORES": "86252"
+  },
+  "ILE BOLENG": {
+    "EAST FLORES": "86253"
+  },
+  "ILE BURA": {
+    "EAST FLORES": "86254"
+  },
+  "TITEHENA": {
+    "EAST FLORES": "86255"
+  },
+  "WULANGGITANG": {
+    "EAST FLORES": "86256"
+  },
+  "WOTAN ULUMANDO": {
+    "EAST FLORES": "86260"
+  },
+  "EAST ADONARA": {
+    "EAST FLORES": "86261"
+  },
+  "ADONARA": {
+    "EAST FLORES": "86262"
+  },
+  "WEST ADONARA": {
+    "EAST FLORES": "86263"
+  },
+  "CENTRAL ADONARA": {
+    "EAST FLORES": "86264"
+  },
+  "KELUBAGOLIT": {
+    "EAST FLORES": "86265"
+  },
+  "WITIHAMA": {
+    "EAST FLORES": "86266"
+  },
+  "EAST SOLOR": {
+    "EAST FLORES": "86271"
+  },
+  "WEST SOLOR": {
+    "EAST FLORES": "86272"
+  },
+  "SOUTH SOLOR": {
+    "EAST FLORES": "86273"
+  },
+  "NORTH ENDE": {
+    "ENDE": "86310"
+  },
+  "CENTRAL ENDE": {
+    "ENDE": "86312"
+  },
+  "SOUTH ENDE": {
+    "ENDE": "86313"
+  },
+  "EAST ENDE": {
+    "ENDE": "86317"
+  },
+  "KELIMUTU": {
+    "ENDE": "86318"
+  },
+  "ENDE": {
+    "ENDE": "86319"
+  },
+  "NANGAPANDA": {
+    "ENDE": "86351"
+  },
+  "MAUKARO": {
+    "ENDE": "86352"
+  },
+  "WEWARIA": {
+    "ENDE": "86353"
+  },
+  "NDONA": {
+    "ENDE": "86360"
+  },
+  "EAST LIO": {
+    "ENDE": "86361"
+  },
+  "ENDE ISLAND": {
+    "ENDE": "86362"
+  },
+  "EAST NDONA": {
+    "ENDE": "86363"
+  },
+  "DETUSOKO": {
+    "ENDE": "86370"
+  },
+  "DETUKELI": {
+    "ENDE": "86371"
+  },
+  "NDORI": {
+    "ENDE": "86372"
+  },
+  "WOLOWARU": {
+    "ENDE": "86373"
+  },
+  "LEPEMBUSU KELISOKE": {
+    "ENDE": "86374"
+  },
+  "MAUROLE": {
+    "ENDE": "86381"
+  },
+  "WOLOJITA": {
+    "ENDE": "86382"
+  },
+  "BAJAWA": {
+    "NGADA": "86411"
+  },
+  "NORTH BAJAWA": {
+    "NGADA": "86413"
+  },
+  "RIUNG": {
+    "NGADA": "86419"
+  },
+  "WEST RIUNG": {
+    "NGADA": "86421"
+  },
+  "SOA": {
+    "NGADA": "86422"
+  },
+  "SOUTH WOLOMEZE (RIUNG)": {
+    "NGADA": "86423"
+  },
+  "INERIE": {
+    "NGADA": "86450"
+  },
+  "JEREBUU": {
+    "NGADA": "86451"
+  },
+  "AIMERE": {
+    "NGADA": "86452"
+  },
+  "WEST GOLEWA": {
+    "NGADA": "86460"
+  },
+  "GOLEWA": {
+    "NGADA": "86461"
+  },
+  "BOAWAE": {
+    "NAGEKEO": "86462"
+  },
+  "MAUPONGGO": {
+    "NAGEKEO": "86463"
+  },
+  "CENTRAL KEO": {
+    "NAGEKEO": "86464"
+  },
+  "NANGARORO": {
+    "NAGEKEO": "86465"
+  },
+  "SOUTH GOLEWA": {
+    "NGADA": "86466"
+  },
+  "SOUTH AESESA": {
+    "NAGEKEO": "86470"
+  },
+  "WOLOWAE": {
+    "NAGEKEO": "86471"
+  },
+  "AESESA": {
+    "NAGEKEO": "86472"
+  },
+  "LANGKE REMBONG": {
+    "MANGGARAI": "86511"
+  },
+  "LELAK": {
+    "MANGGARAI": "86521"
+  },
+  "NORTH RAHONG": {
+    "MANGGARAI": "86522"
+  },
+  "RUTENG": {
+    "MANGGARAI": "86523"
+  },
+  "WEST SATAR MESE": {
+    "MANGGARAI": "86560"
+  },
+  "SATAR MESE": {
+    "MANGGARAI": "86561"
+  },
+  "NORTH SATAR MESE": {
+    "MANGGARAI": "86562"
+  },
+  "RANA MESE": {
+    "EAST MANGGARAI": "86570"
+  },
+  "BORONG": {
+    "EAST MANGGARAI": "86571"
+  },
+  "KOTA KOMBA": {
+    "EAST MANGGARAI": "86572"
+  },
+  "SOUTH ELAR": {
+    "EAST MANGGARAI": "86580"
+  },
+  "ELAR": {
+    "EAST MANGGARAI": "86581"
+  },
+  "LAMBA LEDA": {
+    "EAST MANGGARAI": "86582"
+  },
+  "POCO RANAKA": {
+    "EAST MANGGARAI": "86583"
+  },
+  "SAMBI RAMPAS": {
+    "EAST MANGGARAI": "86584"
+  },
+  "EAST POCO RANAKA": {
+    "EAST MANGGARAI": "86585"
+  },
+  "WEST CIBAL": {
+    "MANGGARAI": "86590"
+  },
+  "CIBAL": {
+    "MANGGARAI": "86591"
+  },
+  "REOK": {
+    "MANGGARAI": "86592"
+  },
+  "WEST REOK": {
+    "MANGGARAI": "86593"
+  },
+  "WAE RII": {
+    "MANGGARAI": "86594"
+  },
+  "NUBATUKAN": {
+    "LEMBATA": "86616"
+  },
+  "LEBATUKAN": {
+    "LEMBATA": "86681"
+  },
+  "ILE APE": {
+    "LEMBATA": "86683"
+  },
+  "NAGA WUTUNG": {
+    "LEMBATA": "86684"
+  },
+  "ATADEI": {
+    "LEMBATA": "86685"
+  },
+  "WULANDONI": {
+    "LEMBATA": "86686"
+  },
+  "EAST ILE APE": {
+    "LEMBATA": "86687"
+  },
+  "OMESURI": {
+    "LEMBATA": "86691"
+  },
+  "BUYASURI": {
+    "LEMBATA": "86692"
+  },
+  "NDOSO": {
+    "WEST MANGGARAI": "86750"
+  },
+  "WEST KUWUS": {
+    "WEST MANGGARAI": "86751"
+  },
+  "KUWUS": {
+    "WEST MANGGARAI": "86752"
+  },
+  "LEMBOR": {
+    "WEST MANGGARAI": "86753"
+  },
+  "BOLENG": {
+    "WEST MANGGARAI": "86754"
+  },
+  "PACAR": {
+    "WEST MANGGARAI": "86755"
+  },
+  "MACANG PACAR": {
+    "WEST MANGGARAI": "86756"
+  },
+  "MBELILING": {
+    "WEST MANGGARAI": "86757"
+  },
+  "SANO NGGOANG": {
+    "WEST MANGGARAI": "86758"
+  },
+  "SOUTH LEMBOR": {
+    "WEST MANGGARAI": "86761"
+  },
+  "WELAK": {
+    "WEST MANGGARAI": "86762"
+  },
+  "KOMODO": {
+    "WEST MANGGARAI": "86763"
+  },
+  "KOTA WAINGAPU": {
+    "EAST SUMBA": "87111"
+  },
+  "KAMBERA": {
+    "EAST SUMBA": "87113"
+  },
+  "KAMBATA MAPAMBUHANG": {
+    "EAST SUMBA": "87116"
+  },
+  "LEWA": {
+    "EAST SUMBA": "87150"
+  },
+  "LEWA TIDAHU": {
+    "EAST SUMBA": "87151"
+  },
+  "KATALA HAMU LINGU": {
+    "EAST SUMBA": "87152"
+  },
+  "HAHARU": {
+    "EAST SUMBA": "87153"
+  },
+  "KANATANG": {
+    "EAST SUMBA": "87154"
+  },
+  "NGGAHA ORI ANGU (NGGAHA ORIANGU)": {
+    "EAST SUMBA": "87155"
+  },
+  "TABUNDUNG": {
+    "EAST SUMBA": "87160"
+  },
+  "PINU PAHAR (PINUPAHAR / PIRAPAHAR)": {
+    "EAST SUMBA": "87161"
+  },
+  "MAHU": {
+    "EAST SUMBA": "87170"
+  },
+  "KAHAUNGUWETI (KAHAUNGU ETI)": {
+    "EAST SUMBA": "87171"
+  },
+  "KARERA": {
+    "EAST SUMBA": "87172"
+  },
+  "NGADU NGALA": {
+    "EAST SUMBA": "87172"
+  },
+  "MATAWAI LAPPAU (LA PAWU)": {
+    "EAST SUMBA": "87174"
+  },
+  "PABERIWAI": {
+    "EAST SUMBA": "87175"
+  },
+  "PANDAWAI": {
+    "EAST SUMBA": "87176"
+  },
+  "UMALULU": {
+    "EAST SUMBA": "87180"
+  },
+  "RINDI": {
+    "EAST SUMBA": "87181"
+  },
+  "PAHUNGA LODU": {
+    "EAST SUMBA": "87182"
+  },
+  "WULLA WAIJELU (WULA WAIJELU)": {
+    "EAST SUMBA": "87183"
+  },
+  "KOTA WAIKABUBAK": {
+    "WEST SUMBA": "87211"
+  },
+  "EAST WEWEWA": {
+    "SOUTHWEST SUMBA": "87250"
+  },
+  "NORTH WEWEWA": {
+    "SOUTHWEST SUMBA": "87251"
+  },
+  "CENTRAL WEWEWA": {
+    "SOUTHWEST SUMBA": "87252"
+  },
+  "WEST WEWEWA": {
+    "SOUTHWEST SUMBA": "87253"
+  },
+  "LOURA": {
+    "SOUTHWEST SUMBA": "87254"
+  },
+  "KOTA TAMBOLAKA": {
+    "SOUTHWEST SUMBA": "87255"
+  },
+  "TANA RIGHU": {
+    "WEST SUMBA": "87257"
+  },
+  "MAMBORO": {
+    "CENTRAL SUMBA": "87258"
+  },
+  "NORTH KODI": {
+    "SOUTHWEST SUMBA": "87260"
+  },
+  "KODI": {
+    "SOUTHWEST SUMBA": "87261"
+  },
+  "KODI BALAGHAR": {
+    "SOUTHWEST SUMBA": "87262"
+  },
+  "SOUTH WEWEWA": {
+    "SOUTHWEST SUMBA": "87263"
+  },
+  "KODI BANGEDO": {
+    "SOUTHWEST SUMBA": "87264"
+  },
+  "WEST LABOYA / LAMBOYA": {
+    "WEST SUMBA": "87270"
+  },
+  "LAMBOYA": {
+    "WEST SUMBA": "87271"
+  },
+  "WANOKAKA": {
+    "WEST SUMBA": "87272"
+  },
+  "SOUTH KATIKU TANA / KATIKUTANA": {
+    "CENTRAL SUMBA": "87280"
+  },
+  "WEST UMBU RATU NGGAY": {
+    "CENTRAL SUMBA": "87281"
+  },
+  "KATIKU TANA": {
+    "CENTRAL SUMBA": "87282"
+  },
+  "UMBU RATU NGGAY": {
+    "CENTRAL SUMBA": "87283"
+  },
+  "LOLI": {
+    "WEST SUMBA": "87284"
+  },
+  "UJUNG PANDANG": {
+    "MAKASSAR": "90111"
+  },
+  "MARISO": {
+    "MAKASSAR": "90121"
+  },
+  "MAMAJANG": {
+    "MAKASSAR": "90131"
+  },
+  "MAKASSAR": {
+    "MAKASSAR": "90141"
+  },
+  "BONTOALA": {
+    "MAKASSAR": "90151"
+  },
+  "UJUNG TANAH": {
+    "MAKASSAR": "90161"
+  },
+  "SANGKARRANG ISLANDS": {
+    "MAKASSAR": "90166"
+  },
+  "WAJO": {
+    "MAKASSAR": "90171"
+  },
+  "TALLO": {
+    "MAKASSAR": "90211"
+  },
+  "RAPPOCINI": {
+    "MAKASSAR": "90221"
+  },
+  "TAMALATE": {
+    "MAKASSAR": "90221"
+  },
+  "BAREBBO": {
+    "BONE": "90225"
+  },
+  "BAROMBONG": {
+    "GOWA": "90225"
+  },
+  "PANAKKUKANG": {
+    "MAKASSAR": "90231"
+  },
+  "MANGGALA": {
+    "MAKASSAR": "90233"
+  },
+  "BIRINGKANAYA (BIRING KANAYA)": {
+    "MAKASSAR": "90241"
+  },
+  "TAMALANREA": {
+    "MAKASSAR": "90241"
+  },
+  "BIRINGBULU": {
+    "GOWA": "90244"
+  },
+  "MAROS BARU": {
+    "MAROS": "90511"
+  },
+  "TURIKALE": {
+    "MAROS": "90511"
+  },
+  "LAU": {
+    "MAROS": "90513"
+  },
+  "CENRANA": {
+    "MAROS": "90524",
+    "BONE": "92754"
+  },
+  "MARUSU": {
+    "MAROS": "90551"
+  },
+  "MANDAI": {
+    "MAROS": "90552"
+  },
+  "TANRALILI": {
+    "MAROS": "90553"
+  },
+  "NORTH BONTOA (MAROS)": {
+    "MAROS": "90554"
+  },
+  "SIMBANG": {
+    "MAROS": "90560"
+  },
+  "BANTIMURUNG": {
+    "MAROS": "90561"
+  },
+  "CAMBA": {
+    "MAROS": "90562"
+  },
+  "MALLLAWA (MALLAWA)": {
+    "MAROS": "90563"
+  },
+  "MONCONG LOE (MONCONGLOE)": {
+    "MAROS": "90564"
+  },
+  "TOMPOBULU (TOMPU BULU)": {
+    "MAROS": "90565"
+  },
+  "TONDONG TALLASA": {
+    "PANGKAJENE ISLANDS": "90566"
+  },
+  "PANGKAJENE": {
+    "PANGKAJENE ISLANDS": "90611"
+  },
+  "MINASA TENE": {
+    "PANGKAJENE ISLANDS": "90614"
+  },
+  "BUNGORO": {
+    "PANGKAJENE ISLANDS": "90651"
+  },
+  "LABAKKANG": {
+    "PANGKAJENE ISLANDS": "90653"
+  },
+  "MARANG (MA RANG)": {
+    "PANGKAJENE ISLANDS": "90654"
+  },
+  "MANDALLE": {
+    "PANGKAJENE ISLANDS": "90655"
+  },
+  "SEGERI": {
+    "PANGKAJENE ISLANDS": "90656"
+  },
+  "BALOCCI": {
+    "PANGKAJENE ISLANDS": "90661"
+  },
+  "NORTH LIUKANG TUPABBIRING": {
+    "PANGKAJENE ISLANDS": "90670"
+  },
+  "LIUKANG TUPABBIRING": {
+    "PANGKAJENE ISLANDS": "90671"
+  },
+  "LIUKANG KALMAS (KALUKUANG MASALIMA)": {
+    "PANGKAJENE ISLANDS": "90672"
+  },
+  "LIUKANG TANGAYA": {
+    "PANGKAJENE ISLANDS": "90673"
+  },
+  "BARRU": {
+    "BARRU": "90711"
+  },
+  "MALLUSETASI": {
+    "BARRU": "90711"
+  },
+  "TANETE RILAU": {
+    "BARRU": "90711"
+  },
+  "SOPPENG RIAJA": {
+    "BARRU": "90752"
+  },
+  "PUJANANTING": {
+    "BARRU": "90760"
+  },
+  "BALUSU": {
+    "BARRU": "90762",
+    "NORTH TORAJA": "91855"
+  },
+  "TANETE RIAJA": {
+    "BARRU": "90763"
+  },
+  "LALABATA": {
+    "SOPPENG": "90811"
+  },
+  "MARIORIAWA (MARIO RIAWA)": {
+    "SOPPENG": "90852"
+  },
+  "DONRI-DONRI": {
+    "SOPPENG": "90853"
+  },
+  "GANRA": {
+    "SOPPENG": "90860"
+  },
+  "CITTA": {
+    "SOPPENG": "90861"
+  },
+  "MARIORIWAWO (MARIO RIWAWO)": {
+    "SOPPENG": "90862"
+  },
+  "LILIRAJA (LILI RIAJA)": {
+    "SOPPENG": "90863"
+  },
+  "LILIRILAU (LILI RILAU)": {
+    "SOPPENG": "90871"
+  },
+  "TEMPE": {
+    "WAJO": "90911"
+  },
+  "BELAWA": {
+    "WAJO": "90913"
+  },
+  "TANASITOLO": {
+    "WAJO": "90951"
+  },
+  "MANIANGPAJO": {
+    "WAJO": "90952"
+  },
+  "GILIRENG": {
+    "WAJO": "90954"
+  },
+  "SABANGPARU": {
+    "WAJO": "90961"
+  },
+  "PAMMANA": {
+    "WAJO": "90971"
+  },
+  "TAKKALALLA": {
+    "WAJO": "90981"
+  },
+  "SAJOANGING": {
+    "WAJO": "90982"
+  },
+  "PENRANG": {
+    "WAJO": "90983"
+  },
+  "MAJAULENG": {
+    "WAJO": "90991"
+  },
+  "PITUMPANUA": {
+    "WAJO": "90992"
+  },
+  "KEERA": {
+    "WAJO": "90993"
+  },
+  "UJUNG": {
+    "PAREPARE": "91111"
+  },
+  "BACUKIKI": {
+    "PAREPARE": "91121"
+  },
+  "WEST BACUKIKI": {
+    "PAREPARE": "91125"
+  },
+  "WATANG SAWITO (WATANG SAWITTO)": {
+    "PINRANG": "91211"
+  },
+  "PALETEANG": {
+    "PINRANG": "91213"
+  },
+  "DUAMPANUA": {
+    "PINRANG": "91251"
+  },
+  "PATAMPANUA": {
+    "PINRANG": "91252"
+  },
+  "BATU LAPPA (BATULAPPA)": {
+    "PINRANG": "91253"
+  },
+  "TIROANG": {
+    "PINRANG": "91256"
+  },
+  "MATIRRO SOMPE (MATTIRO SOMPE)": {
+    "PINRANG": "91261"
+  },
+  "CEMPA": {
+    "PINRANG": "91262"
+  },
+  "MATTIRO BULU": {
+    "PINRANG": "91271"
+  },
+  "LANSIRANG (LANRISANG)": {
+    "PINRANG": "91272"
+  },
+  "SUPPA": {
+    "PINRANG": "91273"
+  },
+  "POLEWALI": {
+    "POLEWALI MANDAR": "91311"
+  },
+  "ANREAPI": {
+    "POLEWALI MANDAR": "91315"
+  },
+  "LIMBORO": {
+    "POLEWALI MANDAR": "91321"
+  },
+  "ALU (ALLU)": {
+    "POLEWALI MANDAR": "91325"
+  },
+  "TAPANGO": {
+    "POLEWALI MANDAR": "91341"
+  },
+  "WONOMULYO": {
+    "POLEWALI MANDAR": "91342"
+  },
+  "MATANGNGA": {
+    "POLEWALI MANDAR": "91350"
+  },
+  "MATAKALI": {
+    "POLEWALI MANDAR": "91352"
+  },
+  "BULO": {
+    "POLEWALI MANDAR": "91353"
+  },
+  "BALANIPA": {
+    "POLEWALI MANDAR": "91354"
+  },
+  "TUBBI TARAMANU (TUTAR/TUTALLU)": {
+    "POLEWALI MANDAR": "91355"
+  },
+  "TINAMBUNG": {
+    "POLEWALI MANDAR": "91356"
+  },
+  "CAMPALAGIAN": {
+    "POLEWALI MANDAR": "91357"
+  },
+  "LUYO": {
+    "POLEWALI MANDAR": "91358"
+  },
+  "MAPILLI": {
+    "POLEWALI MANDAR": "91359"
+  },
+  "SUMARORONG": {
+    "MAMASA": "91360"
+  },
+  "MESSAWA": {
+    "MAMASA": "91361"
+  },
+  "MAMASA": {
+    "MAMASA": "91362"
+  },
+  "NOSU": {
+    "MAMASA": "91363"
+  },
+  "SESENAPADANG": {
+    "MAMASA": "91365"
+  },
+  "BALLA": {
+    "MAMASA": "91366"
+  },
+  "TANDUK KALUA": {
+    "MAMASA": "91367"
+  },
+  "TAWALIAN": {
+    "MAMASA": "91368"
+  },
+  "PANA": {
+    "MAMASA": "91369"
+  },
+  "MAMBI": {
+    "MAMASA": "91370"
+  },
+  "BAMBANG": {
+    "MAMASA": "91371"
+  },
+  "TABULAHAN": {
+    "MAMASA": "91372"
+  },
+  "ARALLE": {
+    "MAMASA": "91373"
+  },
+  "BUNTUMALANGKA": {
+    "MAMASA": "91374"
+  },
+  "MEHALAAN": {
+    "MAMASA": "91375"
+  },
+  "EAST RANTEBULAHAN": {
+    "MAMASA": "91376"
+  },
+  "BANGGAE": {
+    "MAJENE": "91411"
+  },
+  "EAST BANGGAE": {
+    "MAJENE": "91411"
+  },
+  "TAMMERODO SENDANA (TAMMEREDO SENDANA)": {
+    "MAJENE": "91450"
+  },
+  "PAMBOANG": {
+    "MAJENE": "91451"
+  },
+  "SENDANA": {
+    "MAJENE": "91452",
+    "PALOPO": "91925"
+  },
+  "MALUNDA": {
+    "MAJENE": "91453"
+  },
+  "ULUMANDA (ULUMUNDA)": {
+    "MAJENE": "91454"
+  },
+  "TUBO (TUBO SENDANA)": {
+    "MAJENE": "91455"
+  },
+  "KAROSSA": {
+    "CENTRAL MAMUJU": "91460"
+  },
+  "BUDONG-BUDONG": {
+    "CENTRAL MAMUJU": "91461"
+  },
+  "PANGALE": {
+    "CENTRAL MAMUJU": "91462"
+  },
+  "TOBADAK": {
+    "CENTRAL MAMUJU": "91463"
+  },
+  "TOPOYO": {
+    "CENTRAL MAMUJU": "91464"
+  },
+  "MAMUJU": {
+    "MAMUJU": "91511"
+  },
+  "KEP. BALA BALAKANG": {
+    "MAMUJU": "91512"
+  },
+  "SIMBORO DAN ISLANDS": {
+    "MAMUJU": "91512"
+  },
+  "TAPALANG": {
+    "MAMUJU": "91551"
+  },
+  "WEST TAPALANG": {
+    "MAMUJU": "91552"
+  },
+  "KALUMPANG": {
+    "MAMUJU": "91560"
+  },
+  "KALUKKU": {
+    "MAMUJU": "91561"
+  },
+  "BONEHAU": {
+    "MAMUJU": "91562"
+  },
+  "SAMPAGA": {
+    "MAMUJU": "91563"
+  },
+  "TOMMO": {
+    "MAMUJU": "91564"
+  },
+  "PAPALANG": {
+    "MAMUJU": "91565"
+  },
+  "PEDONGGA": {
+    "NORTH MAMUJU": "91570"
+  },
+  "PASANGKAYU": {
+    "NORTH MAMUJU": "91571"
+  },
+  "BARAS": {
+    "NORTH MAMUJU": "91572"
+  },
+  "DURIPOKU": {
+    "NORTH MAMUJU": "91573"
+  },
+  "BAMBAIRA": {
+    "NORTH MAMUJU": "91574"
+  },
+  "BAMBALAMOTU": {
+    "NORTH MAMUJU": "91575"
+  },
+  "SARUDU": {
+    "NORTH MAMUJU": "91576"
+  },
+  "LARIANG": {
+    "NORTH MAMUJU": "91577"
+  },
+  "BULU TABA": {
+    "NORTH MAMUJU": "91578"
+  },
+  "TIKKE RAYA": {
+    "NORTH MAMUJU": "91579"
+  },
+  "DAPURANG": {
+    "NORTH MAMUJU": "91581"
+  },
+  "SARJO": {
+    "NORTH MAMUJU": "91591"
+  },
+  "MARITENGNGAE": {
+    "SIDENRENG RAPPANG": "91611"
+  },
+  "WATTANG SIDENRENG (WATANG SIDENRENG)": {
+    "SIDENRENG RAPPANG": "91613"
+  },
+  "PANCA RIJANG": {
+    "SIDENRENG RAPPANG": "91651"
+  },
+  "BARANTI": {
+    "SIDENRENG RAPPANG": "91652"
+  },
+  "KULO": {
+    "SIDENRENG RAPPANG": "91653"
+  },
+  "WATANG PULU": {
+    "SIDENRENG RAPPANG": "91661"
+  },
+  "TELLU LIMPOE": {
+    "SIDENRENG RAPPANG": "91662",
+    "SINJAI": "92681"
+  },
+  "PANCA LAUTAN (LAUTANG)": {
+    "SIDENRENG RAPPANG": "91672"
+  },
+  "DUA PITUE": {
+    "SIDENRENG RAPPANG": "91681"
+  },
+  "PITU RIAWA": {
+    "SIDENRENG RAPPANG": "91683"
+  },
+  "PITU RAISE/RIASE": {
+    "SIDENRENG RAPPANG": "91691"
+  },
+  "CENDANA": {
+    "ENREKANG": "91711"
+  },
+  "ENREKANG": {
+    "ENREKANG": "91711"
+  },
+  "BUNTU BATU": {
+    "ENREKANG": "91750"
+  },
+  "MALUA": {
+    "ENREKANG": "91751"
+  },
+  "ANGGERAJA": {
+    "ENREKANG": "91752"
+  },
+  "BARAKA": {
+    "ENREKANG": "91753"
+  },
+  "ALLA": {
+    "ENREKANG": "91754"
+  },
+  "BAROKO": {
+    "ENREKANG": "91755"
+  },
+  "CURIO": {
+    "ENREKANG": "91756"
+  },
+  "MASALLE": {
+    "ENREKANG": "91757"
+  },
+  "MAIWA": {
+    "ENREKANG": "91760"
+  },
+  "BUNGIN": {
+    "ENREKANG": "91761"
+  },
+  "MAKALE": {
+    "TANA TORAJA": "91811"
+  },
+  "NORTH MAKALE": {
+    "TANA TORAJA": "91812"
+  },
+  "SOUTH MAKALE": {
+    "TANA TORAJA": "91815"
+  },
+  "DENDE' PIONGAN NAPO": {
+    "NORTH TORAJA": "91822"
+  },
+  "RANTEPAO": {
+    "NORTH TORAJA": "91831"
+  },
+  "TALLUNGLIPU": {
+    "NORTH TORAJA": "91832"
+  },
+  "TIKALA": {
+    "NORTH TORAJA": "91833",
+    "MANADO": "95124"
+  },
+  "BUNTAO": {
+    "NORTH TORAJA": "91841"
+  },
+  "RANTEBUA": {
+    "NORTH TORAJA": "91842"
+  },
+  "SA'DAN": {
+    "NORTH TORAJA": "91843"
+  },
+  "SESEAN": {
+    "NORTH TORAJA": "91844"
+  },
+  "SESEAN SULOARA": {
+    "NORTH TORAJA": "91845"
+  },
+  "BARUPPU": {
+    "NORTH TORAJA": "91846"
+  },
+  "BUNTU PEPASAN": {
+    "NORTH TORAJA": "91847"
+  },
+  "KAPALLA PITU (KAPALA PITU)": {
+    "NORTH TORAJA": "91848"
+  },
+  "RINDINGALLO": {
+    "NORTH TORAJA": "91849"
+  },
+  "SOPAI": {
+    "NORTH TORAJA": "91850"
+  },
+  "SANGGALANGI": {
+    "NORTH TORAJA": "91851"
+  },
+  "KESU": {
+    "NORTH TORAJA": "91852"
+  },
+  "BANGKELEKILA": {
+    "NORTH TORAJA": "91853"
+  },
+  "AWAN RANTE KARUA": {
+    "NORTH TORAJA": "91854"
+  },
+  "NANGGALA": {
+    "NORTH TORAJA": "91856"
+  },
+  "TONDON": {
+    "NORTH TORAJA": "91857"
+  },
+  "REMBON": {
+    "TANA TORAJA": "91860"
+  },
+  "MALIMBONG BALEPE": {
+    "TANA TORAJA": "91861"
+  },
+  "KURRA": {
+    "TANA TORAJA": "91862"
+  },
+  "RANTETAYO": {
+    "TANA TORAJA": "91863"
+  },
+  "SALUPUTI (SALUPUTTI)": {
+    "TANA TORAJA": "91864"
+  },
+  "MENGKENDEK": {
+    "TANA TORAJA": "91870"
+  },
+  "GANDANGBATU SILLANAN (GANDANG BATU SILLANAN)": {
+    "TANA TORAJA": "91871"
+  },
+  "BONGGAKARADENG": {
+    "TANA TORAJA": "91872"
+  },
+  "MAPPAK": {
+    "TANA TORAJA": "91873"
+  },
+  "SIMBUANG": {
+    "TANA TORAJA": "91874"
+  },
+  "RANO": {
+    "TANA TORAJA": "91875"
+  },
+  "SANGALLA (SANGGALA)": {
+    "TANA TORAJA": "91881"
+  },
+  "SOUTH SANGALLA": {
+    "TANA TORAJA": "91882"
+  },
+  "NORTH SANGALLA": {
+    "TANA TORAJA": "91883"
+  },
+  "MASANDA": {
+    "TANA TORAJA": "91894"
+  },
+  "BITTUANG": {
+    "TANA TORAJA": "91896"
+  },
+  "NORTH WARA": {
+    "PALOPO": "91911"
+  },
+  "BARA": {
+    "PALOPO": "91914"
+  },
+  "LATIMOJONG": {
+    "LUWU": "91921"
+  },
+  "EAST WARA": {
+    "PALOPO": "91921"
+  },
+  "WARA": {
+    "PALOPO": "91921"
+  },
+  "WEST WARA": {
+    "PALOPO": "91921"
+  },
+  "MUNGKAJANG": {
+    "PALOPO": "91924"
+  },
+  "SOUTH WARA": {
+    "PALOPO": "91926"
+  },
+  "WALENRANG": {
+    "LUWU": "91950"
+  },
+  "EAST LAMASI": {
+    "LUWU": "91951"
+  },
+  "EAST WALENRANG": {
+    "LUWU": "91951"
+  },
+  "WEST WALENRANG": {
+    "LUWU": "91951"
+  },
+  "LAMASI": {
+    "LUWU": "91952"
+  },
+  "NORTH WALENRANG": {
+    "LUWU": "91953"
+  },
+  "TELLUWANUA": {
+    "PALOPO": "91958"
+  },
+  "BELOPA": {
+    "LUWU": "91983"
+  },
+  "NORTH BELOPA": {
+    "LUWU": "91984"
+  },
+  "SULI": {
+    "LUWU": "91985"
+  },
+  "WEST SULI": {
+    "LUWU": "91986"
+  },
+  "SOUTH PONRANG": {
+    "LUWU": "91989"
+  },
+  "BASSE SANGTEMPE (BASSESANG TEMPE / BASTEM)": {
+    "LUWU": "91990"
+  },
+  "BUA": {
+    "LUWU": "91991"
+  },
+  "NORTH BASSE SANGTEMPE": {
+    "LUWU": "91992"
+  },
+  "BUA PONRANG (BUPON)": {
+    "LUWU": "91993"
+  },
+  "KAMANRE": {
+    "LUWU": "91994"
+  },
+  "BAJO": {
+    "LUWU": "91995"
+  },
+  "WEST BAJO": {
+    "LUWU": "91996"
+  },
+  "LAROMPONG": {
+    "LUWU": "91997"
+  },
+  "SOUTH LAROMPONG": {
+    "LUWU": "91998"
+  },
+  "PONRANG": {
+    "LUWU": "91999"
+  },
+  "SOMBA OPU (UPU)": {
+    "GOWA": "92111"
+  },
+  "WEST BAJENG": {
+    "GOWA": "92151"
+  },
+  "BAJENG": {
+    "GOWA": "92152"
+  },
+  "BONTONOMPO": {
+    "GOWA": "92153"
+  },
+  "SOUTH BONTONOMPO": {
+    "GOWA": "92154"
+  },
+  "PALANGGA (PALLANGGA)": {
+    "GOWA": "92161"
+  },
+  "TOMBOLOPAO (TOMBOLO PAO)": {
+    "GOWA": "92170"
+  },
+  "BONTOMARANNU": {
+    "GOWA": "92171"
+  },
+  "PATTALASANG (PATTALLASSANG)": {
+    "GOWA": "92172"
+  },
+  "MANUJU": {
+    "GOWA": "92173"
+  },
+  "TOMPOBULLU (TOMPOBULU)": {
+    "GOWA": "92175"
+  },
+  "BONTOLEMPANGANG": {
+    "GOWA": "92176"
+  },
+  "BUNGAYA": {
+    "GOWA": "92177"
+  },
+  "TINGGIMONCONG": {
+    "GOWA": "92178"
+  },
+  "PARANGLOE": {
+    "GOWA": "92179"
+  },
+  "PATTALLASSANG (PATALLASSANG)": {
+    "TAKALAR": "92211"
+  },
+  "NORTH POLOMBANGKENG (POLOBANGKENG)": {
+    "TAKALAR": "92221"
+  },
+  "SANROBONE": {
+    "TAKALAR": "92231"
+  },
+  "MAPPAKASUNGGU": {
+    "TAKALAR": "92232"
+  },
+  "SOUTH POLOMBANGKENG (POLOBANGKENG)": {
+    "TAKALAR": "92252"
+  },
+  "GALESONG": {
+    "TAKALAR": "92254"
+  },
+  "SOUTH GALESONG": {
+    "TAKALAR": "92254"
+  },
+  "NORTH GALESONG": {
+    "TAKALAR": "92255"
+  },
+  "MANGARABOMBANG (MANGARA BOMBANG)": {
+    "TAKALAR": "92261"
+  },
+  "BINAMU": {
+    "JENEPONTO": "92311"
+  },
+  "TURATEA": {
+    "JENEPONTO": "92312"
+  },
+  "TAMALATEA": {
+    "JENEPONTO": "92350"
+  },
+  "BONTORAMBA": {
+    "JENEPONTO": "92351"
+  },
+  "BANGKALA": {
+    "JENEPONTO": "92352"
+  },
+  "WEST BANGKALA": {
+    "JENEPONTO": "92353"
+  },
+  "ARUNGKEKE": {
+    "JENEPONTO": "92361"
+  },
+  "TAROWANG": {
+    "JENEPONTO": "92362"
+  },
+  "KELARA": {
+    "JENEPONTO": "92371"
+  },
+  "BANTAENG": {
+    "BANTAENG": "92411"
+  },
+  "EREMERASA": {
+    "BANTAENG": "92414"
+  },
+  "SINOA": {
+    "BANTAENG": "92450"
+  },
+  "BISSAPPU": {
+    "BANTAENG": "92451"
+  },
+  "ULUERE": {
+    "BANTAENG": "92452"
+  },
+  "PAJUKUKANG": {
+    "BANTAENG": "92460"
+  },
+  "GANTARANG KEKE (GANTARENG KEKE)": {
+    "BANTAENG": "92461"
+  },
+  "TOMPO BULU (TOMPOBULU)": {
+    "BANTAENG": "92462"
+  },
+  "UJUNG BULU": {
+    "BULUKUMBA": "92511"
+  },
+  "KINDANG": {
+    "BULUKUMBA": "92517"
+  },
+  "BULUKUMBA (BULUKUMPA)": {
+    "BULUKUMBA": "92552"
+  },
+  "RILAUALE (RILAU ALE)": {
+    "BULUKUMBA": "92553"
+  },
+  "GANTORANG/GANTARANG (GANGKING)": {
+    "BULUKUMBA": "92561"
+  },
+  "UJUNGLOE (UJUNG LOE)": {
+    "BULUKUMBA": "92562"
+  },
+  "BONTO BAHARI": {
+    "BULUKUMBA": "92571"
+  },
+  "BONTO TIRO (BONTOTIRO)": {
+    "BULUKUMBA": "92572"
+  },
+  "HERO LANGE LANGE (HERLANG)": {
+    "BULUKUMBA": "92573"
+  },
+  "KAJANG": {
+    "BULUKUMBA": "92574"
+  },
+  "NORTH SINJAI": {
+    "SINJAI": "92611"
+  },
+  "CENTRAL SINJAI": {
+    "SINJAI": "92652"
+  },
+  "WEST SINJAI": {
+    "SINJAI": "92653"
+  },
+  "BULUPODDO": {
+    "SINJAI": "92654"
+  },
+  "SOUTH SINJAI": {
+    "SINJAI": "92661"
+  },
+  "SINJAI BORONG": {
+    "SINJAI": "92662"
+  },
+  "EAST SINJAI": {
+    "SINJAI": "92671"
+  },
+  "TANETE RIATTANG": {
+    "BONE": "92711"
+  },
+  "KAHU": {
+    "BONE": "92714"
+  },
+  "EAST TANETE RIATTANG": {
+    "BONE": "92715"
+  },
+  "WEST TANETE RIATTANG": {
+    "BONE": "92731"
+  },
+  "TELLU SIATTINGE": {
+    "BONE": "92752"
+  },
+  "DUA BOCCOE": {
+    "BONE": "92753"
+  },
+  "AJANGALE": {
+    "BONE": "92755"
+  },
+  "AMALI": {
+    "BONE": "92756"
+  },
+  "LAPPARIAJA": {
+    "BONE": "92760"
+  },
+  "PALAKKA": {
+    "BONE": "92761"
+  },
+  "ULAWENG": {
+    "BONE": "92762"
+  },
+  "BENGO": {
+    "BONE": "92763"
+  },
+  "LAMURU": {
+    "BONE": "92764"
+  },
+  "PONRE": {
+    "BONE": "92765"
+  },
+  "LIBURENG": {
+    "BONE": "92766"
+  },
+  "BONTOCANI": {
+    "BONE": "92767"
+  },
+  "PATIMPENG": {
+    "BONE": "92768"
+  },
+  "TELLULIMPOE (TELLU LIMPOE)": {
+    "BONE": "92771"
+  },
+  "CINA": {
+    "BONE": "92772"
+  },
+  "MARE": {
+    "BONE": "92773",
+    "MAYBRAT": "98251"
+  },
+  "TONRA": {
+    "BONE": "92774"
+  },
+  "SALOMEKKO": {
+    "BONE": "92775"
+  },
+  "AWANGPONE": {
+    "BONE": "92776"
+  },
+  "KAJUARA": {
+    "BONE": "92777"
+  },
+  "SIBULUE": {
+    "BONE": "92781"
+  },
+  "BONTOHARU": {
+    "SELAYAR ISLANDS": "92811"
+  },
+  "PASIMASUNGGU (PASIMASSUNGGU)": {
+    "SELAYAR ISLANDS": "92811"
+  },
+  "BENTENG": {
+    "SELAYAR ISLANDS": "92812"
+  },
+  "BONTOMANAI": {
+    "SELAYAR ISLANDS": "92851"
+  },
+  "BUKI": {
+    "SELAYAR ISLANDS": "92851"
+  },
+  "BONTOMATENE": {
+    "SELAYAR ISLANDS": "92854"
+  },
+  "BONTOSIKUYU": {
+    "SELAYAR ISLANDS": "92855"
+  },
+  "TAKA BONERATE (TAKABONERATE)": {
+    "SELAYAR ISLANDS": "92860"
+  },
+  "EAST PASIMASUNGGU": {
+    "SELAYAR ISLANDS": "92861"
+  },
+  "PASIMARANNU": {
+    "SELAYAR ISLANDS": "92862"
+  },
+  "PASILAMBENA": {
+    "SELAYAR ISLANDS": "92863"
+  },
+  "MASAMBA": {
+    "NORTH LUWU": "92912"
+  },
+  "MAPPEDECENG": {
+    "NORTH LUWU": "92917"
+  },
+  "MALANGKE": {
+    "NORTH LUWU": "92953"
+  },
+  "LIMBONG": {
+    "NORTH LUWU": "92954"
+  },
+  "SABBANG": {
+    "NORTH LUWU": "92955"
+  },
+  "SEKO": {
+    "NORTH LUWU": "92956"
+  },
+  "WEST MALANGKE": {
+    "NORTH LUWU": "92957"
+  },
+  "SUKAMAJU": {
+    "NORTH LUWU": "92963"
+  },
+  "RAMPI": {
+    "NORTH LUWU": "92964"
+  },
+  "BAEBUNTA": {
+    "NORTH LUWU": "92965"
+  },
+  "BONE-BONE": {
+    "NORTH LUWU": "92966"
+  },
+  "TANA LILI": {
+    "NORTH LUWU": "92967"
+  },
+  "EAST TOMONI": {
+    "EAST LUWU": "92970"
+  },
+  "WOTU": {
+    "EAST LUWU": "92971"
+  },
+  "TOMONI": {
+    "EAST LUWU": "92972"
+  },
+  "KALAENA": {
+    "EAST LUWU": "92973"
+  },
+  "MANGKUTANA": {
+    "EAST LUWU": "92974"
+  },
+  "BURAU": {
+    "EAST LUWU": "92975"
+  },
+  "MALILI": {
+    "EAST LUWU": "92981"
+  },
+  "TOWUTI": {
+    "EAST LUWU": "92982"
+  },
+  "NUHA": {
+    "EAST LUWU": "92983"
+  },
+  "WASUPONDA": {
+    "EAST LUWU": "92984"
+  },
+  "ANGKONA": {
+    "EAST LUWU": "92985"
+  },
+  "MANDONGA": {
+    "KENDARI": "93111"
+  },
+  "PUUWATU": {
+    "KENDARI": "93114"
+  },
+  "BARUGA": {
+    "KENDARI": "93116"
+  },
+  "KADIA": {
+    "KENDARI": "93117"
+  },
+  "WUA-WUA": {
+    "KENDARI": "93117"
+  },
+  "KENDARI": {
+    "KENDARI": "93121"
+  },
+  "WEST KENDARI": {
+    "KENDARI": "93121"
+  },
+  "KAMBU": {
+    "KENDARI": "93231"
+  },
+  "POASIA": {
+    "KENDARI": "93231"
+  },
+  "ABELI": {
+    "KENDARI": "93234"
+  },
+  "LASOLO ISLANDS": {
+    "NORTH KONAWE": "93341"
+  },
+  "WAWOLESEA": {
+    "NORTH KONAWE": "93342"
+  },
+  "WIWIRANO": {
+    "NORTH KONAWE": "93343"
+  },
+  "LEMBO": {
+    "NORTH KONAWE": "93350",
+    "NORTH MOROWALI": "94966"
+  },
+  "LANGGIKIMA": {
+    "NORTH KONAWE": "93351"
+  },
+  "LASOLO": {
+    "NORTH KONAWE": "93352"
+  },
+  "LANDAWE": {
+    "NORTH KONAWE": "93353"
+  },
+  "OHEO": {
+    "NORTH KONAWE": "93354"
+  },
+  "ASERA": {
+    "NORTH KONAWE": "93355"
+  },
+  "ANDOWIA": {
+    "NORTH KONAWE": "93356"
+  },
+  "SAWA": {
+    "NORTH KONAWE": "93357"
+  },
+  "MOTUI": {
+    "NORTH KONAWE": "93358"
+  },
+  "MOLAWE": {
+    "NORTH KONAWE": "93359"
+  },
+  "WEST WAWONII": {
+    "KONAWE ISLANDS": "93391"
+  },
+  "SOUTH WAWONII": {
+    "KONAWE ISLANDS": "93392"
+  },
+  "CENTRAL WAWONII": {
+    "KONAWE ISLANDS": "93393"
+  },
+  "SOUTHEAST WAWONII": {
+    "KONAWE ISLANDS": "93394"
+  },
+  "EAST WAWONII": {
+    "KONAWE ISLANDS": "93396"
+  },
+  "NORTHEAST WAWONII": {
+    "KONAWE ISLANDS": "93397"
+  },
+  "NORTH WAWONII": {
+    "KONAWE ISLANDS": "93398"
+  },
+  "PURIALA": {
+    "KONAWE": "93411"
+  },
+  "UNAAHA": {
+    "KONAWE": "93411"
+  },
+  "ANGGABERI": {
+    "KONAWE": "93417"
+  },
+  "ASINUA": {
+    "KONAWE": "93441"
+  },
+  "PADANGGUNI": {
+    "KONAWE": "93442"
+  },
+  "LALONGGASUMEETO": {
+    "KONAWE": "93450"
+  },
+  "SOROPIA": {
+    "KONAWE": "93451"
+  },
+  "ABUKI": {
+    "KONAWE": "93452"
+  },
+  "ROUTA": {
+    "KONAWE": "93453"
+  },
+  "KAPOIALA": {
+    "KONAWE": "93454"
+  },
+  "ANGGALOMOARE": {
+    "KONAWE": "93455"
+  },
+  "MOROSI": {
+    "KONAWE": "93456"
+  },
+  "BONDOALA": {
+    "KONAWE": "93457"
+  },
+  "SAMPARA": {
+    "KONAWE": "93458"
+  },
+  "BESULUTU": {
+    "KONAWE": "93459"
+  },
+  "TONGAUNA": {
+    "KONAWE": "93460"
+  },
+  "KONAWE": {
+    "KONAWE": "93461"
+  },
+  "WAWOTOBI": {
+    "KONAWE": "93462"
+  },
+  "AMONGGEDO": {
+    "KONAWE": "93463"
+  },
+  "LAMBUYA": {
+    "KONAWE": "93464"
+  },
+  "ONEMBUTE": {
+    "KONAWE": "93465"
+  },
+  "UEPAI": {
+    "KONAWE": "93466"
+  },
+  "PONDIDAHA": {
+    "KONAWE": "93467"
+  },
+  "WONGGEDUKU": {
+    "KONAWE": "93468"
+  },
+  "WEST WONGGEDUKU": {
+    "KONAWE": "93469"
+  },
+  "LATOMA": {
+    "KONAWE": "93471"
+  },
+  "MELUHU": {
+    "KONAWE": "93472"
+  },
+  "KOLAKA": {
+    "KOLAKA": "93511"
+  },
+  "LATAMBAGA": {
+    "KOLAKA": "93512"
+  },
+  "SAMATURU": {
+    "KOLAKA": "93521"
+  },
+  "IWOIMENDAA": {
+    "KOLAKA": "93552"
+  },
+  "WOLO": {
+    "KOLAKA": "93553"
+  },
+  "WUNDULAKO": {
+    "KOLAKA": "93560"
+  },
+  "BAULA": {
+    "KOLAKA": "93561"
+  },
+  "POMALAA": {
+    "KOLAKA": "93562"
+  },
+  "POLINGGONA": {
+    "KOLAKA": "93563"
+  },
+  "TANGGETADA": {
+    "KOLAKA": "93564"
+  },
+  "TOARI": {
+    "KOLAKA": "93565"
+  },
+  "WATUBANGGA": {
+    "KOLAKA": "93566"
+  },
+  "TINONDO": {
+    "EAST KOLAKA": "93570"
+  },
+  "MOWEWE": {
+    "EAST KOLAKA": "93571"
+  },
+  "LALOLAE": {
+    "EAST KOLAKA": "93572"
+  },
+  "AERE": {
+    "EAST KOLAKA": "93573"
+  },
+  "ULUIWOI": {
+    "EAST KOLAKA": "93574"
+  },
+  "UEESI": {
+    "EAST KOLAKA": "93575"
+  },
+  "DANGIA": {
+    "EAST KOLAKA": "93576"
+  },
+  "LADONGI": {
+    "EAST KOLAKA": "93577"
+  },
+  "LAMBANDIA": {
+    "EAST KOLAKA": "93578"
+  },
+  "POLI POLIA": {
+    "EAST KOLAKA": "93579"
+  },
+  "LOEA": {
+    "EAST KOLAKA": "93581"
+  },
+  "TIRAWUTA": {
+    "EAST KOLAKA": "93582"
+  },
+  "KATOBU": {
+    "MUNA": "93611"
+  },
+  "BATALAIWARU (BATALAIWORU)": {
+    "MUNA": "93614"
+  },
+  "DURUKA": {
+    "MUNA": "93618"
+  },
+  "LASALEPA": {
+    "MUNA": "93621"
+  },
+  "NAPABALANO": {
+    "MUNA": "93622"
+  },
+  "TOWEA": {
+    "MUNA": "93623"
+  },
+  "WATOPUTE": {
+    "MUNA": "93624"
+  },
+  "KONTUNAGA": {
+    "MUNA": "93625"
+  },
+  "LOHIA": {
+    "MUNA": "93626"
+  },
+  "MAGINTI": {
+    "WEST MUNA": "93643"
+  },
+  "SOUTH TIWORO": {
+    "WEST MUNA": "93644"
+  },
+  "BARANGKA": {
+    "WEST MUNA": "93650"
+  },
+  "LAWA": {
+    "WEST MUNA": "93651"
+  },
+  "WADAGA": {
+    "WEST MUNA": "93652"
+  },
+  "TIWORO ISLANDS": {
+    "WEST MUNA": "93653"
+  },
+  "CENTRAL TIWORO": {
+    "WEST MUNA": "93654"
+  },
+  "KUSAMBI": {
+    "WEST MUNA": "93655"
+  },
+  "NORTH TIWORO": {
+    "WEST MUNA": "93656"
+  },
+  "SAWERIGADI": {
+    "WEST MUNA": "93657"
+  },
+  "NAPANO KUSAMBI": {
+    "WEST MUNA": "93658"
+  },
+  "KONTU KOWUNA": {
+    "MUNA": "93660"
+  },
+  "KABAWO": {
+    "MUNA": "93661"
+  },
+  "TONGKUNO": {
+    "MUNA": "93662"
+  },
+  "BONE (BONE TONDO)": {
+    "MUNA": "93663"
+  },
+  "KABANGKA": {
+    "MUNA": "93664"
+  },
+  "SOUTH TONGKUNO": {
+    "MUNA": "93665"
+  },
+  "MAROBO": {
+    "MUNA": "93666"
+  },
+  "WEST KULISUSU": {
+    "NORTH BUTON": "93670"
+  },
+  "NORTH WAKORUMBA": {
+    "NORTH BUTON": "93671"
+  },
+  "KULISUSU (KALINGSUSU/KALISUSU)": {
+    "NORTH BUTON": "93672"
+  },
+  "BONEGUNU": {
+    "NORTH BUTON": "93673"
+  },
+  "KAMBOWA": {
+    "NORTH BUTON": "93674"
+  },
+  "NORTH KULISUSU": {
+    "NORTH BUTON": "93675"
+  },
+  "SOUTH WAKORUMBA": {
+    "MUNA": "93681"
+  },
+  "BATUKARA": {
+    "MUNA": "93682"
+  },
+  "MALIGANO": {
+    "MUNA": "93683"
+  },
+  "PASI KOLAGA": {
+    "MUNA": "93684"
+  },
+  "PASIR PUTIH": {
+    "MUNA": "93685",
+    "NDUGA": "99927"
+  },
+  "KOKALUKUNA": {
+    "BAU-BAU": "93711"
+  },
+  "WOLIO": {
+    "BAU-BAU": "93711"
+  },
+  "BETOAMBARI": {
+    "BAU-BAU": "93721"
+  },
+  "MURHUM": {
+    "BAU-BAU": "93721"
+  },
+  "BATUPOARO": {
+    "BAU-BAU": "93728"
+  },
+  "SORAWOLIO (SORA WALIO / SOROWALIO)": {
+    "BAU-BAU": "93731"
+  },
+  "BUNGI": {
+    "BAU-BAU": "93732"
+  },
+  "LEA-LEA": {
+    "BAU-BAU": "93733"
+  },
+  "BATAUGA": {
+    "SOUTH BUTON": "93741"
+  },
+  "KADATUA": {
+    "SOUTH BUTON": "93742"
+  },
+  "SIOMPU": {
+    "SOUTH BUTON": "93743"
+  },
+  "WEST SIOMPU": {
+    "SOUTH BUTON": "93744"
+  },
+  "BATU ATAS": {
+    "SOUTH BUTON": "93745"
+  },
+  "LAPANDEWA": {
+    "SOUTH BUTON": "93746"
+  },
+  "SAMPOLAWA": {
+    "SOUTH BUTON": "93747"
+  },
+  "PASARWAJO (PASAR WAJO)": {
+    "BUTON": "93752"
+  },
+  "WABULA": {
+    "BUTON": "93753"
+  },
+  "WOLOWA": {
+    "BUTON": "93754"
+  },
+  "KAPONTORI": {
+    "BUTON": "93755"
+  },
+  "LASALIMU": {
+    "BUTON": "93756"
+  },
+  "SOUTH LASALIMU": {
+    "BUTON": "93757"
+  },
+  "SIOTAPINA (SIONTAPIA / SIONTAPINA)": {
+    "BUTON": "93758"
+  },
+  "SANGIA WAMBULU": {
+    "CENTRAL BUTON": "93760"
+  },
+  "GU": {
+    "CENTRAL BUTON": "93761"
+  },
+  "MAWASANGKA": {
+    "CENTRAL BUTON": "93762"
+  },
+  "LAKUDO": {
+    "CENTRAL BUTON": "93763"
+  },
+  "CENTRAL MAWASANGKA": {
+    "CENTRAL BUTON": "93764"
+  },
+  "EAST MAWASANGKA": {
+    "CENTRAL BUTON": "93765"
+  },
+  "TALAGA RAYA": {
+    "CENTRAL BUTON": "93766"
+  },
+  "MATA OLEO": {
+    "BOMBANA": "93770"
+  },
+  "CENTRAL RUMBIA": {
+    "BOMBANA": "93771"
+  },
+  "POLEANG": {
+    "BOMBANA": "93772"
+  },
+  "WEST POLEANG": {
+    "BOMBANA": "93772"
+  },
+  "SOUTH POLEANG": {
+    "BOMBANA": "93773"
+  },
+  "LANTARI JAYA": {
+    "BOMBANA": "93774"
+  },
+  "SOUTHEAST POLEANG": {
+    "BOMBANA": "93775"
+  },
+  "EAST POLEANG": {
+    "BOMBANA": "93776"
+  },
+  "NORTH POLEANG": {
+    "BOMBANA": "93777"
+  },
+  "MASALOKA RAYA ISLANDS": {
+    "BOMBANA": "93778"
+  },
+  "CENTRAL POLEANG": {
+    "BOMBANA": "93779"
+  },
+  "WEST KABAENA": {
+    "BOMBANA": "93780"
+  },
+  "KABAENA": {
+    "BOMBANA": "93781"
+  },
+  "SOUTH KABAENA": {
+    "BOMBANA": "93782"
+  },
+  "CENTRAL KABAENA": {
+    "BOMBANA": "93783"
+  },
+  "EAST KABAENA": {
+    "BOMBANA": "93784"
+  },
+  "NORTH KABAENA": {
+    "BOMBANA": "93785"
+  },
+  "MATA USU": {
+    "BOMBANA": "93786"
+  },
+  "RAROWATU": {
+    "BOMBANA": "93787"
+  },
+  "NORTH RAROWATU": {
+    "BOMBANA": "93788"
+  },
+  "TONTONUNU": {
+    "BOMBANA": "93789"
+  },
+  "SOUTH KALEDUPA": {
+    "WAKATOBI": "93790"
+  },
+  "WANGI WANGI": {
+    "WAKATOBI": "93791"
+  },
+  "KALEDUPA": {
+    "WAKATOBI": "93792"
+  },
+  "TOMIA": {
+    "WAKATOBI": "93793"
+  },
+  "BINONGKO": {
+    "WAKATOBI": "93794"
+  },
+  "SOUTH WANGI WANGI": {
+    "WAKATOBI": "93795"
+  },
+  "TOGO BINONGKO": {
+    "WAKATOBI": "93796"
+  },
+  "EAST TOMIA": {
+    "WAKATOBI": "93797"
+  },
+  "ANDOOLO": {
+    "SOUTH KONAWE": "93810"
+  },
+  "BUKE": {
+    "SOUTH KONAWE": "93812"
+  },
+  "WEST ANDOOLO": {
+    "SOUTH KONAWE": "93813"
+  },
+  "RANOMEETO": {
+    "SOUTH KONAWE": "93870"
+  },
+  "WEST RANOMEETO": {
+    "SOUTH KONAWE": "93871"
+  },
+  "SABULAKOA": {
+    "SOUTH KONAWE": "93872"
+  },
+  "LANDONO": {
+    "SOUTH KONAWE": "93873"
+  },
+  "KONDA": {
+    "SOUTH KONAWE": "93874",
+    "SOUTH SORONG": "98211"
+  },
+  "ANGATA": {
+    "SOUTH KONAWE": "93875"
+  },
+  "BASALA": {
+    "SOUTH KONAWE": "93876"
+  },
+  "BENUA": {
+    "SOUTH KONAWE": "93877"
+  },
+  "WOLASI": {
+    "SOUTH KONAWE": "93878"
+  },
+  "MOWILA": {
+    "SOUTH KONAWE": "93879"
+  },
+  "LAEYA": {
+    "SOUTH KONAWE": "93880"
+  },
+  "LAINEA": {
+    "SOUTH KONAWE": "93881"
+  },
+  "PALANGGA": {
+    "SOUTH KONAWE": "93882"
+  },
+  "BAITO": {
+    "SOUTH KONAWE": "93883"
+  },
+  "SOUTH PALANGGA": {
+    "SOUTH KONAWE": "93884"
+  },
+  "LALEMBUU": {
+    "SOUTH KONAWE": "93885"
+  },
+  "TINANGGEA": {
+    "SOUTH KONAWE": "93886"
+  },
+  "NORTH MORAMO": {
+    "SOUTH KONAWE": "93890"
+  },
+  "MORAMO": {
+    "SOUTH KONAWE": "93891"
+  },
+  "LAONTI": {
+    "SOUTH KONAWE": "93892"
+  },
+  "EAST KOLONO": {
+    "SOUTH KONAWE": "93894"
+  },
+  "KOLONO": {
+    "SOUTH KONAWE": "93895"
+  },
+  "LASUSUA": {
+    "NORTH KOLAKA": "93911"
+  },
+  "KATOI": {
+    "NORTH KOLAKA": "93913"
+  },
+  "POREHU": {
+    "NORTH KOLAKA": "93950"
+  },
+  "TOLALA": {
+    "NORTH KOLAKA": "93951"
+  },
+  "NORTH PAKUE": {
+    "NORTH KOLAKA": "93952"
+  },
+  "CENTRAL PAKUE": {
+    "NORTH KOLAKA": "93953"
+  },
+  "PAKUE": {
+    "NORTH KOLAKA": "93954"
+  },
+  "LAMBAI": {
+    "NORTH KOLAKA": "93956"
+  },
+  "KODEOHA": {
+    "NORTH KOLAKA": "93957"
+  },
+  "NGAPA": {
+    "NORTH KOLAKA": "93958"
+  },
+  "WATUNOHU": {
+    "NORTH KOLAKA": "93959"
+  },
+  "RANTE ANGIN": {
+    "NORTH KOLAKA": "93961"
+  },
+  "TIWU": {
+    "NORTH KOLAKA": "93963"
+  },
+  "EAST PALU": {
+    "PALU": "94111"
+  },
+  "MANTIKULORE": {
+    "PALU": "94111"
+  },
+  "TAWAELI": {
+    "PALU": "94141"
+  },
+  "NORTH PALU": {
+    "PALU": "94145"
+  },
+  "TATANGA": {
+    "PALU": "94221"
+  },
+  "WEST PALU": {
+    "PALU": "94221"
+  },
+  "ULUJADI": {
+    "PALU": "94226"
+  },
+  "SOUTH PALU": {
+    "PALU": "94231"
+  },
+  "CENTRAL BANAWA": {
+    "DONGGALA": "94341"
+  },
+  "TANANTOVEA": {
+    "DONGGALA": "94342"
+  },
+  "SINDUE TOBATA": {
+    "DONGGALA": "94343"
+  },
+  "SINDUE TOMBUSABORA": {
+    "DONGGALA": "94344"
+  },
+  "PINEMBANI (PANEMBANI)": {
+    "DONGGALA": "94345"
+  },
+  "RIO PAKAVA": {
+    "DONGGALA": "94346"
+  },
+  "SOUTH BANAWA": {
+    "DONGGALA": "94350"
+  },
+  "BANAWA": {
+    "DONGGALA": "94351"
+  },
+  "SINDUE": {
+    "DONGGALA": "94353"
+  },
+  "SIRENJA": {
+    "DONGGALA": "94354"
+  },
+  "BALAESANG": {
+    "DONGGALA": "94355"
+  },
+  "DAMPELAS": {
+    "DONGGALA": "94356"
+  },
+  "SOJOL": {
+    "DONGGALA": "94357"
+  },
+  "NORTH SOJOL": {
+    "DONGGALA": "94358"
+  },
+  "BALAESANG TANJUNG": {
+    "DONGGALA": "94359"
+  },
+  "WEST DOLO": {
+    "SIGI": "94360"
+  },
+  "DOLO": {
+    "SIGI": "94361"
+  },
+  "KINOVARO": {
+    "SIGI": "94362"
+  },
+  "KULAWI": {
+    "SIGI": "94363"
+  },
+  "GUMBASA": {
+    "SIGI": "94364"
+  },
+  "NOKILALAKI": {
+    "SIGI": "94365"
+  },
+  "PALOLO": {
+    "SIGI": "94366"
+  },
+  "SIGI BIROMARU": {
+    "SIGI": "94367"
+  },
+  "TANAMBULAVA": {
+    "SIGI": "94368"
+  },
+  "LINDU": {
+    "SIGI": "94369"
+  },
+  "PIPIKORO": {
+    "SIGI": "94370"
+  },
+  "SOUTH DOLO": {
+    "SIGI": "94371"
+  },
+  "MARAWOLA": {
+    "SIGI": "94372"
+  },
+  "SOUTH KULAWI": {
+    "SIGI": "94373"
+  },
+  "WEST MARAWOLA": {
+    "SIGI": "94374"
+  },
+  "WEST PARIGI": {
+    "PARIGI MOUTONG": "94460"
+  },
+  "SOUTH PARIGI": {
+    "PARIGI MOUTONG": "94461"
+  },
+  "CENTRAL PARIGI": {
+    "PARIGI MOUTONG": "94462"
+  },
+  "NORTH PARIGI": {
+    "PARIGI MOUTONG": "94463"
+  },
+  "KASIMBAR": {
+    "PARIGI MOUTONG": "94464"
+  },
+  "TINOMBO": {
+    "PARIGI MOUTONG": "94465"
+  },
+  "TORIBULU": {
+    "PARIGI MOUTONG": "94466"
+  },
+  "SINIU": {
+    "PARIGI MOUTONG": "94467"
+  },
+  "SOUTH TINOMBO": {
+    "PARIGI MOUTONG": "94468"
+  },
+  "TORUE": {
+    "PARIGI MOUTONG": "94470"
+  },
+  "SAUSU": {
+    "PARIGI MOUTONG": "94472"
+  },
+  "BALINGGI": {
+    "PARIGI MOUTONG": "94473"
+  },
+  "AMPIBABO": {
+    "PARIGI MOUTONG": "94474"
+  },
+  "SIDOAN": {
+    "PARIGI MOUTONG": "94475"
+  },
+  "MEPANGA": {
+    "PARIGI MOUTONG": "94476"
+  },
+  "PALASA": {
+    "PARIGI MOUTONG": "94477"
+  },
+  "TOMINI": {
+    "PARIGI MOUTONG": "94478",
+    "SOUTH BOLAANG MONGONDOW": "95778"
+  },
+  "BOLANO": {
+    "PARIGI MOUTONG": "94479"
+  },
+  "BOLANO LAMBUNU": {
+    "PARIGI MOUTONG": "94480"
+  },
+  "MOUTONG": {
+    "PARIGI MOUTONG": "94481"
+  },
+  "ONGKA MALINO": {
+    "PARIGI MOUTONG": "94482"
+  },
+  "TAOPA": {
+    "PARIGI MOUTONG": "94483"
+  },
+  "BAOLAN": {
+    "TOLI-TOLI": "94511"
+  },
+  "OGODEIDE": {
+    "TOLI-TOLI": "94516"
+  },
+  "LAMPASIO": {
+    "TOLI-TOLI": "94517"
+  },
+  "DONDO": {
+    "TOLI-TOLI": "94551"
+  },
+  "BASIDONDO": {
+    "TOLI-TOLI": "94552"
+  },
+  "NORTH DAMPAL": {
+    "TOLI-TOLI": "94553"
+  },
+  "SOUTH DAMPAL": {
+    "TOLI-TOLI": "94554"
+  },
+  "NORTH TOLI-TOLI / TOLITOLI": {
+    "TOLI-TOLI": "94560"
+  },
+  "DAKO PEMEAN (DAKO PAMEAN)": {
+    "TOLI-TOLI": "94562"
+  },
+  "BIAU": {
+    "BUOL": "94563",
+    "NORTH GORONTALO": "96523"
+  },
+  "BOKAT": {
+    "BUOL": "94564"
+  },
+  "MOMUNU": {
+    "BUOL": "94565"
+  },
+  "TILOAN": {
+    "BUOL": "94566"
+  },
+  "BUNOBOGU": {
+    "BUOL": "94567"
+  },
+  "GADUNG": {
+    "BUOL": "94568"
+  },
+  "PALELEH": {
+    "BUOL": "94569"
+  },
+  "BUKAL": {
+    "BUOL": "94571"
+  },
+  "KARAMAT": {
+    "BUOL": "94572"
+  },
+  "LAKEA (LIPUNOTO)": {
+    "BUOL": "94573"
+  },
+  "WEST PALELEH": {
+    "BUOL": "94574"
+  },
+  "NORTH POSO KOTA": {
+    "POSO": "94611"
+  },
+  "SOUTH POSO KOTA": {
+    "POSO": "94613"
+  },
+  "POSO KOTA": {
+    "POSO": "94617"
+  },
+  "SOUTH POSO PESISIR": {
+    "POSO": "94650"
+  },
+  "NORTH POSO PESISIR": {
+    "POSO": "94651"
+  },
+  "POSO PESISIR": {
+    "POSO": "94652"
+  },
+  "LORE PIORE": {
+    "POSO": "94653"
+  },
+  "WEST LORE": {
+    "POSO": "94654"
+  },
+  "SOUTH LORE": {
+    "POSO": "94655"
+  },
+  "CENTRAL LORE": {
+    "POSO": "94656"
+  },
+  "EAST LORE": {
+    "POSO": "94657"
+  },
+  "NORTH LORE": {
+    "POSO": "94658"
+  },
+  "LAGE": {
+    "POSO": "94661"
+  },
+  "WEST PAMONA": {
+    "POSO": "94662"
+  },
+  "PAMONA PUSELEMBA": {
+    "POSO": "94663"
+  },
+  "SOUTH PAMONA": {
+    "POSO": "94664"
+  },
+  "SOUTHEAST PAMONA": {
+    "POSO": "94665"
+  },
+  "EAST PAMONA": {
+    "POSO": "94666"
+  },
+  "NORTH PAMONA": {
+    "POSO": "94667"
+  },
+  "WEST TOJO": {
+    "TOJO UNA-UNA": "94680"
+  },
+  "TOJO": {
+    "TOJO UNA-UNA": "94681"
+  },
+  "ULUBONGKA": {
+    "TOJO UNA-UNA": "94682"
+  },
+  "AMPANA KOTA": {
+    "TOJO UNA-UNA": "94683"
+  },
+  "RATOLINDO": {
+    "TOJO UNA-UNA": "94683"
+  },
+  "AMPANA TETE": {
+    "TOJO UNA-UNA": "94684"
+  },
+  "TOGEAN": {
+    "TOJO UNA-UNA": "94686"
+  },
+  "BATUDAKA": {
+    "TOJO UNA-UNA": "94690"
+  },
+  "UNA UNA": {
+    "TOJO UNA-UNA": "94690"
+  },
+  "TALATAKO": {
+    "TOJO UNA-UNA": "94692"
+  },
+  "WALEA BESAR": {
+    "TOJO UNA-UNA": "94693"
+  },
+  "WALEA ISLANDS": {
+    "TOJO UNA-UNA": "94694"
+  },
+  "LUWUK": {
+    "BANGGAI": "94711"
+  },
+  "NORTH LUWUK": {
+    "BANGGAI": "94711"
+  },
+  "SOUTH TINANGKUNG": {
+    "BANGGAI ISLANDS": "94714"
+  },
+  "SOUTH LUWUK": {
+    "BANGGAI": "94717"
+  },
+  "EAST LUWUK": {
+    "BANGGAI": "94723"
+  },
+  "LOBU": {
+    "BANGGAI": "94750"
+  },
+  "PAGIMANA": {
+    "BANGGAI": "94751"
+  },
+  "BUALEMO (BOALEMO)": {
+    "BANGGAI": "94752"
+  },
+  "BUNTA": {
+    "BANGGAI": "94753"
+  },
+  "NUHON": {
+    "BANGGAI": "94754"
+  },
+  "SIMPANG RAYA": {
+    "BANGGAI": "94755"
+  },
+  "NAMBO": {
+    "BANGGAI": "94760"
+  },
+  "KINTOM": {
+    "BANGGAI": "94761"
+  },
+  "BATUI": {
+    "BANGGAI": "94762"
+  },
+  "SOUTH BATUI": {
+    "BANGGAI": "94763"
+  },
+  "TOILI": {
+    "BANGGAI": "94764"
+  },
+  "MOILONG": {
+    "BANGGAI": "94765"
+  },
+  "WEST TOILI": {
+    "BANGGAI": "94766"
+  },
+  "MANTOH": {
+    "BANGGAI": "94770"
+  },
+  "LAMALA": {
+    "BANGGAI": "94771"
+  },
+  "MASAMA": {
+    "BANGGAI": "94772"
+  },
+  "BALANTAK": {
+    "BANGGAI": "94773"
+  },
+  "SOUTH BALANTAK": {
+    "BANGGAI": "94774"
+  },
+  "NORTH BALANTAK": {
+    "BANGGAI": "94775"
+  },
+  "SOUTH BUKO": {
+    "BANGGAI ISLANDS": "94880"
+  },
+  "BUKO": {
+    "BANGGAI ISLANDS": "94881"
+  },
+  "BULAGI": {
+    "BANGGAI ISLANDS": "94882"
+  },
+  "SOUTH BULAGI": {
+    "BANGGAI ISLANDS": "94882"
+  },
+  "LIANG": {
+    "BANGGAI ISLANDS": "94883"
+  },
+  "TOTIKUM (TOTIKUNG)": {
+    "BANGGAI ISLANDS": "94884"
+  },
+  "TINANGKUNG": {
+    "BANGGAI ISLANDS": "94885"
+  },
+  "NORTH TINANGKUNG": {
+    "BANGGAI ISLANDS": "94886"
+  },
+  "SOUTH TOTIKUM": {
+    "BANGGAI ISLANDS": "94887"
+  },
+  "CENTRAL PELING": {
+    "BANGGAI ISLANDS": "94888"
+  },
+  "NORTH BULAGI": {
+    "BANGGAI ISLANDS": "94889"
+  },
+  "SOUTH BANGGAI": {
+    "BANGGAI LAUT": "94890"
+  },
+  "BANGGAI": {
+    "BANGGAI LAUT": "94891"
+  },
+  "BANGKURUNG": {
+    "BANGGAI LAUT": "94892"
+  },
+  "LABOBO": {
+    "BANGGAI LAUT": "94893"
+  },
+  "BOKAN ISLANDS": {
+    "BANGGAI LAUT": "94894"
+  },
+  "CENTRAL BANGGAI": {
+    "BANGGAI LAUT": "94895"
+  },
+  "NORTH BANGGAI": {
+    "BANGGAI LAUT": "94896"
+  },
+  "EAST PETASIA": {
+    "NORTH MOROWALI": "94963"
+  },
+  "NORTH MORI": {
+    "NORTH MOROWALI": "94964"
+  },
+  "MORI ATAS": {
+    "NORTH MOROWALI": "94965"
+  },
+  "LEMBO RAYA": {
+    "NORTH MOROWALI": "94967"
+  },
+  "MAMOSALATO": {
+    "NORTH MOROWALI": "94968"
+  },
+  "SOYO JAYA": {
+    "NORTH MOROWALI": "94969"
+  },
+  "WEST PETASIA": {
+    "NORTH MOROWALI": "94970"
+  },
+  "PETASIA": {
+    "NORTH MOROWALI": "94971"
+  },
+  "NORTH BUNGKU": {
+    "NORTH MOROWALI": "94972"
+  },
+  "CENTRAL BUNGKU": {
+    "MOROWALI": "94973"
+  },
+  "BAHODOPI": {
+    "MOROWALI": "94974"
+  },
+  "MENUI ISLANDS": {
+    "MOROWALI": "94975"
+  },
+  "BUMI RAYA": {
+    "MOROWALI": "94976"
+  },
+  "WEST BUNGKU": {
+    "MOROWALI": "94977"
+  },
+  "WITA PONDA": {
+    "MOROWALI": "94978"
+  },
+  "SOUTH BUNGKU": {
+    "MOROWALI": "94979"
+  },
+  "EAST BUNGKU": {
+    "MOROWALI": "94980"
+  },
+  "BUNGKU PESISIR": {
+    "MOROWALI": "94981"
+  },
+  "WENANG": {
+    "MANADO": "95111"
+  },
+  "SARIO": {
+    "MANADO": "95113"
+  },
+  "MALALAYANG": {
+    "MANADO": "95115"
+  },
+  "WANEA": {
+    "MANADO": "95117"
+  },
+  "PAAL DUA": {
+    "MANADO": "95127"
+  },
+  "BUNAKEN": {
+    "MANADO": "95231"
+  },
+  "BUNAKEN ISLANDS": {
+    "MANADO": "95231"
+  },
+  "TUMINITING": {
+    "MANADO": "95238"
+  },
+  "MAPANGET": {
+    "MANADO": "95249"
+  },
+  "TATAPAAN": {
+    "SOUTH MINAHASA": "95351"
+  },
+  "TUMPAAN": {
+    "SOUTH MINAHASA": "95352"
+  },
+  "TENGA": {
+    "SOUTH MINAHASA": "95355"
+  },
+  "MAESAAN": {
+    "SOUTH MINAHASA": "95357"
+  },
+  "TOMPASO BARU": {
+    "SOUTH MINAHASA": "95358"
+  },
+  "TALAWAAN": {
+    "NORTH MINAHASA": "95370"
+  },
+  "AIRMADIDI": {
+    "NORTH MINAHASA": "95371"
+  },
+  "KAUDITAN": {
+    "NORTH MINAHASA": "95372"
+  },
+  "DIMEMBE": {
+    "NORTH MINAHASA": "95373"
+  },
+  "SOUTH LIKUPANG": {
+    "NORTH MINAHASA": "95374"
+  },
+  "EAST LIKUPANG": {
+    "NORTH MINAHASA": "95375"
+  },
+  "WORI": {
+    "NORTH MINAHASA": "95376"
+  },
+  "WEST LIKUPANG": {
+    "NORTH MINAHASA": "95377"
+  },
+  "KALAWAT": {
+    "NORTH MINAHASA": "95378"
+  },
+  "KEMA": {
+    "NORTH MINAHASA": "95379"
+  },
+  "NORTH TOMOHON": {
+    "TOMOHON": "95411"
+  },
+  "WEST TOMOHON": {
+    "TOMOHON": "95421"
+  },
+  "SOUTH TOMOHON": {
+    "TOMOHON": "95431"
+  },
+  "CENTRAL TOMOHON": {
+    "TOMOHON": "95441"
+  },
+  "EAST TOMOHON": {
+    "TOMOHON": "95446"
+  },
+  "GIRIAN": {
+    "BITUNG": "95511"
+  },
+  "MAESA": {
+    "BITUNG": "95511"
+  },
+  "MADIDIR (CENTRAL BITUNG)": {
+    "BITUNG": "95513"
+  },
+  "AERTEMBAGA (EAST BITUNG)": {
+    "BITUNG": "95521"
+  },
+  "RANOWULU (NORTH BITUNG)": {
+    "BITUNG": "95531"
+  },
+  "MATUARI (WEST BITUNG)": {
+    "BITUNG": "95539"
+  },
+  "NORTH LEMBEH": {
+    "BITUNG": "95551"
+  },
+  "SOUTH LEMBEH (SOUTH BITUNG)": {
+    "BITUNG": "95551"
+  },
+  "NORTH TONDANO": {
+    "MINAHASA": "95610"
+  },
+  "EAST TONDANO": {
+    "MINAHASA": "95611"
+  },
+  "WEST TONDANO": {
+    "MINAHASA": "95615"
+  },
+  "SOUTH TONDANO": {
+    "MINAHASA": "95618"
+  },
+  "TOMBARIRI": {
+    "MINAHASA": "95651"
+  },
+  "EAST TOMBARIRI": {
+    "MINAHASA": "95652"
+  },
+  "MANDOLANG": {
+    "MINAHASA": "95661"
+  },
+  "PINELENG": {
+    "MINAHASA": "95662"
+  },
+  "TOMBULU": {
+    "MINAHASA": "95663"
+  },
+  "KAKAS": {
+    "MINAHASA": "95680"
+  },
+  "REMBOKEN": {
+    "MINAHASA": "95681"
+  },
+  "WEST KAKAS": {
+    "MINAHASA": "95682"
+  },
+  "ERIS": {
+    "MINAHASA": "95683"
+  },
+  "KOMBI": {
+    "MINAHASA": "95684"
+  },
+  "EAST LEMBEAN": {
+    "MINAHASA": "95685"
+  },
+  "KAWANGKOAN": {
+    "MINAHASA": "95690"
+  },
+  "SONDER": {
+    "MINAHASA": "95691"
+  },
+  "WEST KAWANGKOAN": {
+    "MINAHASA": "95692"
+  },
+  "TOMPASO": {
+    "MINAHASA": "95693"
+  },
+  "WEST LANGOWAN": {
+    "MINAHASA": "95694"
+  },
+  "SOUTH LANGOWAN": {
+    "MINAHASA": "95695"
+  },
+  "EAST LANGOWAN": {
+    "MINAHASA": "95696"
+  },
+  "NORTH LANGOWAN": {
+    "MINAHASA": "95697"
+  },
+  "WEST TOMPASO": {
+    "MINAHASA": "95698"
+  },
+  "NORTH KAWANGKOAN": {
+    "MINAHASA": "95699"
+  },
+  "WEST KOTAMOBAGU": {
+    "KOTAMOBAGU": "95711"
+  },
+  "EAST KOTAMOBAGU": {
+    "KOTAMOBAGU": "95712"
+  },
+  "NORTH KOTAMOBAGU": {
+    "KOTAMOBAGU": "95713"
+  },
+  "SOUTH KOTAMOBAGU": {
+    "KOTAMOBAGU": "95717"
+  },
+  "WEST DUMOGA": {
+    "BOLAANG MONGONDOW": "95731"
+  },
+  "CENTRAL DUMOGA": {
+    "BOLAANG MONGONDOW": "95732"
+  },
+  "DUMOGA": {
+    "BOLAANG MONGONDOW": "95733"
+  },
+  "NORTH DUMOGA": {
+    "BOLAANG MONGONDOW": "95734"
+  },
+  "SOUTHEAST DUMOGA": {
+    "BOLAANG MONGONDOW": "95735"
+  },
+  "EAST DUMOGA": {
+    "BOLAANG MONGONDOW": "95736"
+  },
+  "LOLAYAN": {
+    "BOLAANG MONGONDOW": "95737"
+  },
+  "LOLAK": {
+    "BOLAANG MONGONDOW": "95741"
+  },
+  "SANG TOMBOLANG": {
+    "BOLAANG MONGONDOW": "95742"
+  },
+  "EAST PASSI": {
+    "BOLAANG MONGONDOW": "95750"
+  },
+  "WEST PASSI": {
+    "BOLAANG MONGONDOW": "95751"
+  },
+  "BOLAANG": {
+    "BOLAANG MONGONDOW": "95752"
+  },
+  "POIGAR": {
+    "BOLAANG MONGONDOW": "95753"
+  },
+  "EAST BOLAANG": {
+    "BOLAANG MONGONDOW": "95754"
+  },
+  "BILALANG": {
+    "BOLAANG MONGONDOW": "95755"
+  },
+  "SANGKUB": {
+    "NORTH BOLAANG MONGONDOW": "95762"
+  },
+  "BINTAUNA": {
+    "NORTH BOLAANG MONGONDOW": "95763"
+  },
+  "WEST BOLANGITANG / BOLANG ITANG": {
+    "NORTH BOLAANG MONGONDOW": "95764"
+  },
+  "KAIDIPANG": {
+    "NORTH BOLAANG MONGONDOW": "95765"
+  },
+  "PINOGALUMAN": {
+    "NORTH BOLAANG MONGONDOW": "95766"
+  },
+  "EAST BOLANGITANG / BOLANG ITANG": {
+    "NORTH BOLAANG MONGONDOW": "95767"
+  },
+  "BOLAANG UKI": {
+    "SOUTH BOLAANG MONGONDOW": "95770"
+  },
+  "POSIGADAN": {
+    "SOUTH BOLAANG MONGONDOW": "95774"
+  },
+  "PINOLOSIAN": {
+    "SOUTH BOLAANG MONGONDOW": "95775"
+  },
+  "CENTRAL PINOLOSIAN": {
+    "SOUTH BOLAANG MONGONDOW": "95776"
+  },
+  "EAST PINOLOSIAN": {
+    "SOUTH BOLAANG MONGONDOW": "95777"
+  },
+  "HELUMO": {
+    "SOUTH BOLAANG MONGONDOW": "95779"
+  },
+  "MODAYAG": {
+    "EAST BOLAANG MONGONDOW": "95780"
+  },
+  "WEST MODAYAG": {
+    "EAST BOLAANG MONGONDOW": "95781"
+  },
+  "KOTABUNAN": {
+    "EAST BOLAANG MONGONDOW": "95782"
+  },
+  "TUTUYAN": {
+    "EAST BOLAANG MONGONDOW": "95783"
+  },
+  "MOOAT": {
+    "EAST BOLAANG MONGONDOW": "95784"
+  },
+  "MOTONGKAD": {
+    "EAST BOLAANG MONGONDOW": "95785"
+  },
+  "NUANGAN": {
+    "EAST BOLAANG MONGONDOW": "95786"
+  },
+  "TAHUNA": {
+    "SANGIHE ISLANDS": "95811"
+  },
+  "WEST TAHUNA": {
+    "SANGIHE ISLANDS": "95811"
+  },
+  "EAST TAHUNA": {
+    "SANGIHE ISLANDS": "95812"
+  },
+  "MARORE ISLANDS": {
+    "SANGIHE ISLANDS": "95841"
+  },
+  "NUSA TABUKAN": {
+    "SANGIHE ISLANDS": "95842"
+  },
+  "SOUTHEAST TABUKAN SELATAN": {
+    "SANGIHE ISLANDS": "95850"
+  },
+  "TATOARENG": {
+    "SANGIHE ISLANDS": "95851"
+  },
+  "KENDAHE": {
+    "SANGIHE ISLANDS": "95852"
+  },
+  "MANGANITU": {
+    "SANGIHE ISLANDS": "95853"
+  },
+  "SOUTH MANGANITU": {
+    "SANGIHE ISLANDS": "95854"
+  },
+  "TAMAKO": {
+    "SANGIHE ISLANDS": "95855"
+  },
+  "NORTH TABUKAN": {
+    "SANGIHE ISLANDS": "95856"
+  },
+  "CENTRAL TABUKAN": {
+    "SANGIHE ISLANDS": "95857"
+  },
+  "SOUTH TABUKAN": {
+    "SANGIHE ISLANDS": "95858"
+  },
+  "CENTRAL TABUKAN SELATAN": {
+    "SANGIHE ISLANDS": "95859"
+  },
+  "CENTRAL SIAU": {
+    "SIAU TAGULANDANG BIARO (SITARO) ISLAND": "95860"
+  },
+  "EAST SIAU": {
+    "SIAU TAGULANDANG BIARO (SITARO) ISLAND": "95861"
+  },
+  "WEST SIAU": {
+    "SIAU TAGULANDANG BIARO (SITARO) ISLAND": "95862"
+  },
+  "TAGULANDANG": {
+    "SIAU TAGULANDANG BIARO (SITARO) ISLAND": "95863"
+  },
+  "BIARO": {
+    "SIAU TAGULANDANG BIARO (SITARO) ISLAND": "95864"
+  },
+  "NORTH TAGULANDANG": {
+    "SIAU TAGULANDANG BIARO (SITARO) ISLAND": "95865"
+  },
+  "SOUTH TAGULANDANG": {
+    "SIAU TAGULANDANG BIARO (SITARO) ISLAND": "95866"
+  },
+  "SOUTH SIAU TIMUR": {
+    "SIAU TAGULANDANG BIARO (SITARO) ISLAND": "95867"
+  },
+  "SOUTH SIAU BARAT": {
+    "SIAU TAGULANDANG BIARO (SITARO) ISLAND": "95868"
+  },
+  "NORTH SIAU BARAT": {
+    "SIAU TAGULANDANG BIARO (SITARO) ISLAND": "95869"
+  },
+  "MORONGE": {
+    "TALAUD ISLANDS": "95870"
+  },
+  "SALIBABU": {
+    "TALAUD ISLANDS": "95871"
+  },
+  "DAMAO (DAMAU)": {
+    "TALAUD ISLANDS": "95872"
+  },
+  "KABARUAN": {
+    "TALAUD ISLANDS": "95873"
+  },
+  "KALONGAN": {
+    "TALAUD ISLANDS": "95874"
+  },
+  "LIRUNG": {
+    "TALAUD ISLANDS": "95875"
+  },
+  "BEO": {
+    "TALAUD ISLANDS": "95876"
+  },
+  "SOUTH BEO": {
+    "TALAUD ISLANDS": "95877"
+  },
+  "PULUTAN": {
+    "TALAUD ISLANDS": "95878"
+  },
+  "RAINIS": {
+    "TALAUD ISLANDS": "95880"
+  },
+  "NORTH BEO": {
+    "TALAUD ISLANDS": "95881"
+  },
+  "TAMPAN' AMMA (TAMPAN AMMA)": {
+    "TALAUD ISLANDS": "95882"
+  },
+  "ESSANG": {
+    "TALAUD ISLANDS": "95883"
+  },
+  "NANUSA": {
+    "TALAUD ISLANDS": "95884"
+  },
+  "MELONGUANE": {
+    "TALAUD ISLANDS": "95885"
+  },
+  "EAST MELONGUANE": {
+    "TALAUD ISLANDS": "95886"
+  },
+  "SOUTH ESSANG": {
+    "TALAUD ISLANDS": "95887"
+  },
+  "GEMEH": {
+    "TALAUD ISLANDS": "95888"
+  },
+  "MIANGAS": {
+    "TALAUD ISLANDS": "95889"
+  },
+  "MOTOLING": {
+    "SOUTH MINAHASA": "95941"
+  },
+  "WEST MOTOLING": {
+    "SOUTH MINAHASA": "95942"
+  },
+  "EAST MOTOLING": {
+    "SOUTH MINAHASA": "95943"
+  },
+  "RANOYAPO": {
+    "SOUTH MINAHASA": "95944"
+  },
+  "SULUUN TARERAN": {
+    "SOUTH MINAHASA": "95952"
+  },
+  "TARERAN": {
+    "SOUTH MINAHASA": "95953"
+  },
+  "EAST AMURANG": {
+    "SOUTH MINAHASA": "95954"
+  },
+  "WEST AMURANG": {
+    "SOUTH MINAHASA": "95955"
+  },
+  "KUMELEMBUAI": {
+    "SOUTH MINAHASA": "95956"
+  },
+  "AMURANG": {
+    "SOUTH MINAHASA": "95957"
+  },
+  "MODOINDING": {
+    "SOUTH MINAHASA": "95958"
+  },
+  "SINONSAYANG": {
+    "SOUTH MINAHASA": "95959"
+  },
+  "TOULUAAN": {
+    "SOUTHEAST MINAHASA": "95981"
+  },
+  "SOUTH TOULUAAN": {
+    "SOUTHEAST MINAHASA": "95982"
+  },
+  "EAST TOMBATU": {
+    "SOUTHEAST MINAHASA": "95990"
+  },
+  "NORTH TOMBATU": {
+    "SOUTHEAST MINAHASA": "95991"
+  },
+  "BELANG": {
+    "SOUTHEAST MINAHASA": "95992"
+  },
+  "PASAN": {
+    "SOUTHEAST MINAHASA": "95993"
+  },
+  "RATAHAN": {
+    "SOUTHEAST MINAHASA": "95994"
+  },
+  "EAST RATAHAN": {
+    "SOUTHEAST MINAHASA": "95995"
+  },
+  "TOMBATU": {
+    "SOUTHEAST MINAHASA": "95996"
+  },
+  "PUSOMAEN": {
+    "SOUTHEAST MINAHASA": "95997"
+  },
+  "SILIAN RAYA": {
+    "SOUTHEAST MINAHASA": "95998"
+  },
+  "RATATOTOK": {
+    "SOUTHEAST MINAHASA": "95999"
+  },
+  "HULONTHALANGI": {
+    "GORONTALO": "96111"
+  },
+  "SOUTH KOTA": {
+    "GORONTALO": "96111"
+  },
+  "DUMBO RAYA": {
+    "GORONTALO": "96112"
+  },
+  "EAST KOTA": {
+    "GORONTALO": "96112"
+  },
+  "NORTH KOTA": {
+    "GORONTALO": "96121"
+  },
+  "SIPATANA": {
+    "GORONTALO": "96121"
+  },
+  "CENTRAL KOTA": {
+    "GORONTALO": "96127"
+  },
+  "WEST KOTA": {
+    "GORONTALO": "96131"
+  },
+  "DUNGINGI": {
+    "GORONTALO": "96135"
+  },
+  "MOOTILANGO": {
+    "GORONTALO": "96150"
+  },
+  "PULUBALA": {
+    "GORONTALO": "96161"
+  },
+  "TELAGA": {
+    "GORONTALO": "96181"
+  },
+  "TILANGO": {
+    "GORONTALO": "96182"
+  },
+  "TELAGA BIRU": {
+    "GORONTALO": "96183"
+  },
+  "TALAGA JAYA (TELAGA JAYA)": {
+    "GORONTALO": "96184"
+  },
+  "LIMBOTO": {
+    "GORONTALO": "96211"
+  },
+  "WEST LIMBOTO": {
+    "GORONTALO": "96215"
+  },
+  "ASPARAGA": {
+    "GORONTALO": "96221"
+  },
+  "TOLANGOHULA": {
+    "GORONTALO": "96222"
+  },
+  "TIBAWA": {
+    "GORONTALO": "96231"
+  },
+  "BILATO": {
+    "GORONTALO": "96234"
+  },
+  "BOLIOHUTO (BOLIYOHUTO)": {
+    "GORONTALO": "96235"
+  },
+  "DUNGALIYO": {
+    "GORONTALO": "96241"
+  },
+  "TABONGO": {
+    "GORONTALO": "96242"
+  },
+  "BATUDAA": {
+    "GORONTALO": "96243"
+  },
+  "BATUDAA PANTAI": {
+    "GORONTALO": "96244"
+  },
+  "BILUHU": {
+    "GORONTALO": "96245"
+  },
+  "BONGOMEME": {
+    "GORONTALO": "96246"
+  },
+  "PAGUYAMAN": {
+    "BOALEMO": "96260"
+  },
+  "PAGUYAMAN PANTAI": {
+    "BOALEMO": "96261"
+  },
+  "TILAMUTA": {
+    "BOALEMO": "96263"
+  },
+  "BOTUMOITA": {
+    "BOALEMO": "96264"
+  },
+  "MANANGGU": {
+    "BOALEMO": "96265"
+  },
+  "DULUPI": {
+    "BOALEMO": "96267"
+  },
+  "DENGILO": {
+    "POHUWATO": "96361"
+  },
+  "PAGUAT": {
+    "POHUWATO": "96362"
+  },
+  "BUNTULIA": {
+    "POHUWATO": "96363"
+  },
+  "DUHIADAA": {
+    "POHUWATO": "96364"
+  },
+  "MARISA": {
+    "POHUWATO": "96365"
+  },
+  "PATILANGGIO": {
+    "POHUWATO": "96366"
+  },
+  "EAST POPAYATO": {
+    "POHUWATO": "96367"
+  },
+  "TALUDITI (TALUDUTI)": {
+    "POHUWATO": "96464"
+  },
+  "WANGGARASI": {
+    "POHUWATO": "96465"
+  },
+  "POPAYATO": {
+    "POHUWATO": "96466"
+  },
+  "WEST POPAYATO": {
+    "POHUWATO": "96467"
+  },
+  "LEMITO": {
+    "POHUWATO": "96468"
+  },
+  "RANDANGAN": {
+    "POHUWATO": "96469"
+  },
+  "TOMOLITO": {
+    "NORTH GORONTALO": "96512"
+  },
+  "GENTUMA RAYA": {
+    "NORTH GORONTALO": "96513"
+  },
+  "SUMALATA": {
+    "NORTH GORONTALO": "96514"
+  },
+  "EAST SUMALATA": {
+    "NORTH GORONTALO": "96515"
+  },
+  "ATINGGOLA": {
+    "NORTH GORONTALO": "96516"
+  },
+  "PONELO ISLANDS": {
+    "NORTH GORONTALO": "96517"
+  },
+  "KWANDANG": {
+    "NORTH GORONTALO": "96518"
+  },
+  "TOLINGGULA": {
+    "NORTH GORONTALO": "96524"
+  },
+  "ANGGREK": {
+    "NORTH GORONTALO": "96525"
+  },
+  "MONANO": {
+    "NORTH GORONTALO": "96526"
+  },
+  "SOUTH BULANGO": {
+    "BONE BOLANGO": "96541"
+  },
+  "EAST BULANGO": {
+    "BONE BOLANGO": "96542"
+  },
+  "BULANGO ULU": {
+    "BONE BOLANGO": "96543"
+  },
+  "NORTH BULANGO": {
+    "BONE BOLANGO": "96544"
+  },
+  "TAPA": {
+    "BONE BOLANGO": "96545"
+  },
+  "BOTUPINGGE (BOTU PINGGE)": {
+    "BONE BOLANGO": "96551"
+  },
+  "KABILA": {
+    "BONE BOLANGO": "96552"
+  },
+  "KABILA BONE": {
+    "BONE BOLANGO": "96553"
+  },
+  "TILONGKABILA": {
+    "BONE BOLANGO": "96554"
+  },
+  "PINOGU": {
+    "BONE BOLANGO": "96561"
+  },
+  "SUWAWA": {
+    "BONE BOLANGO": "96562"
+  },
+  "SOUTH SUWAWA": {
+    "BONE BOLANGO": "96563"
+  },
+  "CENTRAL SUWAWA": {
+    "BONE BOLANGO": "96564"
+  },
+  "EAST SUWAWA": {
+    "BONE BOLANGO": "96565"
+  },
+  "BONE": {
+    "BONE BOLANGO": "96571"
+  },
+  "BONE RAYA": {
+    "BONE BOLANGO": "96572"
+  },
+  "BONEPANTAI": {
+    "BONE BOLANGO": "96573"
+  },
+  "BULAWA": {
+    "BONE BOLANGO": "96574"
+  },
+  "NUSANIWE (NUSANIVE)": {
+    "AMBON": "97114"
+  },
+  "SIRIMAU": {
+    "AMBON": "97121"
+  },
+  "DAMER": {
+    "SOUTHWEST MALUKU": "97128"
+  },
+  "SOUTH LEITIMUR": {
+    "AMBON": "97129"
+  },
+  "BAGUALA": {
+    "AMBON": "97231"
+  },
+  "TELUK AMBON": {
+    "AMBON": "97233"
+  },
+  "ROMANG ISLANDS": {
+    "SOUTHWEST MALUKU": "97440"
+  },
+  "NORTH KISAR": {
+    "SOUTHWEST MALUKU": "97441"
+  },
+  "MOA LAKOR": {
+    "SOUTHWEST MALUKU": "97442"
+  },
+  "LAKOR ISLAND": {
+    "SOUTHWEST MALUKU": "97443"
+  },
+  "LETI / LETTI ISLAND": {
+    "SOUTHWEST MALUKU": "97444"
+  },
+  "TERSELATAN ISLANDS": {
+    "SOUTHWEST MALUKU": "97445"
+  },
+  "WETAR": {
+    "SOUTHWEST MALUKU": "97446"
+  },
+  "WEST WETAR": {
+    "SOUTHWEST MALUKU": "97447"
+  },
+  "EAST WETAR": {
+    "SOUTHWEST MALUKU": "97448"
+  },
+  "NORTH WETAR": {
+    "SOUTHWEST MALUKU": "97449"
+  },
+  "BABAR ISLANDS": {
+    "SOUTHWEST MALUKU": "97451"
+  },
+  "WETANG ISLAND": {
+    "SOUTHWEST MALUKU": "97452"
+  },
+  "KORMOMOLIN": {
+    "WEST MALUKU TENGGARA": "97461"
+  },
+  "MOLU MARU": {
+    "WEST MALUKU TENGGARA": "97462"
+  },
+  "NIRUNMAS": {
+    "WEST MALUKU TENGGARA": "97463"
+  },
+  "NORTH TANIMBAR": {
+    "WEST MALUKU TENGGARA": "97464"
+  },
+  "WUAR LABOBAR": {
+    "WEST MALUKU TENGGARA": "97465"
+  },
+  "YARU": {
+    "WEST MALUKU TENGGARA": "97466"
+  },
+  "SOUTH TANIMBAR": {
+    "WEST MALUKU TENGGARA": "97471"
+  },
+  "WER MAKTIAN": {
+    "WEST MALUKU TENGGARA": "97472"
+  },
+  "WER TAMRIAN": {
+    "WEST MALUKU TENGGARA": "97473"
+  },
+  "SELARU": {
+    "WEST MALUKU TENGGARA": "97481"
+  },
+  "TELUTIH": {
+    "CENTRAL MALUKU": "97510"
+  },
+  "KOTA MASOHI": {
+    "CENTRAL MALUKU": "97511"
+  },
+  "AMAHAI": {
+    "CENTRAL MALUKU": "97516"
+  },
+  "TELUK ELPAPUTIH": {
+    "CENTRAL MALUKU": "97517"
+  },
+  "NUSA LAUT": {
+    "CENTRAL MALUKU": "97518"
+  },
+  "TEHORU": {
+    "CENTRAL MALUKU": "97519"
+  },
+  "BULA": {
+    "EAST SERAM": "97521"
+  },
+  "WEST BULA": {
+    "EAST SERAM": "97522"
+  },
+  "SIWALALAT": {
+    "EAST SERAM": "97523"
+  },
+  "TELUK WARU": {
+    "EAST SERAM": "97524"
+  },
+  "WERINAMA": {
+    "EAST SERAM": "97525"
+  },
+  "NORTH SERAM": {
+    "CENTRAL MALUKU": "97531"
+  },
+  "NORTH SERAM BARAT": {
+    "CENTRAL MALUKU": "97532"
+  },
+  "NORTH SERAM TIMUR KOBI": {
+    "CENTRAL MALUKU": "97533"
+  },
+  "NORTH SERAM TIMUR SETI": {
+    "CENTRAL MALUKU": "97534"
+  },
+  "TEON NILA SERUA": {
+    "CENTRAL MALUKU": "97535"
+  },
+  "KEPALA MADAN": {
+    "SOUTH BURU": "97541"
+  },
+  "FENA FAFAN": {
+    "SOUTH BURU": "97542"
+  },
+  "LEKSULA": {
+    "SOUTH BURU": "97543"
+  },
+  "NAMROLE": {
+    "SOUTH BURU": "97544"
+  },
+  "WAESAMA": {
+    "SOUTH BURU": "97545"
+  },
+  "TANIWEL": {
+    "WEST SERAM": "97559"
+  },
+  "HUAMUAL": {
+    "WEST SERAM": "97560"
+  },
+  "EAST TANIWEL": {
+    "WEST SERAM": "97561"
+  },
+  "WEST SERAM": {
+    "WEST SERAM": "97562"
+  },
+  "AMALATU": {
+    "WEST SERAM": "97563"
+  },
+  "ELPAPUTIH": {
+    "WEST SERAM": "97564"
+  },
+  "INAMOSOL": {
+    "WEST SERAM": "97565"
+  },
+  "KAIRATU": {
+    "WEST SERAM": "97566"
+  },
+  "HUAMUAL BELAKANG": {
+    "WEST SERAM": "97567"
+  },
+  "WEST KAIRATU": {
+    "WEST SERAM": "97568"
+  },
+  "MANIPA ISLANDS": {
+    "WEST SERAM": "97569"
+  },
+  "LILIALY": {
+    "BURU": "97570"
+  },
+  "NAMLEA": {
+    "BURU": "97571"
+  },
+  "AIR BUAYA (AIRBUAYA)": {
+    "BURU": "97572"
+  },
+  "WAPLAU": {
+    "BURU": "97573"
+  },
+  "BATABUAL": {
+    "BURU": "97574"
+  },
+  "FENA LEISELA": {
+    "BURU": "97575"
+  },
+  "LOLONG GUBA": {
+    "BURU": "97576"
+  },
+  "TELUK KAIELY": {
+    "BURU": "97577"
+  },
+  "WAEAPO": {
+    "BURU": "97578"
+  },
+  "WAELATA": {
+    "BURU": "97579"
+  },
+  "LEIHITU": {
+    "CENTRAL MALUKU": "97580"
+  },
+  "WEST LEIHITU": {
+    "CENTRAL MALUKU": "97581"
+  },
+  "SALAHUTU": {
+    "CENTRAL MALUKU": "97582"
+  },
+  "HARUKU ISLAND": {
+    "CENTRAL MALUKU": "97583"
+  },
+  "SAPARUA": {
+    "CENTRAL MALUKU": "97584"
+  },
+  "EAST SAPARUA": {
+    "CENTRAL MALUKU": "97585"
+  },
+  "BANDA": {
+    "CENTRAL MALUKU": "97586"
+  },
+  "KIAN DARAT": {
+    "EAST SERAM": "97590"
+  },
+  "KILMURY": {
+    "EAST SERAM": "97591"
+  },
+  "EAST SERAM": {
+    "EAST SERAM": "97592"
+  },
+  "GOROM ISLAND": {
+    "EAST SERAM": "97593"
+  },
+  "TUTUK TOLU": {
+    "EAST SERAM": "97594"
+  },
+  "WAKATE": {
+    "EAST SERAM": "97595"
+  },
+  "EAST GOROM": {
+    "EAST SERAM": "97596"
+  },
+  "TEOR": {
+    "EAST SERAM": "97597"
+  },
+  "EAST SIRITAUN WIDA": {
+    "EAST SERAM": "97598"
+  },
+  "PANJANG ISLAND": {
+    "EAST SERAM": "97599"
+  },
+  "SOUTH DULLAH ISLAND": {
+    "TUAL": "97611"
+  },
+  "NORTH DULLAH ISLAND": {
+    "TUAL": "97612"
+  },
+  "TAYANDO TAM": {
+    "TUAL": "97613"
+  },
+  "SOUTH KUR": {
+    "TUAL": "97614"
+  },
+  "KUR ISLANDS": {
+    "TUAL": "97615"
+  },
+  "HOAT SORBAY": {
+    "SOUTHEAST MALUKU": "97621"
+  },
+  "KEI KECIL": {
+    "SOUTHEAST MALUKU": "97622"
+  },
+  "MANYEUW": {
+    "SOUTHEAST MALUKU": "97623"
+  },
+  "WEST KEI KECIL": {
+    "SOUTHEAST MALUKU": "97624"
+  },
+  "EAST KEI KECIL": {
+    "SOUTHEAST MALUKU": "97625"
+  },
+  "SOUTH KEI KECIL TIMUR": {
+    "SOUTHEAST MALUKU": "97626"
+  },
+  "KEI BESAR": {
+    "SOUTHEAST MALUKU": "97631"
+  },
+  "SOUTH KEI BESAR": {
+    "SOUTHEAST MALUKU": "97632"
+  },
+  "SOUTH KEI BESAR BARAT": {
+    "SOUTHEAST MALUKU": "97633"
+  },
+  "NORTH KEI BESAR BARAT": {
+    "SOUTHEAST MALUKU": "97634"
+  },
+  "NORTH KEI BESAR TIMUR": {
+    "SOUTHEAST MALUKU": "97635"
+  },
+  "DAWELOR DAWERA": {
+    "SOUTHWEST MALUKU": "97651"
+  },
+  "MNDONA HIERA (MDONA HYERA / HIERA)": {
+    "SOUTHWEST MALUKU": "97652"
+  },
+  "MASELA ISLAND": {
+    "SOUTHWEST MALUKU": "97653"
+  },
+  "EAST BABAR ISLANDS": {
+    "SOUTHWEST MALUKU": "97654"
+  },
+  "NORTH ARU": {
+    "ARU ISLANDS": "97660"
+  },
+  "CENTRAL ARU": {
+    "ARU ISLANDS": "97661"
+  },
+  "ARU ISLANDS": {
+    "ARU ISLANDS": "97662"
+  },
+  "NORTH ARU TIMUR BATULEY": {
+    "ARU ISLANDS": "97663"
+  },
+  "SIR-SIR": {
+    "ARU ISLANDS": "97664"
+  },
+  "CENTRAL ARU TIMUR": {
+    "ARU ISLANDS": "97665"
+  },
+  "SOUTH ARU TIMUR": {
+    "ARU ISLANDS": "97666"
+  },
+  "SOUTH ARU": {
+    "ARU ISLANDS": "97667"
+  },
+  "NORTH ARU SELATAN": {
+    "ARU ISLANDS": "97668"
+  },
+  "CENTRAL ARU SELATAN": {
+    "ARU ISLANDS": "97669"
+  },
+  "CENTRAL KOTA TERNATE": {
+    "TERNATE": "97711"
+  },
+  "SOUTH KOTA TERNATE": {
+    "TERNATE": "97713"
+  },
+  "NORTH KOTA TERNATE": {
+    "TERNATE": "97723"
+  },
+  "MOTI": {
+    "TERNATE": "97741"
+  },
+  "BATANG DUA ISLAND": {
+    "TERNATE": "97743"
+  },
+  "HIRI ISLAND": {
+    "TERNATE": "97745"
+  },
+  "TERNATE ISLAND": {
+    "TERNATE": "97747"
+  },
+  "SOUTH JAILOLO": {
+    "WEST HALMAHERA": "97751"
+  },
+  "JAILOLO": {
+    "WEST HALMAHERA": "97752"
+  },
+  "SAHU": {
+    "WEST HALMAHERA": "97753"
+  },
+  "IBU": {
+    "WEST HALMAHERA": "97754"
+  },
+  "LOLODA": {
+    "WEST HALMAHERA": "97755"
+  },
+  "SOUTH IBU": {
+    "WEST HALMAHERA": "97756"
+  },
+  "NORTH IBU": {
+    "WEST HALMAHERA": "97757"
+  },
+  "EAST SAHU": {
+    "WEST HALMAHERA": "97758"
+  },
+  "GALELA": {
+    "NORTH HALMAHERA": "97761"
+  },
+  "WEST GALELA": {
+    "NORTH HALMAHERA": "97761"
+  },
+  "TOBELO": {
+    "NORTH HALMAHERA": "97762"
+  },
+  "WEST TOBELO": {
+    "NORTH HALMAHERA": "97762"
+  },
+  "LOLODA ISLANDS": {
+    "NORTH HALMAHERA": "97763"
+  },
+  "NORTH LOLODA": {
+    "NORTH HALMAHERA": "97763"
+  },
+  "KAO": {
+    "NORTH HALMAHERA": "97764"
+  },
+  "NORTH KAO": {
+    "NORTH HALMAHERA": "97764"
+  },
+  "WEST KAO": {
+    "NORTH HALMAHERA": "97764"
+  },
+  "KAO TELUK": {
+    "NORTH HALMAHERA": "97765"
+  },
+  "MALIFUT": {
+    "NORTH HALMAHERA": "97766"
+  },
+  "EAST TOBELO": {
+    "NORTH HALMAHERA": "97767"
+  },
+  "NORTH TOBELO": {
+    "NORTH HALMAHERA": "97767"
+  },
+  "CENTRAL TOBELO": {
+    "NORTH HALMAHERA": "97768"
+  },
+  "SOUTH TOBELO": {
+    "NORTH HALMAHERA": "97768"
+  },
+  "NORTH GALELA": {
+    "NORTH HALMAHERA": "97769"
+  },
+  "SOUTH GALELA": {
+    "NORTH HALMAHERA": "97769"
+  },
+  "SOUTH MOROTAI BARAT": {
+    "MOROTAI ISLAND": "97770"
+  },
+  "EAST MOROTAI": {
+    "MOROTAI ISLAND": "97771"
+  },
+  "SOUTH MOROTAI": {
+    "MOROTAI ISLAND": "97771"
+  },
+  "MOROTAI JAYA": {
+    "MOROTAI ISLAND": "97772"
+  },
+  "NORTH MOROTAI": {
+    "MOROTAI ISLAND": "97773"
+  },
+  "KAYOA": {
+    "SOUTH HALMAHERA": "97780"
+  },
+  "SOUTH KAYOA": {
+    "SOUTH HALMAHERA": "97780"
+  },
+  "NORTH KAYOA": {
+    "SOUTH HALMAHERA": "97781"
+  },
+  "WEST KAYOA": {
+    "SOUTH HALMAHERA": "97781"
+  },
+  "SOUTH GANE BARAT": {
+    "SOUTH HALMAHERA": "97782"
+  },
+  "WEST GANE": {
+    "SOUTH HALMAHERA": "97782"
+  },
+  "EAST GANE": {
+    "SOUTH HALMAHERA": "97783"
+  },
+  "WEST MAKIAN": {
+    "SOUTH HALMAHERA": "97784"
+  },
+  "MAKIAN ISLAND": {
+    "SOUTH HALMAHERA": "97785"
+  },
+  "JORONGA ISLANDS": {
+    "SOUTH HALMAHERA": "97786"
+  },
+  "SOUTH GANE TIMUR": {
+    "SOUTH HALMAHERA": "97787"
+  },
+  "CENTRAL GANE TIMUR": {
+    "SOUTH HALMAHERA": "97788"
+  },
+  "NORTH GANE BARAT": {
+    "SOUTH HALMAHERA": "97789"
+  },
+  "BOTANGLOMANG ISLANDS": {
+    "SOUTH HALMAHERA": "97790"
+  },
+  "EAST KASIRUTA": {
+    "SOUTH HALMAHERA": "97790"
+  },
+  "WEST KASIRUTA": {
+    "SOUTH HALMAHERA": "97790"
+  },
+  "BACAN": {
+    "SOUTH HALMAHERA": "97791"
+  },
+  "CENTRAL BACAN TIMUR": {
+    "SOUTH HALMAHERA": "97791"
+  },
+  "EAST BACAN": {
+    "SOUTH HALMAHERA": "97791"
+  },
+  "NORTH BACAN BARAT": {
+    "SOUTH HALMAHERA": "97791"
+  },
+  "NORTH MANDIOLI": {
+    "SOUTH HALMAHERA": "97791"
+  },
+  "SOUTH BACAN": {
+    "SOUTH HALMAHERA": "97791"
+  },
+  "SOUTH BACAN TIMUR": {
+    "SOUTH HALMAHERA": "97791"
+  },
+  "SOUTH MANDIOLI": {
+    "SOUTH HALMAHERA": "97791"
+  },
+  "WEST BACAN": {
+    "SOUTH HALMAHERA": "97791"
+  },
+  "EAST OBI": {
+    "SOUTH HALMAHERA": "97792"
+  },
+  "NORTH OBI": {
+    "SOUTH HALMAHERA": "97792"
+  },
+  "OBI": {
+    "SOUTH HALMAHERA": "97792"
+  },
+  "SOUTH OBI": {
+    "SOUTH HALMAHERA": "97792"
+  },
+  "WEST OBI": {
+    "SOUTH HALMAHERA": "97792"
+  },
+  "CENTRAL MANGOLI": {
+    "SULA ISLANDS": "97793"
+  },
+  "EAST MANGOLI": {
+    "SULA ISLANDS": "97793"
+  },
+  "NORTH MANGOLI": {
+    "SULA ISLANDS": "97793"
+  },
+  "NORTH MANGOLI TIMUR": {
+    "SULA ISLANDS": "97793"
+  },
+  "SOUTH MANGOLI": {
+    "SULA ISLANDS": "97793"
+  },
+  "WEST MANGOLI": {
+    "SULA ISLANDS": "97793"
+  },
+  "EAST TALIABU": {
+    "TALIABU ISLAND": "97794"
+  },
+  "LEDE": {
+    "TALIABU ISLAND": "97794"
+  },
+  "NORTH TALIABU": {
+    "TALIABU ISLAND": "97794"
+  },
+  "NORTHWEST TALIABU": {
+    "TALIABU ISLAND": "97794"
+  },
+  "SOUTH TALIABU": {
+    "TALIABU ISLAND": "97794"
+  },
+  "SOUTH TALIABU TIMUR": {
+    "TALIABU ISLAND": "97794"
+  },
+  "TABONA": {
+    "TALIABU ISLAND": "97794"
+  },
+  "WEST TALIABU": {
+    "TALIABU ISLAND": "97794"
+  },
+  "EAST SULABESI": {
+    "SULA ISLANDS": "97795"
+  },
+  "SANANA": {
+    "SULA ISLANDS": "97795"
+  },
+  "NORTH SANANA": {
+    "SULA ISLANDS": "97796"
+  },
+  "WEST SULABESI": {
+    "SULA ISLANDS": "97797"
+  },
+  "SOUTH SULABESI": {
+    "SULA ISLANDS": "97798"
+  },
+  "CENTRAL SULABESI": {
+    "SULA ISLANDS": "97799"
+  },
+  "TIDORE": {
+    "TIDORE ISLANDS": "97811"
+  },
+  "SOUTH TIDORE": {
+    "TIDORE ISLANDS": "97821"
+  },
+  "EAST TIDORE": {
+    "TIDORE ISLANDS": "97822"
+  },
+  "NORTH TIDORE": {
+    "TIDORE ISLANDS": "97823"
+  },
+  "OBA": {
+    "TIDORE ISLANDS": "97824"
+  },
+  "SOUTH OBA": {
+    "TIDORE ISLANDS": "97825"
+  },
+  "CENTRAL OBA": {
+    "TIDORE ISLANDS": "97826"
+  },
+  "NORTH OBA": {
+    "TIDORE ISLANDS": "97827"
+  },
+  "WEDA": {
+    "CENTRAL HALMAHERA": "97850"
+  },
+  "SOUTH WEDA": {
+    "CENTRAL HALMAHERA": "97851"
+  },
+  "EAST WEDA": {
+    "CENTRAL HALMAHERA": "97852"
+  },
+  "CENTRAL WEDA": {
+    "CENTRAL HALMAHERA": "97853"
+  },
+  "NORTH WEDA": {
+    "CENTRAL HALMAHERA": "97854"
+  },
+  "PATANI": {
+    "CENTRAL HALMAHERA": "97855"
+  },
+  "WEST PATANI": {
+    "CENTRAL HALMAHERA": "97856"
+  },
+  "EAST PATANI": {
+    "CENTRAL HALMAHERA": "97857"
+  },
+  "NORTH PATANI": {
+    "CENTRAL HALMAHERA": "97858"
+  },
+  "GEBE ISLAND": {
+    "CENTRAL HALMAHERA": "97859"
+  },
+  "MABA": {
+    "EAST HALMAHERA": "97860"
+  },
+  "SOUTH MABA": {
+    "EAST HALMAHERA": "97861"
+  },
+  "KOTA MABA": {
+    "EAST HALMAHERA": "97862"
+  },
+  "CENTRAL MABA": {
+    "EAST HALMAHERA": "97863"
+  },
+  "NORTH MABA": {
+    "EAST HALMAHERA": "97864"
+  },
+  "WASILE": {
+    "EAST HALMAHERA": "97865"
+  },
+  "SOUTH WASILE": {
+    "EAST HALMAHERA": "97866"
+  },
+  "CENTRAL WASILE": {
+    "EAST HALMAHERA": "97867"
+  },
+  "EAST WASILE": {
+    "EAST HALMAHERA": "97868"
+  },
+  "NORTH WASILE": {
+    "EAST HALMAHERA": "97869"
+  },
+  "FAK-FAK (FAKFAK)": {
+    "FAKFAK": "98011"
+  },
+  "CENTRAL FAK-FAK / FAKFAK": {
+    "FAKFAK": "98012"
+  },
+  "PARIWARI": {
+    "FAKFAK": "98013"
+  },
+  "ARGUNI": {
+    "FAKFAK": "98014"
+  },
+  "KAYAUNI": {
+    "FAKFAK": "98015"
+  },
+  "KOKAS": {
+    "FAKFAK": "98016"
+  },
+  "KRAMONGMONGGA": {
+    "FAKFAK": "98017"
+  },
+  "MBAHAMDANDARA": {
+    "FAKFAK": "98021"
+  },
+  "WEST FAK-FAK / FAKFAK": {
+    "FAKFAK": "98022"
+  },
+  "FURWAGI": {
+    "FAKFAK": "98023"
+  },
+  "TELUK PATIPI": {
+    "FAKFAK": "98024"
+  },
+  "WARTUTIN": {
+    "FAKFAK": "98025"
+  },
+  "BOMBERAY": {
+    "FAKFAK": "98026"
+  },
+  "EAST FAK-FAK / FAKFAK": {
+    "FAKFAK": "98027"
+  },
+  "CENTRAL EAST FAKFAK": {
+    "FAKFAK": "98031"
+  },
+  "TOMAGE": {
+    "FAKFAK": "98033"
+  },
+  "TELUK ARGUNI ATAS": {
+    "KAIMANA": "98111"
+  },
+  "TELUK ARGUNI BAWAH (YERUSI)": {
+    "KAIMANA": "98112"
+  },
+  "KAIMANA": {
+    "KAIMANA": "98113"
+  },
+  "KAMBRAU (KAMBRAW / KAMBERAU)": {
+    "KAIMANA": "98114"
+  },
+  "TELUK ETNA": {
+    "KAIMANA": "98121"
+  },
+  "YAMOR": {
+    "KAIMANA": "98122"
+  },
+  "BURUWAY": {
+    "KAIMANA": "98123"
+  },
+  "AROBA": {
+    "TELUK BINTUNI": "98131"
+  },
+  "BABO": {
+    "TELUK BINTUNI": "98132"
+  },
+  "FAFURWAR (IRORUTU)": {
+    "TELUK BINTUNI": "98133"
+  },
+  "KAITARO": {
+    "TELUK BINTUNI": "98134"
+  },
+  "KURI": {
+    "TELUK BINTUNI": "98135"
+  },
+  "SUMURI (SIMURI)": {
+    "TELUK BINTUNI": "98136"
+  },
+  "BINTUNI": {
+    "TELUK BINTUNI": "98141"
+  },
+  "DATARAN BEIMES": {
+    "TELUK BINTUNI": "98142"
+  },
+  "MANIMERI": {
+    "TELUK BINTUNI": "98143"
+  },
+  "TEMBUNI": {
+    "TELUK BINTUNI": "98144"
+  },
+  "TUHIBA": {
+    "TELUK BINTUNI": "98145"
+  },
+  "WAMESA (IDOOR)": {
+    "TELUK BINTUNI": "98146"
+  },
+  "ARANDAY": {
+    "TELUK BINTUNI": "98151"
+  },
+  "KAMUNDAN": {
+    "TELUK BINTUNI": "98152"
+  },
+  "MEYADO (MAYADO)": {
+    "TELUK BINTUNI": "98153"
+  },
+  "WEST MOSKONA": {
+    "TELUK BINTUNI": "98154"
+  },
+  "SOUTH MOSKONA": {
+    "TELUK BINTUNI": "98155"
+  },
+  "TOMU": {
+    "TELUK BINTUNI": "98156"
+  },
+  "WERIAGAR": {
+    "TELUK BINTUNI": "98157"
+  },
+  "BISCOOP": {
+    "TELUK BINTUNI": "98161"
+  },
+  "MASYETA": {
+    "TELUK BINTUNI": "98162"
+  },
+  "MERDEY": {
+    "TELUK BINTUNI": "98163"
+  },
+  "EAST MOSKONA": {
+    "TELUK BINTUNI": "98164"
+  },
+  "NORTH MOSKONA": {
+    "TELUK BINTUNI": "98165"
+  },
+  "MOSWAREN": {
+    "SOUTH SORONG": "98212"
+  },
+  "SAIFI": {
+    "SOUTH SORONG": "98213"
+  },
+  "SEREMUK": {
+    "SOUTH SORONG": "98214"
+  },
+  "WAYER": {
+    "SOUTH SORONG": "98215"
+  },
+  "TEMINABUAN": {
+    "SOUTH SORONG": "98216"
+  },
+  "KOKODA": {
+    "SOUTH SORONG": "98221"
+  },
+  "KAIS": {
+    "SOUTH SORONG": "98222"
+  },
+  "INANWATAN": {
+    "SOUTH SORONG": "98223"
+  },
+  "NORTH KOKODA": {
+    "SOUTH SORONG": "98224"
+  },
+  "MATEMANI": {
+    "SOUTH SORONG": "98225"
+  },
+  "KAIS DARAT": {
+    "SOUTH SORONG": "98226"
+  },
+  "FOKOUR": {
+    "SOUTH SORONG": "98231"
+  },
+  "SAWIAT": {
+    "SOUTH SORONG": "98232"
+  },
+  "SALKMA": {
+    "SOUTH SORONG": "98233"
+  },
+  "AYAMARU": {
+    "MAYBRAT": "98240"
+  },
+  "WEST AYAMARU": {
+    "MAYBRAT": "98241"
+  },
+  "AYAMARU JAYA": {
+    "MAYBRAT": "98242"
+  },
+  "SOUTH AYAMARU": {
+    "MAYBRAT": "98243"
+  },
+  "SOUTH AYAMARU JAYA": {
+    "MAYBRAT": "98244"
+  },
+  "CENTRAL AYAMARU": {
+    "MAYBRAT": "98245"
+  },
+  "EAST AYAMARU": {
+    "MAYBRAT": "98246"
+  },
+  "SOUTH EAST AYAMARU": {
+    "MAYBRAT": "98247"
+  },
+  "NORTH AYAMARU": {
+    "MAYBRAT": "98248"
+  },
+  "EAST NORTH AYAMARU": {
+    "MAYBRAT": "98249"
+  },
+  "SOUTH MARE": {
+    "MAYBRAT": "98252"
+  },
+  "AITINYO": {
+    "MAYBRAT": "98261"
+  },
+  "WEST AITINYO": {
+    "MAYBRAT": "98262"
+  },
+  "AITINYO RAYA": {
+    "MAYBRAT": "98263"
+  },
+  "CENTRAL AITINYO": {
+    "MAYBRAT": "98264"
+  },
+  "NORTH AITINYO": {
+    "MAYBRAT": "98265"
+  },
+  "AIFAT": {
+    "MAYBRAT": "98271"
+  },
+  "SOUTH AIFAT": {
+    "MAYBRAT": "98272"
+  },
+  "EAST AIFAT": {
+    "MAYBRAT": "98273"
+  },
+  "EAST AIFAT JAUH": {
+    "MAYBRAT": "98274"
+  },
+  "SOUTH EAST AIFAT": {
+    "MAYBRAT": "98275"
+  },
+  "CENTRAL EAST AIFAT": {
+    "MAYBRAT": "98276"
+  },
+  "NORTH AIFAT": {
+    "MAYBRAT": "98277"
+  },
+  "EAST MANOKWARI": {
+    "MANOKWARI": "98311"
+  },
+  "WEST MANOKWARI": {
+    "MANOKWARI": "98312"
+  },
+  "SOUTH MANOKWARI": {
+    "MANOKWARI": "98313"
+  },
+  "NORTH MANOKWARI": {
+    "MANOKWARI": "98314"
+  },
+  "TANAH RUBUH": {
+    "MANOKWARI": "98315"
+  },
+  "PRAFI": {
+    "MANOKWARI": "98316"
+  },
+  "WARMARE": {
+    "MANOKWARI": "98317"
+  },
+  "MASNI": {
+    "MANOKWARI": "98318"
+  },
+  "SIDEY": {
+    "MANOKWARI": "98319"
+  },
+  "ORANSBARI": {
+    "SOUTH MANOKWARI": "98321"
+  },
+  "MOMI WAREN": {
+    "SOUTH MANOKWARI": "98322"
+  },
+  "NENEY": {
+    "SOUTH MANOKWARI": "98323"
+  },
+  "RANSIKI": {
+    "SOUTH MANOKWARI": "98324"
+  },
+  "TAHOTA": {
+    "SOUTH MANOKWARI": "98325"
+  },
+  "DATARAN ISIM": {
+    "SOUTH MANOKWARI": "98326"
+  },
+  "NIKIWAR": {
+    "TELUK WONDAMA": "98331"
+  },
+  "ROSWAR": {
+    "TELUK WONDAMA": "98332"
+  },
+  "RUMBERPON": {
+    "TELUK WONDAMA": "98333"
+  },
+  "SOUG JAYA": {
+    "TELUK WONDAMA": "98334"
+  },
+  "WAMESA": {
+    "TELUK WONDAMA": "98335"
+  },
+  "WINDESI": {
+    "TELUK WONDAMA": "98336",
+    "YAPEN ISLANDS": "98651"
+  },
+  "KURI WAMESA": {
+    "TELUK WONDAMA": "98341"
+  },
+  "NAIKERE": {
+    "TELUK WONDAMA": "98342"
+  },
+  "RASIEI": {
+    "TELUK WONDAMA": "98343"
+  },
+  "ROON": {
+    "TELUK WONDAMA": "98344"
+  },
+  "TELUK DUAIRI": {
+    "TELUK WONDAMA": "98345"
+  },
+  "WASIOR": {
+    "TELUK WONDAMA": "98346"
+  },
+  "WONDIBOY": {
+    "TELUK WONDAMA": "98347"
+  },
+  "TESTEGA": {
+    "PEGUNUNGAN ARFAK": "98350"
+  },
+  "MINYAMBAOUW": {
+    "PEGUNUNGAN ARFAK": "98351"
+  },
+  "CATUBOUW": {
+    "PEGUNUNGAN ARFAK": "98352"
+  },
+  "HINGK": {
+    "PEGUNUNGAN ARFAK": "98353"
+  },
+  "MEMBEY": {
+    "PEGUNUNGAN ARFAK": "98354"
+  },
+  "ANGGI": {
+    "PEGUNUNGAN ARFAK": "98355"
+  },
+  "ANGGI GIDA": {
+    "PEGUNUNGAN ARFAK": "98356"
+  },
+  "TAIGE": {
+    "PEGUNUNGAN ARFAK": "98357"
+  },
+  "SURUREY": {
+    "PEGUNUNGAN ARFAK": "98358"
+  },
+  "DIDOHU": {
+    "PEGUNUNGAN ARFAK": "98359"
+  },
+  "MORAID": {
+    "TAMBRAUW": "98361"
+  },
+  "SELEMKAI": {
+    "TAMBRAUW": "98362"
+  },
+  "ABUN": {
+    "TAMBRAUW": "98363"
+  },
+  "ASES": {
+    "TAMBRAUW": "98364"
+  },
+  "BIKAR": {
+    "TAMBRAUW": "98365"
+  },
+  "FEF": {
+    "TAMBRAUW": "98366"
+  },
+  "IRERES": {
+    "TAMBRAUW": "98367"
+  },
+  "KWESEFO": {
+    "TAMBRAUW": "98368"
+  },
+  "KWOOR": {
+    "TAMBRAUW": "98369"
+  },
+  "MIYAH": {
+    "TAMBRAUW": "98371"
+  },
+  "SOUTH MIYAH": {
+    "TAMBRAUW": "98372"
+  },
+  "SAUSAPOR": {
+    "TAMBRAUW": "98373"
+  },
+  "SYUJAK": {
+    "TAMBRAUW": "98374"
+  },
+  "TINGGOUW": {
+    "TAMBRAUW": "98375"
+  },
+  "TOBOUW": {
+    "TAMBRAUW": "98376"
+  },
+  "WILHEM ROUMBOUTS": {
+    "TAMBRAUW": "98377"
+  },
+  "BAMUSBAMA": {
+    "TAMBRAUW": "98378"
+  },
+  "YEMBUN": {
+    "TAMBRAUW": "98379"
+  },
+  "AMBERBAKEN": {
+    "TAMBRAUW": "98381"
+  },
+  "WEST AMBERBAKEN": {
+    "TAMBRAUW": "98382"
+  },
+  "KASI": {
+    "TAMBRAUW": "98383"
+  },
+  "MPUR": {
+    "TAMBRAUW": "98384"
+  },
+  "MUBRANI": {
+    "TAMBRAUW": "98385"
+  },
+  "KEBAR": {
+    "TAMBRAUW": "98391"
+  },
+  "SOUTH KEBAR": {
+    "TAMBRAUW": "98392"
+  },
+  "EAST KEBAR": {
+    "TAMBRAUW": "98393"
+  },
+  "MANEKAR": {
+    "TAMBRAUW": "98394"
+  },
+  "MAWABUAN": {
+    "TAMBRAUW": "98395"
+  },
+  "SENOPI": {
+    "TAMBRAUW": "98396"
+  },
+  "NORTH SORONG": {
+    "SORONG": "98410"
+  },
+  "MALADUM MES": {
+    "SORONG": "98411"
+  },
+  "WEST SORONG": {
+    "SORONG": "98412"
+  },
+  "SORONG ISLANDS": {
+    "SORONG": "98413"
+  },
+  "SORONG KOTA": {
+    "SORONG": "98414"
+  },
+  "SORONG MANOI": {
+    "SORONG": "98415"
+  },
+  "SORONG": {
+    "SORONG": "98446"
+  },
+  "KLAURUNG": {
+    "SORONG": "98417"
+  },
+  "EAST SORONG": {
+    "SORONG": "98418"
+  },
+  "MALAIMSIMSA": {
+    "SORONG": "98419"
+  },
+  "MAYAMUK": {
+    "SORONG": "98421"
+  },
+  "MOISEGEN": {
+    "SORONG": "98422"
+  },
+  "SALAWATI": {
+    "SORONG": "98423"
+  },
+  "SOUTH SALAWATI": {
+    "SORONG": "98424"
+  },
+  "CENTRAL SALAWATI": {
+    "SORONG": "98425",
+    "RAJA AMPAT": "98494"
+  },
+  "SEGET": {
+    "SORONG": "98426"
+  },
+  "SEGUN": {
+    "SORONG": "98427"
+  },
+  "BAGUN": {
+    "SORONG": "98431"
+  },
+  "BERAUR": {
+    "SORONG": "98432"
+  },
+  "BOTAIN": {
+    "SORONG": "98433"
+  },
+  "BUK": {
+    "SORONG": "98434"
+  },
+  "HOBARD": {
+    "SORONG": "98435"
+  },
+  "KLABOT": {
+    "SORONG": "98436"
+  },
+  "KLAWAK": {
+    "SORONG": "98437"
+  },
+  "KONHIR": {
+    "SORONG": "98438"
+  },
+  "KLAMONO": {
+    "SORONG": "98441"
+  },
+  "KLASAFET": {
+    "SORONG": "98442"
+  },
+  "MALABOTOM": {
+    "SORONG": "98443"
+  },
+  "AIMAS": {
+    "SORONG": "98444"
+  },
+  "MARIAT": {
+    "SORONG": "98445"
+  },
+  "KLAYILI": {
+    "SORONG": "98451"
+  },
+  "MAKBON": {
+    "SORONG": "98452"
+  },
+  "SAYOSA": {
+    "SORONG": "98453"
+  },
+  "EAST SAYOSA": {
+    "SORONG": "98454"
+  },
+  "WEMAK": {
+    "SORONG": "98455"
+  },
+  "KLASO": {
+    "SORONG": "98456"
+  },
+  "MAUDUS": {
+    "SORONG": "98457"
+  },
+  "SAENGKEDUK": {
+    "SORONG": "98458"
+  },
+  "SUNOOK": {
+    "SORONG": "98459"
+  },
+  "AYAU": {
+    "RAJA AMPAT": "98461"
+  },
+  "AYAU ISLANDS": {
+    "RAJA AMPAT": "98462"
+  },
+  "SUPNIN": {
+    "RAJA AMPAT": "98463"
+  },
+  "WEST WAIGEO": {
+    "RAJA AMPAT": "98464"
+  },
+  "WEST WAIGEO ISLANDS": {
+    "RAJA AMPAT": "98465"
+  },
+  "NORTH WAIGEO": {
+    "RAJA AMPAT": "98466"
+  },
+  "WARWARBOMI": {
+    "RAJA AMPAT": "98467"
+  },
+  "KOTA WAISAI": {
+    "RAJA AMPAT": "98471"
+  },
+  "MEOS MANSAR": {
+    "RAJA AMPAT": "98472"
+  },
+  "TELUK MAYALIBIT": {
+    "RAJA AMPAT": "98473"
+  },
+  "TIPLOL MAYALIBIT": {
+    "RAJA AMPAT": "98474"
+  },
+  "SOUTH WAIGEO": {
+    "RAJA AMPAT": "98475"
+  },
+  "EAST WAIGEO": {
+    "RAJA AMPAT": "98476"
+  },
+  "SEMBILAN ISLANDS": {
+    "RAJA AMPAT": "98481"
+  },
+  "KOFIAU": {
+    "RAJA AMPAT": "98482"
+  },
+  "NORTH MISOOL (MISOOL)": {
+    "RAJA AMPAT": "98483"
+  },
+  "WEST MISOOL": {
+    "RAJA AMPAT": "98484"
+  },
+  "SOUTH MISOOL": {
+    "RAJA AMPAT": "98485"
+  },
+  "EAST MISOOL": {
+    "RAJA AMPAT": "98486"
+  },
+  "SOUTH BATANTA": {
+    "RAJA AMPAT": "98491"
+  },
+  "NORTH BATANTA": {
+    "RAJA AMPAT": "98492"
+  },
+  "WEST SALAWATI": {
+    "RAJA AMPAT": "98493"
+  },
+  "NORTH SALAWATI": {
+    "RAJA AMPAT": "98495"
+  },
+  "BIAK KOTA": {
+    "BIAK NUMFOR": "98511"
+  },
+  "EAST BIAK": {
+    "BIAK NUMFOR": "98541"
+  },
+  "ORIDEK": {
+    "BIAK NUMFOR": "98542"
+  },
+  "ANDEY": {
+    "BIAK NUMFOR": "98543"
+  },
+  "NORTH BIAK": {
+    "BIAK NUMFOR": "98544"
+  },
+  "WEST BIAK": {
+    "BIAK NUMFOR": "98545"
+  },
+  "SWANDIWE": {
+    "BIAK NUMFOR": "98546"
+  },
+  "YENDIDORI": {
+    "BIAK NUMFOR": "98547"
+  },
+  "SAMOFA": {
+    "BIAK NUMFOR": "98551"
+  },
+  "YAWOSI": {
+    "BIAK NUMFOR": "98552"
+  },
+  "WARSA": {
+    "BIAK NUMFOR": "98553"
+  },
+  "BONDIFUAR": {
+    "BIAK NUMFOR": "98554"
+  },
+  "AIMANDO PADAIDO": {
+    "BIAK NUMFOR": "98555"
+  },
+  "PADAIDO": {
+    "BIAK NUMFOR": "98556"
+  },
+  "BRUYADORI": {
+    "BIAK NUMFOR": "98561"
+  },
+  "EAST NUMFOR": {
+    "BIAK NUMFOR": "98562"
+  },
+  "POIRU": {
+    "BIAK NUMFOR": "98563"
+  },
+  "WEST NUMFOR": {
+    "BIAK NUMFOR": "98564"
+  },
+  "ORKERI": {
+    "BIAK NUMFOR": "98565"
+  },
+  "ARURI ISLANDS": {
+    "SUPIORI": "98571"
+  },
+  "SOUTH SUPIORI": {
+    "SUPIORI": "98572"
+  },
+  "EAST SUPIORI": {
+    "SUPIORI": "98573"
+  },
+  "WEST SUPIORI": {
+    "SUPIORI": "98581"
+  },
+  "NORTH SUPIORI": {
+    "SUPIORI": "98582"
+  },
+  "SOUTH YAPEN": {
+    "YAPEN ISLANDS": "98612"
+  },
+  "ANOTAUREI": {
+    "YAPEN ISLANDS": "98631"
+  },
+  "KOSIWO": {
+    "YAPEN ISLANDS": "98632"
+  },
+  "RAIMBAWI": {
+    "YAPEN ISLANDS": "98641"
+  },
+  "TELUK AMPIMOI": {
+    "YAPEN ISLANDS": "98642"
+  },
+  "KURUDU ISLAND": {
+    "YAPEN ISLANDS": "98643"
+  },
+  "EAST YAPEN": {
+    "YAPEN ISLANDS": "98644"
+  },
+  "NORTH YAPEN": {
+    "YAPEN ISLANDS": "98645"
+  },
+  "YERUI ISLAND": {
+    "YAPEN ISLANDS": "98646"
+  },
+  "WONAWA": {
+    "YAPEN ISLANDS": "98647"
+  },
+  "WEST YAPEN": {
+    "YAPEN ISLANDS": "98648"
+  },
+  "POOM": {
+    "YAPEN ISLANDS": "98652"
+  },
+  "AMBAI ISLANDS": {
+    "YAPEN ISLANDS": "98653"
+  },
+  "YAWAKUKAT": {
+    "YAPEN ISLANDS": "98654"
+  },
+  "ANGKAISERA": {
+    "YAPEN ISLANDS": "98655"
+  },
+  "INGGERUS": {
+    "WAROPEN": "98661"
+  },
+  "WAROPEN BAWAH": {
+    "WAROPEN": "98662"
+  },
+  "UREI FAISEI": {
+    "WAROPEN": "98663"
+  },
+  "WAPOGA": {
+    "WAROPEN": "98664",
+    "NABIRE": "98861"
+  },
+  "OUDATE": {
+    "WAROPEN": "98665"
+  },
+  "MASIREI": {
+    "WAROPEN": "98671"
+  },
+  "DEMBA": {
+    "WAROPEN": "98672"
+  },
+  "KIRIHI": {
+    "WAROPEN": "98673"
+  },
+  "RISEI SAYATI": {
+    "WAROPEN": "98674"
+  },
+  "SOYOI MAMBAI": {
+    "WAROPEN": "98675"
+  },
+  "WONTI": {
+    "WAROPEN": "98676"
+  },
+  "WAROPEN ATAS": {
+    "MAMBERAMO RAYA": "98681"
+  },
+  "SAWAI": {
+    "MAMBERAMO RAYA": "98682"
+  },
+  "BENUKI": {
+    "MAMBERAMO RAYA": "98683"
+  },
+  "MAMBERAMO HILIR": {
+    "MAMBERAMO RAYA": "98691"
+  },
+  "CENTRAL MAMBERAMO": {
+    "MAMBERAMO RAYA": "98692"
+  },
+  "EAST CENTRAL MAMBERAMO": {
+    "MAMBERAMO RAYA": "98693"
+  },
+  "MAMBERAMO HULU": {
+    "MAMBERAMO RAYA": "98694"
+  },
+  "RUFAER": {
+    "MAMBERAMO RAYA": "98695"
+  },
+  "EAST PANIAI": {
+    "PANIAI": "98711"
+  },
+  "KEBO": {
+    "PANIAI": "98715"
+  },
+  "WEGEE BINO": {
+    "PANIAI": "98716"
+  },
+  "WEGEE MUKA": {
+    "PANIAI": "98717"
+  },
+  "YAGAI": {
+    "PANIAI": "98718"
+  },
+  "PUGO DAGI": {
+    "PANIAI": "98719"
+  },
+  "MUYE": {
+    "PANIAI": "98721"
+  },
+  "NAKAMA": {
+    "PANIAI": "98722"
+  },
+  "WEST PANIAI": {
+    "PANIAI": "98723"
+  },
+  "SIRIWO": {
+    "PANIAI": "98724",
+    "NABIRE": "98841"
+  },
+  "DEIYAI MIYO": {
+    "PANIAI": "98725"
+  },
+  "YATAMO": {
+    "PANIAI": "98726"
+  },
+  "TELUK DEYA": {
+    "PANIAI": "98727"
+  },
+  "ARADIDE": {
+    "PANIAI": "98731"
+  },
+  "AWEIDA": {
+    "PANIAI": "98732"
+  },
+  "EKADIDE": {
+    "PANIAI": "98733"
+  },
+  "TOPIYAI": {
+    "PANIAI": "98734"
+  },
+  "BAYA BIRU": {
+    "PANIAI": "98735"
+  },
+  "BOGABAIDA (BOGOBAIDA)": {
+    "PANIAI": "98736"
+  },
+  "YOUTADI": {
+    "PANIAI": "98737"
+  },
+  "BIBIDA": {
+    "PANIAI": "98741"
+  },
+  "DOGOMO": {
+    "PANIAI": "98742"
+  },
+  "DUMADAMA": {
+    "PANIAI": "98743"
+  },
+  "BOWOBADO": {
+    "DEIYAI": "98751"
+  },
+  "KAPIRAYA": {
+    "DEIYAI": "98752"
+  },
+  "WEST TIGI": {
+    "DEIYAI": "98761"
+  },
+  "TIGI": {
+    "DEIYAI": "98764"
+  },
+  "EAST TIGI": {
+    "DEIYAI": "98771"
+  },
+  "AGISIGA": {
+    "INTAN JAYA": "98782"
+  },
+  "TOMOSIGA": {
+    "INTAN JAYA": "98783"
+  },
+  "BIANDOGA": {
+    "INTAN JAYA": "98784"
+  },
+  "WANDAI": {
+    "INTAN JAYA": "98785"
+  },
+  "HOMEYO": {
+    "INTAN JAYA": "98791"
+  },
+  "HITADIPA": {
+    "INTAN JAYA": "98792"
+  },
+  "SUGAPA": {
+    "INTAN JAYA": "98793"
+  },
+  "UGIMBA": {
+    "INTAN JAYA": "98794"
+  },
+  "NABIRE": {
+    "NABIRE": "98811"
+  },
+  "TELUK KIMI": {
+    "NABIRE": "98831"
+  },
+  "UWAPA": {
+    "NABIRE": "98842"
+  },
+  "DIPA": {
+    "NABIRE": "98843"
+  },
+  "TELUK UMAR": {
+    "NABIRE": "98851"
+  },
+  "YAUR": {
+    "NABIRE": "98852"
+  },
+  "YARO (YARO KABISAY)": {
+    "NABIRE": "98853"
+  },
+  "WANGGAR": {
+    "NABIRE": "98854"
+  },
+  "MENOU": {
+    "NABIRE": "98855"
+  },
+  "WEST NABIRE": {
+    "NABIRE": "98856"
+  },
+  "NAPAN": {
+    "NABIRE": "98862"
+  },
+  "MAKIMI": {
+    "NABIRE": "98863"
+  },
+  "MOORA": {
+    "NABIRE": "98864"
+  },
+  "MAPIA": {
+    "DOGIYAI": "98871"
+  },
+  "WEST MAPIA": {
+    "DOGIYAI": "98872"
+  },
+  "CENTRAL MAPIA": {
+    "DOGIYAI": "98873"
+  },
+  "PIYAIYE (SUKIKAI)": {
+    "DOGIYAI": "98874"
+  },
+  "SOUTH SUKIKAI": {
+    "DOGIYAI": "98875"
+  },
+  "DOGIYAI": {
+    "DOGIYAI": "98881"
+  },
+  "KAMU": {
+    "DOGIYAI": "98882"
+  },
+  "SOUTH KAMU": {
+    "DOGIYAI": "98883"
+  },
+  "EAST KAMU": {
+    "DOGIYAI": "98884"
+  },
+  "NORTH KAMU (IKRAR/IKRAT)": {
+    "DOGIYAI": "98885"
+  },
+  "GURAGE": {
+    "PUNCAK JAYA": "98911"
+  },
+  "ILAMBURAWI": {
+    "PUNCAK JAYA": "98912"
+  },
+  "IRIMULI": {
+    "PUNCAK JAYA": "98913"
+  },
+  "MULIA": {
+    "PUNCAK JAYA": "98915"
+  },
+  "PAGALEME": {
+    "PUNCAK JAYA": "98916"
+  },
+  "YAMBI": {
+    "PUNCAK JAYA": "98917"
+  },
+  "KALOME": {
+    "PUNCAK JAYA": "98921"
+  },
+  "TINGGINAMBUT": {
+    "PUNCAK JAYA": "98922"
+  },
+  "WANWI": {
+    "PUNCAK JAYA": "98923"
+  },
+  "DOKOME": {
+    "PUNCAK JAYA": "98924"
+  },
+  "YAMO": {
+    "PUNCAK JAYA": "98925"
+  },
+  "TORERE": {
+    "PUNCAK JAYA": "98926"
+  },
+  "GUBUME": {
+    "PUNCAK JAYA": "98931"
+  },
+  "NIOGA": {
+    "PUNCAK JAYA": "98932"
+  },
+  "NUME": {
+    "PUNCAK JAYA": "98933"
+  },
+  "TAGANOMBAK": {
+    "PUNCAK JAYA": "98934"
+  },
+  "ILU": {
+    "PUNCAK JAYA": "98935"
+  },
+  "WAEGI": {
+    "PUNCAK JAYA": "98936"
+  },
+  "YAMONERI": {
+    "PUNCAK JAYA": "98937"
+  },
+  "DAGAI": {
+    "PUNCAK JAYA": "98941"
+  },
+  "FAWI": {
+    "PUNCAK JAYA": "98942"
+  },
+  "KIYAGE": {
+    "PUNCAK JAYA": "98943"
+  },
+  "LUMO": {
+    "PUNCAK JAYA": "98944"
+  },
+  "MEWOLUK": {
+    "PUNCAK JAYA": "98945"
+  },
+  "MOLANIKIME": {
+    "PUNCAK JAYA": "98946"
+  },
+  "BEOGA": {
+    "PUNCAK": "98951"
+  },
+  "WEST BEOGA": {
+    "PUNCAK": "98952"
+  },
+  "EAST BEOGA": {
+    "PUNCAK": "98953"
+  },
+  "OGAMANIM": {
+    "PUNCAK": "98954"
+  },
+  "WANGBE": {
+    "PUNCAK": "98955"
+  },
+  "AMUNGKALPIA": {
+    "PUNCAK": "98961"
+  },
+  "ERELMAKAWIA": {
+    "PUNCAK": "98962"
+  },
+  "GOME": {
+    "PUNCAK": "98963"
+  },
+  "NORTH GOME": {
+    "PUNCAK": "98964"
+  },
+  "ILAGA": {
+    "PUNCAK": "98965"
+  },
+  "NORTH ILAGA": {
+    "PUNCAK": "98966"
+  },
+  "MABUGI": {
+    "PUNCAK": "98967"
+  },
+  "OMUKIA": {
+    "PUNCAK": "98968"
+  },
+  "AGANDUGUME": {
+    "PUNCAK": "98970"
+  },
+  "BINA": {
+    "PUNCAK": "98971"
+  },
+  "KEMBRU": {
+    "PUNCAK": "98972"
+  },
+  "LAMBEWI": {
+    "PUNCAK": "98973"
+  },
+  "MAGE'ABUME": {
+    "PUNCAK": "98974"
+  },
+  "ONERI": {
+    "PUNCAK": "98975"
+  },
+  "POGOMA": {
+    "PUNCAK": "98976"
+  },
+  "SINAK": {
+    "PUNCAK": "98977"
+  },
+  "WEST SINAK": {
+    "PUNCAK": "98978"
+  },
+  "YUGUMUAK": {
+    "PUNCAK": "98979"
+  },
+  "DERVOS": {
+    "PUNCAK": "98981"
+  },
+  "DOUFO": {
+    "PUNCAK": "98982"
+  },
+  "BEWANI": {
+    "TOLIKARA": "99011"
+  },
+  "BOKONDINI": {
+    "TOLIKARA": "99012"
+  },
+  "BOKONERI": {
+    "TOLIKARA": "99013"
+  },
+  "DANIME": {
+    "TOLIKARA": "99014"
+  },
+  "KAMBONERI": {
+    "TOLIKARA": "99015"
+  },
+  "TAGIME": {
+    "TOLIKARA": "99016",
+    "JAYAWIJAYA": "99546"
+  },
+  "TAGINERI": {
+    "TOLIKARA": "99017",
+    "JAYAWIJAYA": "99547"
+  },
+  "AIRGARAM": {
+    "TOLIKARA": "99021"
+  },
+  "ANAWI": {
+    "TOLIKARA": "99022"
+  },
+  "BIUK": {
+    "TOLIKARA": "99023"
+  },
+  "GEYA": {
+    "TOLIKARA": "99024"
+  },
+  "GOYAGE": {
+    "TOLIKARA": "99025"
+  },
+  "KAI": {
+    "TOLIKARA": "99026"
+  },
+  "KARUBAGA": {
+    "TOLIKARA": "99027"
+  },
+  "KONDAGA (KONDA)": {
+    "TOLIKARA": "99028"
+  },
+  "KUARI": {
+    "TOLIKARA": "99029"
+  },
+  "LI ANOGOMMA": {
+    "TOLIKARA": "99031"
+  },
+  "NELAWI": {
+    "TOLIKARA": "99032"
+  },
+  "NUMBA": {
+    "TOLIKARA": "99033"
+  },
+  "WENAM": {
+    "TOLIKARA": "99034"
+  },
+  "WUGI": {
+    "TOLIKARA": "99035"
+  },
+  "WUNIM (WUNIN / WUMIN)": {
+    "TOLIKARA": "99036"
+  },
+  "YUNERI": {
+    "TOLIKARA": "99037"
+  },
+  "AWEKU": {
+    "TOLIKARA": "99041"
+  },
+  "BOGONUK": {
+    "TOLIKARA": "99042"
+  },
+  "GILUBANDU (GILUMBANDU/GILIMBANDU)": {
+    "TOLIKARA": "99043"
+  },
+  "KANGGIME (KANGGIMA )": {
+    "TOLIKARA": "99044"
+  },
+  "NABUNAGE": {
+    "TOLIKARA": "99045"
+  },
+  "NUNGGAWI (MUNGGAWI)": {
+    "TOLIKARA": "99046"
+  },
+  "WAKUWO": {
+    "TOLIKARA": "99047"
+  },
+  "WONOKI (WONIKI)": {
+    "TOLIKARA": "99048"
+  },
+  "DOW": {
+    "TOLIKARA": "99051"
+  },
+  "DUNDU (NDUNDU)": {
+    "TOLIKARA": "99052"
+  },
+  "EGIAM": {
+    "TOLIKARA": "99053"
+  },
+  "GIKA": {
+    "TOLIKARA": "99054"
+  },
+  "GUNDAGI (GUDAGE)": {
+    "TOLIKARA": "99055"
+  },
+  "KEMBU": {
+    "TOLIKARA": "99056"
+  },
+  "PANAGA": {
+    "TOLIKARA": "99057"
+  },
+  "POGANERI": {
+    "TOLIKARA": "99058"
+  },
+  "TELENGGEME": {
+    "TOLIKARA": "99059"
+  },
+  "TIMORI": {
+    "TOLIKARA": "99060"
+  },
+  "UMAGI": {
+    "TOLIKARA": "99061"
+  },
+  "WARI / TAIYEVE II": {
+    "TOLIKARA": "99062"
+  },
+  "WINA": {
+    "TOLIKARA": "99063"
+  },
+  "YUKO": {
+    "TOLIKARA": "99064"
+  },
+  "ERAGAYAM": {
+    "CENTRAL MAMBERAMO": "99071"
+  },
+  "KELILA": {
+    "CENTRAL MAMBERAMO": "99072"
+  },
+  "ILUGWA": {
+    "CENTRAL MAMBERAMO": "99073"
+  },
+  "KOBAGMA (KOBAKMA)": {
+    "CENTRAL MAMBERAMO": "99074"
+  },
+  "MEGAMBILIS": {
+    "CENTRAL MAMBERAMO": "99075"
+  },
+  "BENAWA": {
+    "YALIMO": "99081"
+  },
+  "ELELIM": {
+    "YALIMO": "99082"
+  },
+  "WELAREK": {
+    "YALIMO": "99083"
+  },
+  "APALAPSILI": {
+    "YALIMO": "99084"
+  },
+  "ABENAHO": {
+    "YALIMO": "99085"
+  },
+  "NORTH JAYAPURA": {
+    "JAYAPURA": "99111"
+  },
+  "SOUTH JAYAPURA": {
+    "JAYAPURA": "99220"
+  },
+  "MUARA TAMI": {
+    "JAYAPURA": "99311"
+  },
+  "ABEPURA": {
+    "JAYAPURA": "99321"
+  },
+  "HERAM": {
+    "JAYAPURA": "99331"
+  },
+  "RAVENI RARA (RAVENIRARA)": {
+    "JAYAPURA": "99350"
+  },
+  "EBUNGFAO (EBUNGFAU / EBUNGFA)": {
+    "JAYAPURA": "99351"
+  },
+  "SENTANI": {
+    "JAYAPURA": "99352"
+  },
+  "DEPAPRE": {
+    "JAYAPURA": "99353"
+  },
+  "DEMTA": {
+    "JAYAPURA": "99354"
+  },
+  "YOKARI": {
+    "JAYAPURA": "99355"
+  },
+  "UNURUM GUAY": {
+    "JAYAPURA": "99356"
+  },
+  "SOUTH GRESI": {
+    "JAYAPURA": "99357"
+  },
+  "WEST SENTANI": {
+    "JAYAPURA": "99358"
+  },
+  "EAST SENTANI": {
+    "JAYAPURA": "99359"
+  },
+  "NAMBLUONG": {
+    "JAYAPURA": "99360"
+  },
+  "NIMBORAN": {
+    "JAYAPURA": "99361"
+  },
+  "NIMBOKRANG": {
+    "JAYAPURA": "99362"
+  },
+  "AIRU": {
+    "JAYAPURA": "99363"
+  },
+  "KAUREH": {
+    "JAYAPURA": "99364"
+  },
+  "YAPSI": {
+    "JAYAPURA": "99365"
+  },
+  "KEMTUK": {
+    "JAYAPURA": "99366"
+  },
+  "KEMTUK GRESI": {
+    "JAYAPURA": "99367"
+  },
+  "WAIBU": {
+    "JAYAPURA": "99368"
+  },
+  "EAST PANTAI": {
+    "SARMI": "99370"
+  },
+  "WEST PANTAI TIMUR": {
+    "SARMI": "99371"
+  },
+  "TOR ATAS": {
+    "SARMI": "99372"
+  },
+  "SARMI": {
+    "SARMI": "99373"
+  },
+  "APAWER HULU": {
+    "SARMI": "99374"
+  },
+  "WEST PANTAI": {
+    "SARMI": "99375"
+  },
+  "SOUTH SARMI": {
+    "SARMI": "99376"
+  },
+  "EAST SARMI": {
+    "SARMI": "99377"
+  },
+  "BONGGO": {
+    "SARMI": "99381"
+  },
+  "EAST BONGGO": {
+    "SARMI": "99382"
+  },
+  "ABOY": {
+    "PEGUNUNGAN BINTANG": "99401"
+  },
+  "JETFA": {
+    "PEGUNUNGAN BINTANG": "99402"
+  },
+  "OKBAB": {
+    "PEGUNUNGAN BINTANG": "99403"
+  },
+  "OKBIBAB": {
+    "PEGUNUNGAN BINTANG": "99404"
+  },
+  "TEIRAPLU": {
+    "PEGUNUNGAN BINTANG": "99405"
+  },
+  "ALEMSOM": {
+    "PEGUNUNGAN BINTANG": "99411"
+  },
+  "KALOMDOL": {
+    "PEGUNUNGAN BINTANG": "99412"
+  },
+  "OK AOM": {
+    "PEGUNUNGAN BINTANG": "99413"
+  },
+  "OKBAPE": {
+    "PEGUNUNGAN BINTANG": "99414"
+  },
+  "OKSIBIL": {
+    "PEGUNUNGAN BINTANG": "99415"
+  },
+  "OKSOP": {
+    "PEGUNUNGAN BINTANG": "99416"
+  },
+  "PEPERA": {
+    "PEGUNUNGAN BINTANG": "99417"
+  },
+  "SERAMBAKON": {
+    "PEGUNUNGAN BINTANG": "99418"
+  },
+  "KIWIROK": {
+    "PEGUNUNGAN BINTANG": "99421"
+  },
+  "EAST KIWIROK": {
+    "PEGUNUNGAN BINTANG": "99422"
+  },
+  "OKBEMTAU": {
+    "PEGUNUNGAN BINTANG": "99423"
+  },
+  "OKHIKA": {
+    "PEGUNUNGAN BINTANG": "99424"
+  },
+  "OKLIP": {
+    "PEGUNUNGAN BINTANG": "99425"
+  },
+  "OKSAMOL": {
+    "PEGUNUNGAN BINTANG": "99426"
+  },
+  "OKSEBANG": {
+    "PEGUNUNGAN BINTANG": "99427"
+  },
+  "AWINBON": {
+    "PEGUNUNGAN BINTANG": "99431"
+  },
+  "IWUR (OKIWUR)": {
+    "PEGUNUNGAN BINTANG": "99432"
+  },
+  "KAWOR": {
+    "PEGUNUNGAN BINTANG": "99433"
+  },
+  "TARUP": {
+    "PEGUNUNGAN BINTANG": "99434"
+  },
+  "BATANI": {
+    "PEGUNUNGAN BINTANG": "99441"
+  },
+  "BATOM": {
+    "PEGUNUNGAN BINTANG": "99442"
+  },
+  "MOFINOP": {
+    "PEGUNUNGAN BINTANG": "99443"
+  },
+  "MURKIM": {
+    "PEGUNUNGAN BINTANG": "99444"
+  },
+  "NONGME": {
+    "PEGUNUNGAN BINTANG": "99445"
+  },
+  "WEIME": {
+    "PEGUNUNGAN BINTANG": "99446"
+  },
+  "BIME": {
+    "PEGUNUNGAN BINTANG": "99451"
+  },
+  "BORME": {
+    "PEGUNUNGAN BINTANG": "99452"
+  },
+  "EIPUMEK": {
+    "PEGUNUNGAN BINTANG": "99453"
+  },
+  "PAMEK": {
+    "PEGUNUNGAN BINTANG": "99454"
+  },
+  "WEB": {
+    "KEEROM": "99462"
+  },
+  "YAFFI": {
+    "KEEROM": "99463"
+  },
+  "SENGGI": {
+    "KEEROM": "99464"
+  },
+  "KAISENAR": {
+    "KEEROM": "99465"
+  },
+  "TOWE": {
+    "KEEROM": "99466"
+  },
+  "WARIS": {
+    "KEEROM": "99467"
+  },
+  "MANNEM": {
+    "KEEROM": "99468"
+  },
+  "SKANTO": {
+    "KEEROM": "99469"
+  },
+  "ARSO": {
+    "KEEROM": "99471"
+  },
+  "EAST ARSO": {
+    "KEEROM": "99472"
+  },
+  "WEST ARSO": {
+    "KEEROM": "99473"
+  },
+  "ASOLOKOBAL": {
+    "JAYAWIJAYA": "99501"
+  },
+  "ASOTIPO": {
+    "JAYAWIJAYA": "99502"
+  },
+  "ITLAY HISAGE": {
+    "JAYAWIJAYA": "99503"
+  },
+  "MAIMA": {
+    "JAYAWIJAYA": "99504"
+  },
+  "NAPUA": {
+    "JAYAWIJAYA": "99505"
+  },
+  "POPUGOBA": {
+    "JAYAWIJAYA": "99506"
+  },
+  "SIEPKOSI": {
+    "JAYAWIJAYA": "99507"
+  },
+  "TRIKORA": {
+    "JAYAWIJAYA": "99508"
+  },
+  "WALAIK": {
+    "JAYAWIJAYA": "99509"
+  },
+  "WALELAGAMA": {
+    "JAYAWIJAYA": "99510"
+  },
+  "WAMENA": {
+    "JAYAWIJAYA": "99511"
+  },
+  "WELESI": {
+    "JAYAWIJAYA": "99512"
+  },
+  "WESAPUT": {
+    "JAYAWIJAYA": "99513"
+  },
+  "WOUMA": {
+    "JAYAWIJAYA": "99514"
+  },
+  "KURULU": {
+    "JAYAWIJAYA": "99521"
+  },
+  "LIBAREK": {
+    "JAYAWIJAYA": "99522"
+  },
+  "PISUGI": {
+    "JAYAWIJAYA": "99523"
+  },
+  "USILIMO": {
+    "JAYAWIJAYA": "99524"
+  },
+  "WADANGKU": {
+    "JAYAWIJAYA": "99525"
+  },
+  "WITA WAYA": {
+    "JAYAWIJAYA": "99526"
+  },
+  "ASOLOGAIMA (ASALOGAIMA)": {
+    "JAYAWIJAYA": "99531"
+  },
+  "MULIAMA": {
+    "JAYAWIJAYA": "99532"
+  },
+  "MUSATFAK": {
+    "JAYAWIJAYA": "99533"
+  },
+  "PIRAMID": {
+    "JAYAWIJAYA": "99534"
+  },
+  "SILO KARNO DOGA": {
+    "JAYAWIJAYA": "99535"
+  },
+  "WAME": {
+    "JAYAWIJAYA": "99536"
+  },
+  "BOLAKME": {
+    "JAYAWIJAYA": "99541"
+  },
+  "BPIRI": {
+    "JAYAWIJAYA": "99542"
+  },
+  "BUGI": {
+    "JAYAWIJAYA": "99543"
+  },
+  "KORAGI": {
+    "JAYAWIJAYA": "99544"
+  },
+  "MOLAGALOME": {
+    "JAYAWIJAYA": "99545"
+  },
+  "WOLLO (WOLO)": {
+    "JAYAWIJAYA": "99548"
+  },
+  "YALENGGA": {
+    "JAYAWIJAYA": "99549"
+  },
+  "HUBIKIAK": {
+    "JAYAWIJAYA": "99551"
+  },
+  "HUBIKOSI (HOBIKOSI)": {
+    "JAYAWIJAYA": "99552"
+  },
+  "IBELE": {
+    "JAYAWIJAYA": "99553"
+  },
+  "PELEBAGA": {
+    "JAYAWIJAYA": "99554"
+  },
+  "TAELAREK": {
+    "JAYAWIJAYA": "99555"
+  },
+  "GELOK BEAM": {
+    "LANNY JAYA": "99561"
+  },
+  "GUPURA": {
+    "LANNY JAYA": "99562"
+  },
+  "KOLAWA": {
+    "LANNY JAYA": "99563"
+  },
+  "KULY LANNY": {
+    "LANNY JAYA": "99564"
+  },
+  "MAKKI": {
+    "LANNY JAYA": "99565"
+  },
+  "GAMELIA": {
+    "LANNY JAYA": "99566"
+  },
+  "GUNA": {
+    "LANNY JAYA": "99567"
+  },
+  "KARU": {
+    "LANNY JAYA": "99568"
+  },
+  "POGA": {
+    "LANNY JAYA": "99570"
+  },
+  "YILUK": {
+    "LANNY JAYA": "99571"
+  },
+  "AWINA": {
+    "LANNY JAYA": "99572"
+  },
+  "AYUMNATI": {
+    "LANNY JAYA": "99573"
+  },
+  "BUGUK GONA": {
+    "LANNY JAYA": "99574"
+  },
+  "DIMBA": {
+    "LANNY JAYA": "99575"
+  },
+  "GOLLO": {
+    "LANNY JAYA": "99576"
+  },
+  "KELULOME": {
+    "LANNY JAYA": "99577"
+  },
+  "LANNYNA": {
+    "LANNY JAYA": "99578"
+  },
+  "MILIMBO": {
+    "LANNY JAYA": "99579"
+  },
+  "NIKOGWE": {
+    "LANNY JAYA": "99580"
+  },
+  "PIRIME": {
+    "LANNY JAYA": "99581"
+  },
+  "WIRINGGAMBUT": {
+    "LANNY JAYA": "99582"
+  },
+  "BALINGGA": {
+    "LANNY JAYA": "99583"
+  },
+  "WEST BALINGGA": {
+    "LANNY JAYA": "99584"
+  },
+  "BRUWA": {
+    "LANNY JAYA": "99585"
+  },
+  "GOA BALIM": {
+    "LANNY JAYA": "99586"
+  },
+  "KUYAWAGE": {
+    "LANNY JAYA": "99587"
+  },
+  "MELAGI": {
+    "LANNY JAYA": "99588"
+  },
+  "MELAGINERI": {
+    "LANNY JAYA": "99589"
+  },
+  "MOKONI": {
+    "LANNY JAYA": "99590"
+  },
+  "NINAME": {
+    "LANNY JAYA": "99591"
+  },
+  "NOGI": {
+    "LANNY JAYA": "99592"
+  },
+  "TIOM": {
+    "LANNY JAYA": "99593"
+  },
+  "TIOM OLLO": {
+    "LANNY JAYA": "99594"
+  },
+  "TIOMNERI": {
+    "LANNY JAYA": "99595"
+  },
+  "WEST WANO": {
+    "LANNY JAYA": "99596"
+  },
+  "WEREKA": {
+    "LANNY JAYA": "99597"
+  },
+  "YIGINUA": {
+    "LANNY JAYA": "99598"
+  },
+  "YUGUNGWI": {
+    "LANNY JAYA": "99599"
+  },
+  "MERAUKE": {
+    "MERAUKE": "99604"
+  },
+  "NAUKENJERAI": {
+    "MERAUKE": "99621"
+  },
+  "SEMANGGA": {
+    "MERAUKE": "99631"
+  },
+  "TANAH MIRING": {
+    "MERAUKE": "99632"
+  },
+  "ELIKOBAL": {
+    "MERAUKE": "99633"
+  },
+  "MUTING": {
+    "MERAUKE": "99634"
+  },
+  "ULILIN": {
+    "MERAUKE": "99635"
+  },
+  "KAPTEL": {
+    "MERAUKE": "99636"
+  },
+  "NGGUTI": {
+    "MERAUKE": "99637"
+  },
+  "OKABA": {
+    "MERAUKE": "99638"
+  },
+  "TUBANG": {
+    "MERAUKE": "99639"
+  },
+  "ILWAYAB (ILYAWAB)": {
+    "MERAUKE": "99640"
+  },
+  "KIMAAM": {
+    "MERAUKE": "99641"
+  },
+  "TABONJI": {
+    "MERAUKE": "99642"
+  },
+  "WAAN": {
+    "MERAUKE": "99643"
+  },
+  "ANIMHA": {
+    "MERAUKE": "99644"
+  },
+  "JAGEBOB": {
+    "MERAUKE": "99645"
+  },
+  "KURIK": {
+    "MERAUKE": "99646"
+  },
+  "MALIND": {
+    "MERAUKE": "99647"
+  },
+  "SOTA": {
+    "MERAUKE": "99648"
+  },
+  "JAIR": {
+    "BOVEN DIGOEL": "99651"
+  },
+  "KI": {
+    "BOVEN DIGOEL": "99652"
+  },
+  "SUBUR": {
+    "BOVEN DIGOEL": "99653"
+  },
+  "KAWAGIT": {
+    "BOVEN DIGOEL": "99654"
+  },
+  "KOUH": {
+    "BOVEN DIGOEL": "99655"
+  },
+  "INIYANDIT": {
+    "BOVEN DIGOEL": "99661"
+  },
+  "KOMBUT": {
+    "BOVEN DIGOEL": "99662"
+  },
+  "MINDIPTANA": {
+    "BOVEN DIGOEL": "99663"
+  },
+  "SESNUK": {
+    "BOVEN DIGOEL": "99664"
+  },
+  "ARIMOP": {
+    "BOVEN DIGOEL": "99671"
+  },
+  "BOMAKIA": {
+    "BOVEN DIGOEL": "99672"
+  },
+  "FOFI": {
+    "BOVEN DIGOEL": "99673"
+  },
+  "MANDOBO": {
+    "BOVEN DIGOEL": "99674"
+  },
+  "AMBATKWI (AMBATKUI)": {
+    "BOVEN DIGOEL": "99681"
+  },
+  "KOMBAY": {
+    "BOVEN DIGOEL": "99682"
+  },
+  "NINATI": {
+    "BOVEN DIGOEL": "99683"
+  },
+  "WAROPKO": {
+    "BOVEN DIGOEL": "99684"
+  },
+  "YANIRUMA": {
+    "BOVEN DIGOEL": "99685"
+  },
+  "FIRIWAGE": {
+    "BOVEN DIGOEL": "99691"
+  },
+  "MANGGELUM": {
+    "BOVEN DIGOEL": "99692"
+  },
+  "AMUMA": {
+    "YAHUKIMO": "99701"
+  },
+  "DEKAI": {
+    "YAHUKIMO": "99702"
+  },
+  "HOGIO (HUGIO)": {
+    "YAHUKIMO": "99703"
+  },
+  "KAYO": {
+    "YAHUKIMO": "99704"
+  },
+  "KURIMA": {
+    "YAHUKIMO": "99705"
+  },
+  "MUGI": {
+    "YAHUKIMO": "99706",
+    "NDUGA": "99913"
+  },
+  "MUSAIK": {
+    "YAHUKIMO": "99707"
+  },
+  "OBIO": {
+    "YAHUKIMO": "99708"
+  },
+  "PASEMA": {
+    "YAHUKIMO": "99709"
+  },
+  "SAMENAGE": {
+    "YAHUKIMO": "99710"
+  },
+  "SEREDELA (SEREDALA)": {
+    "YAHUKIMO": "99711"
+  },
+  "SILIMO": {
+    "YAHUKIMO": "99712"
+  },
+  "SOBA": {
+    "YAHUKIMO": "99713"
+  },
+  "SUMO": {
+    "YAHUKIMO": "99714"
+  },
+  "SURU SURU": {
+    "YAHUKIMO": "99715"
+  },
+  "TANGMA": {
+    "YAHUKIMO": "99716"
+  },
+  "UKHA": {
+    "YAHUKIMO": "99717"
+  },
+  "WERIMA": {
+    "YAHUKIMO": "99718"
+  },
+  "WUSAMA (WUSUMA)": {
+    "YAHUKIMO": "99719"
+  },
+  "YOGOSEM": {
+    "YAHUKIMO": "99720"
+  },
+  "KONA": {
+    "YAHUKIMO": "99721"
+  },
+  "BOMELA": {
+    "YAHUKIMO": "99731"
+  },
+  "HILIPUK": {
+    "YAHUKIMO": "99732"
+  },
+  "HOLUON": {
+    "YAHUKIMO": "99733"
+  },
+  "KABIANGGAMA (KABIANGGEMA)": {
+    "YAHUKIMO": "99734"
+  },
+  "KOROPUN (KORUPUN)": {
+    "YAHUKIMO": "99735"
+  },
+  "KWELEMDUA (KWELAMDUA)": {
+    "YAHUKIMO": "99736"
+  },
+  "KWIKMA": {
+    "YAHUKIMO": "99737"
+  },
+  "LANGDA": {
+    "YAHUKIMO": "99738"
+  },
+  "LOLAT": {
+    "YAHUKIMO": "99739"
+  },
+  "NINIA": {
+    "YAHUKIMO": "99740"
+  },
+  "SELA": {
+    "YAHUKIMO": "99741"
+  },
+  "SOBAHAM": {
+    "YAHUKIMO": "99742"
+  },
+  "SOLOIKMA": {
+    "YAHUKIMO": "99743"
+  },
+  "SUNTAMON": {
+    "YAHUKIMO": "99744"
+  },
+  "YAHULIAMBUT": {
+    "YAHUKIMO": "99745"
+  },
+  "ANGGRUK": {
+    "YAHUKIMO": "99751"
+  },
+  "DIRWEMNA (DIRUWENA)": {
+    "YAHUKIMO": "99752"
+  },
+  "DURAM": {
+    "YAHUKIMO": "99753"
+  },
+  "ENDOMEN": {
+    "YAHUKIMO": "99754"
+  },
+  "HEREAPINI (HEREANINI)": {
+    "YAHUKIMO": "99755"
+  },
+  "KOSAREK": {
+    "YAHUKIMO": "99756"
+  },
+  "NALCA": {
+    "YAHUKIMO": "99757"
+  },
+  "NIPSAN": {
+    "YAHUKIMO": "99758"
+  },
+  "PANGGEMA": {
+    "YAHUKIMO": "99759"
+  },
+  "PRONGGOLI (PROGGOLI)": {
+    "YAHUKIMO": "99760"
+  },
+  "PULDAMA": {
+    "YAHUKIMO": "99761"
+  },
+  "TALAMBO": {
+    "YAHUKIMO": "99762"
+  },
+  "UBAHAK": {
+    "YAHUKIMO": "99763"
+  },
+  "UBALIHI": {
+    "YAHUKIMO": "99764"
+  },
+  "WALMA": {
+    "YAHUKIMO": "99765"
+  },
+  "DER KOUMUR": {
+    "ASMAT": "99771"
+  },
+  "KOPAY": {
+    "ASMAT": "99772"
+  },
+  "PANTAI KASUARI": {
+    "ASMAT": "99773"
+  },
+  "SAFAN": {
+    "ASMAT": "99774"
+  },
+  "ATSY / ATSJ": {
+    "ASMAT": "99775"
+  },
+  "AYIP": {
+    "ASMAT": "99776"
+  },
+  "AGATS": {
+    "ASMAT": "99777"
+  },
+  "AKAT": {
+    "ASMAT": "99779"
+  },
+  "UNIR SIRAU": {
+    "ASMAT": "99780"
+  },
+  "SURU-SURU": {
+    "ASMAT": "99781"
+  },
+  "FAYIT": {
+    "ASMAT": "99782"
+  },
+  "SAWA ERMA": {
+    "ASMAT": "99783"
+  },
+  "JOERAT": {
+    "ASMAT": "99784"
+  },
+  "JETSY": {
+    "ASMAT": "99785"
+  },
+  "BETCBAMU": {
+    "ASMAT": "99786"
+  },
+  "SIRETS": {
+    "ASMAT": "99787"
+  },
+  "KOLF BRAZA": {
+    "ASMAT": "99791"
+  },
+  "SUATOR": {
+    "ASMAT": "99792"
+  },
+  "BAMGI": {
+    "MAPPI": "99851"
+  },
+  "EDERA": {
+    "MAPPI": "99852"
+  },
+  "SYAHCAME": {
+    "MAPPI": "99853"
+  },
+  "VENAHA": {
+    "MAPPI": "99854"
+  },
+  "YAKOMI": {
+    "MAPPI": "99855"
+  },
+  "OBAA": {
+    "MAPPI": "99870"
+  },
+  "PASSUE": {
+    "MAPPI": "99871"
+  },
+  "MINYAMUR": {
+    "MAPPI": "99872"
+  },
+  "MAMBIOMAN BAPAI": {
+    "MAPPI": "99873"
+  },
+  "ASSUE": {
+    "MAPPI": "99874"
+  },
+  "CITAK-MITAK (CITAKMITAK)": {
+    "MAPPI": "99875"
+  },
+  "KAIBAR": {
+    "MAPPI": "99876"
+  },
+  "PASSUE BAWAH": {
+    "MAPPI": "99877"
+  },
+  "TI ZAIN": {
+    "MAPPI": "99878"
+  },
+  "HAJU": {
+    "MAPPI": "99881"
+  },
+  "ALAMA": {
+    "NDUGA": "99901",
+    "MIMIKA": "99966"
+  },
+  "DAL": {
+    "NDUGA": "99902"
+  },
+  "GESELMA (GESELEMA)": {
+    "NDUGA": "99903"
+  },
+  "INIKGAL": {
+    "NDUGA": "99904"
+  },
+  "INIYE": {
+    "NDUGA": "99905"
+  },
+  "KEGAYEM": {
+    "NDUGA": "99906"
+  },
+  "KILMID": {
+    "NDUGA": "99907"
+  },
+  "KOROPTAK": {
+    "NDUGA": "99908"
+  },
+  "MAPENDUMA": {
+    "NDUGA": "99909"
+  },
+  "MBUWA (MBUA / MBUGA)": {
+    "NDUGA": "99910"
+  },
+  "MBULMU YALMA": {
+    "NDUGA": "99911"
+  },
+  "MEBAROK": {
+    "NDUGA": "99912"
+  },
+  "NENGGEAGIN": {
+    "NDUGA": "99914"
+  },
+  "NIRKURI": {
+    "NDUGA": "99915"
+  },
+  "PARO": {
+    "NDUGA": "99916"
+  },
+  "WUTPAGA": {
+    "NDUGA": "99917"
+  },
+  "YENGGELO": {
+    "NDUGA": "99918"
+  },
+  "YIGI": {
+    "NDUGA": "99919"
+  },
+  "EMBETPEN": {
+    "NDUGA": "99920"
+  },
+  "GEAREK": {
+    "NDUGA": "99921"
+  },
+  "KENYAM": {
+    "NDUGA": "99922"
+  },
+  "KORA": {
+    "NDUGA": "99923"
+  },
+  "KREPKURI": {
+    "NDUGA": "99924"
+  },
+  "CENTRAL MBUA": {
+    "NDUGA": "99925"
+  },
+  "MOBA": {
+    "NDUGA": "99926"
+  },
+  "PIJA": {
+    "NDUGA": "99928"
+  },
+  "WOSAK": {
+    "NDUGA": "99929"
+  },
+  "WUSI": {
+    "NDUGA": "99930"
+  },
+  "MAM": {
+    "NDUGA": "99941"
+  },
+  "YAL": {
+    "NDUGA": "99942"
+  },
+  "KWAMKI NARAMA": {
+    "MIMIKA": "99951"
+  },
+  "MIMIKA BARU": {
+    "MIMIKA": "99952"
+  },
+  "HOYA": {
+    "MIMIKA": "99960"
+  },
+  "JILA": {
+    "MIMIKA": "99961"
+  },
+  "EAST MIMIKA": {
+    "MIMIKA": "99962"
+  },
+  "WANIA": {
+    "MIMIKA": "99963"
+  },
+  "AGIMUGA": {
+    "MIMIKA": "99964"
+  },
+  "JITA": {
+    "MIMIKA": "99965"
+  },
+  "TEMBAGAPURA": {
+    "MIMIKA": "99967"
+  },
+  "IWAKA": {
+    "MIMIKA": "99968"
+  },
+  "KUALA KENCANA": {
+    "MIMIKA": "99969"
+  },
+  "EAST MIMIKA JAUH": {
+    "MIMIKA": "99971"
+  },
+  "CENTRAL MIMIKA": {
+    "MIMIKA": "99972"
+  },
+  "AMAR": {
+    "MIMIKA": "99973"
+  },
+  "WEST MIMIKA JAUH": {
+    "MIMIKA": "99974"
+  },
+  "WEST MIMIKA": {
+    "MIMIKA": "99975"
+  },
+  "CENTRAL MIMIKA BARAT": {
+    "MIMIKA": "99976"
+  }
+};
+
+// KELURAHAN (Village) to Postcode mapping
+const KELURAHAN_POSTCODE_MAP = {
+  "CENTRAL JAKARTA": {
+    "CENTRAL JAKARTA": "10710"
+  },
+  "WEST JAKARTA": {
+    "WEST JAKARTA": "11810"
+  },
+  "SOUTH JAKARTA": {
+    "SOUTH JAKARTA": "12910"
+  },
+  "EAST JAKARTA": {
+    "EAST JAKARTA": "13910"
+  },
+  "NORTH JAKARTA": {
+    "NORTH JAKARTA": "14440"
+  },
+  "SERIBU ISLANDS": {
+    "SERIBU ISLANDS": "14530"
+  },
+  "TANGERANG": {
+    "TANGERANG": "15820"
+  },
+  "SOUTH TANGERANG": {
+    "SOUTH TANGERANG": "15415"
+  },
+  "BOGOR": {
+    "BOGOR": "16960"
+  },
+  "DEPOK": {
+    "DEPOK": "16516"
+  },
+  "BEKASI": {
+    "BEKASI": "17730"
+  },
+  "MEDAN": {
+    "MEDAN": "20411"
+  },
+  "DELI SERDANG": {
+    "DELI SERDANG": "20585"
+  },
+  "TEBING TINGGI": {
+    "TEBING TINGGI": "20631"
+  },
+  "BINJAI": {
+    "BINJAI": "20741"
+  },
+  "LANGKAT": {
+    "LANGKAT": "20881"
+  },
+  "SERDANG BEDAGAI": {
+    "SERDANG BEDAGAI": "20999"
+  },
+  "PEMATANG SIANTAR": {
+    "PEMATANG SIANTAR": "21141"
+  },
+  "SIMALUNGUN": {
+    "SIMALUNGUN": "21188"
+  },
+  "ASAHAN": {
+    "ASAHAN": "21383"
+  },
+  "BATU BARA": {
+    "BATU BARA": "21258"
+  },
+  "TANJUNG BALAI": {
+    "TANJUNG BALAI": "21364"
+  },
+  "LABUHANBATU": {
+    "LABUHANBATU": "21473"
+  },
+  "NORTH LABUHANBATU": {
+    "NORTH LABUHANBATU": "21475"
+  },
+  "SOUTH LABUHANBATU": {
+    "SOUTH LABUHANBATU": "21466"
+  },
+  "KARO": {
+    "KARO": "22173"
+  },
+  "DAIRI": {
+    "DAIRI": "22284"
+  },
+  "PAKPAK BHARAT": {
+    "PAKPAK BHARAT": "22277"
+  },
+  "TOBA SAMOSIR": {
+    "TOBA SAMOSIR": "22388"
+  },
+  "SAMOSIR": {
+    "SAMOSIR": "22398"
+  },
+  "NORTH TAPANULI": {
+    "NORTH TAPANULI": "22476"
+  },
+  "HUMBANG HASUNDUTAN": {
+    "HUMBANG HASUNDUTAN": "22477"
+  },
+  "SIBOLGA": {
+    "SIBOLGA": "22533"
+  },
+  "CENTRAL TAPANULI": {
+    "CENTRAL TAPANULI": "22656"
+  },
+  "PADANG SIDEMPUAN": {
+    "PADANG SIDEMPUAN": "22731"
+  },
+  "SOUTH TAPANULI": {
+    "SOUTH TAPANULI": "22775"
+  },
+  "NORTH PADANG LAWAS": {
+    "NORTH PADANG LAWAS": "22762"
+  },
+  "PADANG LAWAS": {
+    "PADANG LAWAS": "22776"
+  },
+  "GUNUNGSITOLI": {
+    "GUNUNGSITOLI": "22870"
+  },
+  "WEST NIAS": {
+    "WEST NIAS": "22875"
+  },
+  "NORTH NIAS": {
+    "NORTH NIAS": "22861"
+  },
+  "NIAS": {
+    "NIAS": "22876"
+  },
+  "SOUTH NIAS": {
+    "SOUTH NIAS": "22887"
+  },
+  "MANDAILING NATAL": {
+    "MANDAILING NATAL": "22999"
+  },
+  "BANDA ACEH": {
+    "BANDA ACEH": "23244"
+  },
+  "ACEH BESAR": {
+    "ACEH BESAR": "23952"
+  },
+  "SABANG": {
+    "SABANG": "23521"
+  },
+  "WEST ACEH": {
+    "WEST ACEH": "23685"
+  },
+  "ACEH JAYA": {
+    "ACEH JAYA": "23659"
+  },
+  "NAGAN RAYA": {
+    "NAGAN RAYA": "23674"
+  },
+  "SOUTH ACEH": {
+    "SOUTH ACEH": "23779"
+  },
+  "SOUTHWEST ACEH": {
+    "SOUTHWEST ACEH": "23769"
+  },
+  "SIMEULUE": {
+    "SIMEULUE": "23899"
+  },
+  "PIDIE": {
+    "PIDIE": "24189"
+  },
+  "PIDIE JAYA": {
+    "PIDIE JAYA": "24188"
+  },
+  "BIREUEN": {
+    "BIREUEN": "24358"
+  },
+  "NORTH ACEH": {
+    "NORTH ACEH": "24396"
+  },
+  "LHOKSEUMAWE": {
+    "LHOKSEUMAWE": "24375"
+  },
+  "LANGSA": {
+    "LANGSA": "24415"
+  },
+  "EAST ACEH": {
+    "EAST ACEH": "24469"
+  },
+  "ACEH TAMIANG": {
+    "ACEH TAMIANG": "24479"
+  },
+  "CENTRAL ACEH": {
+    "CENTRAL ACEH": "24571"
+  },
+  "BENER MERIAH": {
+    "BENER MERIAH": "24586"
+  },
+  "GAYO LUES": {
+    "GAYO LUES": "24659"
+  },
+  "SOUTHEAST ACEH": {
+    "SOUTHEAST ACEH": "24678"
+  },
+  "SUBULUSSALAM": {
+    "SUBULUSSALAM": "24783"
+  },
+  "ACEH SINGKIL": {
+    "ACEH SINGKIL": "24794"
+  },
+  "PADANG": {
+    "PADANG": "25237"
+  },
+  "MENTAWAI ISLANDS": {
+    "MENTAWAI ISLANDS": "25399"
+  },
+  "PARIAMAN": {
+    "PARIAMAN": "25531"
+  },
+  "PADANG PARIAMAN": {
+    "PADANG PARIAMAN": "25586"
+  },
+  "SOUTH PESISIR": {
+    "SOUTH PESISIR": "25675"
+  },
+  "BUKITTINGGI": {
+    "BUKITTINGGI": "26131"
+  },
+  "AGAM": {
+    "AGAM": "26473"
+  },
+  "PAYAKUMBUH": {
+    "PAYAKUMBUH": "26231"
+  },
+  "LIMA PULUH KOTA": {
+    "LIMA PULUH KOTA": "26273"
+  },
+  "PASAMAN": {
+    "PASAMAN": "26382"
+  },
+  "WEST PASAMAN": {
+    "WEST PASAMAN": "26574"
+  },
+  "PADANG PANJANG": {
+    "PADANG PANJANG": "27121"
+  },
+  "TANAH DATAR": {
+    "TANAH DATAR": "27294"
+  },
+  "SOLOK": {
+    "SOLOK": "27389"
+  },
+  "SAWAH LUNTO": {
+    "SAWAH LUNTO": "27441"
+  },
+  "SIJUNJUNG": {
+    "SIJUNJUNG": "27572"
+  },
+  "DHARMASRAYA": {
+    "DHARMASRAYA": "27687"
+  },
+  "SOUTH SOLOK": {
+    "SOUTH SOLOK": "27779"
+  },
+  "PEKANBARU": {
+    "PEKANBARU": "28292"
+  },
+  "PELALAWAN": {
+    "PELALAWAN": "28388"
+  },
+  "KAMPAR": {
+    "KAMPAR": "28475"
+  },
+  "ROKAN HULU": {
+    "ROKAN HULU": "28565"
+  },
+  "SIAK": {
+    "SIAK": "28773"
+  },
+  "BENGKALIS": {
+    "BENGKALIS": "28786"
+  },
+  "MERANTI ISLANDS": {
+    "MERANTI ISLANDS": "28758"
+  },
+  "DUMAI": {
+    "DUMAI": "28882"
+  },
+  "ROKAN HILIR": {
+    "ROKAN HILIR": "28995"
+  },
+  "TANJUNG PINANG": {
+    "TANJUNG PINANG": "29122"
+  },
+  "BINTAN": {
+    "BINTAN": "29193"
+  },
+  "INDRAGIRI HILIR": {
+    "INDRAGIRI HILIR": "29282"
+  },
+  "INDRAGIRI HULU": {
+    "INDRAGIRI HULU": "29371"
+  },
+  "BATAM": {
+    "BATAM": "29481"
+  },
+  "KUANTAN SINGINGI": {
+    "KUANTAN SINGINGI": "29569"
+  },
+  "KARIMUN": {
+    "KARIMUN": "29669"
+  },
+  "NATUNA": {
+    "NATUNA": "29789"
+  },
+  "ANAMBAS ISLANDS": {
+    "ANAMBAS ISLANDS": "29796"
+  },
+  "LINGGA": {
+    "LINGGA": "29878"
+  },
+  "PALEMBANG": {
+    "PALEMBANG": "30266"
+  },
+  "OGAN KOMERING ILIR": {
+    "OGAN KOMERING ILIR": "30684"
+  },
+  "OGAN ILIR": {
+    "OGAN ILIR": "30869"
+  },
+  "MUSI BANYUASIN": {
+    "MUSI BANYUASIN": "30759"
+  },
+  "MUSI RAWAS": {
+    "MUSI RAWAS": "31668"
+  },
+  "BANYUASIN": {
+    "BANYUASIN": "30977"
+  },
+  "PRABUMULIH": {
+    "PRABUMULIH": "31141"
+  },
+  "MUARA ENIM": {
+    "MUARA ENIM": "31711"
+  },
+  "PENUKAL ABAB LEMATANG ILIR": {
+    "PENUKAL ABAB LEMATANG ILIR": "31317"
+  },
+  "LAHAT": {
+    "LAHAT": "31591"
+  },
+  "EMPAT LAWANG": {
+    "EMPAT LAWANG": "31599"
+  },
+  "PAGAR ALAM": {
+    "PAGAR ALAM": "31522"
+  },
+  "LUBUK LINGGAU": {
+    "LUBUK LINGGAU": "31629"
+  },
+  "NORTH MUSI RAWAS": {
+    "NORTH MUSI RAWAS": "31669"
+  },
+  "OGAN KOMERING ULU": {
+    "OGAN KOMERING ULU": "32193"
+  },
+  "EAST OGAN KOMERING ULU": {
+    "EAST OGAN KOMERING ULU": "32388"
+  },
+  "SOUTH OGAN KOMERING ULU": {
+    "SOUTH OGAN KOMERING ULU": "32279"
+  },
+  "PANGKAL PINANG": {
+    "PANGKAL PINANG": "33147"
+  },
+  "BANGKA": {
+    "BANGKA": "33254"
+  },
+  "WEST BANGKA": {
+    "WEST BANGKA": "33366"
+  },
+  "BELITUNG": {
+    "BELITUNG": "33481"
+  },
+  "EAST BELITUNG": {
+    "EAST BELITUNG": "33572"
+  },
+  "CENTRAL BANGKA": {
+    "CENTRAL BANGKA": "33684"
+  },
+  "SOUTH BANGKA": {
+    "SOUTH BANGKA": "33792"
+  },
+  "METRO": {
+    "METRO": "34119"
+  },
+  "CENTRAL LAMPUNG": {
+    "CENTRAL LAMPUNG": "35513"
+  },
+  "EAST LAMPUNG": {
+    "EAST LAMPUNG": "34396"
+  },
+  "NORTH LAMPUNG": {
+    "NORTH LAMPUNG": "34586"
+  },
+  "TULANG BAWANG": {
+    "TULANG BAWANG": "34685"
+  },
+  "MESUJI": {
+    "MESUJI": "34699"
+  },
+  "WAY KANAN": {
+    "WAY KANAN": "34774"
+  },
+  "WEST TULANG BAWANG": {
+    "WEST TULANG BAWANG": "34794"
+  },
+  "WEST LAMPUNG": {
+    "WEST LAMPUNG": "34886"
+  },
+  "WEST PESISIR": {
+    "WEST PESISIR": "34898"
+  },
+  "BANDAR LAMPUNG": {
+    "BANDAR LAMPUNG": "35241"
+  },
+  "SOUTH LAMPUNG": {
+    "SOUTH LAMPUNG": "35597"
+  },
+  "PESAWARAN": {
+    "PESAWARAN": "35455"
+  },
+  "PRINGSEWU": {
+    "PRINGSEWU": "35681"
+  },
+  "TANGGAMUS": {
+    "TANGGAMUS": "35686"
+  },
+  "JAMBI": {
+    "JAMBI": "36261"
+  },
+  "MUARO JAMBI": {
+    "MUARO JAMBI": "36383"
+  },
+  "WEST TANJUNG JABUNG": {
+    "WEST TANJUNG JABUNG": "36559"
+  },
+  "BATANG HARI": {
+    "BATANG HARI": "36657"
+  },
+  "EAST TANJUNG JABUNG": {
+    "EAST TANJUNG JABUNG": "36773"
+  },
+  "SUNGAIPENUH": {
+    "SUNGAIPENUH": "37152"
+  },
+  "KERINCI": {
+    "KERINCI": "37176"
+  },
+  "BUNGO": {
+    "BUNGO": "37264"
+  },
+  "MERANGIN": {
+    "MERANGIN": "37374"
+  },
+  "SAROLANGUN": {
+    "SAROLANGUN": "37492"
+  },
+  "TEBO": {
+    "TEBO": "37574"
+  },
+  "BENGKULU": {
+    "BENGKULU": "38223"
+  },
+  "NORTH BENGKULU": {
+    "NORTH BENGKULU": "38657"
+  },
+  "CENTRAL BENGKULU": {
+    "CENTRAL BENGKULU": "38388"
+  },
+  "SOUTH BENGKULU": {
+    "SOUTH BENGKULU": "38573"
+  },
+  "MUKO MUKO": {
+    "MUKO MUKO": "38769"
+  },
+  "SELUMA": {
+    "SELUMA": "38888"
+  },
+  "KAUR": {
+    "KAUR": "38968"
+  },
+  "REJANG LEBONG": {
+    "REJANG LEBONG": "39184"
+  },
+  "LEBONG": {
+    "LEBONG": "39269"
+  },
+  "KEPAHIANG": {
+    "KEPAHIANG": "39377"
+  },
+  "BANDUNG": {
+    "BANDUNG": "40974"
+  },
+  "WEST BANDUNG": {
+    "WEST BANDUNG": "40567"
+  },
+  "CIMAHI": {
+    "CIMAHI": "40531"
+  },
+  "PURWAKARTA": {
+    "PURWAKARTA": "41182"
+  },
+  "SUBANG": {
+    "SUBANG": "41288"
+  },
+  "KARAWANG": {
+    "KARAWANG": "41386"
+  },
+  "SERANG": {
+    "SERANG": "42455"
+  },
+  "PANDEGLANG": {
+    "PANDEGLANG": "42287"
+  },
+  "LEBAK": {
+    "LEBAK": "42398"
+  },
+  "CILEGON": {
+    "CILEGON": "42441"
+  },
+  "SUKABUMI": {
+    "SUKABUMI": "43368"
+  },
+  "CIANJUR": {
+    "CIANJUR": "43292"
+  },
+  "GARUT": {
+    "GARUT": "44193"
+  },
+  "CIREBON": {
+    "CIREBON": "45652"
+  },
+  "INDRAMAYU": {
+    "INDRAMAYU": "45284"
+  },
+  "SUMEDANG": {
+    "SUMEDANG": "45393"
+  },
+  "MAJALENGKA": {
+    "MAJALENGKA": "45476"
+  },
+  "KUNINGAN": {
+    "KUNINGAN": "45595"
+  },
+  "TASIKMALAYA": {
+    "TASIKMALAYA": "46476"
+  },
+  "CIAMIS": {
+    "CIAMIS": "46388"
+  },
+  "PANGANDARAN": {
+    "PANGANDARAN": "46397"
+  },
+  "BANJAR": {
+    "BANJAR": "70678"
+  },
+  "SEMARANG": {
+    "SEMARANG": "50777"
+  },
+  "SALATIGA": {
+    "SALATIGA": "50741"
+  },
+  "PEKALONGAN": {
+    "PEKALONGAN": "51193"
+  },
+  "BATANG": {
+    "BATANG": "51281"
+  },
+  "KENDAL": {
+    "KENDAL": "51383"
+  },
+  "TEGAL": {
+    "TEGAL": "52473"
+  },
+  "BREBES": {
+    "BREBES": "52276"
+  },
+  "PEMALANG": {
+    "PEMALANG": "52371"
+  },
+  "BANYUMAS": {
+    "BANYUMAS": "53196"
+  },
+  "CILACAP": {
+    "CILACAP": "53283"
+  },
+  "PURBALINGGA": {
+    "PURBALINGGA": "53393"
+  },
+  "BANJARNEGARA": {
+    "BANJARNEGARA": "53482"
+  },
+  "PURWOREJO": {
+    "PURWOREJO": "54265"
+  },
+  "KEBUMEN": {
+    "KEBUMEN": "54474"
+  },
+  "YOGYAKARTA": {
+    "YOGYAKARTA": "55271"
+  },
+  "BANTUL": {
+    "BANTUL": "55792"
+  },
+  "SLEMAN": {
+    "SLEMAN": "55584"
+  },
+  "KULON PROGO": {
+    "KULON PROGO": "55674"
+  },
+  "GUNUNG KIDUL": {
+    "GUNUNG KIDUL": "55893"
+  },
+  "MAGELANG": {
+    "MAGELANG": "56511"
+  },
+  "TEMANGGUNG": {
+    "TEMANGGUNG": "56283"
+  },
+  "WONOSOBO": {
+    "WONOSOBO": "56375"
+  },
+  "SURAKARTA": {
+    "SURAKARTA": "57151"
+  },
+  "SUKOHARJO": {
+    "SUKOHARJO": "57571"
+  },
+  "KARANGANYAR": {
+    "KARANGANYAR": "57794"
+  },
+  "SRAGEN": {
+    "SRAGEN": "57293"
+  },
+  "BOYOLALI": {
+    "BOYOLALI": "57391"
+  },
+  "KLATEN": {
+    "KLATEN": "57486"
+  },
+  "WONOGIRI": {
+    "WONOGIRI": "57698"
+  },
+  "GROBOGAN": {
+    "GROBOGAN": "58193"
+  },
+  "BLORA": {
+    "BLORA": "58384"
+  },
+  "PATI": {
+    "PATI": "59186"
+  },
+  "REMBANG": {
+    "REMBANG": "59274"
+  },
+  "KUDUS": {
+    "KUDUS": "59382"
+  },
+  "JEPARA": {
+    "JEPARA": "59466"
+  },
+  "DEMAK": {
+    "DEMAK": "59584"
+  },
+  "SURABAYA": {
+    "SURABAYA": "60293"
+  },
+  "GRESIK": {
+    "GRESIK": "61182"
+  },
+  "SIDOARJO": {
+    "SIDOARJO": "61276"
+  },
+  "MOJOKERTO": {
+    "MOJOKERTO": "61385"
+  },
+  "JOMBANG": {
+    "JOMBANG": "61485"
+  },
+  "BOJONEGORO": {
+    "BOJONEGORO": "62195"
+  },
+  "LAMONGAN": {
+    "LAMONGAN": "62293"
+  },
+  "TUBAN": {
+    "TUBAN": "62391"
+  },
+  "MADIUN": {
+    "MADIUN": "63182"
+  },
+  "MAGETAN": {
+    "MAGETAN": "63395"
+  },
+  "NGAWI": {
+    "NGAWI": "63285"
+  },
+  "PONOROGO": {
+    "PONOROGO": "63493"
+  },
+  "PACITAN": {
+    "PACITAN": "63584"
+  },
+  "KEDIRI": {
+    "KEDIRI": "64294"
+  },
+  "NGANJUK": {
+    "NGANJUK": "64484"
+  },
+  "MALANG": {
+    "MALANG": "65393"
+  },
+  "BATU": {
+    "BATU": "65331"
+  },
+  "BLITAR": {
+    "BLITAR": "66194"
+  },
+  "TULUNGAGUNG": {
+    "TULUNGAGUNG": "66293"
+  },
+  "TRENGGALEK": {
+    "TRENGGALEK": "66382"
+  },
+  "PASURUAN": {
+    "PASURUAN": "67186"
+  },
+  "PROBOLINGGO": {
+    "PROBOLINGGO": "67293"
+  },
+  "LUMAJANG": {
+    "LUMAJANG": "67383"
+  },
+  "JEMBER": {
+    "JEMBER": "68196"
+  },
+  "BONDOWOSO": {
+    "BONDOWOSO": "68292"
+  },
+  "SITUBONDO": {
+    "SITUBONDO": "68374"
+  },
+  "BANYUWANGI": {
+    "BANYUWANGI": "68489"
+  },
+  "BANGKALAN": {
+    "BANGKALAN": "69175"
+  },
+  "SAMPANG": {
+    "SAMPANG": "69291"
+  },
+  "PAMEKASAN": {
+    "PAMEKASAN": "69383"
+  },
+  "SUMENEP": {
+    "SUMENEP": "69493"
+  },
+  "BANJARMASIN": {
+    "BANJARMASIN": "70241"
+  },
+  "BARITO KUALA": {
+    "BARITO KUALA": "70582"
+  },
+  "BANJARBARU": {
+    "BANJARBARU": "70731"
+  },
+  "TANAH LAUT": {
+    "TANAH LAUT": "70883"
+  },
+  "TAPIN": {
+    "TAPIN": "71191"
+  },
+  "SOUTH HULU SUNGAI": {
+    "SOUTH HULU SUNGAI": "71292"
+  },
+  "CENTRAL HULU SUNGAI": {
+    "CENTRAL HULU SUNGAI": "71392"
+  },
+  "NORTH HULU SUNGAI": {
+    "NORTH HULU SUNGAI": "71472"
+  },
+  "TABALONG": {
+    "TABALONG": "71575"
+  },
+  "BALANGAN": {
+    "BALANGAN": "71667"
+  },
+  "KOTABARU": {
+    "KOTABARU": "72181"
+  },
+  "TANAH BUMBU": {
+    "TANAH BUMBU": "72276"
+  },
+  "PALANGKA RAYA": {
+    "PALANGKA RAYA": "73227"
+  },
+  "KAPUAS": {
+    "KAPUAS": "74581"
+  },
+  "EAST BARITO": {
+    "EAST BARITO": "73681"
+  },
+  "SOUTH BARITO": {
+    "SOUTH BARITO": "73763"
+  },
+  "NORTH BARITO": {
+    "NORTH BARITO": "73881"
+  },
+  "MURUNG RAYA": {
+    "MURUNG RAYA": "73992"
+  },
+  "WEST KOTAWARINGIN": {
+    "WEST KOTAWARINGIN": "74184"
+  },
+  "LAMANDAU": {
+    "LAMANDAU": "74665"
+  },
+  "SUKAMARA": {
+    "SUKAMARA": "74174"
+  },
+  "SERUYAN": {
+    "SERUYAN": "74291"
+  },
+  "EAST KOTAWARINGIN": {
+    "EAST KOTAWARINGIN": "74364"
+  },
+  "KATINGAN": {
+    "KATINGAN": "74464"
+  },
+  "GUNUNG MAS": {
+    "GUNUNG MAS": "74571"
+  },
+  "PULANG PISAU": {
+    "PULANG PISAU": "74874"
+  },
+  "SAMARINDA": {
+    "SAMARINDA": "75241"
+  },
+  "KUTAI KARTANEGARA": {
+    "KUTAI KARTANEGARA": "75572"
+  },
+  "BONTANG": {
+    "BONTANG": "75321"
+  },
+  "EAST KUTAI": {
+    "EAST KUTAI": "75686"
+  },
+  "WEST KUTAI": {
+    "WEST KUTAI": "75778"
+  },
+  "MAHAKAM ULU": {
+    "MAHAKAM ULU": "75779"
+  },
+  "BALIKPAPAN": {
+    "BALIKPAPAN": "76131"
+  },
+  "NORTH PENAJAM PASER": {
+    "NORTH PENAJAM PASER": "76285"
+  },
+  "PASER": {
+    "PASER": "76283"
+  },
+  "TARAKAN": {
+    "TARAKAN": "77116"
+  },
+  "TANA TIDUNG": {
+    "TANA TIDUNG": "77451"
+  },
+  "MALINAU": {
+    "MALINAU": "77574"
+  },
+  "BULUNGAN": {
+    "BULUNGAN": "77281"
+  },
+  "BERAU": {
+    "BERAU": "77381"
+  },
+  "NUNUKAN": {
+    "NUNUKAN": "77489"
+  },
+  "PONTIANAK": {
+    "PONTIANAK": "78241"
+  },
+  "KUBU RAYA": {
+    "KUBU RAYA": "78393"
+  },
+  "MEMPAWAH": {
+    "MEMPAWAH": "78915"
+  },
+  "SANGGAU": {
+    "SANGGAU": "78591"
+  },
+  "SINTANG": {
+    "SINTANG": "78694"
+  },
+  "KAPUAS HULU": {
+    "KAPUAS HULU": "78775"
+  },
+  "KETAPANG": {
+    "KETAPANG": "78877"
+  },
+  "NORTH KAYONG": {
+    "NORTH KAYONG": "78858"
+  },
+  "SINGKAWANG": {
+    "SINGKAWANG": "79251"
+  },
+  "SAMBAS": {
+    "SAMBAS": "79469"
+  },
+  "BENGKAYANG": {
+    "BENGKAYANG": "79288"
+  },
+  "LANDAK": {
+    "LANDAK": "79367"
+  },
+  "SEKADAU": {
+    "SEKADAU": "79588"
+  },
+  "MELAWI": {
+    "MELAWI": "79682"
+  },
+  "DENPASAR": {
+    "DENPASAR": "80232"
+  },
+  "BADUNG": {
+    "BADUNG": "80363"
+  },
+  "GIANYAR": {
+    "GIANYAR": "80582"
+  },
+  "BANGLI": {
+    "BANGLI": "80671"
+  },
+  "KLUNGKUNG": {
+    "KLUNGKUNG": "80771"
+  },
+  "KARANGASEM": {
+    "KARANGASEM": "80871"
+  },
+  "BULELENG": {
+    "BULELENG": "81173"
+  },
+  "TABANAN": {
+    "TABANAN": "82191"
+  },
+  "JEMBRANA": {
+    "JEMBRANA": "82262"
+  },
+  "MATARAM": {
+    "MATARAM": "83238"
+  },
+  "NORTH LOMBOK": {
+    "NORTH LOMBOK": "83356"
+  },
+  "WEST LOMBOK": {
+    "WEST LOMBOK": "83371"
+  },
+  "CENTRAL LOMBOK": {
+    "CENTRAL LOMBOK": "83581"
+  },
+  "EAST LOMBOK": {
+    "EAST LOMBOK": "83674"
+  },
+  "BIMA": {
+    "BIMA": "84191"
+  },
+  "DOMPU": {
+    "DOMPU": "84272"
+  },
+  "SUMBAWA": {
+    "SUMBAWA": "84388"
+  },
+  "WEST SUMBAWA": {
+    "WEST SUMBAWA": "84459"
+  },
+  "KUPANG": {
+    "KUPANG": "85390"
+  },
+  "SABU RAIJUA": {
+    "SABU RAIJUA": "85396"
+  },
+  "SOUTH TIMOR TENGAH": {
+    "SOUTH TIMOR TENGAH": "85587"
+  },
+  "NORTH TIMOR TENGAH": {
+    "NORTH TIMOR TENGAH": "85684"
+  },
+  "BELU": {
+    "BELU": "85773"
+  },
+  "MALAKA": {
+    "MALAKA": "85775"
+  },
+  "ALOR": {
+    "ALOR": "85884"
+  },
+  "ROTE NDAO": {
+    "ROTE NDAO": "85983"
+  },
+  "SIKKA": {
+    "SIKKA": "86185"
+  },
+  "ENDE": {
+    "ENDE": "86382"
+  },
+  "EAST FLORES": {
+    "EAST FLORES": "86273"
+  },
+  "NGADA": {
+    "NGADA": "86466"
+  },
+  "NAGEKEO": {
+    "NAGEKEO": "86472"
+  },
+  "MANGGARAI": {
+    "MANGGARAI": "86594"
+  },
+  "EAST MANGGARAI": {
+    "EAST MANGGARAI": "86585"
+  },
+  "LEMBATA": {
+    "LEMBATA": "86692"
+  },
+  "WEST MANGGARAI": {
+    "WEST MANGGARAI": "86763"
+  },
+  "EAST SUMBA": {
+    "EAST SUMBA": "87183"
+  },
+  "WEST SUMBA": {
+    "WEST SUMBA": "87284"
+  },
+  "SOUTHWEST SUMBA": {
+    "SOUTHWEST SUMBA": "87264"
+  },
+  "CENTRAL SUMBA": {
+    "CENTRAL SUMBA": "87283"
+  },
+  "MAKASSAR": {
+    "MAKASSAR": "90241"
+  },
+  "BONE": {
+    "BONE": "92781"
+  },
+  "GOWA": {
+    "GOWA": "92179"
+  },
+  "MAROS": {
+    "MAROS": "90565"
+  },
+  "PANGKAJENE ISLANDS": {
+    "PANGKAJENE ISLANDS": "90673"
+  },
+  "BARRU": {
+    "BARRU": "90763"
+  },
+  "SOPPENG": {
+    "SOPPENG": "90871"
+  },
+  "WAJO": {
+    "WAJO": "90993"
+  },
+  "PAREPARE": {
+    "PAREPARE": "91131"
+  },
+  "PINRANG": {
+    "PINRANG": "91273"
+  },
+  "POLEWALI MANDAR": {
+    "POLEWALI MANDAR": "91359"
+  },
+  "MAMASA": {
+    "MAMASA": "91376"
+  },
+  "MAJENE": {
+    "MAJENE": "91455"
+  },
+  "CENTRAL MAMUJU": {
+    "CENTRAL MAMUJU": "91464"
+  },
+  "MAMUJU": {
+    "MAMUJU": "91565"
+  },
+  "NORTH MAMUJU": {
+    "NORTH MAMUJU": "91591"
+  },
+  "SIDENRENG RAPPANG": {
+    "SIDENRENG RAPPANG": "91691"
+  },
+  "ENREKANG": {
+    "ENREKANG": "91761"
+  },
+  "TANA TORAJA": {
+    "TANA TORAJA": "91896"
+  },
+  "NORTH TORAJA": {
+    "NORTH TORAJA": "91857"
+  },
+  "PALOPO": {
+    "PALOPO": "91958"
+  },
+  "LUWU": {
+    "LUWU": "91999"
+  },
+  "TAKALAR": {
+    "TAKALAR": "92261"
+  },
+  "JENEPONTO": {
+    "JENEPONTO": "92371"
+  },
+  "BANTAENG": {
+    "BANTAENG": "92462"
+  },
+  "BULUKUMBA": {
+    "BULUKUMBA": "92574"
+  },
+  "SINJAI": {
+    "SINJAI": "92681"
+  },
+  "SELAYAR ISLANDS": {
+    "SELAYAR ISLANDS": "92863"
+  },
+  "NORTH LUWU": {
+    "NORTH LUWU": "92967"
+  },
+  "EAST LUWU": {
+    "EAST LUWU": "92985"
+  },
+  "KENDARI": {
+    "KENDARI": "93234"
+  },
+  "NORTH KONAWE": {
+    "NORTH KONAWE": "93359"
+  },
+  "KONAWE ISLANDS": {
+    "KONAWE ISLANDS": "93398"
+  },
+  "KONAWE": {
+    "KONAWE": "93472"
+  },
+  "KOLAKA": {
+    "KOLAKA": "93566"
+  },
+  "EAST KOLAKA": {
+    "EAST KOLAKA": "93582"
+  },
+  "MUNA": {
+    "MUNA": "93685"
+  },
+  "WEST MUNA": {
+    "WEST MUNA": "93658"
+  },
+  "NORTH BUTON": {
+    "NORTH BUTON": "93675"
+  },
+  "BAU-BAU": {
+    "BAU-BAU": "93733"
+  },
+  "SOUTH BUTON": {
+    "SOUTH BUTON": "93747"
+  },
+  "BUTON": {
+    "BUTON": "93758"
+  },
+  "CENTRAL BUTON": {
+    "CENTRAL BUTON": "93766"
+  },
+  "BOMBANA": {
+    "BOMBANA": "93789"
+  },
+  "WAKATOBI": {
+    "WAKATOBI": "93797"
+  },
+  "SOUTH KONAWE": {
+    "SOUTH KONAWE": "93895"
+  },
+  "NORTH KOLAKA": {
+    "NORTH KOLAKA": "93963"
+  },
+  "PALU": {
+    "PALU": "94231"
+  },
+  "DONGGALA": {
+    "DONGGALA": "94359"
+  },
+  "SIGI": {
+    "SIGI": "94374"
+  },
+  "PARIGI MOUTONG": {
+    "PARIGI MOUTONG": "94483"
+  },
+  "TOLI-TOLI": {
+    "TOLI-TOLI": "94562"
+  },
+  "BUOL": {
+    "BUOL": "94574"
+  },
+  "POSO": {
+    "POSO": "94667"
+  },
+  "TOJO UNA-UNA": {
+    "TOJO UNA-UNA": "94694"
+  },
+  "BANGGAI": {
+    "BANGGAI": "94775"
+  },
+  "BANGGAI ISLANDS": {
+    "BANGGAI ISLANDS": "94889"
+  },
+  "BANGGAI LAUT": {
+    "BANGGAI LAUT": "94896"
+  },
+  "NORTH MOROWALI": {
+    "NORTH MOROWALI": "94972"
+  },
+  "MOROWALI": {
+    "MOROWALI": "94981"
+  },
+  "MANADO": {
+    "MANADO": "95249"
+  },
+  "SOUTH MINAHASA": {
+    "SOUTH MINAHASA": "95959"
+  },
+  "NORTH MINAHASA": {
+    "NORTH MINAHASA": "95379"
+  },
+  "TOMOHON": {
+    "TOMOHON": "95446"
+  },
+  "BITUNG": {
+    "BITUNG": "95551"
+  },
+  "MINAHASA": {
+    "MINAHASA": "95699"
+  },
+  "KOTAMOBAGU": {
+    "KOTAMOBAGU": "95717"
+  },
+  "BOLAANG MONGONDOW": {
+    "BOLAANG MONGONDOW": "95755"
+  },
+  "NORTH BOLAANG MONGONDOW": {
+    "NORTH BOLAANG MONGONDOW": "95767"
+  },
+  "SOUTH BOLAANG MONGONDOW": {
+    "SOUTH BOLAANG MONGONDOW": "95779"
+  },
+  "EAST BOLAANG MONGONDOW": {
+    "EAST BOLAANG MONGONDOW": "95786"
+  },
+  "SANGIHE ISLANDS": {
+    "SANGIHE ISLANDS": "95859"
+  },
+  "SIAU TAGULANDANG BIARO (SITARO) ISLAND": {
+    "SIAU TAGULANDANG BIARO (SITARO) ISLAND": "95869"
+  },
+  "TALAUD ISLANDS": {
+    "TALAUD ISLANDS": "95889"
+  },
+  "SOUTHEAST MINAHASA": {
+    "SOUTHEAST MINAHASA": "95999"
+  },
+  "GORONTALO": {
+    "GORONTALO": "96246"
+  },
+  "BOALEMO": {
+    "BOALEMO": "96267"
+  },
+  "POHUWATO": {
+    "POHUWATO": "96469"
+  },
+  "NORTH GORONTALO": {
+    "NORTH GORONTALO": "96526"
+  },
+  "BONE BOLANGO": {
+    "BONE BOLANGO": "96574"
+  },
+  "AMBON": {
+    "AMBON": "97233"
+  },
+  "SOUTHWEST MALUKU": {
+    "SOUTHWEST MALUKU": "97654"
+  },
+  "WEST MALUKU TENGGARA": {
+    "WEST MALUKU TENGGARA": "97481"
+  },
+  "CENTRAL MALUKU": {
+    "CENTRAL MALUKU": "97586"
+  },
+  "EAST SERAM": {
+    "EAST SERAM": "97599"
+  },
+  "SOUTH BURU": {
+    "SOUTH BURU": "97546"
+  },
+  "WEST SERAM": {
+    "WEST SERAM": "97569"
+  },
+  "BURU": {
+    "BURU": "97579"
+  },
+  "TUAL": {
+    "TUAL": "97615"
+  },
+  "SOUTHEAST MALUKU": {
+    "SOUTHEAST MALUKU": "97635"
+  },
+  "ARU ISLANDS": {
+    "ARU ISLANDS": "97669"
+  },
+  "TERNATE": {
+    "TERNATE": "97747"
+  },
+  "WEST HALMAHERA": {
+    "WEST HALMAHERA": "97758"
+  },
+  "NORTH HALMAHERA": {
+    "NORTH HALMAHERA": "97769"
+  },
+  "MOROTAI ISLAND": {
+    "MOROTAI ISLAND": "97773"
+  },
+  "SOUTH HALMAHERA": {
+    "SOUTH HALMAHERA": "97792"
+  },
+  "SULA ISLANDS": {
+    "SULA ISLANDS": "97799"
+  },
+  "TALIABU ISLAND": {
+    "TALIABU ISLAND": "97794"
+  },
+  "TIDORE ISLANDS": {
+    "TIDORE ISLANDS": "97827"
+  },
+  "CENTRAL HALMAHERA": {
+    "CENTRAL HALMAHERA": "97859"
+  },
+  "EAST HALMAHERA": {
+    "EAST HALMAHERA": "97869"
+  },
+  "FAKFAK": {
+    "FAKFAK": "98033"
+  },
+  "KAIMANA": {
+    "KAIMANA": "98123"
+  },
+  "TELUK BINTUNI": {
+    "TELUK BINTUNI": "98165"
+  },
+  "SOUTH SORONG": {
+    "SOUTH SORONG": "98233"
+  },
+  "MAYBRAT": {
+    "MAYBRAT": "98277"
+  },
+  "MANOKWARI": {
+    "MANOKWARI": "98319"
+  },
+  "SOUTH MANOKWARI": {
+    "SOUTH MANOKWARI": "98326"
+  },
+  "TELUK WONDAMA": {
+    "TELUK WONDAMA": "98347"
+  },
+  "PEGUNUNGAN ARFAK": {
+    "PEGUNUNGAN ARFAK": "98359"
+  },
+  "TAMBRAUW": {
+    "TAMBRAUW": "98396"
+  },
+  "SORONG": {
+    "SORONG": "98459"
+  },
+  "RAJA AMPAT": {
+    "RAJA AMPAT": "98495"
+  },
+  "BIAK NUMFOR": {
+    "BIAK NUMFOR": "98565"
+  },
+  "SUPIORI": {
+    "SUPIORI": "98582"
+  },
+  "YAPEN ISLANDS": {
+    "YAPEN ISLANDS": "98655"
+  },
+  "WAROPEN": {
+    "WAROPEN": "98676"
+  },
+  "MAMBERAMO RAYA": {
+    "MAMBERAMO RAYA": "98695"
+  },
+  "PANIAI": {
+    "PANIAI": "98743"
+  },
+  "DEIYAI": {
+    "DEIYAI": "98771"
+  },
+  "INTAN JAYA": {
+    "INTAN JAYA": "98794"
+  },
+  "NABIRE": {
+    "NABIRE": "98864"
+  },
+  "DOGIYAI": {
+    "DOGIYAI": "98885"
+  },
+  "PUNCAK JAYA": {
+    "PUNCAK JAYA": "98946"
+  },
+  "PUNCAK": {
+    "PUNCAK": "98982"
+  },
+  "TOLIKARA": {
+    "TOLIKARA": "99064"
+  },
+  "CENTRAL MAMBERAMO": {
+    "CENTRAL MAMBERAMO": "99075"
+  },
+  "YALIMO": {
+    "YALIMO": "99085"
+  },
+  "JAYAPURA": {
+    "JAYAPURA": "99368"
+  },
+  "SARMI": {
+    "SARMI": "99382"
+  },
+  "PEGUNUNGAN BINTANG": {
+    "PEGUNUNGAN BINTANG": "99454"
+  },
+  "KEEROM": {
+    "KEEROM": "99473"
+  },
+  "JAYAWIJAYA": {
+    "JAYAWIJAYA": "99555"
+  },
+  "LANNY JAYA": {
+    "LANNY JAYA": "99599"
+  },
+  "MERAUKE": {
+    "MERAUKE": "99648"
+  },
+  "BOVEN DIGOEL": {
+    "BOVEN DIGOEL": "99692"
+  },
+  "YAHUKIMO": {
+    "YAHUKIMO": "99765"
+  },
+  "ASMAT": {
+    "ASMAT": "99792"
+  },
+  "MAPPI": {
+    "MAPPI": "99881"
+  },
+  "NDUGA": {
+    "NDUGA": "99942"
+  },
+  "MIMIKA": {
+    "MIMIKA": "99976"
+  }
+};
+
+// City to Postcode mapping
+const CITY_POSTCODE_MAP = {
+  "CENTRAL JAKARTA": "10110",
+  "WEST JAKARTA": "11110",
+  "SOUTH JAKARTA": "12110",
+  "EAST JAKARTA": "13110",
+  "NORTH JAKARTA": "14110",
+  "SERIBU ISLANDS": "14510",
+  "TANGERANG": "15111",
+  "SOUTH TANGERANG": "15220",
+  "BOGOR": "16110",
+  "DEPOK": "16411",
+  "BEKASI": "17111",
+  "MEDAN": "20111",
+  "DELI SERDANG": "20351",
+  "TEBING TINGGI": "20611",
+  "BINJAI": "20711",
+  "LANGKAT": "20761",
+  "SERDANG BEDAGAI": "20982",
+  "PEMATANG SIANTAR": "21111",
+  "SIMALUNGUN": "21151",
+  "ASAHAN": "21211",
+  "BATU BARA": "21252",
+  "TANJUNG BALAI": "21311",
+  "LABUHANBATU": "21411",
+  "NORTH LABUHANBATU": "21452",
+  "SOUTH LABUHANBATU": "21461",
+  "KARO": "22111",
+  "DAIRI": "22211",
+  "PAKPAK BHARAT": "22270",
+  "TOBA SAMOSIR": "22312",
+  "SAMOSIR": "22390",
+  "NORTH TAPANULI": "22411",
+  "HUMBANG HASUNDUTAN": "22451",
+  "SIBOLGA": "22511",
+  "CENTRAL TAPANULI": "22560",
+  "PADANG SIDEMPUAN": "22700",
+  "SOUTH TAPANULI": "22732",
+  "NORTH PADANG LAWAS": "22740",
+  "PADANG LAWAS": "22742",
+  "GUNUNGSITOLI": "22810",
+  "WEST NIAS": "22812",
+  "NORTH NIAS": "22814",
+  "NIAS": "22815",
+  "SOUTH NIAS": "22864",
+  "MANDAILING NATAL": "22911",
+  "BANDA ACEH": "23111",
+  "ACEH BESAR": "23350",
+  "SABANG": "23517",
+  "WEST ACEH": "23615",
+  "ACEH JAYA": "23653",
+  "NAGAN RAYA": "23660",
+  "SOUTH ACEH": "23711",
+  "SOUTHWEST ACEH": "23760",
+  "SIMEULUE": "23890",
+  "PIDIE": "24115",
+  "PIDIE JAYA": "24184",
+  "BIREUEN": "24250",
+  "NORTH ACEH": "24313",
+  "LHOKSEUMAWE": "24315",
+  "LANGSA": "24410",
+  "EAST ACEH": "24440",
+  "ACEH TAMIANG": "24470",
+  "CENTRAL ACEH": "24511",
+  "BENER MERIAH": "24553",
+  "GAYO LUES": "24650",
+  "SOUTHEAST ACEH": "24660",
+  "SUBULUSSALAM": "24779",
+  "ACEH SINGKIL": "24784",
+  "PADANG": "25111",
+  "MENTAWAI ISLANDS": "25390",
+  "PARIAMAN": "25511",
+  "PADANG PARIAMAN": "25552",
+  "SOUTH PESISIR": "25651",
+  "BUKITTINGGI": "26111",
+  "AGAM": "26151",
+  "PAYAKUMBUH": "26211",
+  "LIMA PULUH KOTA": "26250",
+  "PASAMAN": "26311",
+  "WEST PASAMAN": "26366",
+  "PADANG PANJANG": "27111",
+  "TANAH DATAR": "27151",
+  "SOLOK": "27311",
+  "SAWAH LUNTO": "27411",
+  "SIJUNJUNG": "27553",
+  "DHARMASRAYA": "27573",
+  "SOUTH SOLOK": "27773",
+  "PEKANBARU": "28111",
+  "PELALAWAN": "28352",
+  "KAMPAR": "28411",
+  "ROKAN HULU": "28550",
+  "SIAK": "28654",
+  "BENGKALIS": "28711",
+  "MERANTI ISLANDS": "28750",
+  "DUMAI": "28811",
+  "ROKAN HILIR": "28911",
+  "TANJUNG PINANG": "29111",
+  "BINTAN": "29132",
+  "INDRAGIRI HILIR": "29211",
+  "INDRAGIRI HULU": "29311",
+  "BATAM": "29411",
+  "KUANTAN SINGINGI": "29511",
+  "KARIMUN": "29660",
+  "NATUNA": "29775",
+  "ANAMBAS ISLANDS": "29790",
+  "LINGGA": "29870",
+  "PALEMBANG": "30111",
+  "OGAN KOMERING ILIR": "30617",
+  "OGAN ILIR": "30653",
+  "MUSI BANYUASIN": "30711",
+  "MUSI RAWAS": "30771",
+  "BANYUASIN": "30911",
+  "PRABUMULIH": "31111",
+  "MUARA ENIM": "31170",
+  "PENUKAL ABAB LEMATANG ILIR": "31211",
+  "LAHAT": "31350",
+  "EMPAT LAWANG": "31456",
+  "PAGAR ALAM": "31510",
+  "LUBUK LINGGAU": "31611",
+  "NORTH MUSI RAWAS": "31653",
+  "OGAN KOMERING ULU": "32111",
+  "EAST OGAN KOMERING ULU": "32184",
+  "SOUTH OGAN KOMERING ULU": "32211",
+  "PANGKAL PINANG": "33111",
+  "BANGKA": "33172",
+  "WEST BANGKA": "33311",
+  "BELITUNG": "33411",
+  "EAST BELITUNG": "33511",
+  "CENTRAL BANGKA": "33674",
+  "SOUTH BANGKA": "33777",
+  "METRO": "34111",
+  "CENTRAL LAMPUNG": "34152",
+  "EAST LAMPUNG": "34182",
+  "NORTH LAMPUNG": "34511",
+  "TULANG BAWANG": "34590",
+  "MESUJI": "34692",
+  "WAY KANAN": "34760",
+  "WEST TULANG BAWANG": "34783",
+  "WEST LAMPUNG": "34811",
+  "WEST PESISIR": "34874",
+  "BANDAR LAMPUNG": "35111",
+  "SOUTH LAMPUNG": "35352",
+  "PESAWARAN": "35353",
+  "PRINGSEWU": "35370",
+  "TANGGAMUS": "35374",
+  "JAMBI": "36111",
+  "MUARO JAMBI": "36361",
+  "WEST TANJUNG JABUNG": "36511",
+  "BATANG HARI": "36611",
+  "EAST TANJUNG JABUNG": "36751",
+  "SUNGAIPENUH": "37111",
+  "KERINCI": "37160",
+  "BUNGO": "37210",
+  "MERANGIN": "37311",
+  "SAROLANGUN": "37381",
+  "TEBO": "37551",
+  "BENGKULU": "38113",
+  "NORTH BENGKULU": "38325",
+  "CENTRAL BENGKULU": "38370",
+  "SOUTH BENGKULU": "38511",
+  "MUKO MUKO": "38711",
+  "SELUMA": "38873",
+  "KAUR": "38954",
+  "REJANG LEBONG": "39111",
+  "LEBONG": "39258",
+  "KEPAHIANG": "39370",
+  "BANDUNG": "40111",
+  "WEST BANDUNG": "40391",
+  "CIMAHI": "40511",
+  "PURWAKARTA": "41111",
+  "SUBANG": "41211",
+  "KARAWANG": "41311",
+  "SERANG": "42111",
+  "PANDEGLANG": "42211",
+  "LEBAK": "42311",
+  "CILEGON": "42411",
+  "SUKABUMI": "43111",
+  "CIANJUR": "43215",
+  "GARUT": "44111",
+  "CIREBON": "45111",
+  "INDRAMAYU": "45211",
+  "SUMEDANG": "45311",
+  "MAJALENGKA": "45411",
+  "KUNINGAN": "45511",
+  "TASIKMALAYA": "46111",
+  "CIAMIS": "46211",
+  "PANGANDARAN": "46267",
+  "BANJAR": "46311",
+  "SEMARANG": "50111",
+  "SALATIGA": "50711",
+  "PEKALONGAN": "51111",
+  "BATANG": "51211",
+  "KENDAL": "51311",
+  "TEGAL": "52111",
+  "BREBES": "52211",
+  "PEMALANG": "52311",
+  "BANYUMAS": "53111",
+  "CILACAP": "53211",
+  "PURBALINGGA": "53311",
+  "BANJARNEGARA": "53411",
+  "PURWOREJO": "54112",
+  "KEBUMEN": "54311",
+  "YOGYAKARTA": "55111",
+  "BANTUL": "55181",
+  "SLEMAN": "55264",
+  "KULON PROGO": "55651",
+  "GUNUNG KIDUL": "55811",
+  "MAGELANG": "56111",
+  "TEMANGGUNG": "56211",
+  "WONOSOBO": "56311",
+  "SURAKARTA": "57116",
+  "SUKOHARJO": "57161",
+  "KARANGANYAR": "57171",
+  "SRAGEN": "57211",
+  "BOYOLALI": "57311",
+  "KLATEN": "57411",
+  "WONOGIRI": "57611",
+  "GROBOGAN": "58111",
+  "BLORA": "58211",
+  "PATI": "59111",
+  "REMBANG": "59211",
+  "KUDUS": "59311",
+  "JEPARA": "59411",
+  "DEMAK": "59511",
+  "SURABAYA": "60111",
+  "GRESIK": "61111",
+  "SIDOARJO": "61212",
+  "MOJOKERTO": "61311",
+  "JOMBANG": "61411",
+  "BOJONEGORO": "62111",
+  "LAMONGAN": "62211",
+  "TUBAN": "62311",
+  "MADIUN": "63111",
+  "MAGETAN": "63137",
+  "NGAWI": "63211",
+  "PONOROGO": "63411",
+  "PACITAN": "63511",
+  "KEDIRI": "64111",
+  "NGANJUK": "64311",
+  "MALANG": "65111",
+  "BATU": "65311",
+  "BLITAR": "66113",
+  "TULUNGAGUNG": "66212",
+  "TRENGGALEK": "66311",
+  "PASURUAN": "67111",
+  "PROBOLINGGO": "67216",
+  "LUMAJANG": "67311",
+  "JEMBER": "68111",
+  "BONDOWOSO": "68211",
+  "SITUBONDO": "68311",
+  "BANYUWANGI": "68411",
+  "BANGKALAN": "69112",
+  "SAMPANG": "69212",
+  "PAMEKASAN": "69311",
+  "SUMENEP": "69412",
+  "BANJARMASIN": "70111",
+  "BARITO KUALA": "70511",
+  "BANJARBARU": "70713",
+  "TANAH LAUT": "70812",
+  "TAPIN": "71111",
+  "SOUTH HULU SUNGAI": "71211",
+  "CENTRAL HULU SUNGAI": "71311",
+  "NORTH HULU SUNGAI": "71412",
+  "TABALONG": "71512",
+  "BALANGAN": "71611",
+  "KOTABARU": "72111",
+  "TANAH BUMBU": "72210",
+  "PALANGKA RAYA": "73111",
+  "KAPUAS": "73511",
+  "EAST BARITO": "73612",
+  "SOUTH BARITO": "73711",
+  "NORTH BARITO": "73811",
+  "MURUNG RAYA": "73911",
+  "WEST KOTAWARINGIN": "74111",
+  "LAMANDAU": "74162",
+  "SUKAMARA": "74170",
+  "SERUYAN": "74213",
+  "EAST KOTAWARINGIN": "74311",
+  "KATINGAN": "74413",
+  "GUNUNG MAS": "74511",
+  "PULANG PISAU": "74811",
+  "SAMARINDA": "75111",
+  "KUTAI KARTANEGARA": "75251",
+  "BONTANG": "75311",
+  "EAST KUTAI": "75554",
+  "WEST KUTAI": "75576",
+  "MAHAKAM ULU": "75767",
+  "BALIKPAPAN": "76111",
+  "NORTH PENAJAM PASER": "76141",
+  "PASER": "76250",
+  "TARAKAN": "77111",
+  "TANA TIDUNG": "77151",
+  "MALINAU": "77155",
+  "BULUNGAN": "77211",
+  "BERAU": "77311",
+  "NUNUKAN": "77450",
+  "PONTIANAK": "78111",
+  "KUBU RAYA": "78234",
+  "MEMPAWAH": "78351",
+  "SANGGAU": "78511",
+  "SINTANG": "78611",
+  "KAPUAS HULU": "78714",
+  "KETAPANG": "78810",
+  "NORTH KAYONG": "78852",
+  "SINGKAWANG": "79111",
+  "SAMBAS": "79154",
+  "BENGKAYANG": "79181",
+  "LANDAK": "79354",
+  "SEKADAU": "79511",
+  "MELAWI": "79670",
+  "DENPASAR": "80111",
+  "BADUNG": "80351",
+  "GIANYAR": "80511",
+  "BANGLI": "80611",
+  "KLUNGKUNG": "80711",
+  "KARANGASEM": "80811",
+  "BULELENG": "81111",
+  "TABANAN": "82111",
+  "JEMBRANA": "82211",
+  "MATARAM": "83115",
+  "NORTH LOMBOK": "83350",
+  "WEST LOMBOK": "83351",
+  "CENTRAL LOMBOK": "83511",
+  "EAST LOMBOK": "83611",
+  "BIMA": "84111",
+  "DOMPU": "84211",
+  "SUMBAWA": "84310",
+  "WEST SUMBAWA": "84452",
+  "KUPANG": "85111",
+  "SABU RAIJUA": "85391",
+  "SOUTH TIMOR TENGAH": "85511",
+  "NORTH TIMOR TENGAH": "85611",
+  "BELU": "85711",
+  "MALAKA": "85718",
+  "ALOR": "85811",
+  "ROTE NDAO": "85912",
+  "SIKKA": "86110",
+  "ENDE": "86111",
+  "EAST FLORES": "86211",
+  "NGADA": "86411",
+  "NAGEKEO": "86462",
+  "MANGGARAI": "86511",
+  "EAST MANGGARAI": "86570",
+  "LEMBATA": "86616",
+  "WEST MANGGARAI": "86750",
+  "EAST SUMBA": "87111",
+  "WEST SUMBA": "87211",
+  "SOUTHWEST SUMBA": "87250",
+  "CENTRAL SUMBA": "87258",
+  "MAKASSAR": "90111",
+  "BONE": "90225",
+  "GOWA": "90225",
+  "MAROS": "90511",
+  "PANGKAJENE ISLANDS": "90566",
+  "BARRU": "90711",
+  "SOPPENG": "90811",
+  "WAJO": "90911",
+  "PAREPARE": "91111",
+  "PINRANG": "91211",
+  "POLEWALI MANDAR": "91311",
+  "MAMASA": "91360",
+  "MAJENE": "91411",
+  "CENTRAL MAMUJU": "91460",
+  "MAMUJU": "91511",
+  "NORTH MAMUJU": "91570",
+  "SIDENRENG RAPPANG": "91611",
+  "ENREKANG": "91711",
+  "TANA TORAJA": "91811",
+  "NORTH TORAJA": "91822",
+  "PALOPO": "91911",
+  "LUWU": "91921",
+  "TAKALAR": "92211",
+  "JENEPONTO": "92311",
+  "BANTAENG": "92411",
+  "BULUKUMBA": "92511",
+  "SINJAI": "92611",
+  "SELAYAR ISLANDS": "92811",
+  "NORTH LUWU": "92912",
+  "EAST LUWU": "92970",
+  "KENDARI": "93111",
+  "NORTH KONAWE": "93341",
+  "KONAWE ISLANDS": "93391",
+  "KONAWE": "93411",
+  "KOLAKA": "93511",
+  "EAST KOLAKA": "93570",
+  "MUNA": "93611",
+  "WEST MUNA": "93643",
+  "NORTH BUTON": "93670",
+  "BAU-BAU": "93711",
+  "SOUTH BUTON": "93741",
+  "BUTON": "93752",
+  "CENTRAL BUTON": "93760",
+  "BOMBANA": "93770",
+  "WAKATOBI": "93790",
+  "SOUTH KONAWE": "93810",
+  "NORTH KOLAKA": "93911",
+  "PALU": "94111",
+  "DONGGALA": "94341",
+  "SIGI": "94360",
+  "PARIGI MOUTONG": "94460",
+  "TOLI-TOLI": "94511",
+  "BUOL": "94563",
+  "POSO": "94611",
+  "TOJO UNA-UNA": "94680",
+  "BANGGAI": "94711",
+  "BANGGAI ISLANDS": "94714",
+  "BANGGAI LAUT": "94890",
+  "NORTH MOROWALI": "94963",
+  "MOROWALI": "94973",
+  "MANADO": "95111",
+  "SOUTH MINAHASA": "95351",
+  "NORTH MINAHASA": "95370",
+  "TOMOHON": "95411",
+  "BITUNG": "95511",
+  "MINAHASA": "95610",
+  "KOTAMOBAGU": "95711",
+  "BOLAANG MONGONDOW": "95731",
+  "NORTH BOLAANG MONGONDOW": "95762",
+  "SOUTH BOLAANG MONGONDOW": "95770",
+  "EAST BOLAANG MONGONDOW": "95780",
+  "SANGIHE ISLANDS": "95811",
+  "SIAU TAGULANDANG BIARO (SITARO) ISLAND": "95860",
+  "TALAUD ISLANDS": "95870",
+  "SOUTHEAST MINAHASA": "95981",
+  "GORONTALO": "96111",
+  "BOALEMO": "96260",
+  "POHUWATO": "96361",
+  "NORTH GORONTALO": "96512",
+  "BONE BOLANGO": "96541",
+  "AMBON": "97114",
+  "SOUTHWEST MALUKU": "97128",
+  "WEST MALUKU TENGGARA": "97461",
+  "CENTRAL MALUKU": "97510",
+  "EAST SERAM": "97521",
+  "SOUTH BURU": "97541",
+  "WEST SERAM": "97559",
+  "BURU": "97570",
+  "TUAL": "97611",
+  "SOUTHEAST MALUKU": "97621",
+  "ARU ISLANDS": "97660",
+  "TERNATE": "97711",
+  "WEST HALMAHERA": "97751",
+  "NORTH HALMAHERA": "97761",
+  "MOROTAI ISLAND": "97770",
+  "SOUTH HALMAHERA": "97780",
+  "SULA ISLANDS": "97793",
+  "TALIABU ISLAND": "97794",
+  "TIDORE ISLANDS": "97811",
+  "CENTRAL HALMAHERA": "97850",
+  "EAST HALMAHERA": "97860",
+  "FAKFAK": "98011",
+  "KAIMANA": "98111",
+  "TELUK BINTUNI": "98131",
+  "SOUTH SORONG": "98211",
+  "MAYBRAT": "98240",
+  "MANOKWARI": "98311",
+  "SOUTH MANOKWARI": "98321",
+  "TELUK WONDAMA": "98331",
+  "PEGUNUNGAN ARFAK": "98350",
+  "TAMBRAUW": "98361",
+  "SORONG": "98410",
+  "RAJA AMPAT": "98461",
+  "BIAK NUMFOR": "98511",
+  "SUPIORI": "98571",
+  "YAPEN ISLANDS": "98612",
+  "WAROPEN": "98661",
+  "MAMBERAMO RAYA": "98681",
+  "PANIAI": "98711",
+  "DEIYAI": "98751",
+  "INTAN JAYA": "98782",
+  "NABIRE": "98811",
+  "DOGIYAI": "98871",
+  "PUNCAK JAYA": "98911",
+  "PUNCAK": "98951",
+  "TOLIKARA": "99011",
+  "CENTRAL MAMBERAMO": "99071",
+  "YALIMO": "99081",
+  "JAYAPURA": "99111",
+  "SARMI": "99370",
+  "PEGUNUNGAN BINTANG": "99401",
+  "KEEROM": "99462",
+  "JAYAWIJAYA": "99501",
+  "LANNY JAYA": "99561",
+  "MERAUKE": "99604",
+  "BOVEN DIGOEL": "99651",
+  "YAHUKIMO": "99701",
+  "ASMAT": "99771",
+  "MAPPI": "99851",
+  "NDUGA": "99901",
+  "MIMIKA": "99951"
+};
+
+// Legacy postcode registry for backward compatibility
+export const POSTCODE_REGISTRY = {
+    // JAKARTA
+    "GAMBIR": "10110",
+    "TANAH ABANG": "10210",
+    "MENTENG": "10310",
+    "SENEN": "10410",
+    "CEMPAKA PUTIH": "10510",
+    "JOHAR BARU": "10530",
+    "KEMAYORAN": "10610",
+    "SAWAH BESAR": "10710",
+    "TAMAN SARI": "11110",
+    "TAMBORA": "11210",
+    "PALMERAH": "11410",
+    "GROGOL PETAMBURAN": "11440",
+    "KEBON JERUK": "11510",
+    "KEMBANGAN": "11610",
+    "CENGKARENG": "11710",
+    "KALIDERES": "11810",
+    "KEBAYORAN BARU": "12110",
+    "KEBAYORAN LAMA": "12210",
+    "PESANGGRAHAN": "12250",
+    "CILANDAK": "12410",
+    "PASAR MINGGU": "12510",
+    "JAGAKARSA": "12530",
+    "MAMPANG PRAPATAN": "12710",
+    "PANCORAN": "12740",
+    "TEBET": "12810",
+    "MENTENG DALAM": "12870",
+    "SETIABUDI": "12910",
+    "MATRAMAN": "13110",
+    "PULOGADUNG": "13210",
+    "JATINEGARA": { "JAKARTA TIMUR": "13310", "EAST JAKARTA": "13310", "TEGAL": "52473" },
+    "DUREN SAWIT": "13430",
+    "KRAMAT JATI": "13510",
+    "MAKASAR": "13560",
+    "PASAR REBO": "13710",
+    "CIRACAS": "13720",
+    "CIPAYUNG": { "JAKARTA TIMUR": "13840", "EAST JAKARTA": "13840", "DEPOK": "16436" },
+    "CAKUNG": "13910",
+    "CILINCING": "14110",
+    "KOJA": "14210",
+    "KELAPA GADING": "14240",
+    "TANJUNG PRIOK": "14360",
+    "PADEMANGAN": "14410",
+    "PENJARINGAN": "14440",
+    "SOUTH SERIBU ISLANDS": "14510",
+    "NORTH SERIBU ISLANDS": "14530",
+    // JAWA TIMUR
+    "SURABAYA": "60111",
+    "SAWAHAN": "60251",
+    "SIDOARJO": "61211",
+    "SEDATI": "61253",
+    "KWANGSAN": "61253"
+};
+
+/**
+ * Normalizes a location name for mapping.
+ */
+function normalize(val) {
+    if (!val) return "";
+    let clean = String(val).toUpperCase().trim();
+    
+    if (clean.startsWith('{')) {
+        try {
+            const obj = JSON.parse(clean);
+            if (obj.city) clean = obj.city.toUpperCase().trim();
+            else if (obj.name) clean = obj.name.toUpperCase().trim();
+        } catch (e) {}
+    }
+
+    return clean
+        .replace(/^(KOTA|KABUPATEN|KAB|PROVINSI|KECAMATAN|KEC|KELURAHAN|KEL)\s+/g, "")
+        .replace(/\s+(CITY|REGENCY|DISTRICT|VILLAGE)$/g, "")
+        .replace(/[^A-Z0-9\s]/g, "")
+        .trim();
+}
+
+/**
+ * Get postcode by searching in order:
+ * 1. KECAMATAN (District) with City - from postcode.txt data
+ * 2. KECAMATAN (District) without City - from postcode.txt data
+ * 3. KELURAHAN (Village) with City - from postcode.txt data  
+ * 4. KELURAHAN (Village) without City - from postcode.txt data
+ * 5. CITY - from postcode.txt data
+ * 6. Legacy POSTCODE_REGISTRY
+ * 
+ * @param kecamatan - Kecamatan/District name
+ * @param kelurahan - Kelurahan/Village name (optional)
+ * @param city - City/Kabupaten name (optional)
+ * @returns Postcode string or null
+ */
+export function getPostcode(kecamatan, kelurahan, city) {
+    const kec = kecamatan ? normalize(kecamatan) : "";
+    const kel = kelurahan ? normalize(kelurahan) : "";
+    const cty = city ? normalize(city) : "";
+    
+    console.log('[DEBUG getPostcode] 输入参数:', { kecamatan, kelurahan, city, kec, kel, cty });
+    
+    // 1. Try KECAMATAN with City (from postcode.txt)
+    if (kec && cty) {
+        if (KECAMATAN_POSTCODE_MAP[kec] && KECAMATAN_POSTCODE_MAP[kec][cty]) {
+            console.log('[DEBUG getPostcode] 从KECAMATAN+城市找到:', KECAMATAN_POSTCODE_MAP[kec][cty]);
+            return KECAMATAN_POSTCODE_MAP[kec][cty];
+        }
+        // Try normalized city
+        const normalizedCity = cty.replace(/[^A-Z0-9]/g, '');
+        if (KECAMATAN_POSTCODE_MAP[kec]) {
+            for (const [cityKey, code] of Object.entries(KECAMATAN_POSTCODE_MAP[kec])) {
+                if (cityKey.replace(/[^A-Z0-9]/g, '') === normalizedCity) {
+                    console.log('[DEBUG getPostcode] KECAMATAN+城市模糊匹配:', { cityKey, code });
+                    return code;
+                }
+            }
+        }
+    }
+    
+    // 2. Try KECAMATAN without City (from postcode.txt)
+    if (kec) {
+        if (KECAMATAN_POSTCODE_MAP[kec]) {
+            // 如果只有一个城市，直接返回
+            const cities = Object.keys(KECAMATAN_POSTCODE_MAP[kec]);
+            if (cities.length === 1) {
+                const code = KECAMATAN_POSTCODE_MAP[kec][cities[0]];
+                console.log('[DEBUG getPostcode] 从KECAMATAN（唯一城市）找到:', code);
+                return code;
+            }
+            // 尝试模糊匹配地区
+            const normalizedKec = kec.replace(/[^A-Z0-9]/g, '');
+            for (const [distKey, cityMap] of Object.entries(KECAMATAN_POSTCODE_MAP)) {
+                if (distKey.replace(/[^A-Z0-9]/g, '') === normalizedKec) {
+                    // 优先选择有城市匹配的
+                    if (cty) {
+                        for (const [cityKey, code] of Object.entries(cityMap)) {
+                            if (cityKey.includes(cty) || cty.includes(cityKey)) {
+                                console.log('[DEBUG getPostcode] KECAMATAN模糊匹配+城市:', { distKey, cityKey, code });
+                                return code;
+                            }
+                        }
+                    }
+                    // 否则返回第一个
+                    const firstCity = Object.keys(cityMap)[0];
+                    const code = cityMap[firstCity];
+                    console.log('[DEBUG getPostcode] KECAMATAN模糊匹配（默认城市）:', { distKey, firstCity, code });
+                    return code;
+                }
+            }
+        }
+    }
+    
+    // 3. Try KELURAHAN with City (from postcode.txt)
+    if (kel && cty) {
+        if (KELURAHAN_POSTCODE_MAP[kel] && KELURAHAN_POSTCODE_MAP[kel][cty]) {
+            console.log('[DEBUG getPostcode] 从KELURAHAN+城市找到:', KELURAHAN_POSTCODE_MAP[kel][cty]);
+            return KELURAHAN_POSTCODE_MAP[kel][cty];
+        }
+    }
+    
+    // 4. Try KELURAHAN without City (from postcode.txt)
+    if (kel) {
+        if (KELURAHAN_POSTCODE_MAP[kel]) {
+            // 如果只有一个城市，直接返回
+            const cities = Object.keys(KELURAHAN_POSTCODE_MAP[kel]);
+            if (cities.length === 1) {
+                const code = KELURAHAN_POSTCODE_MAP[kel][cities[0]];
+                console.log('[DEBUG getPostcode] 从KELURAHAN（唯一城市）找到:', code);
+                return code;
+            }
+            // 尝试模糊匹配
+            const normalizedKel = kel.replace(/[^A-Z0-9]/g, '');
+            for (const [kelKey, cityMap] of Object.entries(KELURAHAN_POSTCODE_MAP)) {
+                if (kelKey.replace(/[^A-Z0-9]/g, '') === normalizedKel) {
+                    // 优先选择有城市匹配的
+                    if (cty) {
+                        for (const [cityKey, code] of Object.entries(cityMap)) {
+                            if (cityKey.includes(cty) || cty.includes(cityKey)) {
+                                console.log('[DEBUG getPostcode] KELURAHAN模糊匹配+城市:', { kelKey, cityKey, code });
+                                return code;
+                            }
+                        }
+                    }
+                    // 否则返回第一个
+                    const firstCity = Object.keys(cityMap)[0];
+                    const code = cityMap[firstCity];
+                    console.log('[DEBUG getPostcode] KELURAHAN模糊匹配（默认城市）:', { kelKey, firstCity, code });
+                    return code;
+                }
+            }
+        }
+    }
+    
+    // 5. Try CITY (from postcode.txt)
+    if (cty) {
+        if (CITY_POSTCODE_MAP[cty]) {
+            console.log('[DEBUG getPostcode] 从CITY找到:', CITY_POSTCODE_MAP[cty]);
+            return CITY_POSTCODE_MAP[cty];
+        }
+        // Try normalized city
+        const normalizedCity = cty.replace(/[^A-Z0-9]/g, '');
+        for (const [cityKey, code] of Object.entries(CITY_POSTCODE_MAP)) {
+            if (cityKey.replace(/[^A-Z0-9]/g, '') === normalizedCity) {
+                console.log('[DEBUG getPostcode] CITY模糊匹配:', { cityKey, code });
+                return code;
+            }
+        }
+    }
+    
+    // 6. Fallback to legacy POSTCODE_REGISTRY
+    console.log('[DEBUG getPostcode] 使用Legacy查找');
+    const district = kec || kel || "";
+    if (!district) return null;
+    
+    const entry = POSTCODE_REGISTRY[district];
+    if (entry) {
+        if (typeof entry === 'string') {
+            console.log('[DEBUG getPostcode] Legacy找到:', entry);
+            return entry;
+        }
+        if (cty && entry[cty]) {
+            console.log('[DEBUG getPostcode] Legacy城市匹配:', entry[cty]);
+            return entry[cty];
+        }
+        const fallback = Object.values(entry)[0];
+        console.log('[DEBUG getPostcode] Legacy默认:', fallback);
+        return fallback;
+    }
+    
+    // 7. Fuzzy match in legacy registry
+    for (const [key, value] of Object.entries(POSTCODE_REGISTRY)) {
+        if (key.includes(district) || district.includes(key)) {
+            console.log('[DEBUG getPostcode] Legacy模糊匹配:', { key, value });
+            if (typeof value === 'string') return value;
+            if (cty && value[cty]) return value[cty];
+            return Object.values(value)[0];
+        }
+    }
+    
+    console.log('[DEBUG getPostcode] 未找到匹配');
+    return null;
+}
