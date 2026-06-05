@@ -1,8 +1,8 @@
 import { 
   GENDER_MAP, MARITAL_MAP, EDUCATION_MAP, JOB_MAP, 
-  INCOME_SOURCE_MAP, INCOME_BRACKET_MAP, OCCUPATION_TO_SECTOR_MAP, getCityCode 
+  INCOME_SOURCE_MAP, INCOME_BRACKET_MAP, OCCUPATION_TO_SECTOR_MAP, getCityCode, CITY_MAP 
 } from './mappings';
-import { getPostcode } from './src/postcodes';
+import { getPostcode, CITY_CODE_TO_POSTCODE_MAP } from './src/postcodes';
 
 export function cleanNum(val: any): string {
   if (val === undefined || val === null) return "";
@@ -159,7 +159,39 @@ export function applyLogic(val: any, type: string | undefined, row?: any): strin
       const kelurahan = row?.['Kelurahan'] || row?.['KELURAHAN'] || row?.['村/社区'] || row?.['村'] || "";
       const city = row?.['Kode Kabupaten atau Kota'] || row?.['KODE KABUPATEN/KOTA'] || row?.['KABUPATEN/KOTA'] || row?.['CITY'] || row?.['KABUPATEN'] || row?.['KOTA'] || row?.['KODEKABUPATENKOTA'] || row?.['市/县代码'] || "";
       console.log('[DEBUG zip_code] 查找参数:', { kecamatan, kelurahan, city });
-      const result = getPostcode(kecamatan, kelurahan, city);
+      let result = getPostcode(kecamatan, kelurahan, city);
+      
+      // 如果 getPostcode 没有找到，尝试直接从 CITY_CODE_TO_POSTCODE_MAP 查找
+      if (!result && city) {
+        let cleanCode = String(city).replace(/\.0+$/, '');
+        
+        // 如果是数字格式的城市代码，直接查找
+        if (/^\d{4}$/.test(cleanCode) && CITY_CODE_TO_POSTCODE_MAP[cleanCode]) {
+          result = CITY_CODE_TO_POSTCODE_MAP[cleanCode];
+          console.log('[DEBUG zip_code] 从 CITY_CODE_TO_POSTCODE_MAP 找到:', { city, cleanCode, result });
+        } else {
+          // 如果是城市名称，先转换为城市代码
+          const normalizedCity = String(city).toUpperCase().trim();
+          let cityCode = CITY_MAP[normalizedCity];
+          
+          // 如果没有直接匹配，尝试模糊匹配
+          if (!cityCode) {
+            for (const [cityName, code] of Object.entries(CITY_MAP)) {
+              if (cityName.includes(normalizedCity) || normalizedCity.includes(cityName)) {
+                cityCode = code;
+                break;
+              }
+            }
+          }
+          
+          // 如果找到了城市代码，查找邮编
+          if (cityCode && CITY_CODE_TO_POSTCODE_MAP[cityCode]) {
+            result = CITY_CODE_TO_POSTCODE_MAP[cityCode];
+            console.log('[DEBUG zip_code] 城市名称转换为代码后找到:', { city, cityCode, result });
+          }
+        }
+      }
+      
       console.log('[DEBUG zip_code] 查找结果:', result);
       // 如果找不到，且原始值是5位数字，则使用原始值
       if (!result && String(val).length === 5 && /^\d{5}$/.test(String(val))) {
