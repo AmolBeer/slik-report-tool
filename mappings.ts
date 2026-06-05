@@ -166,6 +166,7 @@ export const CITY_MAP: Record<string, string> = {
     "JAKARTA TIMUR": "0395", "JAKARTA UTARA": "0392", "KEPULAUAN SERIBU": "0396",
     // GORONTALO
     "GORONTALO": "6301", "BONE BOLANGO": "6303", "GORONTALO UTARA": "6305", "POHUWATO": "6304",
+    "BUALEMO": "6302",
     // JAMBI
     "JAMBI": "3191", "SUNGAIPENUH": "3192", "BATANG HARI": "3101", "BUNGO": "3112",
     "KERINCI": "3105", "MERANGIN": "3111", "MUARO JAMBI": "3106", "SAROLANGUN": "3104",
@@ -291,7 +292,7 @@ export const CITY_MAP: Record<string, string> = {
     "NIAS BARAT": "3326", "NIAS UTARA": "3327", "GUNUNGSITOLI": "3397", "TEBING TINGGI": "3391",
     // RIAU
     "PEKANBARU": "3591", "DUMAI": "3592", "BENGKALIS": "3502", "KEPULAUAN MERANTI": "3513",
-    "KAMPAR": "3501", "INDRAGIRI HULU": "3503", "INDRAGIRI HILIR": "3504",
+    "KAMPAR": "3501", "INDRAGIRI HULU": "3504", "INDRAGIRI HILIR": "3505",
     "ROKAN HULU": "3508", "ROKAN HILIR": "3509", "PELALAWAN": "3510", "SIAK": "3511", "KUANTAN SINGINGI": "3512",
     // PAPUA
     "JAYAPURA": "8201", "PUNCAK": "8238", "BIAK NUMFOR": "8202", "KEPULAUAN YAPEN": "8210",
@@ -300,8 +301,16 @@ export const CITY_MAP: Record<string, string> = {
     "PEGUNUNGAN BINTANG": "8221", "YAHUKIMO": "8222", "TOLIKARA": "8223", "WAROPEN": "8224",
     "BOVEN DIGOEL": "8226", "MAPPI": "8227", "ASMAT": "8228", "SUPIORI": "8231",
     "MAMBERAMO RAYA": "8232", "DOGIYAI": "8233", "LANNY JAYA": "8234",
-    "MAMBERAMO TENGAH": "8235", "NDUGA": "8236", "YALIMO": "8237", "INTAN JAYA": "8239", "DEIYAI": "8240"
+    "MAMBERAMO TENGAH": "8235", "NDUGA": "8236", "YALIMO": "8237", "INTAN JAYA": "8239", "DEIYAI": "8240",
+    // PAPUA BARAT
+    "MANOKWARI": "8403", "RAJA AMPAT": "8405", "TELUK BINTUNI": "8407", "SORONG": "8401",
+    "KAIMANA": "8406", "SORONG SELATAN": "8404", "KOTA SORONG": "8401", "TELUK WONDAMA": "8408"
 };
+
+// Reverse mapping: City Code to City Name
+export const CITY_CODE_TO_NAME_MAP: Record<string, string> = Object.fromEntries(
+    Object.entries(CITY_MAP).map(([name, code]) => [code, name])
+);
 
 function normalize(val: string): string {
   if (!val) return "";

@@ -1,4 +1,139 @@
-import { CITY_MAP } from '../mappings';
+import { CITY_MAP, CITY_CODE_TO_NAME_MAP } from '../mappings';
+
+/**
+ * Indonesian to English city name mapping for postcode lookup
+ */
+const INDONESIAN_TO_ENGLISH_CITY_MAP: Record<string, string> = {
+    // JAKARTA
+    "JAKARTA TIMUR": "EAST JAKARTA",
+    "JAKARTA BARAT": "WEST JAKARTA",
+    "JAKARTA SELATAN": "SOUTH JAKARTA",
+    "JAKARTA UTARA": "NORTH JAKARTA",
+    "JAKARTA PUSAT": "CENTRAL JAKARTA",
+    "KEPULAUAN SERIBU": "SERIBU ISLANDS",
+    // WEST JAVA
+    "BANDUNG BARAT": "WEST BANDUNG",
+    "KOTA TANGERANG": "TANGERANG",
+    "TANGERANG SELATAN": "SOUTH TANGERANG",
+    "KOTA BEKASI": "BEKASI",
+    "KOTA DEPOK": "DEPOK",
+    "KOTA BOGOR": "BOGOR",
+    "KOTA BANDUNG": "BANDUNG",
+    "KOTA CIREBON": "CIREBON",
+    "KOTA SUKABUMI": "SUKABUMI",
+    "KOTA GARUT": "GARUT",
+    // BANGKA BELITUNG
+    "BANGKA BARAT": "WEST BANGKA",
+    "BANGKA SELATAN": "SOUTH BANGKA",
+    "BANGKA TENGAH": "CENTRAL BANGKA",
+    "BANGKA": "BANGKA",
+    // CENTRAL KALIMANTAN
+    "BARITO SELATAN": "SOUTH BARITO",
+    "BARITO TIMUR": "EAST BARITO",
+    "BARITO UTARA": "NORTH BARITO",
+    "KOTAWARINGIN TIMUR": "EAST KOTAWARINGIN",
+    "KOTAWARINGIN BARAT": "WEST KOTAWARINGIN",
+    // NORTH SUMATRA
+    "LABUHAN BATU SELATAN": "SOUTH LABUHANBATU",
+    "LABUHAN BATU UTARA": "NORTH LABUHANBATU",
+    "TAPANULI UTARA": "NORTH TAPANULI",
+    "TAPANULI TENGAH": "CENTRAL TAPANULI",
+    "TAPANULI SELATAN": "SOUTH TAPANULI",
+    "NIAS BARAT": "WEST NIAS",
+    "NIAS UTARA": "NORTH NIAS",
+    "NIAS SELATAN": "SOUTH NIAS",
+    // NORTH SULAWESI
+    "BOLAANG MONGONDOW UTARA": "NORTH BOLAANG MONGONDOW",
+    "BOLAANG MONGONDOW SELATAN": "SOUTH BOLAANG MONGONDOW",
+    "BOLAANG MONGONDOW TIMUR": "EAST BOLAANG MONGONDOW",
+    "BOLAANG MONGONDOW": "BOLAANG MONGONDOW",
+    "MINAHASA UTARA": "NORTH MINAHASA",
+    "MINAHASA SELATAN": "SOUTH MINAHASA",
+    "MINAHASA TENGGARA": "SOUTHEAST MINAHASA",
+    "KEPULAUAN TALAUD": "TALAUD ISLANDS",
+    "SITARO": "SIAU TAGULANDANG BIARO (SITARO) ISLAND",
+    // MALUKU
+    "MALUKU BARAT DAYA": "SOUTHWEST MALUKU",
+    "MALUKU TENGGARA BARAT": "WEST MALUKU TENGGARA",
+    "MALUKU TENGGARA": "SOUTHEAST MALUKU",
+    "MALUKU TENGAH": "CENTRAL MALUKU",
+    "KEPULAUAN ARU": "ARU ISLANDS",
+    "SERAM BAGIAN BARAT": "WEST SERAM",
+    "SERAM BAGIAN TIMUR": "EAST SERAM",
+    // PAPUA
+    "KEPULAUAN YAPEN": "YAPEN ISLANDS",
+    // NORTH MALUKU
+    "TIDORE KEPULAUAN": "TIDORE ISLANDS",
+    "KEPULAUAN SULA": "SULA ISLANDS",
+    "PULAU MOROTAI": "MOROTAI ISLAND",
+    "HALMAHERA BARAT": "WEST HALMAHERA",
+    "HALMAHERA TIMUR": "EAST HALMAHERA",
+    "HALMAHERA UTARA": "NORTH HALMAHERA",
+    "HALMAHERA SELATAN": "SOUTH HALMAHERA",
+    "HALMAHERA TENGAH": "CENTRAL HALMAHERA",
+    // LAMPUNG
+    "PESISIR BARAT": "WEST PESISIR",
+    "LAMPUNG TENGAH": "CENTRAL LAMPUNG",
+    "LAMPUNG TIMUR": "EAST LAMPUNG",
+    "LAMPUNG UTARA": "NORTH LAMPUNG",
+    "LAMPUNG SELATAN": "SOUTH LAMPUNG",
+    "TULANG BAWANG BARAT": "WEST TULANG BAWANG",
+    "TULANG BAWANG": "TULANG BAWANG",
+    // NTT
+    "SUMBA BARAT": "WEST SUMBA",
+    "SUMBA TIMUR": "EAST SUMBA",
+    "SUMBA TENGAH": "CENTRAL SUMBA",
+    "SUMBA BARAT DAYA": "SOUTHWEST SUMBA",
+    "FLORES TIMUR": "EAST FLORES",
+    "TIMOR TENGAH SELATAN": "SOUTH TIMOR TENGAH",
+    "TIMOR TENGAH UTARA": "NORTH TIMOR TENGAH",
+    // WEST SUMATRA
+    "KEPULAUAN MENTAWAI": "MENTAWAI ISLANDS",
+    "PASAMAN BARAT": "WEST PASAMAN",
+    "PASAMAN": "PASAMAN",
+    // BENGKULU
+    "BENGKULU UTARA": "NORTH BENGKULU",
+    "BENGKULU SELATAN": "SOUTH BENGKULU",
+    // ACEH
+    "ACEH BARAT": "WEST ACEH",
+    "ACEH TIMUR": "EAST ACEH",
+    "ACEH UTARA": "NORTH ACEH",
+    "ACEH SELATAN": "SOUTH ACEH",
+    "ACEH TENGGARA": "SOUTHEAST ACEH",
+    "ACEH TENGAH": "CENTRAL ACEH",
+    // RIAU
+    "KEPULAUAN MERANTI": "MERANTI ISLANDS",
+    // JAMBI
+    "TANJUNG JABUNG TIMUR": "EAST TANJUNG JABUNG",
+    "TANJUNG JABUNG BARAT": "WEST TANJUNG JABUNG",
+    // SOUTH SUMATRA
+    "OGAN KOMERING ULU TIMUR": "EAST OGAN KOMERING ULU",
+    "OGAN KOMERING ULU SELATAN": "SOUTH OGAN KOMERING ULU",
+    "OGAN KOMERING ULU": "OGAN KOMERING ULU",
+    // EAST KALIMANTAN
+    "BULUNGAN": "BULUNGAN",
+    "KUTAI TIMUR": "EAST KUTAI",
+    "KUTAI BARAT": "WEST KUTAI",
+    "KUTAI KARTANEGARA": "KUTAI KARTANEGARA",
+    // SOUTH KALIMANTAN
+    "HULU SUNGAI TENGAH": "CENTRAL HULU SUNGAI",
+    "HULU SUNGAI UTARA": "NORTH HULU SUNGAI",
+    "HULU SUNGAI SELATAN": "SOUTH HULU SUNGAI",
+    // NTB
+    "LOMBOK TENGAH": "CENTRAL LOMBOK",
+    "LOMBOK TIMUR": "EAST LOMBOK",
+    "LOMBOK UTARA": "NORTH LOMBOK",
+    "SUMBAWA BARAT": "WEST SUMBAWA",
+    // SOUTHEAST SULAWESI
+    "BUTON UTARA": "NORTH BUTON",
+    "BUTON SELATAN": "SOUTH BUTON",
+    "BUTON TENGAH": "CENTRAL BUTON",
+    "BUTON": "BUTON",
+    // CENTRAL SULAWESI
+    "BANGGAI KEPULAUAN": "BANGGAI ISLANDS",
+    // EAST JAVA
+    "BATU": "BATU"
+};
 
 /**
  * SLIK Postcode Mapping Module
@@ -22954,9 +23089,26 @@ function normalize(val) {
 export function getPostcode(kecamatan, kelurahan, city) {
     const kec = kecamatan ? normalize(kecamatan) : "";
     const kel = kelurahan ? normalize(kelurahan) : "";
-    const cty = city ? normalize(city) : "";
+    let cty = city ? normalize(city) : "";
     
     console.log('[DEBUG getPostcode] 输入参数:', { kecamatan, kelurahan, city, kec, kel, cty });
+    
+    // If city is a 4-digit code (or 4-digit with decimal like "8210.0"), convert it to city name
+    if (cty) {
+        // Handle decimal numbers like "8210.0" -> "8210"
+        const cleanCode = cty.replace(/\.0+$/, '');
+        if (/^\d{4}$/.test(cleanCode) && CITY_CODE_TO_NAME_MAP[cleanCode]) {
+            cty = CITY_CODE_TO_NAME_MAP[cleanCode];
+            console.log('[DEBUG getPostcode] 城市代码转换为城市名:', { original: city, converted: cty });
+        }
+    }
+    
+    // Convert Indonesian city name to English for postcode lookup
+    if (cty && INDONESIAN_TO_ENGLISH_CITY_MAP[cty]) {
+        const englishCity = INDONESIAN_TO_ENGLISH_CITY_MAP[cty];
+        console.log('[DEBUG getPostcode] 印尼语城市名转换为英语:', { original: cty, converted: englishCity });
+        cty = englishCity;
+    }
     
     // 1. Try KECAMATAN with City (from postcode.txt)
     if (kec && cty) {

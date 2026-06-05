@@ -155,9 +155,9 @@ export function applyLogic(val: any, type: string | undefined, row?: any): strin
     case 'zip_code': {
       console.log('[DEBUG zip_code] 输入参数:', { val, row: row || 'undefined' });
       // 获取KECAMATAN, KELURAHAN, CITY参数
-      const kecamatan = row?.['Kecamatan'] || row?.['KECAMATAN'] || val || "";
-      const kelurahan = row?.['Kelurahan'] || row?.['KELURAHAN'] || "";
-      const city = row?.['Kode Kabupaten atau Kota'] || row?.['KABUPATEN/KOTA'] || row?.['CITY'] || row?.['KODE KABUPATEN/KOTA'] || row?.['KABUPATENKOTA'] || "";
+      const kecamatan = row?.['Kecamatan'] || row?.['KECAMATAN'] || row?.['镇/区'] || row?.['镇'] || "";
+      const kelurahan = row?.['Kelurahan'] || row?.['KELURAHAN'] || row?.['村/社区'] || row?.['村'] || "";
+      const city = row?.['Kode Kabupaten atau Kota'] || row?.['KODE KABUPATEN/KOTA'] || row?.['KABUPATEN/KOTA'] || row?.['CITY'] || row?.['KABUPATEN'] || row?.['KOTA'] || row?.['KODEKABUPATENKOTA'] || row?.['市/县代码'] || "";
       console.log('[DEBUG zip_code] 查找参数:', { kecamatan, kelurahan, city });
       const result = getPostcode(kecamatan, kelurahan, city);
       console.log('[DEBUG zip_code] 查找结果:', result);
